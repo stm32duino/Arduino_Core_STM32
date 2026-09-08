@@ -16,7 +16,7 @@
   *
   ******************************************************************************
   */
-#ifdef USBCON
+#if defined(USBCON) && !defined(USE_HALV2_DRIVER)
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_core.h"
 #include "usbd_if.h"
@@ -718,6 +718,5 @@ void USBD_LL_Delay(uint32_t Delay)
   HAL_Delay(Delay);
 }
 #endif /* HAL_PCD_MODULE_ENABLED */
-#endif /* USBCON */
+#endif /* USBCON && !USE_HALV2_DRIVER */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-

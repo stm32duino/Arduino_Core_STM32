@@ -30,8 +30,16 @@ extern "C" {
 #include "stm32_def.h"
 
 #if defined(USE_HALV2_DRIVER)
-#error "USB library is not yet compatible with HALv2 driver."
-#else
+#if !defined(STM32C5xx)
+#warning "USB device support is currently implemented only for STM32C5xx HAL v2."
+#endif
+#endif
+
+#if defined(STM32C5xx)
+#define PCD_SNG_BUF HAL_PCD_SNG_BUF
+#define PCD_DBL_BUF HAL_PCD_DBL_BUF
+#endif
+
 #if !defined(USB_BASE) && !defined(USB_OTG_DEVICE_BASE)
 #error "This board does not support USB! Select 'None' in the 'Tools->USB interface' menu"
 #endif
@@ -40,8 +48,6 @@ extern "C" {
 #endif
 #if !defined(USB_BASE) && !defined(USB_OTG_FS) && defined(USB_OTG_HS) && !defined(USE_USB_HS)
 #error "This board support only USB High Speed! Select 'High Speed' or 'High Speed in Full Speed mode' in the 'Tools->USB interface' menu"
-#endif
-
 #endif
 #include <stdio.h>
 #include <stdlib.h>
@@ -77,7 +83,7 @@ extern "C" {
 #elif defined(STM32G0B1xx) || defined(STM32G0C1xx)
 #define USB_IRQn USB_UCPD1_2_IRQn
 #define USB_IRQHandler USB_UCPD1_2_IRQHandler
-#elif defined(STM32C0xx) || defined(STM32H5xx) || defined(STM32U0xx)
+#elif defined(STM32C0xx) || defined(STM32C5xx) || defined(STM32H5xx) || defined(STM32U0xx)
 #define USB_IRQn USB_DRD_FS_IRQn
 #define USB_IRQHandler USB_DRD_FS_IRQHandler
 #elif defined(STM32U5xx) && !defined(USB_DRD_FS)

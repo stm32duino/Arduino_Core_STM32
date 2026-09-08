@@ -11,7 +11,7 @@
 #include "usbd_cdc_if.h"
 #include "stm32yyxx_ll_system.h"
 
-#if !defined(USBD_REENUM_DISABLED)
+#if !defined(USBD_REENUM_DISABLED) && !defined(USE_HALV2_DRIVER)
 
 /*
  * Below, support for re-attaching to USB is handled. USB-attachment is

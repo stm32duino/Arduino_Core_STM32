@@ -203,11 +203,13 @@ __STATIC_INLINE void LL_RTC_SetBinMixBCDU(RTC_TypeDef *RTCx, uint32_t BinMixBcdU
 }
 #endif // STM32U0xx
 
-/* STM32G0xx, STM32U0xx and some STM32U5xx defined USB_DRD_FS */
+/* Some STM32 series define USB_DRD_FS instead of the legacy USB instance. */
 #if !defined(USB) && defined(USB_DRD_FS)
   #define USB USB_DRD_FS
   #define PinMap_USB PinMap_USB_DRD_FS
-  #if defined(STM32H5xx) || defined(STM32U0xx) ||\
+  #if defined(STM32C5xx)
+    #define USB_BASE USB_DRD_FS_BASE
+  #elif defined(STM32H5xx) || defined(STM32U0xx) ||\
     defined(STM32U3xx) || defined(STM32U5xx)
     #define USB_BASE USB_DRD_BASE
     #if !defined(__HAL_RCC_USB_CLK_ENABLE)

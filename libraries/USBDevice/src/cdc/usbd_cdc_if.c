@@ -89,6 +89,12 @@ USBD_CDC_LineCodingTypeDef linecoding = {
   0x08    /* nb. of bits 8*/
 };
 
+/* Boards that need a CDC line-coding side effect can override this hook. */
+WEAK void CDC_LineCodingChanged(uint32_t bitrate)
+{
+  (void)bitrate;
+}
+
 /* Private functions ---------------------------------------------------------*/
 
 /**
@@ -175,6 +181,7 @@ static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
       linecoding.format     = pbuf[4];
       linecoding.paritytype = pbuf[5];
       linecoding.datatype   = pbuf[6];
+      CDC_LineCodingChanged(linecoding.bitrate);
       break;
 
     case CDC_GET_LINE_CODING:
@@ -406,4 +413,3 @@ uint8_t  CDC_getDataBits(void)
 #endif /* USBD_USE_CDC */
 #endif /* USBCON */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-

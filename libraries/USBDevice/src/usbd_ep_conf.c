@@ -37,7 +37,7 @@ const ep_desc_t ep_def[] = {
 #else
   {0x00,       PMA_EP0_OUT_ADDR, PCD_SNG_BUF},
   {0x80,       PMA_EP0_IN_ADDR,  PCD_SNG_BUF},
-#ifndef USBD_CDC_USE_SINGLE_BUFFER
+#if !defined(STM32C5xx) && !defined(USBD_CDC_USE_SINGLE_BUFFER)
   {CDC_OUT_EP, PMA_CDC_OUT_ADDR, PCD_DBL_BUF},
 #else
   {CDC_OUT_EP, PMA_CDC_OUT_ADDR, PCD_SNG_BUF},
@@ -72,4 +72,3 @@ const ep_desc_t ep_def[] = {
 
 #endif /* HAL_PCD_MODULE_ENABLED && USBCON */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-

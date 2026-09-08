@@ -85,6 +85,11 @@ uint8_t *CDC_TransmitQueue_ReadBlock(CDC_TransmitQueue_TypeDef *queue,
   } else {
     *size = CDC_TRANSMIT_QUEUE_BUFFER_SIZE - queue->read;
   }
+
+  /* Limit the queued transaction to one endpoint packet. */
+  if (*size > CDC_QUEUE_MAX_PACKET_SIZE) {
+    *size = CDC_QUEUE_MAX_PACKET_SIZE;
+  }
   queue->reserved = *size;
   return &queue->buffer[queue->read];
 }
