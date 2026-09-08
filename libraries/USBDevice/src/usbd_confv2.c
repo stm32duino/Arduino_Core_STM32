@@ -16,7 +16,7 @@
 #include "usbd_ep_conf.h"
 
 #ifndef USE_HAL_PCD_MODULE
-#error "USE_HAL_PCD_MODULE is required"
+  #error "USE_HAL_PCD_MODULE is required"
 #endif
 
 static hal_pcd_handle_t g_hpcd;
