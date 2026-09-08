@@ -6161,6 +6161,7 @@ GenF4.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF4.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenF4.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 GenF4.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+GenF4.menu.upload_method.dfuMethod.build.bootloader_flags=-DBL_SYSTEM
 
 GenF4.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
 GenF4.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp

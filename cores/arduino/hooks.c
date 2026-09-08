@@ -50,3 +50,25 @@ static void __empty_dtr_toggling(uint8_t *buf, uint32_t *len)
 }
 void dtr_togglingHook(uint8_t *buf, uint32_t *len) __attribute__((weak, alias("__empty_dtr_toggling")));
 #endif
+
+#if defined(USBCON) && defined(USBD_USE_CDC)
+/**
+ * Empty cdc_1200bps_touch() hook.
+ *
+ * Called when the host closes the CDC port while the line coding is set to
+ * 1200 bps, which is the Arduino convention for asking the board to reboot
+ * into its bootloader.
+ *
+ * Its defined as a weak symbol and it can be redefined to implement the
+ * bootloader entry a given board needs.
+ *
+ * It is called from the USB control transfer callback, so it runs in handler
+ * mode. Branching to a bootloader from here leaves the core inside an
+ * exception that never returns; schedule the work and perform it from thread
+ * mode or after a reset instead.
+ */
+static void __empty_1200bps_touch(void)
+{
+}
+void cdc_1200bps_touchHook(void) __attribute__((weak, alias("__empty_1200bps_touch")));
+#endif /* USBCON && USBD_USE_CDC */
