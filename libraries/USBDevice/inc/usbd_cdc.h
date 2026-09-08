@@ -145,11 +145,13 @@ uint8_t USBD_CDC_RegisterInterface(USBD_HandleTypeDef *pdev,
                                    USBD_CDC_ItfTypeDef *fops);
 
 #ifdef USE_USBD_COMPOSITE
+uint32_t USBD_CDC_GetTxMaxSize(USBD_HandleTypeDef *pdev, uint8_t ClassId);
 uint8_t USBD_CDC_SetTxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff,
                              uint32_t length, uint8_t ClassId);
 uint8_t USBD_CDC_TransmitPacket(USBD_HandleTypeDef *pdev, uint8_t ClassId);
 uint8_t USBD_CDC_ClearBuffer(USBD_HandleTypeDef *pdev, uint8_t ClassId);
 #else
+uint32_t USBD_CDC_GetTxMaxSize(USBD_HandleTypeDef *pdev);
 uint8_t USBD_CDC_SetTxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff,
                              uint32_t length);
 uint8_t USBD_CDC_TransmitPacket(USBD_HandleTypeDef *pdev);
