@@ -139,11 +139,6 @@ void SystemClock_Config(void)
   if (HAL_UpdateCoreClock() != HAL_OK) {
     Error_Handler();
   }
-
-  /* Peripherals using PCLK3 (36 MHz):
-  LPUART1
-  */
-
   /* Peripherals using HSIDIV3 (48 MHz):
     USB
   */
@@ -151,6 +146,7 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 
+  HAL_RCC_CK48_SetKernelClkSource(HAL_RCC_CK48_CLK_SRC_HSIDIV3);
 }
 
 #ifdef __cplusplus
