@@ -1019,24 +1019,6 @@ uint8_t USBD_CDC_ReceivePacket(USBD_HandleTypeDef *pdev)
 
   return (uint8_t)USBD_OK;
 }
-#ifdef USE_USBD_COMPOSITE
-uint8_t USBD_CDC_ClearBuffer(USBD_HandleTypeDef *pdev, uint8_t ClassId)
-{
-  /* Suspend or Resume USB Out process */
-  if (pdev->pClassDataCmsit[classId] != NULL) {
-#else
-uint8_t USBD_CDC_ClearBuffer(USBD_HandleTypeDef *pdev)
-{
-  /* Suspend or Resume USB Out process */
-  if (pdev->pClassDataCmsit[pdev->classId] != NULL) {
-#endif /* USE_USBD_COMPOSITE */
-    /* Prepare Out endpoint to receive next packet */
-    USBD_LL_PrepareReceive(pdev, CDC_OUT_EP, 0, 0);
-    return (uint8_t)USBD_OK;
-  } else {
-    return (uint8_t)USBD_FAIL;
-  }
-}
 
 #endif /* USBD_USE_CDC */
 #endif /* USBCON */
