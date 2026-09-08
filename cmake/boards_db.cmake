@@ -74481,6 +74481,243 @@ target_compile_options(GENERIC_H503RBTX_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
+# GENERIC_H523RCTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_H523RCTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32H5xx/H523R(C-E)T_H533RET")
+set(GENERIC_H523RCTX_MAXSIZE 262144)
+set(GENERIC_H523RCTX_MAXDATASIZE 278528)
+set(GENERIC_H523RCTX_MCU cortex-m33)
+set(GENERIC_H523RCTX_FPCONF "-")
+add_library(GENERIC_H523RCTX INTERFACE)
+target_compile_options(GENERIC_H523RCTX INTERFACE
+  "SHELL:-DUSE_HAL_DRIVER -DUSE_FULL_LL_DRIVER"
+  "SHELL:-DSTM32H523xx"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_H523RCTX_MCU}
+)
+target_compile_definitions(GENERIC_H523RCTX INTERFACE
+  "STM32H5xx"
+	"ARDUINO_GENERIC_H523RCTX"
+	"BOARD_NAME=\"GENERIC_H523RCTX\""
+	"BOARD_ID=GENERIC_H523RCTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_H523RCTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32H5xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H5xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H5xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Source/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Source/Templates/gcc/
+  ${GENERIC_H523RCTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_H523RCTX INTERFACE
+  "LINKER:--default-script=${GENERIC_H523RCTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+  "LINKER:--defsym=LD_MAX_SIZE=262144"
+  "LINKER:--defsym=LD_MAX_DATA_SIZE=278528"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_H523RCTX_MCU}
+)
+
+add_library(GENERIC_H523RCTX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_H523RCTX_serial_disabled INTERFACE
+)
+add_library(GENERIC_H523RCTX_serial_generic INTERFACE)
+target_compile_options(GENERIC_H523RCTX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_H523RCTX_serial_none INTERFACE)
+target_compile_options(GENERIC_H523RCTX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_H523RCTX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_H523RCTX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_H523RCTX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_H523RCTX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_H523RCTX_usb_HID INTERFACE)
+target_compile_options(GENERIC_H523RCTX_usb_HID INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_H523RCTX_usb_none INTERFACE)
+target_compile_options(GENERIC_H523RCTX_usb_none INTERFACE
+)
+add_library(GENERIC_H523RCTX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_H523RCTX_xusb_FS INTERFACE
+)
+add_library(GENERIC_H523RCTX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_H523RCTX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_H523RCTX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_H523RCTX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_H523RETX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_H523RETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32H5xx/H523R(C-E)T_H533RET")
+set(GENERIC_H523RETX_MAXSIZE 524288)
+set(GENERIC_H523RETX_MAXDATASIZE 278528)
+set(GENERIC_H523RETX_MCU cortex-m33)
+set(GENERIC_H523RETX_FPCONF "-")
+add_library(GENERIC_H523RETX INTERFACE)
+target_compile_options(GENERIC_H523RETX INTERFACE
+  "SHELL:-DUSE_HAL_DRIVER -DUSE_FULL_LL_DRIVER"
+  "SHELL:-DSTM32H523xx"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_H523RETX_MCU}
+)
+target_compile_definitions(GENERIC_H523RETX INTERFACE
+  "STM32H5xx"
+	"ARDUINO_GENERIC_H523RETX"
+	"BOARD_NAME=\"GENERIC_H523RETX\""
+	"BOARD_ID=GENERIC_H523RETX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_H523RETX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32H5xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H5xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H5xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Source/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Source/Templates/gcc/
+  ${GENERIC_H523RETX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_H523RETX INTERFACE
+  "LINKER:--default-script=${GENERIC_H523RETX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+  "LINKER:--defsym=LD_MAX_SIZE=524288"
+  "LINKER:--defsym=LD_MAX_DATA_SIZE=278528"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_H523RETX_MCU}
+)
+
+add_library(GENERIC_H523RETX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_H523RETX_serial_disabled INTERFACE
+)
+add_library(GENERIC_H523RETX_serial_generic INTERFACE)
+target_compile_options(GENERIC_H523RETX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_H523RETX_serial_none INTERFACE)
+target_compile_options(GENERIC_H523RETX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_H523RETX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_H523RETX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_H523RETX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_H523RETX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_H523RETX_usb_HID INTERFACE)
+target_compile_options(GENERIC_H523RETX_usb_HID INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_H523RETX_usb_none INTERFACE)
+target_compile_options(GENERIC_H523RETX_usb_none INTERFACE
+)
+add_library(GENERIC_H523RETX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_H523RETX_xusb_FS INTERFACE
+)
+add_library(GENERIC_H523RETX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_H523RETX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_H523RETX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_H523RETX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_H533RETX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_H533RETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32H5xx/H523R(C-E)T_H533RET")
+set(GENERIC_H533RETX_MAXSIZE 524288)
+set(GENERIC_H533RETX_MAXDATASIZE 278528)
+set(GENERIC_H533RETX_MCU cortex-m33)
+set(GENERIC_H533RETX_FPCONF "-")
+add_library(GENERIC_H533RETX INTERFACE)
+target_compile_options(GENERIC_H533RETX INTERFACE
+  "SHELL:-DUSE_HAL_DRIVER -DUSE_FULL_LL_DRIVER"
+  "SHELL:-DSTM32H533xx"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_H533RETX_MCU}
+)
+target_compile_definitions(GENERIC_H533RETX INTERFACE
+  "STM32H5xx"
+	"ARDUINO_GENERIC_H533RETX"
+	"BOARD_NAME=\"GENERIC_H533RETX\""
+	"BOARD_ID=GENERIC_H533RETX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_H533RETX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32H5xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H5xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H5xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Source/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Source/Templates/gcc/
+  ${GENERIC_H533RETX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_H533RETX INTERFACE
+  "LINKER:--default-script=${GENERIC_H533RETX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+  "LINKER:--defsym=LD_MAX_SIZE=524288"
+  "LINKER:--defsym=LD_MAX_DATA_SIZE=278528"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_H533RETX_MCU}
+)
+
+add_library(GENERIC_H533RETX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_H533RETX_serial_disabled INTERFACE
+)
+add_library(GENERIC_H533RETX_serial_generic INTERFACE)
+target_compile_options(GENERIC_H533RETX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_H533RETX_serial_none INTERFACE)
+target_compile_options(GENERIC_H533RETX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_H533RETX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_H533RETX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_H533RETX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_H533RETX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_H533RETX_usb_HID INTERFACE)
+target_compile_options(GENERIC_H533RETX_usb_HID INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_H533RETX_usb_none INTERFACE)
+target_compile_options(GENERIC_H533RETX_usb_none INTERFACE
+)
+add_library(GENERIC_H533RETX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_H533RETX_xusb_FS INTERFACE
+)
+add_library(GENERIC_H533RETX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_H533RETX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_H533RETX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_H533RETX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
 # GENERIC_H562RGTX
 # -----------------------------------------------------------------------------
 
@@ -109202,6 +109439,85 @@ target_compile_options(NUCLEO_H503RB_xusb_HS INTERFACE
 )
 add_library(NUCLEO_H503RB_xusb_HSFS INTERFACE)
 target_compile_options(NUCLEO_H503RB_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# NUCLEO_H533RE
+# -----------------------------------------------------------------------------
+
+set(NUCLEO_H533RE_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32H5xx/H523R(C-E)T_H533RET")
+set(NUCLEO_H533RE_MAXSIZE 524288)
+set(NUCLEO_H533RE_MAXDATASIZE 278528)
+set(NUCLEO_H533RE_MCU cortex-m33)
+set(NUCLEO_H533RE_FPCONF "fpv5-sp-d16-hard")
+add_library(NUCLEO_H533RE INTERFACE)
+target_compile_options(NUCLEO_H533RE INTERFACE
+  "SHELL:-DUSE_HAL_DRIVER -DUSE_FULL_LL_DRIVER"
+  "SHELL:-DSTM32H533xx"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${NUCLEO_H533RE_MCU}
+)
+target_compile_definitions(NUCLEO_H533RE INTERFACE
+  "STM32H5xx"
+	"ARDUINO_NUCLEO_H533RE"
+	"BOARD_NAME=\"NUCLEO_H533RE\""
+	"BOARD_ID=NUCLEO_H533RE"
+	"VARIANT_H=\"variant_NUCLEO_H533RE.h\""
+)
+target_include_directories(NUCLEO_H533RE INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32H5xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H5xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H5xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Source/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Source/Templates/gcc/
+  ${NUCLEO_H533RE_VARIANT_PATH}
+)
+
+target_link_options(NUCLEO_H533RE INTERFACE
+  "LINKER:--default-script=${NUCLEO_H533RE_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+  "LINKER:--defsym=LD_MAX_SIZE=524288"
+  "LINKER:--defsym=LD_MAX_DATA_SIZE=278528"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${NUCLEO_H533RE_MCU}
+)
+
+add_library(NUCLEO_H533RE_serial_disabled INTERFACE)
+target_compile_options(NUCLEO_H533RE_serial_disabled INTERFACE
+)
+add_library(NUCLEO_H533RE_serial_generic INTERFACE)
+target_compile_options(NUCLEO_H533RE_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(NUCLEO_H533RE_serial_none INTERFACE)
+target_compile_options(NUCLEO_H533RE_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(NUCLEO_H533RE_usb_CDC INTERFACE)
+target_compile_options(NUCLEO_H533RE_usb_CDC INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(NUCLEO_H533RE_usb_CDCgen INTERFACE)
+target_compile_options(NUCLEO_H533RE_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(NUCLEO_H533RE_usb_HID INTERFACE)
+target_compile_options(NUCLEO_H533RE_usb_HID INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(NUCLEO_H533RE_usb_none INTERFACE)
+target_compile_options(NUCLEO_H533RE_usb_none INTERFACE
+)
+add_library(NUCLEO_H533RE_xusb_FS INTERFACE)
+target_compile_options(NUCLEO_H533RE_xusb_FS INTERFACE
+)
+add_library(NUCLEO_H533RE_xusb_HS INTERFACE)
+target_compile_options(NUCLEO_H533RE_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(NUCLEO_H533RE_xusb_HSFS INTERFACE)
+target_compile_options(NUCLEO_H533RE_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
