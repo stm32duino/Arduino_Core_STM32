@@ -25,6 +25,10 @@
 #include <stdint.h>
 #include "usbd_def.h"
 
+#if defined (USE_HAL_PCD_USB_DOUBLE_BUFFER) && (USE_HAL_PCD_USB_DOUBLE_BUFFER == 0)
+  #define USBD_CDC_USE_SINGLE_BUFFER
+#endif
+
 typedef struct {
   uint32_t ep_adress; /* Endpoint address */
   uint32_t ep_size;   /* Endpoint size */
@@ -69,21 +73,15 @@ typedef struct {
 
 #ifdef USBD_USE_CDC
 #define PMA_CDC_OUT_BASE    (PMA_EP0_IN_ADDR + USB_MAX_EP0_SIZE)
-#if defined(STM32C5xx)
-/*
- * The C5 USB DRD FS peripheral is used with bulk double buffering disabled.
- * Keep each CDC endpoint in its own 64-byte PMA area; in particular, the
- * interrupt IN endpoint must not overlap the bulk IN data buffer.
- */
-#define PMA_CDC_OUT_ADDR    PMA_CDC_OUT_BASE
-#define PMA_CDC_IN_ADDR     (PMA_CDC_OUT_BASE + USB_FS_MAX_PACKET_SIZE)
-#define PMA_CDC_CMD_ADDR    (PMA_CDC_IN_ADDR + USB_FS_MAX_PACKET_SIZE)
-#else
+#if !defined(USBD_CDC_USE_SINGLE_BUFFER)
 #define PMA_CDC_OUT_ADDR    ((PMA_CDC_OUT_BASE + USB_FS_MAX_PACKET_SIZE) | \
                             (PMA_CDC_OUT_BASE << 16U))
 #define PMA_CDC_IN_ADDR     (PMA_CDC_OUT_BASE + USB_FS_MAX_PACKET_SIZE * 2)
-#define PMA_CDC_CMD_ADDR    (PMA_CDC_IN_ADDR + CDC_CMD_PACKET_SIZE)
+#else
+#define PMA_CDC_OUT_ADDR    PMA_CDC_OUT_BASE
+#define PMA_CDC_IN_ADDR     (PMA_CDC_OUT_BASE + USB_FS_MAX_PACKET_SIZE)
 #endif
+#define PMA_CDC_CMD_ADDR    (PMA_CDC_IN_ADDR + CDC_CMD_PACKET_SIZE)
 #endif /* USBD_USE_CDC */
 #ifdef USBD_USE_HID_COMPOSITE
   #define PMA_MOUSE_IN_ADDR   (PMA_EP0_IN_ADDR + HID_MOUSE_EPIN_SIZE)
