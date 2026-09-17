@@ -26,9 +26,6 @@
 
   /* Exported types ------------------------------------------------------------*/
   /* Exported constants --------------------------------------------------------*/
-  #define  DEVICE_ID1                  (UID_BASE)
-  #define  DEVICE_ID2                  (UID_BASE + 0x4U)
-  #define  DEVICE_ID3                  (UID_BASE + 0x8U)
 
   /*
   * USB Billboard Class USER string desc Defines Template
