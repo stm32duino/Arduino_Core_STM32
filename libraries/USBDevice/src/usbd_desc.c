@@ -22,7 +22,8 @@
 #include "usbd_desc.h"
 #include "utils.h"
 #include <variant.h>
-
+#include "stm32yyxx_ll_utils.h"
+#include "stm32yyxx_ll_system.h"
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 
@@ -444,13 +445,9 @@ uint8_t *USBD_Class_InterfaceStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *le
   */
 static void Get_SerialNum(void)
 {
-  uint32_t deviceserial0;
-  uint32_t deviceserial1;
-  uint32_t deviceserial2;
-
-  deviceserial0 = *(uint32_t *)DEVICE_ID1;
-  deviceserial1 = *(uint32_t *)DEVICE_ID2;
-  deviceserial2 = *(uint32_t *)DEVICE_ID3;
+  uint32_t deviceserial0 = LL_GetUID_Word0();
+  uint32_t deviceserial1 = LL_GetUID_Word1();
+  uint32_t deviceserial2 = LL_GetUID_Word2();
 
   deviceserial0 += deviceserial2;
 
