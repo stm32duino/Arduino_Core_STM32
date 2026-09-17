@@ -148,6 +148,11 @@
       #undef USE_HAL_PCD_MODULE
     #endif
     #define USE_HAL_PCD_MODULE                    1U
+    #if defined(USBD_CDC_USE_SINGLE_BUFFER)
+      #define USE_HAL_PCD_USB_DOUBLE_BUFFER         0U
+    #else
+      #define USE_HAL_PCD_USB_DOUBLE_BUFFER         1U
+    #endif
   #endif
 
 #else /* HALv1 */

@@ -28,6 +28,7 @@ add_library(USBDevice_bin OBJECT EXCLUDE_FROM_ALL
   src/usb_device_ctlreq.c
   src/usb_device_ioreq.c
   src/usbd_conf.c
+  src/usbd_confv2.c
   src/usbd_desc.c
   src/usbd_ep_conf.c
   src/usbd_if.c
