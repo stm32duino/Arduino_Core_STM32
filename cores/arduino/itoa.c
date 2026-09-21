@@ -111,7 +111,7 @@ char *itoa(int value, char *string, int radix)
   return ltoa(value, string, radix) ;
 }
 
-char *utoa(unsigned int value, char *string, int radix)
+char *utoa(unsigned value, char *string, int radix)
 {
   return ultoa(value, string, radix) ;
 }
