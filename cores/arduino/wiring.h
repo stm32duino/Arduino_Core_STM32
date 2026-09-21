@@ -28,6 +28,7 @@
 
 #include "api/Common.h"
 #include "api/deprecated-avr-comp/avr/dtostrf.h"
+#include "api/itoa.h"
 #include "clock.h"
 #include "dwt.h"
 #include "interrupt.h"
