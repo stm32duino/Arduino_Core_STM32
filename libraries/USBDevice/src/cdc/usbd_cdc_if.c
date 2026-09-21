@@ -240,10 +240,15 @@ static int8_t USBD_CDC_Receive(uint8_t *Buf, uint32_t *Len)
   /* It always contains required amount of free space for writing */
   CDC_ReceiveQueue_CommitBlock(&ReceiveQueue, (uint16_t)(*Len));
   receivePended = false;
-  /* If enough space in the queue for a full buffer then continue receive */
-  if (!CDC_resume_receive()) {
-    USBD_CDC_ClearBuffer(&hUSBD_Device_CDC);
-  }
+  /*
+   * If there is enough space in the queue for a full packet, continue receive.
+   * Else leave the OUT endpoint unarmed: it then NAKs and the host retries.
+   * USBSerial::read() and the readBytes() family call CDC_resume_receive()
+   * after dequeuing, so the endpoint is armed again with a valid block as soon
+   * as the sketch drains data. Arming it with a NULL buffer instead makes the
+   * low level driver copy the retried packet to address 0.
+   */
+  (void)CDC_resume_receive();
   return ((int8_t)USBD_OK);
 }
 
