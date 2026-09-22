@@ -222,12 +222,8 @@ def parse_mcu_file():
             ignored_stm32_list.append(mcu_family)
         xml_mcu.unlink()
         return False
+
     mcu_refname = mcu_node.attributes["RefName"].value
-    # Skip STM32H5E/F series
-    if mcu_refname.startswith("STM32H5E") or mcu_refname.startswith("STM32H5F"):
-        print(f"Warning: {mcu_refname} series is not supported yet. Skipping.")
-        xml_mcu.unlink()
-        return False
     core_node = mcu_node.getElementsByTagName("Core")
     for f in core_node:
         # Strip last non digit characters and extract the number
