@@ -81,7 +81,7 @@ uint8_t MSC_Page80_Inquiry_Data[LENGTH_INQUIRY_PAGE80] =
   0x00,
   0x80,
   0x00,
-  LENGTH_INQUIRY_PAGE80,
+  (LENGTH_INQUIRY_PAGE80 - 4U),
   0x20,     /* Put Product Serial number */
   0x20,
   0x20,
@@ -118,6 +118,19 @@ uint8_t MSC_Mode_Sense10_data[MODE_SENSE10_LEN] =
   0x00,     /* BLOCK DESCRIPTOR LENGTH MSB. */
   0x00      /* BLOCK DESCRIPTOR LENGTH LSB. */
 };
+
+uint8_t MSC_Diagnostic_Data[DIAGNOSTIC_DATA_LEN] =
+{
+  0x00, /* Byte 0: ADDITIONAL LENGTH (MSB) */
+  0x00, /* Byte 1: ADDITIONAL LENGTH (LSB) */
+  0x00, /* Byte 2: FRU CODE (most probable) */
+  0x00, /* Byte 3: FRU CODE */
+  0x00, /* Byte 4: FRU CODE */
+  0x00, /* Byte 5: FRU CODE (least probable) */
+  0x00, /* Byte 6: ERROR CODE (MSB) */
+  0x00, /* Byte 7: ERROR CODE (LSB) */
+};
+
 /**
   * @}
   */

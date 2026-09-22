@@ -511,11 +511,11 @@ uint8_t  USBD_CMPSIT_AddToConfDesc(USBD_HandleTypeDef *pdev)
 
       /* Set IN endpoint slot */
       iEp = pdev->tclasslist[pdev->classId].EpAdd[0];
-      USBD_CMPSIT_AssignEp(pdev, iEp, USBD_EP_TYPE_INTR, pdev->tclasslist[pdev->classId].CurrPcktSze);
+      USBD_CMPSIT_AssignEp(pdev, iEp, USBD_EP_TYPE_INTR,CUSTOM_HID_EPIN_SIZE);
 
       /* Set OUT endpoint slot */
       iEp = pdev->tclasslist[pdev->classId].EpAdd[1];
-      USBD_CMPSIT_AssignEp(pdev, iEp, USBD_EP_TYPE_INTR, pdev->tclasslist[pdev->classId].CurrPcktSze);
+      USBD_CMPSIT_AssignEp(pdev, iEp, USBD_EP_TYPE_INTR, CUSTOM_HID_EPOUT_SIZE);
 
       /* Configure and Append the Descriptor */
       USBD_CMPSIT_CUSTOMHIDDesc(pdev, (uint32_t)pCmpstFSConfDesc, &CurrFSConfDescSz, (uint8_t)USBD_SPEED_FULL);
@@ -1393,7 +1393,12 @@ static void  USBD_CMPSIT_CUSTOMHIDDesc(USBD_HandleTypeDef *pdev, uint32_t pConf,
   pDesc->bCountryCode = 0x00U;
   pDesc->bNumDescriptors = 0x01U;
   pDesc->bDescriptorType = 0x22U;
+#ifdef USBD_CUSTOMHID_REPORT_DESC_SIZE_ENABLED
+  pDesc->wItemLength = ((USBD_CUSTOM_HID_ItfTypeDef *)pdev->pUserData[pdev->classId])->wReportDescLen;
+#else
   pDesc->wItemLength = USBD_CUSTOM_HID_REPORT_DESC_SIZE;
+#endif /* USBD_CUSTOMHID_REPORT_DESC_SIZE_ENABLED */
+
   *Sze += (uint32_t)sizeof(USBD_DescTypeDef);
 
   /* Descriptor of Custom HID endpoints */
@@ -1403,7 +1408,7 @@ static void  USBD_CMPSIT_CUSTOMHIDDesc(USBD_HandleTypeDef *pdev, uint32_t pConf,
 
   /* Append Endpoint descriptor to Configuration descriptor */
   __USBD_CMPSIT_SET_EP(pdev->tclasslist[pdev->classId].Eps[1].add, \
-                       USBD_EP_TYPE_INTR, CUSTOM_HID_EPIN_SIZE, CUSTOM_HID_HS_BINTERVAL, CUSTOM_HID_FS_BINTERVAL);
+                       USBD_EP_TYPE_INTR, CUSTOM_HID_EPOUT_SIZE, CUSTOM_HID_HS_BINTERVAL, CUSTOM_HID_FS_BINTERVAL);
 
   /* Update Config Descriptor and IAD descriptor */
   ((USBD_ConfigDescTypeDef *)pConf)->bNumInterfaces += 1U;

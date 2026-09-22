@@ -76,12 +76,9 @@
   */
 
 
-
-
 /** @defgroup USBD_TEMPLATE_Private_FunctionPrototypes
   * @{
   */
-
 
 static uint8_t USBD_TEMPLATE_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx);
 static uint8_t USBD_TEMPLATE_DeInit(USBD_HandleTypeDef *pdev, uint8_t cfgidx);

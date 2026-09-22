@@ -128,6 +128,9 @@ USBD_ClassTypeDef USBD_HID =
   USBD_HID_GetOtherSpeedCfgDesc,
   USBD_HID_GetDeviceQualifierDesc,
 #endif /* USE_USBD_COMPOSITE  */
+#if (USBD_SUPPORT_USER_STRING_DESC == 1U)
+  NULL,
+#endif /* USBD_SUPPORT_USER_STRING_DESC  */
 };
 
 #ifndef USE_USBD_COMPOSITE
@@ -615,6 +618,11 @@ static uint8_t USBD_HID_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
   UNUSED(epnum);
   /* Ensure that the FIFO is empty before a new transfer, this condition could
   be caused by  a new transfer before the end of the previous transfer */
+  if (pdev->pClassDataCmsit[pdev->classId] == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
+
   ((USBD_HID_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId])->state = USBD_HID_IDLE;
 
   return (uint8_t)USBD_OK;

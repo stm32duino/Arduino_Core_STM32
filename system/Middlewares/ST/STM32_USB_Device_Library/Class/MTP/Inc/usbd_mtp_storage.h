@@ -53,15 +53,16 @@ extern "C" {
 
 typedef enum
 {
-  DATA_TYPE = 0x00,
-  REP_TYPE = 0x01,
+  DATA_TYPE = 0x00U,
+  REP_TYPE = 0x01U,
 } MTP_CONTAINER_TYPE;
 
 
 typedef enum
 {
-  READ_FIRST_DATA = 0x00,
-  READ_REST_OF_DATA = 0x01,
+  READ_FIRST_DATA = 0x00U,
+  READ_REST_OF_DATA = 0x01U,
+  READ_SEND_ZLP_DATA = 0x02U
 } MTP_READ_DATA_STATUS;
 
 

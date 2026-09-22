@@ -71,6 +71,7 @@ extern "C" {
 #define USB_DEVICE_CLASS_AUDIO                        0x01U
 #define AUDIO_SUBCLASS_AUDIOCONTROL                   0x01U
 #define AUDIO_SUBCLASS_AUDIOSTREAMING                 0x02U
+#define AUDIO_SUBCLASS_MIDISTREAMING                  0x03U
 #define AUDIO_PROTOCOL_UNDEFINED                      0x00U
 #define AUDIO_STREAMING_GENERAL                       0x01U
 #define AUDIO_STREAMING_FORMAT_TYPE                   0x02U

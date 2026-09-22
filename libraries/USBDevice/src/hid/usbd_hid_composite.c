@@ -130,6 +130,9 @@ USBD_ClassTypeDef  USBD_COMPOSITE_HID = {
   USBD_HID_GetOtherSpeedCfgDesc,
   USBD_HID_GetDeviceQualifierDesc,
 #endif /* USE_USBD_COMPOSITE  */
+#if (USBD_SUPPORT_USER_STRING_DESC == 1U)
+  NULL,
+#endif /* USBD_SUPPORT_USER_STRING_DESC  */
 };
 
 #ifndef USE_USBD_COMPOSITE
@@ -1033,15 +1036,19 @@ static uint8_t *USBD_HID_GetOtherSpeedCfgDesc(uint16_t *length)
 static uint8_t USBD_HID_DataIn(USBD_HandleTypeDef *pdev,
                                uint8_t epnum)
 {
-
+  uint8_t status = (uint8_t)USBD_OK;
   /* Ensure that the FIFO is empty before a new transfer, this condition could
   be caused by  a new transfer before the end of the previous transfer */
-  if (epnum == (HID_KEYBOARD_EPIN_ADDR & 0x7F)) {
-    ((USBD_HID_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId])->Keyboardstate = HID_IDLE;
-  } else if (epnum == (HID_MOUSE_EPIN_ADDR & 0x7F)) {
-    ((USBD_HID_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId])->Mousestate = HID_IDLE;
+  if (pdev->pClassDataCmsit[pdev->classId] == NULL) {
+    status = (uint8_t)USBD_FAIL;
+  } else {
+    if (epnum == (HID_KEYBOARD_EPIN_ADDR & 0x7F)) {
+      ((USBD_HID_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId])->Keyboardstate = HID_IDLE;
+    } else if (epnum == (HID_MOUSE_EPIN_ADDR & 0x7F)) {
+      ((USBD_HID_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId])->Mousestate = HID_IDLE;
+    }
   }
-  return (uint8_t)USBD_OK;
+  return status;
 }
 
 #ifndef USE_USBD_COMPOSITE

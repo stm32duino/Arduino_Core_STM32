@@ -940,6 +940,12 @@ static void DFU_Download(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
     if ((hdfu->dev_state == DFU_STATE_DNLOAD_IDLE) || (hdfu->dev_state == DFU_STATE_IDLE))
     {
 #if (USBD_DFU_VENDOR_CHECK_ENABLED == 1U)
+      /* Fill the buffer to be checked with the address stored in data buffer */
+      hdfu->buffer.d8[1] = (uint8_t)(hdfu->data_ptr & 0xFFU);
+      hdfu->buffer.d8[2] = (uint8_t)((hdfu->data_ptr & 0xFF00U) >> 8U);
+      hdfu->buffer.d8[3] = (uint8_t)((hdfu->data_ptr & 0xFF0000U) >> 16U);
+      hdfu->buffer.d8[4] = (uint8_t)((hdfu->data_ptr & 0xFF000000U) >> 24U);
+
       if (DfuInterface->VendorCheck(hdfu->buffer.d8, IS_DFU_SETADDRESSPOINTER, &VendorStatus) != USBD_OK)
       {
         /* Update the state machine */

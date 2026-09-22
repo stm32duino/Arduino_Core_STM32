@@ -140,6 +140,9 @@ USBD_ClassTypeDef  USBD_VIDEO =
   USBD_VIDEO_GetOtherSpeedCfgDesc,
   USBD_VIDEO_GetDeviceQualifierDesc,
 #endif /* USE_USBD_COMPOSITE */
+#if (USBD_SUPPORT_USER_STRING_DESC == 1U)
+  NULL,
+#endif /* USBD_SUPPORT_USER_STRING_DESC  */
 };
 
 /* USB VIDEO device Configuration Descriptor (same for all speeds thanks to user defines) */
@@ -315,7 +318,7 @@ __ALIGN_BEGIN static uint8_t USBD_VIDEO_CfgDesc[] __ALIGN_END =
   UVC_IN_EP,                                     /* bEndpointAddress */
   0x05,                                          /* bmAttributes: ISO transfer */
   LOBYTE(UVC_ISO_FS_MPS),                        /* wMaxPacketSize */
-  LOBYTE(UVC_ISO_FS_MPS),
+  HIBYTE(UVC_ISO_FS_MPS),
   0x01,                                          /* bInterval: 1 frame interval */
 };
 
@@ -688,8 +691,11 @@ static uint8_t  USBD_VIDEO_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
         }
         else
         {
-          (void)USBD_memcpy((packet + ((DataOffset + 0U) * i) + 2U),
-                            Pcktdata + ((DataOffset - 2U) * i), (RemainData - 2U));
+          if (RemainData > 2U)
+          {
+            (void)USBD_memcpy((packet + ((DataOffset + 0U) * i) + 2U),
+                              Pcktdata + ((DataOffset - 2U) * i), (RemainData - 2U));
+          }
 
           RemainData = 0U;
         }
@@ -723,7 +729,7 @@ static uint8_t  USBD_VIDEO_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
 static uint8_t  USBD_VIDEO_SOF(USBD_HandleTypeDef *pdev)
 {
   USBD_VIDEO_HandleTypeDef *hVIDEO = (USBD_VIDEO_HandleTypeDef *) pdev->pClassDataCmsit[pdev->classId];
-  uint8_t payload[2] = {0x02U, 0x00U};
+  static uint8_t payload[2] = {0x02U, 0x00U};
 
 #ifdef USE_USBD_COMPOSITE
   /* Get the Endpoints addresses allocated for this class instance */

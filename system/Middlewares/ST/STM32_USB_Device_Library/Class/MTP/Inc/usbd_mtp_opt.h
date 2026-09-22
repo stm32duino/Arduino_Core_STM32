@@ -283,7 +283,7 @@ extern "C" {
  * Appendix C. Device Properties
  */
 
-/* MTP device properties code*/
+/* MTP device properties code */
 #define    MTP_DEV_PROP_UNDEFINED                               0x5000U
 #define    MTP_DEV_PROP_BATTERY_LEVEL                           0x5001U
 #define    MTP_DEV_PROP_FUNCTIONAL_MODE                         0x5002U
@@ -336,7 +336,7 @@ extern "C" {
 #define    MTP_CONT_TYPE_EVENT                                  4U
 
 #ifndef    MTP_STORAGE_ID
-#define    MTP_STORAGE_ID                             0x00010001U   /* SD card is inserted*/
+#define    MTP_STORAGE_ID                                       0x00010001U   /* SD card is inserted */
 #endif  /* MTP_STORAGE_ID */
 
 #define    MTP_NBR_STORAGE_ID                                   1U

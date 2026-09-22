@@ -70,8 +70,10 @@ extern "C" {
 #define SCSI_VERIFY12                               0xAFU
 #define SCSI_VERIFY16                               0x8FU
 
-#define SCSI_SEND_DIAGNOSTIC                        0x1DU
 #define SCSI_READ_FORMAT_CAPACITIES                 0x23U
+#define SCSI_RECEIVE_DIAGNOSTIC_RESULTS             0x1CU
+#define SCSI_SEND_DIAGNOSTIC                        0x1DU
+#define SCSI_REPORT_LUNS                            0xA0U
 
 #define NO_SENSE                                    0U
 #define RECOVERED_ERROR                             1U
@@ -88,9 +90,8 @@ extern "C" {
 #define VOLUME_OVERFLOW                             13U
 #define MISCOMPARE                                  14U
 
-
 #define INVALID_CDB                                 0x20U
-#define INVALID_FIELED_IN_COMMAND                   0x24U
+#define INVALID_FIELD_IN_COMMAND                    0x24U
 #define PARAMETER_LIST_LENGTH_ERROR                 0x1AU
 #define INVALID_FIELD_IN_PARAMETER_LIST             0x26U
 #define ADDRESS_OUT_OF_RANGE                        0x21U

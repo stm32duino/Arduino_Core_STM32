@@ -162,6 +162,9 @@ USBD_ClassTypeDef USBD_AUDIO =
   USBD_AUDIO_GetCfgDesc,
   USBD_AUDIO_GetDeviceQualifierDesc,
 #endif /* USE_USBD_COMPOSITE  */
+#if (USBD_SUPPORT_USER_STRING_DESC == 1U)
+  NULL,
+#endif /* USBD_SUPPORT_USER_STRING_DESC  */
 };
 
 #ifndef USE_USBD_COMPOSITE

@@ -67,9 +67,12 @@ extern "C" {
 #define MTP_FS_BINTERVAL                                            0x10U
 #endif /* MTP_FS_BINTERVAL */
 
+#ifndef MTP_CMD_PACKET_SIZE
+#define MTP_CMD_PACKET_SIZE                                         8U  /* Control Endpoint Packet size */
+#endif /* MTP_CMD_PACKET_SIZE */
+
 #define MTP_DATA_MAX_HS_PACKET_SIZE                                 512U
 #define MTP_DATA_MAX_FS_PACKET_SIZE                                 64U         /* Endpoint IN & OUT Packet size */
-#define MTP_CMD_PACKET_SIZE                                         8U          /* Control Endpoint Packet size */
 
 #define MTP_MEDIA_PACKET                                            512U
 #define MTP_CONT_HEADER_SIZE                                        12U

@@ -60,10 +60,12 @@ extern "C" {
 #define CCID_CMD_FS_BINTERVAL                                 0x10U
 #endif /* CCID_CMD_FS_BINTERVAL */
 
+#ifndef CCID_CMD_PACKET_SIZE
+#define CCID_CMD_PACKET_SIZE                                  8U  /* Control Endpoint Packet size */
+#endif /* CCID_CMD_PACKET_SIZE */
 
 #define CCID_DATA_HS_MAX_PACKET_SIZE                          512U  /* Endpoint IN & OUT Packet size */
 #define CCID_DATA_FS_MAX_PACKET_SIZE                          64U  /* Endpoint IN & OUT Packet size */
-#define CCID_CMD_PACKET_SIZE                                  8U  /* Control Endpoint Packet size */
 
 #define USB_CCID_CONFIG_DESC_SIZ                              93U
 #define CCID_DATA_HS_IN_PACKET_SIZE                           CCID_DATA_HS_MAX_PACKET_SIZE

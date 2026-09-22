@@ -40,6 +40,7 @@ extern "C" {
 /** @defgroup USBD_IOREQ_Exported_Defines
   * @{
   */
+
 /**
   * @}
   */
@@ -49,11 +50,9 @@ extern "C" {
   * @{
   */
 
-
 /**
   * @}
   */
-
 
 
 /** @defgroup USBD_IOREQ_Exported_Macros
@@ -110,4 +109,3 @@ uint32_t USBD_GetRxCount(USBD_HandleTypeDef *pdev, uint8_t ep_addr);
 /**
   * @}
   */
-
