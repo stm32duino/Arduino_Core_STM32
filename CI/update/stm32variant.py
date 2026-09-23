@@ -1095,33 +1095,27 @@ def xspi_pinmap(lst):
 def usb_pinmap(lst):
     usb_pins_list = []
     wpin = [0]
-    use_hs_in_fs = False
-    nb_loop = 1
 
     if lst == usb_otgfs_list:
         inst = usb_inst["otg_fs"]
+        pin_groups = [(lst, 0)]
     elif lst == usb_otghs_list:
         inst = usb_inst["otg_hs"]
-        nb_loop = 2
+        sof_pins = [p for p in lst if "SOF" in p[2]]
+        fs_pins = [p for p in lst if "SOF" not in p[2] and "ULPI" not in p[2]]
+        ulpi_pins = [p for p in lst if "ULPI" in p[2]]
+        pin_groups = [(sof_pins, 0)]
+        if fs_pins:
+            pin_groups.append((fs_pins, 1))
+        if ulpi_pins:
+            pin_groups.append((ulpi_pins, 2 if fs_pins else 0))
     else:
         inst = usb_inst["usb"]
-    for nb in range(nb_loop):
-        for p in lst:
-            hsinfs = 0
-            if lst == usb_otghs_list:
-                hsinfs = 3
-                if nb == 0:
-                    if "ULPI" in p[2]:
-                        continue
-                    elif not use_hs_in_fs:
-                        hsinfs = 1
-                        use_hs_in_fs = True
-                else:
-                    if "ULPI" not in p[2]:
-                        continue
-                    elif use_hs_in_fs:
-                        hsinfs = 2
-                        use_hs_in_fs = False
+        pin_groups = [(lst, 0)]
+
+    for pins, group_marker in pin_groups:
+        for pin_index, p in enumerate(pins):
+            hsinfs = group_marker if pin_index == 0 else 3
 
             # 2nd element is the USB_XXXX signal
             if not p[2].startswith("USB_D") and "VBUS" not in p[2]:
@@ -1155,6 +1149,7 @@ def usb_pinmap(lst):
         hal=["PCD", "HCD"],
         aname=inst,
         data="",
+        hsinfs=any(marker == 1 for _, marker in pin_groups),
         wpin=max(wpin) + 1,
         winst=len(inst) + 1,
         list=usb_pins_list,
