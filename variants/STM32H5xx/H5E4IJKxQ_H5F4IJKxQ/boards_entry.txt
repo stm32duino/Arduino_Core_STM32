@@ -1,0 +1,23 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic H5E4IJKxQ
+GenH5.menu.pnum.GENERIC_H5E4IJKXQ=Generic H5E4IJKxQ
+GenH5.menu.pnum.GENERIC_H5E4IJKXQ.upload.maximum_size=4194304
+GenH5.menu.pnum.GENERIC_H5E4IJKXQ.upload.maximum_data_size=1572864
+GenH5.menu.pnum.GENERIC_H5E4IJKXQ.build.board=GENERIC_H5E4IJKXQ
+GenH5.menu.pnum.GENERIC_H5E4IJKXQ.build.product_line=STM32H5E4xx
+GenH5.menu.pnum.GENERIC_H5E4IJKXQ.build.variant=STM32H5xx/H5E4IJKxQ_H5F4IJKxQ
+GenH5.menu.pnum.GENERIC_H5E4IJKXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H5E4.svd
+
+# Generic H5F4IJKxQ
+GenH5.menu.pnum.GENERIC_H5F4IJKXQ=Generic H5F4IJKxQ
+GenH5.menu.pnum.GENERIC_H5F4IJKXQ.upload.maximum_size=4194304
+GenH5.menu.pnum.GENERIC_H5F4IJKXQ.upload.maximum_data_size=1572864
+GenH5.menu.pnum.GENERIC_H5F4IJKXQ.build.board=GENERIC_H5F4IJKXQ
+GenH5.menu.pnum.GENERIC_H5F4IJKXQ.build.product_line=STM32H5F4xx
+GenH5.menu.pnum.GENERIC_H5F4IJKXQ.build.variant=STM32H5xx/H5E4IJKxQ_H5F4IJKxQ
+GenH5.menu.pnum.GENERIC_H5F4IJKXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H5F4.svd
+
