@@ -149,76 +149,79 @@
 
 
 /* Alias */
-#define A_PHASE_UL        PE8
-#define A_PHASE_UH        PE9
-#define A_PHASE_VL        PE10
-#define A_PHASE_VH        PE11
-#define A_PHASE_WL        PE12
-#define A_PHASE_WH        PE13
+#define A_PHASE_UL          PE8
+#define A_PHASE_UH          PE9
+#define A_PHASE_VL          PE10
+#define A_PHASE_VH          PE11
+#define A_PHASE_WL          PE12
+#define A_PHASE_WH          PE13
 
-#define PIN_READY       PE14  //Gate driver ready pin
-#define PIN_NFAULT        PE15  //Gate driver fault pin
+#define PIN_READY           PE14  //Gate driver ready pin
+#define PIN_NFAULT          PE15  //Gate driver fault pin
 #define PIN_I2C_GD_SCL      PC8   //I2C3 connected to Gate driver
 #define PIN_I2C_GD_SDA      PC9   //I2C3 connected to Gate driver
 
-#define A_VBUS          PC1   //Pin to sense supply voltage. Also input of COMP3
+#define A_VBUS              PC1   //Pin to sense supply voltage. Also input of COMP3
 #define BRAKE_RESISTOR      PC2   //Brake resistor. Also output of COMP3
-#define BRAKE_AF        3   //Alternate function 3
-#define BRAKE_DAC       DAC1  //DAC 1 or 3
+#define BRAKE_AF            3   //Alternate function 3
+#define BRAKE_DAC           DAC1  //DAC 1 or 3
 #define BRAKE_DAC_CHAN      DAC_CHANNEL_1   //DAC Channel 1
-#define BRAKE_COMP        COMP3   //Use comparator 3
+#define BRAKE_COMP          COMP3   //Use comparator 3
 #define BRAKE_COMP_PLUS     COMP_INPUT_PLUS_IO2
 #define BRAKE_COMP_MINUS    COMP_INPUT_MINUS_DAC1_CH1
 
 #define VBUS_MUL_FACTOR     23    //Multiply the adc voltage read by this value to get the supply voltage
 
-#define A_GPIO_BEMF       PA10  //Pin to pull Back-emf high or low
+#define A_GPIO_BEMF         PA10  //Pin to pull Back-emf high or low
 
-#define A_CURRW_H       PA1   //phase W and opamp 1
-#define A_CURRW_L       PA3
-#define A_BEMFW         PA2
+#define A_CURRW_H           PA1   //phase W and opamp 1
+#define A_CURRW_L           PA3
+#define A_CURRW             PA2
+#define A_BEMFW             PA4
 
-#define A_CURRU_H       PA7   //phase U and opamp 2
-#define A_CURRU_L       PA5
-#define A_BEMFU         PA0
+#define A_CURRU_H           PA7   //phase U and opamp 2
+#define A_CURRU_L           PA5
+#define A_CURRU             PA6
+#define A_BEMFU             PA0
 
-#define A_CURRV_H       PB0   //phase V and opamp 3
-#define A_CURRV_L       PB2
-#define A_BEMFV         PC4
+#define A_CURRV_H           PB0   //phase V and opamp 3
+#define A_CURRV_L           PB2
+#define A_CURRV             PB1
+#define A_BEMFV             PC4
 
 #define A_POTENTIOMETER     PC0
-#define A_TEMPERATURE     PC5
+#define A_TEMPERATURE       PC5
 
 #ifndef NTC_B_CONSTANT
-  #define NTC_B_CONSTANT      4250  //B = ln(R/R0)/(1/T-1/T0)
+  #define NTC_B_CONSTANT    4250  //B = ln(R/R0)/(1/T-1/T0)
 #endif
 #ifndef NTC_T0
-  #define NTC_T0          (273.15f+25)//Kelvin
+  #define NTC_T0            (273.15f+25)//Kelvin
 #endif
 #ifndef NTC_DIVIDER_BALANCE
   #define NTC_DIVIDER_BALANCE   (22.f/100.f) //R1 (value of the other resistance in the voltage divider) over R0 (resistance of NTC at T0)
 #endif
 
-#define CAN_RX          PB8
-#define CAN_TX          PB9
-#define CAN_PWR         PC13 //Take pin high to power on CAN transceiver
+#define CAN_RX              PB8
+#define CAN_TX              PB9
+#define CAN_PWR             PC13 //Take pin high to power on CAN transceiver
 
-#define SWDIO         PA13 //Serial wire debug I/O
-#define SWCLK         PA14 //Serial wire debug clock
+#define SWDIO               PA13 //Serial wire debug I/O
+#define SWCLK               PA14 //Serial wire debug clock
 
-#define I2C2_SCL        PA9 //I2C clock on the QWIIC connector
-#define I2C2_SDA        PA8 //I2C data on the QWIIC connector
+#define I2C2_SCL            PA9 //I2C clock on the QWIIC connector
+#define I2C2_SDA            PA8 //I2C data on the QWIIC connector
 
-#define USART_TX        PB6
-#define USART_RX        PB7
+#define USART_TX            PB6
+#define USART_RX            PB7
 
-#define ENCODER_A       PA6
-#define ENCODER_B       PA4
-#define ENCODER_Z       PC3
+#define ENCODER_A           PB5   //Shared with SPI
+#define ENCODER_B           PB4   //Shared with SPI
+#define ENCODER_Z           PB3   //Shared with SPI
 
-#define HALL1         ENCODER_A
-#define HALL2         ENCODER_B
-#define HALL3         ENCODER_Z
+#define HALL1               PC14  //Spare on J5
+#define HALL2               PC15  //Spare on J5
+#define HALL3               PC3   //Spare on J5
 
 
 // On-board LED pin number
