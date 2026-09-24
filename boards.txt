@@ -2183,6 +2183,96 @@ GenC0.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface
 GenC0.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
+# Seeed XIAO STM32C5
+XIAO_STM32C5.name=Seeed Studio
+
+XIAO_STM32C5.build.core=arduino
+XIAO_STM32C5.build.family=SEEED_STUDIO
+XIAO_STM32C5.build.board=XIAO_STM32C5
+XIAO_STM32C5.build.variant=STM32C5xx/C593C(E-G)(T-U)_C5A3CG(T-U)
+XIAO_STM32C5.build.variant_h=variant_XIAO_STM32C5.h
+XIAO_STM32C5.build.ldscript=ldscript_XIAO_STM32C5.ld
+XIAO_STM32C5.build.st_extra_flags=-D{build.product_line} -DHSE_VALUE=48000000U -DUSBD_SELF_POWERED=1 -DUSBD_MAX_POWER=50 {build.enable_usb} {build.xSerial}
+XIAO_STM32C5.build.mcu=cortex-m33
+XIAO_STM32C5.build.fpu=-mfpu=fpv5-sp-d16
+XIAO_STM32C5.build.float-abi=-mfloat-abi=hard
+XIAO_STM32C5.build.series=STM32C5xx
+XIAO_STM32C5.build.product_line=STM32C5A3xx
+XIAO_STM32C5.build.hal=-DUSE_HALV2_DRIVER
+XIAO_STM32C5.build.flash_offset=0x8000
+XIAO_STM32C5.upload.maximum_size=1015808
+XIAO_STM32C5.upload.maximum_data_size=262144
+XIAO_STM32C5.upload.tool=uf2upload
+XIAO_STM32C5.upload.protocol=serial
+XIAO_STM32C5.upload.uf2.volume=XIAOC5BOOT
+XIAO_STM32C5.upload.uf2.address=0x08008000
+XIAO_STM32C5.upload.uf2.family=0x00C5C5C5
+XIAO_STM32C5.upload.uf2.timeout=10000
+XIAO_STM32C5.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C5xx/STM32C5A3.svd
+XIAO_STM32C5.vid.0=0x2886
+XIAO_STM32C5.pid.0=0x80C5
+
+# Seeed XIAO STM32C5
+XIAO_STM32C5.menu.pnum.XIAO_STM32C5=Seeed XIAO STM32C5
+XIAO_STM32C5.menu.pnum.XIAO_STM32C5.build.board=XIAO_STM32C5
+XIAO_STM32C5.menu.pnum.XIAO_STM32C5.build.product_line=STM32C5A3xx
+XIAO_STM32C5.menu.pnum.XIAO_STM32C5.build.variant=STM32C5xx/C593C(E-G)(T-U)_C5A3CG(T-U)
+XIAO_STM32C5.menu.pnum.XIAO_STM32C5.build.variant_h=variant_XIAO_STM32C5.h
+XIAO_STM32C5.menu.pnum.XIAO_STM32C5.build.ldscript=ldscript_XIAO_STM32C5.ld
+XIAO_STM32C5.menu.pnum.XIAO_STM32C5.upload.maximum_size=1015808
+XIAO_STM32C5.menu.pnum.XIAO_STM32C5.upload.maximum_data_size=262144
+XIAO_STM32C5.menu.pnum.XIAO_STM32C5.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C5xx/STM32C5A3.svd
+
+# U(S)ART support
+XIAO_STM32C5.menu.xserial.generic=Enabled (generic 'Serial')
+XIAO_STM32C5.menu.xserial.none=Enabled (no generic 'Serial')
+XIAO_STM32C5.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+XIAO_STM32C5.menu.xserial.disabled=Disabled (no Serial support)
+XIAO_STM32C5.menu.xserial.disabled.build.xSerial=
+
+# USB connectivity
+XIAO_STM32C5.menu.usb.none=None
+XIAO_STM32C5.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+XIAO_STM32C5.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+XIAO_STM32C5.menu.usb.CDC=CDC (no generic 'Serial')
+XIAO_STM32C5.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+
+# Optimize
+XIAO_STM32C5.menu.opt.osstd=Smallest (-Os default)
+XIAO_STM32C5.menu.opt.oslto=Smallest (-Os) with LTO
+XIAO_STM32C5.menu.opt.oslto.build.flags.optimize=-Os -flto
+XIAO_STM32C5.menu.opt.o1std=Fast (-O1)
+XIAO_STM32C5.menu.opt.o1std.build.flags.optimize=-O1
+XIAO_STM32C5.menu.opt.o1lto=Fast (-O1) with LTO
+XIAO_STM32C5.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+XIAO_STM32C5.menu.opt.o2std=Faster (-O2)
+XIAO_STM32C5.menu.opt.o2std.build.flags.optimize=-O2
+XIAO_STM32C5.menu.opt.o2lto=Faster (-O2) with LTO
+XIAO_STM32C5.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+XIAO_STM32C5.menu.opt.o3std=Fastest (-O3)
+XIAO_STM32C5.menu.opt.o3std.build.flags.optimize=-O3
+XIAO_STM32C5.menu.opt.o3lto=Fastest (-O3) with LTO
+XIAO_STM32C5.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+XIAO_STM32C5.menu.opt.ogstd=Debug (-Og)
+XIAO_STM32C5.menu.opt.ogstd.build.flags.optimize=-Og
+
+# Debug information
+XIAO_STM32C5.menu.dbg.none=None
+XIAO_STM32C5.menu.dbg.enable=Symbols Enabled (-g)
+XIAO_STM32C5.menu.dbg.enable.build.flags.debug=-g
+
+# C Runtime Library
+XIAO_STM32C5.menu.rtlib.nano=Newlib Nano (default)
+XIAO_STM32C5.menu.rtlib.nanofp=Newlib Nano + Float Printf
+XIAO_STM32C5.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+XIAO_STM32C5.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+XIAO_STM32C5.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+XIAO_STM32C5.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+XIAO_STM32C5.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+XIAO_STM32C5.menu.rtlib.full=Newlib Standard
+XIAO_STM32C5.menu.rtlib.full.build.flags.ldspecs=
+
+################################################################################
 # Generic C5
 GenC5.name=Generic STM32C5 series
 
