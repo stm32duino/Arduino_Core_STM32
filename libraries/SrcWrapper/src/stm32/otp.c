@@ -18,8 +18,11 @@
 uint8_t *OTP_Read(uint8_t id)
 {
   uint8_t *p_id;
-
+#if defined(OTP_AREA_END_ADDR)
   p_id = (uint8_t *)(OTP_AREA_END_ADDR - 7) ;
+#else
+  p_id = (uint8_t *)(OTP_AREA_BASE + OTP_SIZE - 7) ;
+#endif
 
   while (((*(p_id + 7)) != id) && (p_id != (uint8_t *)OTP_AREA_BASE)) {
     p_id -= 8 ;

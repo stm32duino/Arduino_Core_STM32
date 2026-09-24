@@ -24,6 +24,8 @@
   #include "stm32h5xx_ll_exti.c"
 #elif STM32H7xx
   #include "stm32h7xx_ll_exti.c"
+#elif STM32H7RSxx
+  #include "stm32h7rsxx_ll_exti.c"
 #elif STM32L0xx
   #include "stm32l0xx_ll_exti.c"
 #elif STM32L1xx
