@@ -997,9 +997,17 @@ def can_pinmap(lst):
 
 def eth_pinmap():
     eth_pins_list = []
+    seen_pins = {}
     wpin = [0]
     inst = "ETH"
     for p in eth_list:
+        pin = re.sub(r"_ALT\d+$", "", p[0])
+        key = (pin, p[1], p[3])
+        if key in seen_pins:
+            entry = eth_pins_list[seen_pins[key]]
+            if p[2] not in entry["cmt"].split(" | "):
+                entry["cmt"] += " | " + p[2]
+            continue
         # Note: Some pins are duplicated with only a different signal
         # Now considered as an ALTX pins even ifsame AF
         wpin.append(len(p[0]))
@@ -1013,6 +1021,7 @@ def eth_pinmap():
                 "cmt": p[2],
             }
         )
+        seen_pins[key] = len(eth_pins_list) - 1
     return dict(
         name="ETHERNET",
         hal=(
