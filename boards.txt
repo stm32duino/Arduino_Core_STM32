@@ -201,6 +201,22 @@ Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.variant=STM32F7xx/F765Z(G-I)T_F767Z(G-I
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.openocd.target=stm32f7x
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F767.svd
 
+#NUCLEO H5E5ZJ
+Nucleo_144.menu.pnum.NUCLEO_H5E5ZJ=Nucleo H5E5ZJ
+Nucleo_144.menu.pnum.NUCLEO_H5E5ZJ.node=NOD_H5E5ZJ
+Nucleo_144.menu.pnum.NUCLEO_H5E5ZJ.upload.maximum_size=4194304
+Nucleo_144.menu.pnum.NUCLEO_H5E5ZJ.upload.maximum_data_size=1572864
+Nucleo_144.menu.pnum.NUCLEO_H5E5ZJ.build.mcu=cortex-m33
+Nucleo_144.menu.pnum.NUCLEO_H5E5ZJ.build.fpu=-mfpu=fpv5-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_H5E5ZJ.build.float-abi=-mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_H5E5ZJ.build.board=NUCLEO_H5E5ZJ
+Nucleo_144.menu.pnum.NUCLEO_H5E5ZJ.build.series=STM32H5xx
+Nucleo_144.menu.pnum.NUCLEO_H5E5ZJ.build.product_line=STM32H5E5xx
+Nucleo_144.menu.pnum.NUCLEO_H5E5ZJ.build.variant=STM32H5xx/H5E5Z(J-K)T_H5F5ZJT
+Nucleo_144.menu.pnum.NUCLEO_H5E5ZJ.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Nucleo_144.menu.pnum.NUCLEO_H5E5ZJ.openocd.target=stm32h5x
+Nucleo_144.menu.pnum.NUCLEO_H5E5ZJ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H5E5.svd
+
 # NUCLEO H563ZI
 Nucleo_144.menu.pnum.NUCLEO_H563ZI=Nucleo H563ZI
 Nucleo_144.menu.pnum.NUCLEO_H563ZI.node=NOD_H563ZI
