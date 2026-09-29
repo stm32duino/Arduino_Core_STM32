@@ -323,7 +323,7 @@ WEAK const PinMap PinMap_QUADSPI_SCLK[] = {
 #endif
 
 #ifdef HAL_QSPI_MODULE_ENABLED
-WEAK const PinMap PinMap_QUADSPI_SSEL[] = {
+WEAK const PinMap PinMap_QUADSPI_NCS1[] = {
   {NC,    NP,      0}
 };
 #endif
