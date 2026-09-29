@@ -218,7 +218,6 @@
 #define PE5_ALT1                (PE5  | ALT1)
 #define PE7_ALT1                (PE7  | ALT1)
 #define PE8_ALT1                (PE8  | ALT1)
-#define PE11_ALT1               (PE11 | ALT1)
 #define PF8_ALT1                (PF8  | ALT1)
 #define PF9_ALT1                (PF9  | ALT1)
 #define PG6_ALT1                (PG6  | ALT1)

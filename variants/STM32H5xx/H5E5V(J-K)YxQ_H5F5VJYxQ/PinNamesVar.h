@@ -58,7 +58,6 @@ PE_4_ALT1  = PE_4  | ALT1,
 PE_5_ALT1  = PE_5  | ALT1,
 PE_7_ALT1  = PE_7  | ALT1,
 PE_8_ALT1  = PE_8  | ALT1,
-PE_11_ALT1 = PE_11 | ALT1,
 
 /* SYS_WKUP */
 #ifdef PWR_WAKEUP_PIN1

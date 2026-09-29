@@ -113,6 +113,11 @@
   #define PIN_SERIAL_TX         PA2
 #endif
 
+// Extra HAL modules
+#if !defined(HAL_QSPI_MODULE_DISABLED)
+  #define HAL_QSPI_MODULE_ENABLED
+#endif
+
 // Alternate SYS_WKUP definition
 #define PWR_WAKEUP_PIN3_1
 #define PWR_WAKEUP_PIN6_1

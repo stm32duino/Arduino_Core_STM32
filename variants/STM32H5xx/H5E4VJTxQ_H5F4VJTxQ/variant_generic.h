@@ -154,7 +154,6 @@
 #define PE5_ALT1                (PE5  | ALT1)
 #define PE7_ALT1                (PE7  | ALT1)
 #define PE8_ALT1                (PE8  | ALT1)
-#define PE11_ALT1               (PE11 | ALT1)
 
 #define NUM_DIGITAL_PINS        78
 #define NUM_ANALOG_INPUTS       24
