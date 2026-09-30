@@ -55,7 +55,10 @@ ospidata5_list = []  # ['PIN','instance','OSPIDATA5', 'af']
 ospidata6_list = []  # ['PIN','instance','OSPIDATA6', 'af']
 ospidata7_list = []  # ['PIN','instance','OSPIDATA7', 'af']
 xspisclk_list = []  # ['PIN','instance','XSPISCLK', 'af']
-xspissel_list = []  # ['PIN','instance','XSPISSEL', 'af']
+xspincs1_list = []  # ['PIN','instance','XSPINCS1', 'af']
+xspincs2_list = []  # ['PIN','instance','XSPINCS2', 'af']
+xspinclk_list = []  # ['PIN','instance','XSPINCLK', 'af']
+xspidqs_list = []  # ['PIN','instance','XSPIDQS', 'af']
 syswkup_list = []  # ['PIN', 'signal']
 usb_list = []  # ['PIN','instance','USB', 'af']
 usb_otgfs_list = []  # ['PIN','instance','USB', 'af']
@@ -307,7 +310,7 @@ def parse_mcu_pinout():
             elif re.match("^(LPU|US|U)ART", instance) is not None:
                 store_uart(pin, instance, signal_name, af)
             elif "SPI" in instance:
-                if "QUADSPI" in instance or "OCTOSPI" in instance:
+                if "QUADSPI" in instance or "OCTOSPI" in instance or "XSPI" in instance:
                     store_xspi(pin, instance, signal_name, af)
                 else:
                     store_spi(pin, instance, signal_name, af)
@@ -430,10 +433,16 @@ def store_xspi(pin, name, signal, af):
         ospidata6_list.append([pin, name, signal, af])
     elif "_IO7" in signal:
         ospidata7_list.append([pin, name, signal, af])
+    elif "_NCLK" in signal:
+        xspinclk_list.append([pin, name, signal, af])
+    elif "_DQS" in signal:
+        xspidqs_list.append([pin, name, signal, af])
+    elif signal.endswith(("_NCS1", "_NCS", "_BK1_NCS")):
+        xspincs1_list.append([pin, name, signal, af])
+    elif signal.endswith(("_NCS2", "_BK2_NCS")):
+        xspincs2_list.append([pin, name, signal, af])
     elif "_CLK" in signal:
         xspisclk_list.append([pin, name, signal, af])
-    elif "_NCS" in signal:
-        xspissel_list.append([pin, name, signal, af])
 
 
 # Store SYS pins
@@ -800,9 +809,17 @@ def can_pinmap(lst):
 
 def eth_pinmap():
     eth_pins_list = []
+    seen_pins = {}
     wpin = [0]
     inst = "ETH"
     for p in eth_list:
+        pin = re.sub(r"_ALT\d+$", "", p[0])
+        key = (pin, p[1], p[3])
+        if key in seen_pins:
+            entry = eth_pins_list[seen_pins[key]]
+            if p[2] not in entry["cmt"].split(" | "):
+                entry["cmt"] += " | " + p[2]
+            continue
         # Note: Some pins are duplicated with only a different signal
         # Now considered as an ALTX pins even ifsame AF
         wpin.append(len(p[0]))
@@ -816,6 +833,7 @@ def eth_pinmap():
                 "cmt": p[2],
             }
         )
+        seen_pins[key] = len(eth_pins_list) - 1
     return dict(
         name="ETHERNET",
         hal="ETH",
@@ -833,11 +851,14 @@ def xspi_pinmap(lst):
     wpin = [0]
     name = "QUADSPI"
     hal = "QSPI"
-    ospi_regex = r"OCTOSPI(?:M_P)?(\d).*"
+    xspi_regex = r"(OCTOSPI|XSPI)(?:M_P)?(\d).*"
 
     if xspidata0_list and "OCTOSPI" in xspidata0_list[0][2]:
         name = "OCTOSPI"
         hal = "OSPI"
+    elif xspidata0_list and "XSPI" in xspidata0_list[0][2]:
+        name = "XSPI"
+        hal = "XSPI"
     if lst == xspidata0_list:
         aname = f"{name}_DATA0"
     elif lst == xspidata1_list:
@@ -856,16 +877,21 @@ def xspi_pinmap(lst):
         aname = f"{name}_DATA7"
     elif lst == xspisclk_list:
         aname = f"{name}_SCLK"
+    elif lst == xspinclk_list:
+        aname = f"{name}_NCLK"
+    elif lst == xspidqs_list:
+        aname = f"{name}_DQS"
+    elif lst == xspincs2_list:
+        aname = f"{name}_NCS2"
+    elif lst == xspincs1_list:
+        aname = f"{name}_NCS1"
     else:
-        aname = f"{name}_SSEL"
+        aname = f"{name}_NCS1"
     for p in lst:
         # 2nd element is the XXXXSPI_YYYY signal
-        instm = re.match(ospi_regex, p[2])
+        instm = re.match(xspi_regex, p[2])
         if instm:
-            if "1" in instm.group(1):
-                inst = "OCTOSPI1"
-            elif "2" in instm.group(1):
-                inst = "OCTOSPI2"
+            inst = f"{instm.group(1)}{instm.group(2)}"
         else:
             inst = "QUADSPI"
         winst.append(len(inst))
@@ -894,33 +920,27 @@ def xspi_pinmap(lst):
 def usb_pinmap(lst):
     usb_pins_list = []
     wpin = [0]
-    use_hs_in_fs = False
-    nb_loop = 1
 
     if lst == usb_otgfs_list:
         inst = usb_inst["otg_fs"]
+        pin_groups = [(lst, 0)]
     elif lst == usb_otghs_list:
         inst = usb_inst["otg_hs"]
-        nb_loop = 2
+        sof_pins = [p for p in lst if "SOF" in p[2]]
+        fs_pins = [p for p in lst if "SOF" not in p[2] and "ULPI" not in p[2]]
+        ulpi_pins = [p for p in lst if "ULPI" in p[2]]
+        pin_groups = [(sof_pins, 0)]
+        if fs_pins:
+            pin_groups.append((fs_pins, 1))
+        if ulpi_pins:
+            pin_groups.append((ulpi_pins, 2 if fs_pins else 0))
     else:
         inst = usb_inst["usb"]
-    for nb in range(nb_loop):
-        for p in lst:
-            hsinfs = 0
-            if lst == usb_otghs_list:
-                hsinfs = 3
-                if nb == 0:
-                    if "ULPI" in p[2]:
-                        continue
-                    elif not use_hs_in_fs:
-                        hsinfs = 1
-                        use_hs_in_fs = True
-                else:
-                    if "ULPI" not in p[2]:
-                        continue
-                    elif use_hs_in_fs:
-                        hsinfs = 2
-                        use_hs_in_fs = False
+        pin_groups = [(lst, 0)]
+
+    for pins, group_marker in pin_groups:
+        for pin_index, p in enumerate(pins):
+            hsinfs = group_marker if pin_index == 0 else 3
 
             # 2nd element is the USB_XXXX signal
             if not p[2].startswith("USB_D") and "VBUS" not in p[2]:
@@ -955,6 +975,7 @@ def usb_pinmap(lst):
         hal=["PCD", "HCD"],
         aname=inst,
         data="",
+        hsinfs=any(marker == 1 for _, marker in pin_groups),
         wpin=max(wpin) + 1,
         winst=len(inst) + 1,
         list=usb_pins_list,
@@ -1038,6 +1059,21 @@ def print_peripheral():
     else:
         usb_pinmmap = [usb_pinmap(usb_otghs_list)]
 
+    xspi_pinmaps = (
+        xspi_pinmap(xspidata0_list),
+        xspi_pinmap(xspidata1_list),
+        xspi_pinmap(xspidata2_list),
+        xspi_pinmap(xspidata3_list),
+        xspi_pinmap(ospidata4_list),
+        xspi_pinmap(ospidata5_list),
+        xspi_pinmap(ospidata6_list),
+        xspi_pinmap(ospidata7_list),
+        xspi_pinmap(xspisclk_list),
+        xspi_pinmap(xspincs1_list),
+        xspi_pinmap(xspincs2_list),
+    )
+    xspi_pinmaps += (xspi_pinmap(xspinclk_list), xspi_pinmap(xspidqs_list))
+
     periph_c_file.write(
         periph_c_template.render(
             year=year,
@@ -1063,18 +1099,7 @@ def print_peripheral():
                 ),
                 (can_pinmap(canrd_list), can_pinmap(cantd_list)),
                 [eth_pinmap()],
-                (
-                    xspi_pinmap(xspidata0_list),
-                    xspi_pinmap(xspidata1_list),
-                    xspi_pinmap(xspidata2_list),
-                    xspi_pinmap(xspidata3_list),
-                    xspi_pinmap(ospidata4_list),
-                    xspi_pinmap(ospidata5_list),
-                    xspi_pinmap(ospidata6_list),
-                    xspi_pinmap(ospidata7_list),
-                    xspi_pinmap(xspisclk_list),
-                    xspi_pinmap(xspissel_list),
-                ),
+                xspi_pinmaps,
                 usb_pinmmap,
                 (
                     sdx_pinmap(sdxcmd_list),
@@ -1648,7 +1673,10 @@ def sort_my_lists():
     ospidata6_list.sort(key=natural_sortkey)
     ospidata7_list.sort(key=natural_sortkey)
     xspisclk_list.sort(key=natural_sortkey)
-    xspissel_list.sort(key=natural_sortkey)
+    xspincs1_list.sort(key=natural_sortkey)
+    xspincs2_list.sort(key=natural_sortkey)
+    xspinclk_list.sort(key=natural_sortkey)
+    xspidqs_list.sort(key=natural_sortkey)
     syswkup_list.sort(key=natural_sortkey)
     usb_list.sort(key=natural_sortkey)
     usb_otgfs_list.sort(key=natural_sortkey)
@@ -1701,7 +1729,10 @@ def clean_all_lists():
     del ospidata6_list[:]
     del ospidata7_list[:]
     del xspisclk_list[:]
-    del xspissel_list[:]
+    del xspincs1_list[:]
+    del xspincs2_list[:]
+    del xspinclk_list[:]
+    del xspidqs_list[:]
     del syswkup_list[:]
     del usb_list[:]
     del usb_otgfs_list[:]
@@ -1752,7 +1783,10 @@ def manage_alternate():
     update_alternate(ospidata6_list)
     update_alternate(ospidata7_list)
     update_alternate(xspisclk_list)
-    update_alternate(xspissel_list)
+    update_alternate(xspincs1_list)
+    update_alternate(xspincs2_list)
+    update_alternate(xspinclk_list)
+    update_alternate(xspidqs_list)
     update_alternate(syswkup_list)
     update_alternate(usb_list)
     update_alternate(usb_otgfs_list)

@@ -1,0 +1,32 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic H5E4AJIx
+GenH5.menu.pnum.GENERIC_H5E4AJIX=Generic H5E4AJIx
+GenH5.menu.pnum.GENERIC_H5E4AJIX.upload.maximum_size=4194304
+GenH5.menu.pnum.GENERIC_H5E4AJIX.upload.maximum_data_size=1572864
+GenH5.menu.pnum.GENERIC_H5E4AJIX.build.board=GENERIC_H5E4AJIX
+GenH5.menu.pnum.GENERIC_H5E4AJIX.build.product_line=STM32H5E4xx
+GenH5.menu.pnum.GENERIC_H5E4AJIX.build.variant=STM32H5xx/H5E4A(J-K)I_H5F4AJI
+GenH5.menu.pnum.GENERIC_H5E4AJIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H5E4.svd
+
+# Generic H5E4AKIx
+GenH5.menu.pnum.GENERIC_H5E4AKIX=Generic H5E4AKIx
+GenH5.menu.pnum.GENERIC_H5E4AKIX.upload.maximum_size=3145728
+GenH5.menu.pnum.GENERIC_H5E4AKIX.upload.maximum_data_size=1572864
+GenH5.menu.pnum.GENERIC_H5E4AKIX.build.board=GENERIC_H5E4AKIX
+GenH5.menu.pnum.GENERIC_H5E4AKIX.build.product_line=STM32H5E4xx
+GenH5.menu.pnum.GENERIC_H5E4AKIX.build.variant=STM32H5xx/H5E4A(J-K)I_H5F4AJI
+GenH5.menu.pnum.GENERIC_H5E4AKIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H5E4.svd
+
+# Generic H5F4AJIx
+GenH5.menu.pnum.GENERIC_H5F4AJIX=Generic H5F4AJIx
+GenH5.menu.pnum.GENERIC_H5F4AJIX.upload.maximum_size=4194304
+GenH5.menu.pnum.GENERIC_H5F4AJIX.upload.maximum_data_size=1572864
+GenH5.menu.pnum.GENERIC_H5F4AJIX.build.board=GENERIC_H5F4AJIX
+GenH5.menu.pnum.GENERIC_H5F4AJIX.build.product_line=STM32H5F4xx
+GenH5.menu.pnum.GENERIC_H5F4AJIX.build.variant=STM32H5xx/H5E4A(J-K)I_H5F4AJI
+GenH5.menu.pnum.GENERIC_H5F4AJIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H5F4.svd
+

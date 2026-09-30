@@ -307,9 +307,16 @@ WEAK const PinMap PinMap_OCTOSPI_SCLK[] = {
 #endif
 
 #ifdef HAL_OSPI_MODULE_ENABLED
-WEAK const PinMap PinMap_OCTOSPI_SSEL[] = {
+WEAK const PinMap PinMap_OCTOSPI_NCS1[] = {
   {PA_15, OCTOSPI1, STM_PIN_DATA(STM_MODE_AF_PP, LL_GPIO_PULL_UP, GPIO_AF9_OCTOSPI1)}, // OCTOSPI1_NCS
   {NC,    NP,       0}
+};
+#endif
+
+#ifdef HAL_OSPI_MODULE_ENABLED
+WEAK const PinMap PinMap_OCTOSPI_DQS[] = {
+  {PA_1, OCTOSPI1, STM_PIN_DATA(STM_MODE_AF_PP, LL_GPIO_PULL_UP, GPIO_AF6_OCTOSPI1)}, // OCTOSPI1_DQS
+  {NC,   NP,       0}
 };
 #endif
 

@@ -80,7 +80,8 @@ extern const PinMap PinMap_QUADSPI_DATA1[];
 extern const PinMap PinMap_QUADSPI_DATA2[];
 extern const PinMap PinMap_QUADSPI_DATA3[];
 extern const PinMap PinMap_QUADSPI_SCLK[];
-extern const PinMap PinMap_QUADSPI_SSEL[];
+extern const PinMap PinMap_QUADSPI_NCS1[];
+extern const PinMap PinMap_QUADSPI_NCS2[];
 
 //*** OCTOSPI ***
 extern const PinMap PinMap_OCTOSPI_DATA0[];
@@ -92,7 +93,25 @@ extern const PinMap PinMap_OCTOSPI_DATA5[];
 extern const PinMap PinMap_OCTOSPI_DATA6[];
 extern const PinMap PinMap_OCTOSPI_DATA7[];
 extern const PinMap PinMap_OCTOSPI_SCLK[];
-extern const PinMap PinMap_OCTOSPI_SSEL[];
+extern const PinMap PinMap_OCTOSPI_NCS1[];
+extern const PinMap PinMap_OCTOSPI_NCS2[];
+extern const PinMap PinMap_OCTOSPI_NCLK[];
+extern const PinMap PinMap_OCTOSPI_DQS[];
+
+//*** XSPI ***
+extern const PinMap PinMap_XSPI_DATA0[];
+extern const PinMap PinMap_XSPI_DATA1[];
+extern const PinMap PinMap_XSPI_DATA2[];
+extern const PinMap PinMap_XSPI_DATA3[];
+extern const PinMap PinMap_XSPI_DATA4[];
+extern const PinMap PinMap_XSPI_DATA5[];
+extern const PinMap PinMap_XSPI_DATA6[];
+extern const PinMap PinMap_XSPI_DATA7[];
+extern const PinMap PinMap_XSPI_SCLK[];
+extern const PinMap PinMap_XSPI_NCS1[];
+extern const PinMap PinMap_XSPI_NCS2[];
+extern const PinMap PinMap_XSPI_NCLK[];
+extern const PinMap PinMap_XSPI_DQS[];
 
 //*** USB ***
 extern const PinMap PinMap_USB[];

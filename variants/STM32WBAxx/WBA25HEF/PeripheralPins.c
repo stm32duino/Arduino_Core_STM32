@@ -151,7 +151,49 @@ WEAK const PinMap PinMap_SPI_SSEL[] = {
 
 //*** No ETHERNET ***
 
-//*** No QUADSPI ***
+//*** XSPI ***
+
+#ifdef HAL_XSPI_MODULE_ENABLED
+WEAK const PinMap PinMap_XSPI_DATA0[] = {
+  {PB_3, XSPI1, STM_PIN_DATA(STM_MODE_AF_PP, LL_GPIO_PULL_UP, GPIO_AF13_XSPI1)}, // XSPI1_IO0
+  {NC,   NP,    0}
+};
+#endif
+
+#ifdef HAL_XSPI_MODULE_ENABLED
+WEAK const PinMap PinMap_XSPI_DATA1[] = {
+  {PB_4, XSPI1, STM_PIN_DATA(STM_MODE_AF_PP, LL_GPIO_PULL_UP, GPIO_AF11_XSPI1)}, // XSPI1_IO1
+  {NC,   NP,    0}
+};
+#endif
+
+#ifdef HAL_XSPI_MODULE_ENABLED
+WEAK const PinMap PinMap_XSPI_DATA2[] = {
+  {PB_8, XSPI1, STM_PIN_DATA(STM_MODE_AF_PP, LL_GPIO_PULL_UP, GPIO_AF11_XSPI1)}, // XSPI1_IO2
+  {NC,   NP,    0}
+};
+#endif
+
+#ifdef HAL_XSPI_MODULE_ENABLED
+WEAK const PinMap PinMap_XSPI_DATA3[] = {
+  {PB_9, XSPI1, STM_PIN_DATA(STM_MODE_AF_PP, LL_GPIO_PULL_UP, GPIO_AF11_XSPI1)}, // XSPI1_IO3
+  {NC,   NP,    0}
+};
+#endif
+
+#ifdef HAL_XSPI_MODULE_ENABLED
+WEAK const PinMap PinMap_XSPI_SCLK[] = {
+  {PA_15, XSPI1, STM_PIN_DATA(STM_MODE_AF_PP, LL_GPIO_PULL_UP, GPIO_AF13_XSPI1)}, // XSPI1_CLK
+  {NC,    NP,    0}
+};
+#endif
+
+#ifdef HAL_XSPI_MODULE_ENABLED
+WEAK const PinMap PinMap_XSPI_NCS1[] = {
+  {PA_12, XSPI1, STM_PIN_DATA(STM_MODE_AF_PP, LL_GPIO_PULL_UP, GPIO_AF14_XSPI1)}, // XSPI1_NCS
+  {NC,    NP,    0}
+};
+#endif
 
 //*** USB ***
 

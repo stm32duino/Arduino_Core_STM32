@@ -71,7 +71,7 @@ WEAK const PinMap PinMap_{{periph.aname}}[] = {
   {{"{"}}{{"%s %s"|format("{},".format(pm.pin).ljust(periph.wpin), "{},".format(pm.inst).ljust(periph.winst))}} STM_PIN_DATA({{pm.mode}}, {{pm.pull}}, {{pm.af}}){{"}"}},{{" // {}".format(pm.cmt) if pm.cmt}}
           {% endif %}
           {% if loop.last %}
-          {% if pm.hsinfs and pm.hsinfs == 3 %}
+          {% if periph.hsinfs %}
 #endif /* USE_USB_HS_IN_FS */
           {% endif %}
   {{"{"}}{{"%s %s"|format("{},".format("NC").ljust(periph.wpin), "{},".format("NP").ljust(periph.winst))}} 0{{"}"}}
