@@ -75903,6 +75903,243 @@ target_compile_options(GENERIC_H573ZITX_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
+# GENERIC_H5E5ZJTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_H5E5ZJTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32H5xx/H5E5Z(J-K)T_H5F5ZJT")
+set(GENERIC_H5E5ZJTX_MAXSIZE 4194304)
+set(GENERIC_H5E5ZJTX_MAXDATASIZE 1572864)
+set(GENERIC_H5E5ZJTX_MCU cortex-m33)
+set(GENERIC_H5E5ZJTX_FPCONF "-")
+add_library(GENERIC_H5E5ZJTX INTERFACE)
+target_compile_options(GENERIC_H5E5ZJTX INTERFACE
+  "SHELL:-DUSE_HAL_DRIVER -DUSE_FULL_LL_DRIVER"
+  "SHELL:-DSTM32H5E5xx"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_H5E5ZJTX_MCU}
+)
+target_compile_definitions(GENERIC_H5E5ZJTX INTERFACE
+  "STM32H5xx"
+	"ARDUINO_GENERIC_H5E5ZJTX"
+	"BOARD_NAME=\"GENERIC_H5E5ZJTX\""
+	"BOARD_ID=GENERIC_H5E5ZJTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_H5E5ZJTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32H5xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H5xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H5xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Source/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Source/Templates/gcc/
+  ${GENERIC_H5E5ZJTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_H5E5ZJTX INTERFACE
+  "LINKER:--default-script=${GENERIC_H5E5ZJTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+  "LINKER:--defsym=LD_MAX_SIZE=4194304"
+  "LINKER:--defsym=LD_MAX_DATA_SIZE=1572864"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_H5E5ZJTX_MCU}
+)
+
+add_library(GENERIC_H5E5ZJTX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_H5E5ZJTX_serial_disabled INTERFACE
+)
+add_library(GENERIC_H5E5ZJTX_serial_generic INTERFACE)
+target_compile_options(GENERIC_H5E5ZJTX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_H5E5ZJTX_serial_none INTERFACE)
+target_compile_options(GENERIC_H5E5ZJTX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_H5E5ZJTX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_H5E5ZJTX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_H5E5ZJTX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_H5E5ZJTX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_H5E5ZJTX_usb_HID INTERFACE)
+target_compile_options(GENERIC_H5E5ZJTX_usb_HID INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_H5E5ZJTX_usb_none INTERFACE)
+target_compile_options(GENERIC_H5E5ZJTX_usb_none INTERFACE
+)
+add_library(GENERIC_H5E5ZJTX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_H5E5ZJTX_xusb_FS INTERFACE
+)
+add_library(GENERIC_H5E5ZJTX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_H5E5ZJTX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_H5E5ZJTX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_H5E5ZJTX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_H5E5ZKTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_H5E5ZKTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32H5xx/H5E5Z(J-K)T_H5F5ZJT")
+set(GENERIC_H5E5ZKTX_MAXSIZE 3145728)
+set(GENERIC_H5E5ZKTX_MAXDATASIZE 1572864)
+set(GENERIC_H5E5ZKTX_MCU cortex-m33)
+set(GENERIC_H5E5ZKTX_FPCONF "-")
+add_library(GENERIC_H5E5ZKTX INTERFACE)
+target_compile_options(GENERIC_H5E5ZKTX INTERFACE
+  "SHELL:-DUSE_HAL_DRIVER -DUSE_FULL_LL_DRIVER"
+  "SHELL:-DSTM32H5E5xx"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_H5E5ZKTX_MCU}
+)
+target_compile_definitions(GENERIC_H5E5ZKTX INTERFACE
+  "STM32H5xx"
+	"ARDUINO_GENERIC_H5E5ZKTX"
+	"BOARD_NAME=\"GENERIC_H5E5ZKTX\""
+	"BOARD_ID=GENERIC_H5E5ZKTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_H5E5ZKTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32H5xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H5xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H5xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Source/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Source/Templates/gcc/
+  ${GENERIC_H5E5ZKTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_H5E5ZKTX INTERFACE
+  "LINKER:--default-script=${GENERIC_H5E5ZKTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+  "LINKER:--defsym=LD_MAX_SIZE=3145728"
+  "LINKER:--defsym=LD_MAX_DATA_SIZE=1572864"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_H5E5ZKTX_MCU}
+)
+
+add_library(GENERIC_H5E5ZKTX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_H5E5ZKTX_serial_disabled INTERFACE
+)
+add_library(GENERIC_H5E5ZKTX_serial_generic INTERFACE)
+target_compile_options(GENERIC_H5E5ZKTX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_H5E5ZKTX_serial_none INTERFACE)
+target_compile_options(GENERIC_H5E5ZKTX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_H5E5ZKTX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_H5E5ZKTX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_H5E5ZKTX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_H5E5ZKTX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_H5E5ZKTX_usb_HID INTERFACE)
+target_compile_options(GENERIC_H5E5ZKTX_usb_HID INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_H5E5ZKTX_usb_none INTERFACE)
+target_compile_options(GENERIC_H5E5ZKTX_usb_none INTERFACE
+)
+add_library(GENERIC_H5E5ZKTX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_H5E5ZKTX_xusb_FS INTERFACE
+)
+add_library(GENERIC_H5E5ZKTX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_H5E5ZKTX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_H5E5ZKTX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_H5E5ZKTX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_H5F5ZJTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_H5F5ZJTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32H5xx/H5E5Z(J-K)T_H5F5ZJT")
+set(GENERIC_H5F5ZJTX_MAXSIZE 4194304)
+set(GENERIC_H5F5ZJTX_MAXDATASIZE 1572864)
+set(GENERIC_H5F5ZJTX_MCU cortex-m33)
+set(GENERIC_H5F5ZJTX_FPCONF "-")
+add_library(GENERIC_H5F5ZJTX INTERFACE)
+target_compile_options(GENERIC_H5F5ZJTX INTERFACE
+  "SHELL:-DUSE_HAL_DRIVER -DUSE_FULL_LL_DRIVER"
+  "SHELL:-DSTM32H5F5xx"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_H5F5ZJTX_MCU}
+)
+target_compile_definitions(GENERIC_H5F5ZJTX INTERFACE
+  "STM32H5xx"
+	"ARDUINO_GENERIC_H5F5ZJTX"
+	"BOARD_NAME=\"GENERIC_H5F5ZJTX\""
+	"BOARD_ID=GENERIC_H5F5ZJTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_H5F5ZJTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32H5xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H5xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H5xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Source/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Source/Templates/gcc/
+  ${GENERIC_H5F5ZJTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_H5F5ZJTX INTERFACE
+  "LINKER:--default-script=${GENERIC_H5F5ZJTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+  "LINKER:--defsym=LD_MAX_SIZE=4194304"
+  "LINKER:--defsym=LD_MAX_DATA_SIZE=1572864"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_H5F5ZJTX_MCU}
+)
+
+add_library(GENERIC_H5F5ZJTX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_H5F5ZJTX_serial_disabled INTERFACE
+)
+add_library(GENERIC_H5F5ZJTX_serial_generic INTERFACE)
+target_compile_options(GENERIC_H5F5ZJTX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_H5F5ZJTX_serial_none INTERFACE)
+target_compile_options(GENERIC_H5F5ZJTX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_H5F5ZJTX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_H5F5ZJTX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_H5F5ZJTX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_H5F5ZJTX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_H5F5ZJTX_usb_HID INTERFACE)
+target_compile_options(GENERIC_H5F5ZJTX_usb_HID INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_H5F5ZJTX_usb_none INTERFACE)
+target_compile_options(GENERIC_H5F5ZJTX_usb_none INTERFACE
+)
+add_library(GENERIC_H5F5ZJTX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_H5F5ZJTX_xusb_FS INTERFACE
+)
+add_library(GENERIC_H5F5ZJTX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_H5F5ZJTX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_H5F5ZJTX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_H5F5ZJTX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
 # GENERIC_H723VEHX
 # -----------------------------------------------------------------------------
 
@@ -109597,6 +109834,86 @@ target_compile_options(NUCLEO_H563ZI_xusb_HS INTERFACE
 )
 add_library(NUCLEO_H563ZI_xusb_HSFS INTERFACE)
 target_compile_options(NUCLEO_H563ZI_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# NUCLEO_H5E5ZJ
+# -----------------------------------------------------------------------------
+
+set(NUCLEO_H5E5ZJ_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32H5xx/H5E5Z(J-K)T_H5F5ZJT")
+set(NUCLEO_H5E5ZJ_MAXSIZE 4194304)
+set(NUCLEO_H5E5ZJ_MAXDATASIZE 1572864)
+set(NUCLEO_H5E5ZJ_MCU cortex-m33)
+set(NUCLEO_H5E5ZJ_FPCONF "fpv5-sp-d16-hard")
+add_library(NUCLEO_H5E5ZJ INTERFACE)
+target_compile_options(NUCLEO_H5E5ZJ INTERFACE
+  "SHELL:-DUSE_HAL_DRIVER -DUSE_FULL_LL_DRIVER"
+  "SHELL:-DSTM32H5E5xx"
+  "SHELL:-DCUSTOM_PERIPHERAL_PINS"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${NUCLEO_H5E5ZJ_MCU}
+)
+target_compile_definitions(NUCLEO_H5E5ZJ INTERFACE
+  "STM32H5xx"
+	"ARDUINO_NUCLEO_H5E5ZJ"
+	"BOARD_NAME=\"NUCLEO_H5E5ZJ\""
+	"BOARD_ID=NUCLEO_H5E5ZJ"
+	"VARIANT_H=\"variant_NUCLEO_H5E5ZJ.h\""
+)
+target_include_directories(NUCLEO_H5E5ZJ INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32H5xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H5xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H5xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Source/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Source/Templates/gcc/
+  ${NUCLEO_H5E5ZJ_VARIANT_PATH}
+)
+
+target_link_options(NUCLEO_H5E5ZJ INTERFACE
+  "LINKER:--default-script=${NUCLEO_H5E5ZJ_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+  "LINKER:--defsym=LD_MAX_SIZE=4194304"
+  "LINKER:--defsym=LD_MAX_DATA_SIZE=1572864"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${NUCLEO_H5E5ZJ_MCU}
+)
+
+add_library(NUCLEO_H5E5ZJ_serial_disabled INTERFACE)
+target_compile_options(NUCLEO_H5E5ZJ_serial_disabled INTERFACE
+)
+add_library(NUCLEO_H5E5ZJ_serial_generic INTERFACE)
+target_compile_options(NUCLEO_H5E5ZJ_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(NUCLEO_H5E5ZJ_serial_none INTERFACE)
+target_compile_options(NUCLEO_H5E5ZJ_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(NUCLEO_H5E5ZJ_usb_CDC INTERFACE)
+target_compile_options(NUCLEO_H5E5ZJ_usb_CDC INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(NUCLEO_H5E5ZJ_usb_CDCgen INTERFACE)
+target_compile_options(NUCLEO_H5E5ZJ_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(NUCLEO_H5E5ZJ_usb_HID INTERFACE)
+target_compile_options(NUCLEO_H5E5ZJ_usb_HID INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(NUCLEO_H5E5ZJ_usb_none INTERFACE)
+target_compile_options(NUCLEO_H5E5ZJ_usb_none INTERFACE
+)
+add_library(NUCLEO_H5E5ZJ_xusb_FS INTERFACE)
+target_compile_options(NUCLEO_H5E5ZJ_xusb_FS INTERFACE
+)
+add_library(NUCLEO_H5E5ZJ_xusb_HS INTERFACE)
+target_compile_options(NUCLEO_H5E5ZJ_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(NUCLEO_H5E5ZJ_xusb_HSFS INTERFACE)
+target_compile_options(NUCLEO_H5E5ZJ_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
