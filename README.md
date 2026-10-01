@@ -1,6 +1,6 @@
 # Arduino core support for STM32 based boards
 [![forums](https://img.shields.io/badge/join-the%20forums-blue.svg)](https://www.stm32duino.com/)
-[![wiki](https://img.shields.io/badge/browse-the%20wiki-orange.svg)](https://github.com/stm32duino/Arduino_Core_STM32/wiki)
+[![docs](https://img.shields.io/badge/browse-the%20docs-orange.svg)](https://stm32duino.github.io/latest/)
 [![STM32 Core Continuous Integration](https://github.com/stm32duino/Arduino_Core_STM32/actions/workflows/Arduino-build.yml/badge.svg?branch=main)](https://github.com/stm32duino/Arduino_Core_STM32/actions/workflows/Arduino-build.yml )
 [![Arduino lint status](https://github.com/stm32duino/Arduino_Core_STM32/actions/workflows/arduino-lint.yml/badge.svg)](https://github.com/stm32duino/Arduino_Core_STM32/actions/workflows/arduino-lint.yml)
 [![codespell](https://github.com/stm32duino/Arduino_Core_STM32/actions/workflows/CodeSpell.yml/badge.svg)](https://github.com/stm32duino/Arduino_Core_STM32/actions/workflows/CodeSpell.yml)
@@ -16,7 +16,7 @@
 * [Getting Started](https://github.com/stm32duino/Arduino_Core_STM32#getting-started)<br>
 * [Supported boards](https://github.com/stm32duino/Arduino_Core_STM32#supported-boards)<br>
 * [Troubleshooting](https://github.com/stm32duino/Arduino_Core_STM32#troubleshooting)<br>
-* [Wiki](https://github.com/stm32duino/Arduino_Core_STM32/wiki/)
+* [Documentation](https://stm32duino.github.io/latest/)
 
 ## Introduction
 
@@ -43,11 +43,11 @@ https://github.com/stm32duino/BoardManagerFiles/raw/main/package_stmicroelectron
 > [!WARNING]
 > Since core release 2.8.0, only Arduino IDE 2 is supported.
 
-For full instructions on using the "**Boards Manager**", see the [Getting Started](https://github.com/stm32duino/Arduino_Core_STM32/wiki/Getting-Started) page.
+For full instructions on using the "**Boards Manager**", see [Getting Started](https://stm32duino.github.io/latest/Getting-Started/).
 
-Advanced user can use the repository to benefit from the latest development. See the [Using git repository](https://github.com/stm32duino/Arduino_Core_STM32/wiki/Using-git-repository) page.
+Advanced users can use the repository to benefit from the latest development. See [Using git repository](https://stm32duino.github.io/latest/development/Using-git-repository/).
 
-User can add a STM32 based board following this [wiki](https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-(board)).
+Users can add an STM32-based board by following [Add a board variant](https://stm32duino.github.io/latest/development/Add-a-new-variant-%28board%29/).
 
 ## Supported boards
 
