@@ -1,0 +1,31 @@
+name: Documentation build
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+    paths:
+      - docs/**
+      - boards.txt
+      - mkdocs.yml
+      - requirements-docs.txt
+      - .github/workflows/docs-check.yml
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - run: python -m pip install -r requirements-docs.txt
+      - run: mkdocs build --strict
+      - name: Check generated supported boards page is committed
+        run: git diff --exit-code -- docs/supported-boards/index.md || { echo "::error::Run 'python docs/hooks/supported_boards.py' and commit docs/supported-boards/index.md"; exit 1; }

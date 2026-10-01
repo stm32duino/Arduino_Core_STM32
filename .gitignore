@@ -1,5 +1,6 @@
 # Specific
 build/
+site/
 astyle.out
 boards.local.txt
 platform.local.txt

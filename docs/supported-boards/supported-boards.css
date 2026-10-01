@@ -1,0 +1,19 @@
+.supported-boards-search-label {
+  display: block;
+  font-weight: 700;
+  margin-top: 1.5rem;
+}
+
+.supported-boards-search {
+  box-sizing: border-box;
+  display: block;
+  margin: 0.5rem 0 1.5rem;
+  max-width: 42rem;
+  padding: 0.6rem 0.75rem;
+  width: 100%;
+}
+
+.supported-boards-count {
+  display: block;
+  margin: -1rem 0 1.5rem;
+}
