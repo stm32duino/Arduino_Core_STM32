@@ -59,6 +59,9 @@ uint8_t  CDC_getStopBits(void);
 uint8_t  CDC_getParity(void);
 uint8_t  CDC_getDataBits(void);
 
+/* Optional board hook invoked after the host changes the CDC line coding. */
+void CDC_LineCodingChanged(uint32_t bitrate);
+
 #ifdef __cplusplus
 }
 #endif
