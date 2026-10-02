@@ -1,0 +1,78 @@
+site_name: STM32duino
+site_description: Documentation for the STM32 Arduino core
+site_url: https://stm32duino.github.io/
+repo_name: stm32duino/Arduino_Core_STM32
+repo_url: https://github.com/stm32duino/Arduino_Core_STM32
+edit_uri: edit/main/docs/
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Getting Started: Getting-Started.md
+    - Getting Started (Legacy): Getting-Started_V1.md
+    - Upload Methods: Upload-methods.md
+    - Examples:
+      - Overview: examples/Examples.md
+      - Blink: examples/Blink-example.md
+    - FAQ: FAQ.md
+  - Core Reference:
+    - Arduino API: API.md
+    - Hardware Timer: HardwareTimer-library.md
+    - Pin Naming: Pin-naming.md
+    - STM32MP1: STM32MP1.md
+  - Libraries:
+    - Overview: Libraries.md
+    - Built-in:
+      - Servo: libraries/built-in/Servo-library.md
+    - Dedicated:
+      - HTS221: libraries/dedicated/HTS221.md
+      - LPS22HB: libraries/dedicated/LPS22HB.md
+      - LIS3MDL: libraries/dedicated/LIS3MDL.md
+      - LSM6DSL: libraries/dedicated/LSM6DSL.md
+      - M24SR64-Y: libraries/dedicated/M24SR64-Y.md
+      - MX25R6435F: libraries/dedicated/MX25R6435F.md
+      - SPBTLE-RF: libraries/dedicated/SPBTLE-RF.md
+      - STM32Ethernet: libraries/dedicated/STM32Ethernet.md
+      - VL53L0X: libraries/dedicated/VL53L0X.md
+    - Connectivity:
+      - LoRa: LoRa.md
+      - STM32duinoBLE: STM32duinoBLE.md
+    - Hosted library documentation:
+      - Library documentation index: libraries/Hosted-library-documentation.md
+      - STM32LoRaWAN: https://stm32duino.github.io/STM32LoRaWAN/latest/
+  - Development:
+    - Documentation Workflow: development/Documentation-workflow.md
+    - Add a Board Variant: development/Add-a-new-variant-(board).md
+    - How to Debug: development/How-to-debug.md
+    - Using the Git Repository: development/Using-git-repository.md
+    - Source Locations: development/Where-are-sources.md
+    - Code Style: Astyle.md
+    - CMake:
+      - Introduction: cmake/Introduction-to-CMake.md
+      - Setup: cmake/Setup.md
+      - Quickstart: cmake/Quickstart-guide.md
+      - Advanced Usage: cmake/Advanced-usage.md
+      - Functions Reference: cmake/Functions-reference.md
+      - CMake Presentation: cmake/CMake-presentation.md
+      - Arduino Compatibility: cmake/Arduino-(in)compatibility.md
+      - CubeIDE: cmake/cubeIDE.md
+    - Customization:
+      - Custom Definitions: customization/Custom-definitions.md
+      - Custom Boards: customization/Custom-board-based-on-a-core.md
+      - Build Options: customization/Customize-build-options-using-build_opt.h.md
+      - HAL Configuration: customization/HAL-configuration.md
+    - IDE:
+      - PlatformIO: ide/PlatformIO.md
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - content.code.copy
+
+plugins:
+  - search
+
+extra:
+  version:
+    provider: mike
