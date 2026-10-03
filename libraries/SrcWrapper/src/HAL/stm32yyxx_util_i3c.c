@@ -4,6 +4,8 @@
 
 #ifdef STM32H5xx
   #include "stm32h5xx_util_i3c.c"
+#elif STM32H7RSxx
+  #include "stm32h7rsxx_util_i3c.c"
 #elif STM32U3xx
   #include "stm32u3xx_util_i3c.c"
 #endif

@@ -69,6 +69,18 @@ typedef enum {
 #if defined GPIOK_BASE
   PortK,
 #endif
+#if defined GPIOM_BASE
+  PortM,
+#endif
+#if defined GPION_BASE
+  PortN,
+#endif
+#if defined GPIOO_BASE
+  PortO,
+#endif
+#if defined GPIOP_BASE
+  PortP,
+#endif
 #if defined GPIOZ_BASE
   PortZ,
 #endif

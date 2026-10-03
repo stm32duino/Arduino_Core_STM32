@@ -1,0 +1,41 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic H7R3L8HxH
+GenH7RS.menu.pnum.GENERIC_H7R3L8HXH=Generic H7R3L8HxH
+GenH7RS.menu.pnum.GENERIC_H7R3L8HXH.upload.maximum_size=65536
+GenH7RS.menu.pnum.GENERIC_H7R3L8HXH.upload.maximum_data_size=634880
+GenH7RS.menu.pnum.GENERIC_H7R3L8HXH.build.board=GENERIC_H7R3L8HXH
+GenH7RS.menu.pnum.GENERIC_H7R3L8HXH.build.product_line=STM32H7R7xx
+GenH7RS.menu.pnum.GENERIC_H7R3L8HXH.build.variant=STM32H7RSxx/H7R3L8HxH_H7R7L8HxH_H7S3L8HxH_H7S7L8HxH
+GenH7RS.menu.pnum.GENERIC_H7R3L8HXH.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7RSxx/STM32H7R.svd
+
+# Generic H7R7L8HxH
+GenH7RS.menu.pnum.GENERIC_H7R7L8HXH=Generic H7R7L8HxH
+GenH7RS.menu.pnum.GENERIC_H7R7L8HXH.upload.maximum_size=65536
+GenH7RS.menu.pnum.GENERIC_H7R7L8HXH.upload.maximum_data_size=634880
+GenH7RS.menu.pnum.GENERIC_H7R7L8HXH.build.board=GENERIC_H7R7L8HXH
+GenH7RS.menu.pnum.GENERIC_H7R7L8HXH.build.product_line=STM32H7S3xx
+GenH7RS.menu.pnum.GENERIC_H7R7L8HXH.build.variant=STM32H7RSxx/H7R3L8HxH_H7R7L8HxH_H7S3L8HxH_H7S7L8HxH
+GenH7RS.menu.pnum.GENERIC_H7R7L8HXH.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7RSxx/STM32H7R.svd
+
+# Generic H7S3L8HxH
+GenH7RS.menu.pnum.GENERIC_H7S3L8HXH=Generic H7S3L8HxH
+GenH7RS.menu.pnum.GENERIC_H7S3L8HXH.upload.maximum_size=65536
+GenH7RS.menu.pnum.GENERIC_H7S3L8HXH.upload.maximum_data_size=634880
+GenH7RS.menu.pnum.GENERIC_H7S3L8HXH.build.board=GENERIC_H7S3L8HXH
+GenH7RS.menu.pnum.GENERIC_H7S3L8HXH.build.product_line=STM32H7S7xx
+GenH7RS.menu.pnum.GENERIC_H7S3L8HXH.build.variant=STM32H7RSxx/H7R3L8HxH_H7R7L8HxH_H7S3L8HxH_H7S7L8HxH
+GenH7RS.menu.pnum.GENERIC_H7S3L8HXH.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7RSxx/STM32H7S.svd
+
+# Generic H7S7L8HxH
+GenH7RS.menu.pnum.GENERIC_H7S7L8HXH=Generic H7S7L8HxH
+GenH7RS.menu.pnum.GENERIC_H7S7L8HXH.upload.maximum_size=65536
+GenH7RS.menu.pnum.GENERIC_H7S7L8HXH.upload.maximum_data_size=634880
+GenH7RS.menu.pnum.GENERIC_H7S7L8HXH.build.board=GENERIC_H7S7L8HXH
+GenH7RS.menu.pnum.GENERIC_H7S7L8HXH.build.product_line=
+GenH7RS.menu.pnum.GENERIC_H7S7L8HXH.build.variant=STM32H7RSxx/H7R3L8HxH_H7R7L8HxH_H7S3L8HxH_H7S7L8HxH
+GenH7RS.menu.pnum.GENERIC_H7S7L8HXH.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7RSxx/STM32H7S.svd
+
