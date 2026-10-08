@@ -23,7 +23,7 @@ But check the following boxes before posting an issue:
 |[STM32 Examples](https://github.com/stm32duino/STM32Examples) | Arduino library to provide examples related to STM32 |
 |[Board Manager Files](https://github.com/stm32duino/BoardManagerFiles) | Storage for Arduino Boards Manager JSON file |
 |[CMSIS module](https://github.com/stm32duino/ArduinoModule-CMSIS) | Mainly storage |
-|[GNU Arm Embedded Toolchain binaries](https://github.com/stm32duino/arm-none-eabi-gcc) | Mainly storage |
+|[SVD Files](https://github.com/stm32duino/stm32_svd) | Mainly storage |
 |[STM32 Libraries for Arduino IDE](https://github.com/stm32duino) | Search on the STM32duino GitHub repository |
 
 ### 2. Posting the issue
