@@ -1,0 +1,123 @@
+site_name: STM32duino
+site_description: Documentation for the STM32duino Arduino core and ecosystem
+site_url: https://stm32duino.github.io/
+repo_name: stm32duino/Arduino_Core_STM32
+repo_url: https://github.com/stm32duino/Arduino_Core_STM32
+edit_uri: edit/main/docs/
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Arduino IDE 2: Getting-Started.md
+    - Legacy IDE 1.8.x: Getting-Started_V1.md
+    - Upload Methods: Upload-methods.md
+    - Examples:
+      - Overview: examples/Examples.md
+      - Blink: examples/Blink-example.md
+    - FAQ: FAQ.md
+  - Supported Boards: supported-boards/index.md
+  - Core Reference:
+    - Arduino API: API.md
+    - Hardware Timer: HardwareTimer-library.md
+    - Pin Naming: Pin-naming.md
+    - STM32MP1: STM32MP1.md
+  - Libraries:
+    - Overview: libraries/index.md
+    - Built-in:
+      - Servo: libraries/built-in/Servo-library.md
+    - Dedicated:
+      - HTS221: libraries/dedicated/HTS221.md
+      - LPS22HB: libraries/dedicated/LPS22HB.md
+      - LIS3MDL: libraries/dedicated/LIS3MDL.md
+      - LSM6DSL: libraries/dedicated/LSM6DSL.md
+      - M24SR64-Y: libraries/dedicated/M24SR64-Y.md
+      - MX25R6435F: libraries/dedicated/MX25R6435F.md
+      - SPBTLE-RF: libraries/dedicated/SPBTLE-RF.md
+      - STM32Ethernet: libraries/dedicated/STM32Ethernet.md
+      - VL53L0X: libraries/dedicated/VL53L0X.md
+    - Connectivity:
+      - LoRa: libraries/LoRa.md
+      - STM32duinoBLE: libraries/STM32duinoBLE.md
+    - Hosted library documentation:
+      - Library documentation index: libraries/Hosted-library-documentation.md
+      - STM32LoRaWAN: https://stm32duino.github.io/STM32LoRaWAN/latest/
+  - Development:
+    - Contributing: development/Contributing.md
+    - Using the Git Repository: development/Using-git-repository.md
+    - Source Locations: development/Where-are-sources.md
+    - Code Style: development/Astyle.md
+    - Add a Board Variant:
+      - Overview: development/Add-a-new-variant/overview.md
+      - Generic Variant: development/Add-a-new-variant/generic-variant.md
+      - Dedicated Board: development/Add-a-new-variant/dedicated-board.md
+    - CMake:
+      - Introduction: cmake/Introduction-to-CMake.md
+      - Setup: cmake/Setup.md
+      - Quickstart: cmake/Quickstart-guide.md
+      - Advanced Usage: cmake/Advanced-usage.md
+      - Functions Reference: cmake/Functions-reference.md
+      - CMake Presentation: cmake/CMake-presentation.md
+      - Arduino Compatibility: cmake/Arduino-(in)compatibility.md
+      - CubeIDE: cmake/cubeIDE.md
+    - Customization:
+      - Custom Definitions: customization/Custom-definitions.md
+      - Custom Boards: customization/Custom-board-based-on-a-core.md
+      - Build Options: customization/Customize-build-options-using-build_opt.h.md
+      - HAL Configuration: customization/HAL-configuration.md
+    - IDE:
+      - Overview: development/ide/overview.md
+      - PlatformIO: development/ide/PlatformIO.md
+    - How to Debug:
+      - Arduino IDE 2: development/debug/How-to-debug.md
+      - Eclipse and Sloeber: development/debug/eclipse-sloeber.md
+      - PlatformIO: development/debug/platformio.md
+      - Visual Studio and VisualGDB: development/debug/visualgdb.md
+      - STM32CubeCLT and cortex-debug: development/debug/cubeclt-cortex-debug.md
+      - Command Line GDB: development/debug/command-line-gdb.md
+      - Troubleshooting: development/debug/troubleshooting.md
+    - Documentation Workflow: development/Documentation-workflow.md
+
+markdown_extensions:
+  - toc
+  - admonition
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.magiclink
+  - pymdownx.superfences
+
+extra_css:
+  - inline-code.css
+  - supported-boards/supported-boards.css
+
+extra_javascript:
+  - supported-boards/supported-boards.js
+
+theme:
+  name: material
+  logo: img/stm32duino.png
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - content.code.copy
+
+plugins:
+  - search
+  - gh-admonitions
+
+hooks:
+  - docs/hooks/supported_boards.py
+
+extra:
+  version:
+    provider: mike

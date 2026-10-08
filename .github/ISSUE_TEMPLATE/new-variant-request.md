@@ -15,7 +15,7 @@ assignees: ''
    * Where this hardware can be purchased
   * ...
 
-**Note that user can add a STM32 based board following this [wiki](https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-(board))**
+**Note that users can add an STM32-based board by following this [variant development guide](https://stm32duino.github.io/development/Add-a-new-variant/)**
 
 Any contribution is welcome, so do not hesitate to submit a PR.
 
