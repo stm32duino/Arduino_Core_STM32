@@ -108,7 +108,7 @@ void enableClock(sourceClock_t source)
 #else
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
 #if defined(RCC_PLL_NONE)
-#if defined(STM32WBAxx)
+#if defined(STM32H7RSxx) || defined(STM32WBAxx)
   RCC_OscInitStruct.PLL1.PLLState = RCC_PLL_NONE;
 #else
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;

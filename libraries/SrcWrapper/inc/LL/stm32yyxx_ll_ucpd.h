@@ -14,6 +14,8 @@
   #include "stm32g4xx_ll_ucpd.h"
 #elif STM32H5xx
   #include "stm32h5xx_ll_ucpd.h"
+#elif STM32H7RSxx
+  #include "stm32h7rsxx_ll_ucpd.h"
 #elif STM32L5xx
   #include "stm32l5xx_ll_ucpd.h"
 #elif STM32U5xx
