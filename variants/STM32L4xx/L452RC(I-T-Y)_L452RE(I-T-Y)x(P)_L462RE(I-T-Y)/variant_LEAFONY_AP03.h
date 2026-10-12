@@ -19,7 +19,7 @@
 #define PA2                     1
 #define PC7                     2
 #define PB3                     3
-#define PB5                     1
+#define PB5                     4
 #define PB4                     5
 #define PA8                     6
 #define PB12                    7
