@@ -28,10 +28,15 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: "3.x"
       - run: python -m pip install -r requirements-docs.txt
+      - name: Configure Git author
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - uses: actions/create-github-app-token@v1
         id: pages-token
         with:
@@ -50,7 +55,8 @@ jobs:
           if git ls-remote --exit-code --heads pages gh-pages >/dev/null; then
             mike deploy --remote pages --branch gh-pages --push dev
           else
-            mike deploy --remote pages --branch gh-pages --default dev --push dev
+            mike deploy --remote pages --branch gh-pages --push dev
+            mike set-default --remote pages --branch gh-pages --push dev
           fi
       - name: Publish release documentation
         if: startsWith(github.ref, 'refs/tags/')
