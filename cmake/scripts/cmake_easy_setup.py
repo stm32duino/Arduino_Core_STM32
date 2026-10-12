@@ -207,7 +207,7 @@ print(
 Unless you are building a very simple sketch with no library (e.g., Blink),
 you are advised to edit this file to fill in any missing dependency relationship.
 For details, please refer to
-https://github.com/stm32duino/Arduino_Core_STM32/wiki/Arduino-%28in%29compatibility#library-management
+https://stm32duino.github.io/cmake/Arduino-%28in%29compatibility/#library-management
     """
 )
 
