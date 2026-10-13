@@ -97,6 +97,7 @@ extra_javascript:
 theme:
   name: material
   logo: img/stm32duino.png
+  favicon: img/stm32duino.png
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
