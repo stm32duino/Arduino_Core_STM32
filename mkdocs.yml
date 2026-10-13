@@ -26,7 +26,6 @@ nav:
     - Built-in:
       - Servo: libraries/built-in/Servo-library.md
     - Dedicated:
-      - HTS221: libraries/dedicated/HTS221.md
       - LPS22HB: libraries/dedicated/LPS22HB.md
       - LIS3MDL: libraries/dedicated/LIS3MDL.md
       - LSM6DSL: libraries/dedicated/LSM6DSL.md
@@ -41,6 +40,7 @@ nav:
     - Hosted library documentation:
       - Library documentation index: libraries/Hosted-library-documentation.md
       - STM32LoRaWAN: https://stm32duino.github.io/STM32LoRaWAN/
+      - HTS221: https://stm32duino.github.io/HTS221/
   - Development:
     - Contributing: development/Contributing.md
     - Using the Git Repository: development/Using-git-repository.md
