@@ -60,6 +60,8 @@ __IO bool rtsState = false;
 __IO bool receivePended = true;
 static uint32_t transmitStart = 0;
 
+extern void cdc_1200bps_touchHook(void);
+
 #ifdef DTR_TOGGLING_SEQ
   /* DTR toggling sequence management */
   extern void dtr_togglingHook(uint8_t *buf, uint32_t *len);
@@ -195,6 +197,11 @@ static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
         transmitStart = 0;
       }
       rtsState = (((USBD_SetupReqTypedef *)pbuf)->wValue & CLS_RTS);
+      /* Host closing the port at 1200 bps is the Arduino convention for
+         requesting a reboot into the bootloader. */
+      if (!dtrState && linecoding.bitrate == 1200) {
+        cdc_1200bps_touchHook();
+      }
 #ifdef DTR_TOGGLING_SEQ
       dtr_toggling++; /* Count DTR toggling */
 #endif

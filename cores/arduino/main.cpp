@@ -19,11 +19,16 @@
 
 #define ARDUINO_MAIN
 #include "Arduino.h"
+#include "bootloader.h"
 
 // Force init to be called *first*, i.e. before static object allocation.
 // Otherwise, statically allocated objects that need HAL may fail.
 __attribute__((constructor(101))) void premain()
 {
+#if defined(BL_SYSTEM)
+  /* Before any clock or cache setup below, so the ROM gets a quiet part. */
+  jumpToSystemBootloaderIfRequested();
+#endif
 
   // Required by FreeRTOS, see http://www.freertos.org/RTOS-Cortex-M3-M4.html
 #ifdef NVIC_PRIORITYGROUP_4
