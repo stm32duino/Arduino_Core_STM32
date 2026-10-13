@@ -57,8 +57,7 @@ Some libraries have been developed to support specific features (hardware or not
   * [FatFS](https://github.com/stm32duino/FatFs): FatFs is a generic FAT file system module for small embedded systems. The FatFs is written in compliance with ANSI C and completely separated from the disk I/O layer. Therefore it is independent of hardware architecture
 
 
-* [HTS221](https://github.com/stm32duino/HTS221): to support the HTS221 capacitive digital sensor for relative humidity and temperature.
-  Dedicated [HTS221](dedicated/HTS221.md)
+* [HTS221](https://github.com/stm32duino/HTS221): to support the HTS221 capacitive digital sensor for relative humidity and temperature. See the [hosted API documentation](https://stm32duino.github.io/HTS221/).
 * [IIS2MDC](https://github.com/stm32duino/IIS2MDC):  to support the IIS2MDC high-performance 3-axis magnetometer
 * [ISM330DLC](https://github.com/stm32duino/ISM330DLC): to support the ISM330DLC 3D accelerometer and 3D gyroscope
 * [LIS2DW12](https://github.com/stm32duino/LIS2DW12): to support the LIS2DW12 3D accelerometer

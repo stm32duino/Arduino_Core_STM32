@@ -11,3 +11,9 @@ development documentation.
 - [Latest released API reference](https://stm32duino.github.io/STM32LoRaWAN/)
 - [Development API reference](https://stm32duino.github.io/STM32LoRaWAN/dev/)
 - [Source repository](https://github.com/stm32duino/STM32LoRaWAN)
+
+## HTS221
+
+- [Latest released API reference](https://stm32duino.github.io/HTS221/)
+- [Development API reference](https://stm32duino.github.io/HTS221/dev/)
+- [Source repository](https://github.com/stm32duino/HTS221)
