@@ -9,6 +9,9 @@ on:
       - '!.github/workflows/PIO-build.yml'
       - '*.json'
       - '**.md'
+      - docs/**
+      - mkdocs.yml
+      - requirements-docs.txt
       - keywords.txt
       - CI/**
       - '!CI/build/platformio-builder.py'
@@ -22,6 +25,9 @@ on:
       - '!.github/workflows/PIO-build.yml'
       - '*.json'
       - '**.md'
+      - docs/**
+      - mkdocs.yml
+      - requirements-docs.txt
       - keywords.txt
       - CI/**
       - '!CI/build/platformio-builder.py'

@@ -9,6 +9,9 @@ on:
       - '!.github/workflows/Cmake.yml'
       - '*.json'
       - '**.md'
+      - docs/**
+      - mkdocs.yml
+      - requirements-docs.txt
       - keywords.txt
       - CI/**
       - tools/**
@@ -18,6 +21,9 @@ on:
       - '!.github/workflows/Cmake.yml'
       - '*.json'
       - '**.md'
+      - docs/**
+      - mkdocs.yml
+      - requirements-docs.txt
       - keywords.txt
       - CI/**
       - tools/**
