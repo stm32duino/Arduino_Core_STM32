@@ -49,6 +49,11 @@ jobs:
         env:
           PAGES_TOKEN: ${{ steps.pages-token.outputs.token }}
         run: git remote add pages "https://x-access-token:${PAGES_TOKEN}@github.com/stm32duino/stm32duino.github.io.git"
+      - name: Fetch published documentation
+        run: |
+          if git ls-remote --exit-code --heads pages gh-pages >/dev/null; then
+            git fetch pages gh-pages
+          fi
       - name: Publish development documentation
         if: github.ref == 'refs/heads/main'
         run: |
