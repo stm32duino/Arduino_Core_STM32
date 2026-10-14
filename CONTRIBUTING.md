@@ -10,9 +10,11 @@ To report a bug/request please file an issue in the right repository
 But check the following boxes before posting an issue:
 
 - [ ] `Make sure you are using the latest STM32 core and libraries versions.` See [latest core here](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest).
-- [ ] `Your issue is NOT a question/feedback/suggestions.` This should be discussed on the [stm32duino forum](http://stm32duino.com):
-  * questions on the [STM32 Core](http://stm32duino.com/viewforum.php?f=35).
-  * bugs/enhancements on the [STM core: Bugs and enhancements](http://stm32duino.com/viewforum.php?f=38).
+- [ ] `Your issue is NOT a question/feedback/suggestions.` This should be discussed on the:
+  * [stm32duino Github discussions](https://github.com/orgs/stm32duino/discussions)
+  * [stm32duino forum](http://stm32duino.com):
+   * questions on the [STM32 Core](http://stm32duino.com/viewforum.php?f=35).
+   * bugs/enhancements on the [STM core: Bugs and enhancements](http://stm32duino.com/viewforum.php?f=38).
 - [ ] `Make sure your issue is not already reported/fixed on GitHub or discussed on the forum` See [stm32duino forum](http://stm32duino.com).
 - [ ] `Make sure you are working on the right repository.` See the table below.
 
@@ -97,6 +99,28 @@ When your pull request is stale, you will need to rebase your branch on the curr
 
 More information about rebasing can be found at the repository of [edX](https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request).
 
-### 6. Merged!
-When your pull request is merged please update the documentation if the changes require it
+### 6. Validate the change
+Run the checks relevant to the files you changed and include the commands and important results in the pull request description.
+
+- Documentation changes must pass the strict MkDocs build (see the [documentation workflow](docs/development/Documentation-workflow.md) to set up the environment):
+  ```console
+  "$HOME/.venvs/stm32duino-docs/bin/mkdocs" build --strict
+  ```
+- Changes under `cores/`, `libraries/` or `variants/` must pass the AStyle check (see [Code style](docs/development/Astyle.md)):
+  ```console
+  python3 CI/astyle/astyle.py -g
+  ```
+- For source changes, also run the applicable build, example or test checks for the affected board families.
+
+### 7. Merged!
+When your pull request is merged please update the related documentation if the change affects user-facing behavior, supported boards, examples, build options, or upload and debugging workflows.
 [Documentation](https://stm32duino.github.io/)
+
+### Development guides
+Use the guide that matches the type of change:
+
+- [Using the Git repository](docs/development/Using-git-repository.md): how to work with a local core checkout.
+- [Adding a board variant](docs/development/Add-a-new-variant/overview.md): new generic and dedicated board variants.
+- [Code style and AStyle](docs/development/Astyle.md): required formatting and local validation commands.
+- [Documentation workflow](docs/development/Documentation-workflow.md): how to edit, build, preview, and publish documentation.
+- [Source locations](docs/development/Where-are-sources.md): the main core and board-package directories.
