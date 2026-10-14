@@ -22,15 +22,15 @@ documentation for required dependencies and board-specific setup.
 
 ## Built-in (delivered with the core package)
 
-* CMSIS_DSP: see usage example [here](https://github.com/stm32duino/Arduino_Core_STM32/blob/main/libraries/CMSIS_DSP/examples/arm_sin_cos_example_f32/arm_sin_cos_example_f32.ino)
-* EEPROM: follow the official [EEPROM](https://docs.arduino.cc/learn/built-in-libraries/eeprom/) API
+* CMSIS_DSP: see the [CMSIS-DSP reference](built-in/CMSIS-DSP-library.md) and the usage example [here](https://github.com/stm32duino/Arduino_Core_STM32/blob/main/libraries/CMSIS_DSP/examples/arm_sin_cos_example_f32/arm_sin_cos_example_f32.ino)
+* EEPROM: follow the official [EEPROM](https://docs.arduino.cc/learn/built-in-libraries/eeprom/) API, see also the [EEPROM emulation reference](built-in/EEPROM-library.md)
 * IWatchdog: see [here](https://github.com/stm32duino/Arduino_Core_STM32/blob/main/libraries/IWatchdog/README.md)
-* Servo: follow the official [Servo](https://docs.arduino.cc/libraries/servo/) API
+* Servo: follow the official [Servo](https://docs.arduino.cc/libraries/servo/) API, see also the [Servo reference](built-in/Servo-library.md)
 * SoftwareSerial: follow the official [SoftwareSerial](https://docs.arduino.cc/learn/built-in-libraries/software-serial/) API.<br>
   It uses an **hardware timer**. Interrupt is triggered at a `frequency = Baudrate * OVERSAMPLE` (by default _3*baudrate_) to handle RX as well as TX transmissions.
   This impacts CPU load specially at high baudrate.
-* SPI: follow the official [SPI](https://docs.arduino.cc/language-reference/en/functions/communication/SPI/) API
-* Wire (I2C): follow the official [Wire](https://docs.arduino.cc/language-reference/en/functions/communication/Wire/) API
+* SPI: follow the official [SPI](https://docs.arduino.cc/language-reference/en/functions/communication/SPI/) API, see also the [STM32 SPI reference](built-in/SPI-library.md)
+* Wire (I2C): follow the official [Wire](https://docs.arduino.cc/language-reference/en/functions/communication/Wire/) API, see also the [STM32 I2C reference](built-in/I2C-library.md)
 
 ## Dedicated
 
@@ -40,15 +40,11 @@ Some libraries have been developed to support specific features (hardware or not
 
   * [LwIP](https://github.com/stm32duino/LwIP): lightweight TCP/IP stack (LwIP) is a small independent implementation of the TCP/IP protocol suite
 
-  Dedicated [STM32Ethernet](dedicated/STM32Ethernet.md)
-
 * [STM32FreeRTOS](https://github.com/stm32duino/STM32FreeRTOS): this is a port of [FreeRTOS](https://www.freertos.org/) for STM32 as Arduino libraries
 
 * [STM32LoRaWAN](https://github.com/stm32duino/STM32LoRaWAN): LoRaWAN support for STM32WL55, currently documented for the NUCLEO-WL55JC1. See the [hosted API documentation](https://stm32duino.github.io/STM32LoRaWAN/) for API details and examples.
 
 * [STM32LowPower](https://github.com/stm32duino/STM32LowPower): supports STM32 low-power modes. It depends on the following libraries:
-
-  * [STM32RTC](https://github.com/stm32duino/STM32RTC)
 
 * [STM32RTC](https://github.com/stm32duino/STM32RTC): to support the real-time clock (RTC) controller embedded in the STM32 microcontrollers. It is based on the Arduino RTCZero library
 

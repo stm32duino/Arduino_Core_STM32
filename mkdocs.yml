@@ -24,7 +24,11 @@ nav:
   - Libraries:
     - Overview: libraries/index.md
     - Built-in:
+      - CMSIS-DSP: libraries/built-in/CMSIS-DSP-library.md
+      - EEPROM: libraries/built-in/EEPROM-library.md
+      - I2C: libraries/built-in/I2C-library.md
       - Servo: libraries/built-in/Servo-library.md
+      - SPI: libraries/built-in/SPI-library.md
     - Dedicated:
       - LPS22HB: libraries/dedicated/LPS22HB.md
       - LIS3MDL: libraries/dedicated/LIS3MDL.md
@@ -42,7 +46,7 @@ nav:
       - STM32LoRaWAN: https://stm32duino.github.io/STM32LoRaWAN/
       - HTS221: https://stm32duino.github.io/HTS221/
   - Development:
-    - Contributing: development/Contributing.md
+    - Contributing: https://github.com/stm32duino/Arduino_Core_STM32/blob/main/CONTRIBUTING.md
     - Using the Git Repository: development/Using-git-repository.md
     - Source Locations: development/Where-are-sources.md
     - Code Style: development/Astyle.md
