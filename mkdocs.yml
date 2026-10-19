@@ -36,7 +36,6 @@ nav:
       - M24SR64-Y: libraries/dedicated/M24SR64-Y.md
       - MX25R6435F: libraries/dedicated/MX25R6435F.md
       - SPBTLE-RF: libraries/dedicated/SPBTLE-RF.md
-      - STM32Ethernet: libraries/dedicated/STM32Ethernet.md
       - VL53L0X: libraries/dedicated/VL53L0X.md
     - Connectivity:
       - LoRa: libraries/LoRa.md
@@ -45,6 +44,7 @@ nav:
       - Library documentation index: libraries/Hosted-library-documentation.md
       - STM32LoRaWAN: https://stm32duino.github.io/STM32LoRaWAN/
       - HTS221: https://stm32duino.github.io/HTS221/
+      - STM32Ethernet: https://stm32duino.github.io/STM32Ethernet/
     - Additional libraries and compatibility: libraries/additional-libraries.md
   - Development:
     - Contributing: https://github.com/stm32duino/Arduino_Core_STM32/blob/main/CONTRIBUTING.md
