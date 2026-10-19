@@ -1,6 +1,6 @@
 # Documentation workflow
 
-The STM32 core documentation is maintained in this repository under `docs/`. The pages migrated from the former GitHub wiki are now regular Markdown files; edit those files directly. There is no ongoing wiki synchronization.
+The STM32 core documentation is maintained in the `docs/` directory of the `stm32duino/Arduino_Core_STM32` repository. The pages migrated from the former GitHub wiki are now regular Markdown files; edit those files directly. There is no ongoing wiki synchronization.
 
 ## Update documentation
 
@@ -54,13 +54,3 @@ The documentation publisher uses Mike to keep versioned snapshots on the `gh-pag
 - When the pushed tag is the highest semantic-version tag in the core repository, the workflow also moves the `latest` alias and sets it as the site default. Older release tags are published without changing `latest`.
 
 Use the normal core release process to create and push the release tag. The documentation workflow runs from that tag automatically; no manual Mike command is needed. GitHub release tags must use the exact `MAJOR.MINOR.PATCH` form for this workflow.
-
-## One-time publishing setup
-
-Before the first deployment, maintainers must:
-
-1. Install the publishing GitHub App on `stm32duino/stm32duino.github.io` and grant it `Contents: write` access to that repository. The app does not need to be installed on the core repository.
-2. Add the app ID as the `DOCS_PUBLISH_APP_ID` Actions secret and its private key as `DOCS_PUBLISH_APP_PRIVATE_KEY` in `stm32duino/Arduino_Core_STM32`.
-3. After the first successful publish creates `gh-pages`, configure GitHub Pages in `stm32duino/stm32duino.github.io` to publish from that branch's root. The existing content on `main` does not need to be copied.
-
-The workflow creates a short-lived, repository-scoped token at publish time. Do not store a personal access token in the repository secrets.
