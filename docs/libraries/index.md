@@ -3,11 +3,13 @@
 # Libraries
 
 This page lists libraries included with the STM32 core, STM32duino libraries,
-expansion-board libraries, and community libraries that are known to work with
-the core. Compatibility depends on the library, board, and STM32 device, so
-check each library's requirements and examples before use. Install libraries
-through the Arduino Library Manager when available; see each library's
-documentation for required dependencies and board-specific setup.
+expansion-board libraries, and selected libraries from Arduino. Compatibility
+depends on the library, board, and STM32 device, so check each library's
+requirements and examples before use. Install libraries through the Arduino
+Library Manager when available; see each library's documentation for required
+dependencies and board-specific setup.
+See [additional libraries and compatibility](additional-libraries.md) for
+Arduino libraries, community-tested libraries, and compatibility guidance.
 
 > [!WARNING]
 > Some Arduino shields route SPI through an ICSP connector, which may not be
@@ -15,7 +17,7 @@ documentation for required dependencies and board-specific setup.
 > SCK to the appropriate pins when needed.
 
 > [!NOTE]
-> All dedicated STM32 libraries are available through the "_**Library Manager**_"
+> All STM32duino libraries are available through the "_**Library Manager**_"
 > or have a look hereafter to see which one is available:
 >
 > * http://www.arduinolibraries.info/architectures/stm32
@@ -32,181 +34,202 @@ documentation for required dependencies and board-specific setup.
 * SPI: follow the official [SPI](https://docs.arduino.cc/language-reference/en/functions/communication/SPI/) API, see also the [STM32 SPI reference](built-in/SPI-library.md)
 * Wire (I2C): follow the official [Wire](https://docs.arduino.cc/language-reference/en/functions/communication/Wire/) API, see also the [STM32 I2C reference](built-in/I2C-library.md)
 
-## Dedicated
+## STM32-specific libraries
 
-Some libraries have been developed to support specific features (hardware or not):
+<!-- BEGIN GENERATED STM32duino library list -->
 
-* [STM32Ethernet](https://github.com/stm32duino/STM32Ethernet): for on board Ethernet port (ex: Nucleo-F429ZI). This library is fully compatible with Arduino [Ethernet](https://docs.arduino.cc/libraries/ethernet/) API. It depends on the following libraries:
+This list is generated from public STM32duino repositories that contain a `library.properties` file.
 
-  * [LwIP](https://github.com/stm32duino/LwIP): lightweight TCP/IP stack (LwIP) is a small independent implementation of the TCP/IP protocol suite
+### Communication
 
-* [STM32FreeRTOS](https://github.com/stm32duino/STM32FreeRTOS): this is a port of [FreeRTOS](https://www.freertos.org/) for STM32 as Arduino libraries
+* [STM32duino ISM43362-M3G-L44](https://github.com/stm32duino/WiFi-ISM43362-M3G-L44): This library includes drivers for Inventek Systems WiFi device named ISM43362-M3G-L44.
+* [STM32duino LwIP](https://github.com/stm32duino/LwIP): A Lightweight TCP/IP stack
+* [STM32duino M24SR64-Y](https://github.com/stm32duino/M24SR64-Y): This library includes drivers for ST's M24SR64-Y NFC/RFID tag.
+* [STM32duino NFC-RFAL](https://github.com/stm32duino/NFC-RFAL): Allows controlling the ST NFC card reader components based on RFAL
+* [STM32duino S2-LP](https://github.com/stm32duino/S2-LP): This library includes drivers for ST S2-LP sub-1GHz transceiver.
+* [STM32duino SPBTLE-RF](https://github.com/stm32duino/SPBTLE-RF): This library includes drivers for ST's BlueNRG/BlueNRG-MS Bluetooth Low Energy device.
+* [STM32duino ST25DV](https://github.com/stm32duino/ST25DV): Allows controlling the NFC ST25DV
+* [STM32duino ST25R200](https://github.com/stm32duino/ST25R200): Allows controlling the ST ST25R100 and ST25R200 components
+    * Depends on: [STM32duino NFC-RFAL](https://github.com/stm32duino/NFC-RFAL)
+* [STM32duino ST25R3911B](https://github.com/stm32duino/ST25R3911B): Allows controlling the ST ST25R3911B component
+    * Depends on: [STM32duino NFC-RFAL](https://github.com/stm32duino/NFC-RFAL)
+* [STM32duino ST25R3916](https://github.com/stm32duino/ST25R3916): Allows controlling the ST ST25R3916 and ST25R3916B components
+    * Depends on: [STM32duino NFC-RFAL](https://github.com/stm32duino/NFC-RFAL)
+* [STM32duino ST25R500](https://github.com/stm32duino/ST25R500): Allows controlling the ST ST25R300 and ST25R500 components
+    * Depends on: [STM32duino NFC-RFAL](https://github.com/stm32duino/NFC-RFAL)
+* [STM32duino ST25R95](https://github.com/stm32duino/ST25R95): Allows controlling the ST ST25R95 component
+    * Depends on: [STM32duino NFC-RFAL](https://github.com/stm32duino/NFC-RFAL)
+* [STM32duino STM32Ethernet](https://github.com/stm32duino/STM32Ethernet): Enables network connection (local and Internet) using the STM32 Board.
+    * Depends on: [STM32duino LwIP](https://github.com/stm32duino/LwIP)
+* [STM32duinoBLE](https://github.com/stm32duino/STM32duinoBLE): Fork of ArduinoBLE library to add the support of STM32WB, SPBTLE-RF, SPBTLE-1S, BLUENRG-M2SP, BLUENRG-LP and BLUENRG-M0 BLE modules.
+* [STM32duinoLoRaWAN](https://github.com/stm32duino/STM32LoRaWAN): Support library for STM32WL microcontrollers featuring a sub-GHz radio based-on Semtech SX126x
+    * Depends on: [STM32duino RTC](https://github.com/stm32duino/STM32RTC)
 
-* [STM32LoRaWAN](https://github.com/stm32duino/STM32LoRaWAN): LoRaWAN support for STM32WL55, currently documented for the NUCLEO-WL55JC1. See the [hosted API documentation](https://stm32duino.github.io/STM32LoRaWAN/) for API details and examples.
+### Data Storage
 
-* [STM32LowPower](https://github.com/stm32duino/STM32LowPower): supports STM32 low-power modes. It depends on the following libraries:
+* [FatFs](https://github.com/stm32duino/FatFs): FAT file system based on open-source FatFS solution.
+* [STM32duino M95640-R](https://github.com/stm32duino/M95640-R): This library includes drivers for ST M95640-R EEPROM.
+* [STM32duino MX25R6435F](https://github.com/stm32duino/MX25R6435F): Quad-SPI NOR Flash memory library.
+* [STM32duino STM32SD](https://github.com/stm32duino/STM32SD): Enables reading and writing on SD card using SD card slot connected to the SDIO/SDMMC-hardware of the STM32 MCU. For slots connected to SPI-hardware use the standard Arduino SD library.
+    * Depends on: [FatFs](https://github.com/stm32duino/FatFs)
 
-* [STM32RTC](https://github.com/stm32duino/STM32RTC): to support the real-time clock (RTC) controller embedded in the STM32 microcontrollers. It is based on the Arduino RTCZero library
+### Device Control
 
-* [STM32SD](https://github.com/stm32duino/STM32SD): to support SDIO or SDMMC controller for board with SD card slot (ex: Disco-F746). This library is fully compatible with Arduino [SD](https://docs.arduino.cc/libraries/sd/) API. It depends on the following libraries:
+* [STM32duino Low Power](https://github.com/stm32duino/STM32LowPower): Power save primitives features for STM32 boards
+    * Depends on: [STM32duino RTC](https://github.com/stm32duino/STM32RTC)
+* [STM32duino Proximity Gesture](https://github.com/stm32duino/Proximity_Gesture): Allows performing simple gestures detection using proximity sensors
+* [STM32duino VL53L0X](https://github.com/stm32duino/VL53L0X): Allows controlling the VL53L0X (Time-of-Flight and gesture detection sensor)
+* [STM32duino VL53L1](https://github.com/stm32duino/VL53L1): Allows controlling the VL53L1 (Time-of-Flight)
+* [STM32duino VL53L1X](https://github.com/stm32duino/VL53L1X): Allows controlling the VL53L1X (Time-of-Flight and gesture detection sensor)
+* [STM32duino VL53L3CX](https://github.com/stm32duino/VL53L3CX): Allows controlling the VL53L3CX (Time-of-Flight ranging sensor with multi target detection)
+* [STM32duino VL53L4CD](https://github.com/stm32duino/VL53L4CD): Allows controlling the VL53L4CD (Time-of-Flight)
+* [STM32duino VL53L4CX](https://github.com/stm32duino/VL53L4CX): Allows controlling the VL53L4CX (Time-of-Flight ranging sensor with multi target detection)
+* [STM32duino VL53L4ED](https://github.com/stm32duino/VL53L4ED): Allows controlling the VL53L4ED (Time-of-Flight)
+* [STM32duino VL53L5CX](https://github.com/stm32duino/VL53L5CX): Allows controlling the VL53L5CX (Time-of-Flight 8x8 multizone ranging sensor with wide field view)
+* [STM32duino VL53L7CH](https://github.com/stm32duino/VL53L7CH): Allows controlling the VL53L7CH (Time-of-Flight 8x8 multizone ranging sensor with wide field view)
+* [STM32duino VL53L7CX](https://github.com/stm32duino/VL53L7CX): Allows controlling the VL53L7CX (Time-of-Flight 8x8 multizone ranging sensor with wide field view)
+* [STM32duino VL53L8CH](https://github.com/stm32duino/VL53L8CH): Allows controlling the VL53L8CH (Time-of-Flight 8x8 multizone ranging sensor with wide field view)
+* [STM32duino VL53L8CX](https://github.com/stm32duino/VL53L8CX): Allows controlling the VL53L8CX (Time-of-Flight 8x8 multizone ranging sensor with wide field view)
+* [STM32duino VL6180](https://github.com/stm32duino/VL6180): Allows controlling the VL6180 (proximity sensor)
+* [STM32duino VL6180X](https://github.com/stm32duino/VL6180X): Allows controlling the VL6180X (proximity and ambient light sensing (ALS) sensor)
 
-  * [FatFS](https://github.com/stm32duino/FatFs): FatFs is a generic FAT file system module for small embedded systems. The FatFs is written in compliance with ANSI C and completely separated from the disk I/O layer. Therefore it is independent of hardware architecture
+### Other
 
+* [STM32duino Examples](https://github.com/stm32duino/STM32Examples): Provides several examples for the Arduino core for STM32 MCUs.
+* [STM32duino FP_Examples](https://github.com/stm32duino/FP_Examples): Provides several Function Packs that combine the usage of several X-NUCLEO boards
+    * Depends on: [STM32duino LSM6DSL](https://github.com/stm32duino/LSM6DSL), [STM32duino LSM303AGR](https://github.com/stm32duino/LSM303AGR), [STM32duino LPS22HB](https://github.com/stm32duino/LPS22HB), [STM32duino VL6180X](https://github.com/stm32duino/VL6180X), [STM32duino VL53L0X](https://github.com/stm32duino/VL53L0X), [STM32duino VL53L1X](https://github.com/stm32duino/VL53L1X), [STM32duino Proximity Gesture](https://github.com/stm32duino/Proximity_Gesture), [STM32duino X-NUCLEO-6180XA1](https://github.com/stm32duino/X-NUCLEO-6180XA1), [STM32duino X-NUCLEO-53L0A1](https://github.com/stm32duino/X-NUCLEO-53L0A1), [STM32duino X-NUCLEO-53L1A1](https://github.com/stm32duino/X-NUCLEO-53L1A1), [STM32duino SPBTLE-RF](https://github.com/stm32duino/SPBTLE-RF), [STM32duino X-NUCLEO-IHM02A1](https://github.com/stm32duino/X-NUCLEO-IHM02A1), [STM32duino X-NUCLEO-LED61A1](https://github.com/stm32duino/X-NUCLEO-LED61A1), [STM32duino LPS25HB](https://github.com/stm32duino/LPS25HB), [STM32duino LSM6DS3](https://github.com/stm32duino/LSM6DS3), [STM32duino LSM6DSO](https://github.com/stm32duino/LSM6DSO), [STM32duino LIS2DW12](https://github.com/stm32duino/LIS2DW12), [STM32duino LIS2MDL](https://github.com/stm32duino/LIS2MDL), [STM32duino HTS221](https://github.com/stm32duino/HTS221), [STM32duino LPS22HH](https://github.com/stm32duino/LPS22HH), [STM32duino STTS751](https://github.com/stm32duino/STTS751), [STM32duino S2-LP](https://github.com/stm32duino/S2-LP), [STM32duino M95640-R](https://github.com/stm32duino/M95640-R), [STM32duino X-NUCLEO-IKS02A1 Audio](https://github.com/stm32duino/X-NUCLEO-IKS02A1-Audio), [STM32duinoBLE](https://github.com/stm32duino/STM32duinoBLE), [STM32duino MotionFX](https://github.com/stm32duino/MotionFX)
 
-* [HTS221](https://github.com/stm32duino/HTS221): to support the HTS221 capacitive digital sensor for relative humidity and temperature. See the [hosted API documentation](https://stm32duino.github.io/HTS221/).
-* [IIS2MDC](https://github.com/stm32duino/IIS2MDC):  to support the IIS2MDC high-performance 3-axis magnetometer
-* [ISM330DLC](https://github.com/stm32duino/ISM330DLC): to support the ISM330DLC 3D accelerometer and 3D gyroscope
-* [LIS2DW12](https://github.com/stm32duino/LIS2DW12): to support the LIS2DW12 3D accelerometer
-* [LIS2MDL](https://github.com/stm32duino/LIS2MDL):  to support the LIS2MDL high-performance 3-axis magnetometer
-* [LIS3DHH](https://github.com/stm32duino/LIS3DHH): to support the LIS3DHH 3D accelerometer
-* [LIS3MDL](https://github.com/stm32duino/LIS3MDL): to support the LIS3MDL high-performance 3-axis magnetometer. Dedicated [LIS3MDL](dedicated/LIS3MDL.md)
-* [LPS22HB](https://github.com/stm32duino/LPS22HB): to support the LPS22HB 260-1260 hPa absolute digital output barometer. Dedicated [LPS22HB](dedicated/LPS22HB.md)
-* [LPS25HB](https://github.com/stm32duino/LPS25HB): to support the LPS25HB 260-1260 hPa absolute digital output barometer
-* [LPS22HH](https://github.com/stm32duino/LPS22HH): to support the LPS22HH 260-1260 hPa absolute digital output barometer
-* [LSM303AGR](https://github.com/stm32duino/LSM303AGR): to support the LSM303AGR 3D accelerometer and 3D magnetometer
-* [LSM6DSO](https://github.com/stm32duino/LSM6DSO): to support the LSM6DSO 3D accelerometer and 3D gyroscope
-* [LSM6DSOX](https://github.com/stm32duino/LSM6DSOX): to support the LSM6DSOX 3D accelerometer and 3D gyroscope
-* [LSM6DS0](https://github.com/stm32duino/LSM6DS0): to support the LSM6DS0 3D accelerometer and 3D gyroscope
-* [LSM6DS3 ](https://github.com/stm32duino/LSM6DS3): to support the LSM6DS3 3D accelerometer and 3D gyroscope
-* [LSM6DSL](https://github.com/stm32duino/LSM6DSL): to support the LSM6DSL 3D accelerometer and 3D gyroscope. Dedicated [LSM6DSL](dedicated/LSM6DSL.md)
-* [M24SR64-Y](https://github.com/stm32duino/M24SR64-Y): to support the dynamic NFC/RFID Tag IC dual interface M24SR64-Y. Dedicated [M24SR64-Y](dedicated/M24SR64-Y.md)
-* [MX25R6435F](https://github.com/stm32duino/MX25R6435F): to support the Quad-SPI NOR Flash memory MX25R6435F. Dedicated [MX25R6435F](dedicated/MX25R6435F.md)
-* [Proximity Gesture](https://github.com/stm32duino/Proximity_Gesture): supports gesture detection using proximity sensors (VL53L0X, VL53L1X, or VL6180X), including swipe and tap detection
-* [SPBTLE-RF](https://github.com/stm32duino/SPBTLE-RF): to support the Bluetooth (V4.1 compliant) SPBTLE-RF. Dedicated [SPBTLE-RF](dedicated/SPBTLE-RF.md)
-* [ST25DV](https://github.com/stm32duino/ST25DV): to support the ST25DV components
-* [STTS22H](https://github.com/stm32duino/STTS22H): to support the STTS22H digital temperature sensor
-* [STTS751](https://github.com/stm32duino/STTS751): to support the STTS751 digital temperature sensor
-* [VL53L0X](https://github.com/stm32duino/VL53L0X): to support the VL53L0X Time-of-Flight and gesture-detection sensor. Dedicated [VL53L0X](dedicated/VL53L0X.md)
-* [VL53L1X](https://github.com/stm32duino/VL53L1X): to support the VL53L1X Time-of-Flight and gesture-detection sensor
-* [VL6180X](https://github.com/stm32duino/VL6180X): to support the VL6180X proximity and ambient light sensing (ALS) sensor
-* [WiFi-ISM43362-M3G-L44](https://github.com/stm32duino/WiFi-ISM43362-M3G-L44): to support the Wi-Fi module Inventek ISM43362-M3G-L44 (802.11 b/g/n)
-* [S2-LP](https://github.com/stm32duino/S2-LP): to support the S2-LP sub-1GHz transceiver
-* [VL53L1](https://github.com/stm32duino/VL53L1): to support the VL53L1 Time-of-Flight ranging sensor with advanced multi-zone and multi-object detection
-* [VL53L3CX](https://github.com/stm32duino/VL53L3CX): to support the VL53L3CX Time-of-Flight ranging sensor with multi target detection
+### Sensors
+
+* [STM32duino ASM330LHH](https://github.com/stm32duino/ASM330LHH): Automotive inertial measurement unit.
+* [STM32duino HTS221](https://github.com/stm32duino/HTS221): Capacitive digital sensor for relative humidity and temperature.
+* [STM32duino IIS2DLPC](https://github.com/stm32duino/IIS2DLPC): High Performance Ultra Low Power 3D accelerometer.
+* [STM32duino IIS2DULPX](https://github.com/stm32duino/IIS2DULPX): Ultra Low Power inertial measurement unit.
+* [STM32duino IIS2MDC](https://github.com/stm32duino/IIS2MDC): Ultra Low Power 3D magnetometer.
+* [STM32duino ILPS22QS](https://github.com/stm32duino/ILPS22QS): Nano pressure sensor.
+* [STM32duino ISM330DHCX](https://github.com/stm32duino/ISM330DHCX): High-Performance 3D digital accelerometer and 3D digital gyroscope.
+* [STM32duino ISM330DLC](https://github.com/stm32duino/ISM330DLC): 3D accelerometer and 3D gyroscope.
+* [STM32duino ISM330IS](https://github.com/stm32duino/ISM330IS): Ultra Low Power inertial measurement unit.
+* [STM32duino ISM6HG256X](https://github.com/stm32duino/ISM6HG256X): Intelligent IMU with simultaneous low-g and high-g acceleration detection.
+* [STM32duino LIS2DU12](https://github.com/stm32duino/LIS2DU12): Ultra Low Power 3D accelerometer.
+* [STM32duino LIS2DUXS12](https://github.com/stm32duino/LIS2DUXS12): Ultra Low Power 3D accelerometer.
+* [STM32duino LIS2DW12](https://github.com/stm32duino/LIS2DW12): Ultra Low Power 3D accelerometer.
+* [STM32duino LIS2MDL](https://github.com/stm32duino/LIS2MDL): Ultra Low Power 3D magnetometer.
+* [STM32duino LIS3DHH](https://github.com/stm32duino/LIS3DHH): Ultra High Resolution 3D accelerometer.
+* [STM32duino LIS3MDL](https://github.com/stm32duino/LIS3MDL): High-performance 3D magnetometer.
+* [STM32duino LPS22DF](https://github.com/stm32duino/LPS22DF): Nano pressure sensor.
+* [STM32duino LPS22HB](https://github.com/stm32duino/LPS22HB): 260-1260 hPa absolute digital output barometer.
+* [STM32duino LPS22HH](https://github.com/stm32duino/LPS22HH): Nano pressure sensor.
+* [STM32duino LPS25HB](https://github.com/stm32duino/LPS25HB): 260-1260 hPa absolute digital output barometer.
+* [STM32duino LSM303AGR](https://github.com/stm32duino/LSM303AGR): 3D accelerometer and 3D magnetometer.
+* [STM32duino LSM6DS0](https://github.com/stm32duino/LSM6DS0): 3D accelerometer and 3D gyroscope.
+* [STM32duino LSM6DS3](https://github.com/stm32duino/LSM6DS3): 3D accelerometer and 3D gyroscope.
+* [STM32duino LSM6DSL](https://github.com/stm32duino/LSM6DSL): 3D accelerometer and 3D gyroscope.
+* [STM32duino LSM6DSO](https://github.com/stm32duino/LSM6DSO): Ultra Low Power inertial measurement unit.
+* [STM32duino LSM6DSO16IS](https://github.com/stm32duino/LSM6DSO16IS): Ultra Low Power inertial measurement unit.
+* [STM32duino LSM6DSO32](https://github.com/stm32duino/LSM6DSO32): Ultra Low Power inertial measurement unit.
+* [STM32duino LSM6DSOSensorHub](https://github.com/stm32duino/LSM6DSOSensorHub): Sensor Hub manager for LSM6DSO sensor master
+    * Depends on: [STM32duino LSM6DSO](https://github.com/stm32duino/LSM6DSO), [STM32duino LIS2DW12](https://github.com/stm32duino/LIS2DW12), [STM32duino LIS2MDL](https://github.com/stm32duino/LIS2MDL), [STM32duino HTS221](https://github.com/stm32duino/HTS221), [STM32duino LPS22HH](https://github.com/stm32duino/LPS22HH), [STM32duino STTS751](https://github.com/stm32duino/STTS751)
+* [STM32duino LSM6DSOX](https://github.com/stm32duino/LSM6DSOX): Ultra Low Power inertial measurement unit.
+* [STM32duino LSM6DSR](https://github.com/stm32duino/LSM6DSR): iNEMO inertial measurement unit.
+* [STM32duino LSM6DSV16BX](https://github.com/stm32duino/LSM6DSV16BX): Ultra Low Power inertial measurement unit.
+* [STM32duino LSM6DSV16BX TDM](https://github.com/stm32duino/LSM6DSV16BX-TDM): TDM for LSM6DSV16BX.
+    * Depends on: [STM32duino LSM6DSV16BX](https://github.com/stm32duino/LSM6DSV16BX)
+* [STM32duino LSM6DSV16X](https://github.com/stm32duino/LSM6DSV16X): Ultra Low Power inertial measurement unit.
+* [STM32duino MotionFX](https://github.com/stm32duino/MotionFX): Allows to run Sensor Fusion algorithms with ST MEMS sensors on STM32 boards
+    * Depends on: [STM32duino LSM6DSO](https://github.com/stm32duino/LSM6DSO), [STM32duino LIS2MDL](https://github.com/stm32duino/LIS2MDL), [STM32duino LSM6DSL](https://github.com/stm32duino/LSM6DSL), [STM32duino LSM303AGR](https://github.com/stm32duino/LSM303AGR), [STM32duino ISM330DHCX](https://github.com/stm32duino/ISM330DHCX), [STM32duino IIS2MDC](https://github.com/stm32duino/IIS2MDC)
+* [STM32duino SHT40-AD1B](https://github.com/stm32duino/SHT40-AD1B): Capacitive digital sensor for relative humidity and temperature.
+* [STM32duino STEVAL-MKBOXPRO-Audio](https://github.com/stm32duino/STEVAL-MKBOXPRO-Audio): PCM recording using digital microphone MP23DB01HP on STEVAL-MKBOXPRO.
+* [STM32duino STEVAL-MKBOXPRO-Examples](https://github.com/stm32duino/STEVAL-MKBOXPRO-Examples): Examples to use MEMS sensors and NFC tag on STEVAL board
+    * Depends on: [STM32duino LIS2DU12](https://github.com/stm32duino/LIS2DU12), [STM32duino LSM6DSV16X](https://github.com/stm32duino/LSM6DSV16X), [STM32duino LPS22DF](https://github.com/stm32duino/LPS22DF), [STM32duino LIS2MDL](https://github.com/stm32duino/LIS2MDL), [STM32duino STTS22H](https://github.com/stm32duino/STTS22H), [STM32duino STEVAL-MKBOXPRO-Audio](https://github.com/stm32duino/STEVAL-MKBOXPRO-Audio), [STM32duino ST25DV](https://github.com/stm32duino/ST25DV)
+* [STM32duino STTS22H](https://github.com/stm32duino/STTS22H): digital temperature sensor.
+* [STM32duino STTS751](https://github.com/stm32duino/STTS751): digital temperature sensor.
+
+### Timing
+
+* [STM32duino FreeRTOS](https://github.com/stm32duino/STM32FreeRTOS): Real Time Operating System implemented for STM32
+* [STM32duino RTC](https://github.com/stm32duino/STM32RTC): Allows to use the RTC functionalities of STM32 based boards.
 
 ## Expansion boards
 
-### [X-NUCLEO Expansion Boards]
+* [STM32duino I-NUCLEO-LRWAN1](https://github.com/stm32duino/I-NUCLEO-LRWAN1): This library provides the LoRa® driver for the expansion board I-NUCLEO-LRWAN1.
+* [STM32duino X-NUCLEO-53L0A1](https://github.com/stm32duino/X-NUCLEO-53L0A1): Allows controlling the VL53L0X sensors on board of X-NUCLEO-53L0A1
+    * Depends on: [STM32duino VL53L0X](https://github.com/stm32duino/VL53L0X), [STM32duino Proximity Gesture](https://github.com/stm32duino/Proximity_Gesture)
+* [STM32duino X-NUCLEO-53L1A1](https://github.com/stm32duino/X-NUCLEO-53L1A1): Allows controlling the VL53L1X sensors on board of X-NUCLEO-53L1A1
+    * Depends on: [STM32duino VL53L1X](https://github.com/stm32duino/VL53L1X), [STM32duino Proximity Gesture](https://github.com/stm32duino/Proximity_Gesture)
+* [STM32duino X-NUCLEO-53L1A2](https://github.com/stm32duino/X-NUCLEO-53L1A2): Allows controlling the VL53L1 sensors on board of X-NUCLEO-53L1A2
+    * Depends on: [STM32duino VL53L1](https://github.com/stm32duino/VL53L1)
+* [STM32duino X-NUCLEO-53L3A2](https://github.com/stm32duino/X-NUCLEO-53L3A2): Allows controlling the VL53L3CX sensors on board of X-NUCLEO-53L3A2
+    * Depends on: [STM32duino VL53L3CX](https://github.com/stm32duino/VL53L3CX)
+* [STM32duino X-NUCLEO-53L4A1](https://github.com/stm32duino/X-NUCLEO-53L4A1): Allows controlling the VL53L4CD sensors on board of X-NUCLEO-53L4A1
+    * Depends on: [STM32duino VL53L4CD](https://github.com/stm32duino/VL53L4CD)
+* [STM32duino X-NUCLEO-53L4A2](https://github.com/stm32duino/X-NUCLEO-53L4A2): Allows controlling the VL53L4CX sensors on board of X-NUCLEO-53L4A2
+    * Depends on: [STM32duino VL53L4CX](https://github.com/stm32duino/VL53L4CX)
+* [STM32duino X-NUCLEO-53L4A3](https://github.com/stm32duino/X-NUCLEO-53L4A3): Allows controlling the VL53L4ED sensors on board of X-NUCLEO-53L4A3
+    * Depends on: [STM32duino VL53L4ED](https://github.com/stm32duino/VL53L4ED)
+* [STM32duino X-NUCLEO-53L5A1](https://github.com/stm32duino/X-NUCLEO-53L5A1): Allows controlling the VL53L5CX sensors on board of X-NUCLEO-53L5A1
+    * Depends on: [STM32duino VL53L5CX](https://github.com/stm32duino/VL53L5CX)
+* [STM32duino X-NUCLEO-53L7A1](https://github.com/stm32duino/X-NUCLEO-53L7A1): Allows controlling the VL53L7CX sensors on board of X-NUCLEO-53L7A1
+    * Depends on: [STM32duino VL53L7CX](https://github.com/stm32duino/VL53L7CX)
+* [STM32duino X-NUCLEO-53L8A1](https://github.com/stm32duino/X-NUCLEO-53L8A1): Allows controlling the VL53L8CX sensors on board of X-NUCLEO-53L8A1
+    * Depends on: [STM32duino VL53L8CX](https://github.com/stm32duino/VL53L8CX)
+* [STM32duino X-NUCLEO-6180A1](https://github.com/stm32duino/X-NUCLEO-6180A1): Allows controlling the VL6180 sensors on board of X-NUCLEO-6180A1
+    * Depends on: [STM32duino VL6180](https://github.com/stm32duino/VL6180)
+* [STM32duino X-NUCLEO-6180XA1](https://github.com/stm32duino/X-NUCLEO-6180XA1): Allows controlling the VL6180X sensors on board of X-NUCLEO-6180XA1
+    * Depends on: [STM32duino VL6180X](https://github.com/stm32duino/VL6180X), [STM32duino Proximity Gesture](https://github.com/stm32duino/Proximity_Gesture)
+* [STM32duino X-NUCLEO-GNSS1A1](https://github.com/stm32duino/X-NUCLEO-GNSS1A1): Allows controlling the X-NUCLEO-GNSS1A1 (GNSS expansion board based on Teseo LIV3F)
+    * Depends on: `MicroNMEA`
+* [STM32duino X-NUCLEO-IDB05A1](https://github.com/stm32duino/X-NUCLEO-IDB05A1): Allows controlling the ST X-NUCLEO-IDB05A1 expansion board
+    * Depends on: [STM32duino SPBTLE-RF](https://github.com/stm32duino/SPBTLE-RF)
+* [STM32duino X-NUCLEO-IHM01A1](https://github.com/stm32duino/X-NUCLEO-IHM01A1): Allows controlling the ST X-NUCLEO-IHM01A1 expansion board
+* [STM32duino X-NUCLEO-IHM02A1](https://github.com/stm32duino/X-NUCLEO-IHM02A1): Allows controlling the ST X-NUCLEO-IHM02A1 expansion board
+* [STM32duino X-NUCLEO-IHM04A1](https://github.com/stm32duino/X-NUCLEO-IHM04A1): Allows controlling the ST X-NUCLEO-IHM04A1 expansion board
+* [STM32duino X-NUCLEO-IHM05A1](https://github.com/stm32duino/X-NUCLEO-IHM05A1): Allows controlling the ST X-NUCLEO-IHM05A1 expansion board
+* [STM32duino X-NUCLEO-IHM12A1](https://github.com/stm32duino/X-NUCLEO-IHM12A1): Allows controlling the ST X-NUCLEO-IHM12A1 expansion board
+* [STM32duino X-NUCLEO-IHM15A1](https://github.com/stm32duino/X-NUCLEO-IHM15A1): Allows controlling the ST X-NUCLEO-IHM15A1 expansion board
+* [STM32duino X-NUCLEO-IKA01A1](https://github.com/stm32duino/X-NUCLEO-IKA01A1): Allows controlling the ST Microelectronics X-NUCLEO-IKA01A1 Expansion Board
+* [STM32duino X-NUCLEO-IKS01A1](https://github.com/stm32duino/X-NUCLEO-IKS01A1): Allows controlling the ST X-NUCLEO-IKS01A1 expansion board
+    * Depends on: [STM32duino LSM6DS0](https://github.com/stm32duino/LSM6DS0), [STM32duino LSM6DS3](https://github.com/stm32duino/LSM6DS3), [STM32duino LIS3MDL](https://github.com/stm32duino/LIS3MDL), [STM32duino HTS221](https://github.com/stm32duino/HTS221), [STM32duino LPS25HB](https://github.com/stm32duino/LPS25HB)
+* [STM32duino X-NUCLEO-IKS01A2](https://github.com/stm32duino/X-NUCLEO-IKS01A2): Allows controlling the ST X-NUCLEO-IKS01A2 expansion board
+    * Depends on: [STM32duino LSM6DSL](https://github.com/stm32duino/LSM6DSL), [STM32duino LSM303AGR](https://github.com/stm32duino/LSM303AGR), [STM32duino HTS221](https://github.com/stm32duino/HTS221), [STM32duino LPS22HB](https://github.com/stm32duino/LPS22HB)
+* [STM32duino X-NUCLEO-IKS01A3](https://github.com/stm32duino/X-NUCLEO-IKS01A3): Allows controlling the ST X-NUCLEO-IKS01A3 expansion board
+    * Depends on: [STM32duino LSM6DSO](https://github.com/stm32duino/LSM6DSO), [STM32duino LIS2DW12](https://github.com/stm32duino/LIS2DW12), [STM32duino LIS2MDL](https://github.com/stm32duino/LIS2MDL), [STM32duino HTS221](https://github.com/stm32duino/HTS221), [STM32duino LPS22HH](https://github.com/stm32duino/LPS22HH), [STM32duino STTS751](https://github.com/stm32duino/STTS751), [STM32duino LSM6DSOX](https://github.com/stm32duino/LSM6DSOX)
+* [STM32duino X-NUCLEO-IKS02A1](https://github.com/stm32duino/X-NUCLEO-IKS02A1): Allows controlling the ST X-NUCLEO-IKS02A1 expansion board
+    * Depends on: [STM32duino ISM330DHCX](https://github.com/stm32duino/ISM330DHCX), [STM32duino IIS2DLPC](https://github.com/stm32duino/IIS2DLPC), [STM32duino IIS2MDC](https://github.com/stm32duino/IIS2MDC), [STM32duino X-NUCLEO-IKS02A1 Audio](https://github.com/stm32duino/X-NUCLEO-IKS02A1-Audio)
+* [STM32duino X-NUCLEO-IKS02A1 Audio](https://github.com/stm32duino/X-NUCLEO-IKS02A1-Audio): Digital microphone IMP34DT05.
+* [STM32duino X-NUCLEO-IKS4A1](https://github.com/stm32duino/X-NUCLEO-IKS4A1): Allows controlling the ST X-NUCLEO-IKS4A1 expansion board
+    * Depends on: [STM32duino LSM6DSV16X](https://github.com/stm32duino/LSM6DSV16X), [STM32duino LIS2DUXS12](https://github.com/stm32duino/LIS2DUXS12), [STM32duino LSM6DSO16IS](https://github.com/stm32duino/LSM6DSO16IS), [STM32duino LIS2MDL](https://github.com/stm32duino/LIS2MDL), [STM32duino SHT40-AD1B](https://github.com/stm32duino/SHT40-AD1B), [STM32duino LPS22DF](https://github.com/stm32duino/LPS22DF), [STM32duino STTS22H](https://github.com/stm32duino/STTS22H)
+* [STM32duino X-NUCLEO-IKS5A1](https://github.com/stm32duino/X-NUCLEO-IKS5A1): Allows controlling the ST X-NUCLEO-IKS5A1 expansion board
+    * Depends on: [STM32duino ISM6HG256X](https://github.com/stm32duino/ISM6HG256X), [STM32duino IIS2DULPX](https://github.com/stm32duino/IIS2DULPX), [STM32duino ISM330IS](https://github.com/stm32duino/ISM330IS), [STM32duino IIS2MDC](https://github.com/stm32duino/IIS2MDC), [STM32duino ILPS22QS](https://github.com/stm32duino/ILPS22QS)
+* [STM32duino X-NUCLEO-IPS02A1](https://github.com/stm32duino/X-NUCLEO-IPS02A1): Allows controlling the ST X-NUCLEO-IPS02A1 expansion board
+* [STM32duino X-NUCLEO-LED61A1](https://github.com/stm32duino/X-NUCLEO-LED61A1): Allows controlling the ST Microelectronics X-NUCLEO-LED61A1 Expansion Board
+* [STM32duino X-NUCLEO-NFC01A1](https://github.com/stm32duino/X-NUCLEO-NFC01A1): Allows controlling the ST X-NUCLEO-NFC01A1 expansion board
+    * Depends on: [STM32duino M24SR64-Y](https://github.com/stm32duino/M24SR64-Y)
+* [STM32duino X-NUCLEO-NFC03A1](https://github.com/stm32duino/X-NUCLEO-NFC03A1): Allows controlling the ST X-NUCLEO-NFC03A1 expansion board
+    * Depends on: [STM32duino NFC-RFAL](https://github.com/stm32duino/NFC-RFAL), [STM32duino ST25R95](https://github.com/stm32duino/ST25R95)
+* [STM32duino X-NUCLEO-NFC04A1](https://github.com/stm32duino/X-NUCLEO-NFC04A1): Allows controlling the ST X-NUCLEO-NFC04A1 expansion board
+    * Depends on: [STM32duino ST25DV](https://github.com/stm32duino/ST25DV)
+* [STM32duino X-NUCLEO-NFC05A1](https://github.com/stm32duino/X-NUCLEO-NFC05A1): Allows controlling the ST X-NUCLEO-NFC05A1 expansion board
+    * Depends on: [STM32duino NFC-RFAL](https://github.com/stm32duino/NFC-RFAL), [STM32duino ST25R3911B](https://github.com/stm32duino/ST25R3911B)
+* [STM32duino X-NUCLEO-NFC06A1](https://github.com/stm32duino/X-NUCLEO-NFC06A1): Allows controlling the ST X-NUCLEO-NFC06A1 expansion board
+    * Depends on: [STM32duino NFC-RFAL](https://github.com/stm32duino/NFC-RFAL), [STM32duino ST25R3916](https://github.com/stm32duino/ST25R3916)
+* [STM32duino X-NUCLEO-NFC07A1](https://github.com/stm32duino/X-NUCLEO-NFC07A1): Allows controlling the ST X-NUCLEO-NFC07A1 expansion board
+    * Depends on: [STM32duino ST25DV](https://github.com/stm32duino/ST25DV)
+* [STM32duino X-NUCLEO-NFC08A1](https://github.com/stm32duino/X-NUCLEO-NFC08A1): Allows controlling the ST X-NUCLEO-NFC08A1 expansion board
+    * Depends on: [STM32duino NFC-RFAL](https://github.com/stm32duino/NFC-RFAL), [STM32duino ST25R3916](https://github.com/stm32duino/ST25R3916)
+* [STM32duino X-NUCLEO-NFC09A1](https://github.com/stm32duino/X-NUCLEO-NFC09A1): Allows controlling the ST X-NUCLEO-NFC09A1 expansion board
+    * Depends on: [STM32duino NFC-RFAL](https://github.com/stm32duino/NFC-RFAL), [STM32duino ST25R200](https://github.com/stm32duino/ST25R200)
+* [STM32duino X-NUCLEO-NFC10A1](https://github.com/stm32duino/X-NUCLEO-NFC10A1): Allows controlling the ST X-NUCLEO-NFC10A1 expansion board
+    * Depends on: [STM32duino NFC-RFAL](https://github.com/stm32duino/NFC-RFAL), [STM32duino ST25R200](https://github.com/stm32duino/ST25R200)
+* [STM32duino X-NUCLEO-NFC12A1](https://github.com/stm32duino/X-NUCLEO-NFC12A1): Allows controlling the ST X-NUCLEO-NFC12A1 expansion board
+    * Depends on: [STM32duino NFC-RFAL](https://github.com/stm32duino/NFC-RFAL), [STM32duino ST25R500](https://github.com/stm32duino/ST25R500)
+* [STM32duino X-NUCLEO-S2868A1](https://github.com/stm32duino/X-NUCLEO-S2868A1): Allows controlling the S2-LP radio on board of X-NUCLEO-S2868A1
+    * Depends on: [STM32duino S2-LP](https://github.com/stm32duino/S2-LP), [STM32duino M95640-R](https://github.com/stm32duino/M95640-R)
+* [STM32duino X-NUCLEO-S2868A2](https://github.com/stm32duino/X-NUCLEO-S2868A2): Allows controlling the S2-LP radio on board of X-NUCLEO-S2868A2
+    * Depends on: [STM32duino S2-LP](https://github.com/stm32duino/S2-LP), [STM32duino M95640-R](https://github.com/stm32duino/M95640-R)
+* [STM32duino X-NUCLEO-S2915A1](https://github.com/stm32duino/X-NUCLEO-S2915A1): Allows controlling the S2-LP radio on board of X-NUCLEO-S2915A1
+    * Depends on: [STM32duino S2-LP](https://github.com/stm32duino/S2-LP), [STM32duino M95640-R](https://github.com/stm32duino/M95640-R)
 
-Hereafter, an exhaustive list of Arduino libraries to support [X-NUCLEO Expansion Boards].
-These libraries are guaranteed to work fine with all NUCLEO boards supported in the [STM32] Core. They could also work with standard Arduino boards but I suggest to check before electrical and pinout compatibility of [X-NUCLEO Expansion Boards] with standard Arduino boards.
+<!-- END GENERATED STM32duino library list -->
 
-
-* [X-NUCLEO-53L0A1](https://github.com/stm32duino/X-NUCLEO-53L0A1): it is an expansion board for the STM32 Nucleo based on VL53L0X Time-of-Flight and gesture-detection sensor. It depends on the following libraries:
-
-  * [VL53L0X](https://github.com/stm32duino/VL53L0X)
-  * [Proximity Gesture]
-
-* [X-NUCLEO-53L1A1](https://github.com/stm32duino/X-NUCLEO-53L1A1): it is an expansion board for the STM32 Nucleo based on VL53L1X Time-of-Flight and gesture-detection sensor. It depends on the following libraries:
-
-  * [VL53L1X](https://github.com/stm32duino/VL53L1X)
-  * [Proximity Gesture]
-
-* [X-NUCLEO-6180XA1](https://github.com/stm32duino/X-NUCLEO-6180XA1): it is an expansion board for the STM32 Nucleo based on VL6180X proximity sensor, gesture and ambient light sensing (ALS) module. It depends on the following libraries:
-
-  * [VL6180X](https://github.com/stm32duino/VL6180X)
-  * [Proximity Gesture]
-
-* [X-NUCLEO-GNSS1A1](https://github.com/stm32duino/X-NUCLEO-GNSS1A1): to support the X-NUCLEO-GNSS1A1 expansion board using the TESEO-LIV3F module. It depends on the following libraries:
-  * [MicroNMEA](https://github.com/stevemarple/MicroNMEA)
-
-> [!NOTE]
-> In order to perform the firmware upgrade, the following Java application should be used:
-
-  * [Teseo-LIV3F-Flash-Updater](https://github.com/stm32duino/Teseo-LIV3F-Flash-Updater)
-
-* [X-NUCLEO-IDB05A1](https://github.com/stm32duino/X-NUCLEO-IDB05A1): it is a Bluetooth Low Energy evaluation board based on the SPBTLE-RF BlueNRG-MS RF module. It depends on the following library:
-
-  * [SPBTLE-RF](https://github.com/stm32duino/SPBTLE-RF)
-
-* [X-NUCLEO-IKA01A1](https://github.com/stm32duino/X-NUCLEO-IKA01A1): it is a multifunctional expansion board based on operational amplifiers.
-
-* [X-NUCLEO-IKS01A1](https://github.com/stm32duino/X-NUCLEO-IKS01A1): it is a motion MEMS and environmental sensor expansion board for the STM32 Nucleo. It depends on the following libraries:
-
-  * [LSM6DS0](https://github.com/stm32duino/LSM6DS0)
-  * [LSM6DS3 ](https://github.com/stm32duino/LSM6DS3)
-  * [LIS3MDL](https://github.com/stm32duino/LIS3MDL)
-  * [LPS25HB](https://github.com/stm32duino/LPS25HB)
-  * [HTS221](https://github.com/stm32duino/HTS221)
-
-* [X-NUCLEO-IKS01A2](https://github.com/stm32duino/X-NUCLEO-IKS01A2): it is a motion MEMS and environmental sensor expansion board for the STM32 Nucleo. It depends on the following libraries:
-
-  * [LSM6DSL](https://github.com/stm32duino/LSM6DSL)
-  * [LSM303AGR](https://github.com/stm32duino/LSM303AGR)
-  * [LPS22HB](https://github.com/stm32duino/LPS22HB)
-  * [HTS221](https://github.com/stm32duino/HTS221)
-
-* [X-NUCLEO-IKS01A3](https://github.com/stm32duino/X-NUCLEO-IKS01A3): it  is a motion MEMS and environmental sensor expansion board for the STM32 Nucleo. It depends on the following libraries:
-
-  * [LSM6DSO](https://github.com/stm32duino/LSM6DSO)
-  * [LIS2DW12](https://github.com/stm32duino/LIS2DW12)
-  * [LIS2MDL](https://github.com/stm32duino/LIS2MDL)
-  * [HTS221](https://github.com/stm32duino/HTS221)
-  * [LPS22HH](https://github.com/stm32duino/LPS22HH)
-  * [STTS751](https://github.com/stm32duino/STTS751)
-  * [LSM6DSOX](https://github.com/stm32duino/LSM6DSOX)
-
-* [X-NUCLEO-IHM02A1](https://github.com/stm32duino/X-NUCLEO-IHM02A1): it is a two axis stepper motor driver expansion board based on the L6470 component.
-* [X-NUCLEO-IHM12A1](https://github.com/stm32duino/X-NUCLEO-IHM12A1): it is a low voltage dual brush DC motor driver expansion board based on the STSPIN240.
-* [X-NUCLEO-LED61A1](https://github.com/stm32duino/X-NUCLEO-LED61A1): it is an expansion board based on the LED6001 component.
-* [X-NUCLEO-NFC01A1](https://github.com/stm32duino/X-NUCLEO-NFC01A1): it is a Dynamic NFC tag evaluation board based on the M24SR64-Y NFC Type 4/RFID tag IC. It depends on the following library:
-
-  * [M24SR64-Y](https://github.com/stm32duino/M24SR64-Y)
-
-* [X-NUCLEO-NFC03A1](https://github.com/stm32duino/X-NUCLEO-NFC03A1): it is an NFC card reader evaluation board based on CR95HF-VMD5T that supports the detection, reading and writing of NFC Forum Type 1, 2, 3 and 4 tags.
-* [X-NUCLEO-NFC04A1](https://github.com/stm32duino/X-NUCLEO-NFC04A1): it is a dynamic NFC/RFID tag IC expansion board based on the ST25DV04K NFC Type V/RFID tag IC. It depends on the following library:
-
-  * [ST25DV](https://github.com/stm32duino/ST25DV)
-
-* [X-NUCLEO-S2868A1](https://github.com/stm32duino/X-NUCLEO-S2868A1): it is a wireless sub-1 GHz expansion board based on S2-LP radio and operates in the 868 MHz ISM frequency band. It depends on the following libraries:
-
-  * [S2-LP](https://github.com/stm32duino/S2-LP)
-  * [M95640-R](https://github.com/stm32duino/M95640-R)
-
-* [X-NUCLEO-S2868A2](https://github.com/stm32duino/X-NUCLEO-S2868A2): it is a wireless sub-1 GHz expansion board based on S2-LP radio and operates in the 868 MHz ISM frequency band. It depends on the following libraries:
-
-  * [S2-LP](https://github.com/stm32duino/S2-LP)
-  * [M95640-R](https://github.com/stm32duino/M95640-R)
-
-* [X-NUCLEO-S2915A1](https://github.com/stm32duino/X-NUCLEO-S2915A1): it is a wireless sub-1 GHz expansion board based on S2-LP radio and operates in the 915 MHz ISM frequency band. It depends on the following libraries:
-
-  * [S2-LP](https://github.com/stm32duino/S2-LP)
-  * [M95640-R](https://github.com/stm32duino/M95640-R)
-
-* [X-NUCLEO-53L1A2](https://github.com/stm32duino/X-NUCLEO-53L1A2): it is an expansion board for the STM32 Nucleo based on VL53L1 Time-of-Flight ranging sensor with advanced multi object detection. It depends on the following libraries:
-
-  * [VL53L1](https://github.com/stm32duino/VL53L1)
-
-* [X-NUCLEO-53L3A2](https://github.com/stm32duino/X-NUCLEO-53L3A2): it is an expansion board for the STM32 Nucleo based on VL53L3CX Time-of-Flight ranging sensor with multi target detection. It depends on the following libraries:
-
-  * [VL53L3CX](https://github.com/stm32duino/VL53L3CX)
-
-* [X-NUCLEO-IHM05A1](https://github.com/stm32duino/X-NUCLEO-IHM05A1): it is a bipolar stepper motor driver expansion board based on the L6208 component.
-
-### Other expansion board
-
-* [I-NUCLEO-LRWAN1](https://github.com/stm32duino/I-NUCLEO-LRWAN1): to support I-NUCLEO-LRWAN1 LoRa® expansion board based on USI® LoRaWAN™ technology module
-
-The following libraries are known to be compatible with the [STM32] core. Check
-the linked project documentation for current compatibility details.
-
-## Official from Arduino
-* [TFT](https://github.com/arduino-libraries/TFT/): since release [1.0.6](https://github.com/arduino-libraries/TFT/releases/tag/1.0.6) else use [Ucglib_Arduino](https://github.com/olikraus/Ucglib_Arduino)
-* [LiquidCrystal](https://github.com/arduino-libraries/LiquidCrystal)
-* [Ethernet](https://github.com/arduino-libraries/Ethernet)
-* [WiFi](https://github.com/arduino-libraries/WiFi)
-
-## Third party
-`ARDUINO_ARCH_STM32` must be used as differentiator.
-### Tested
-* [arduino-LoRa](https://github.com/sandeepmistry/arduino-LoRa): tested with B-L072Z-LRWAN1
-* [Firmata](https://github.com/firmata/arduino): since release [2.5.7](https://github.com/firmata/arduino/releases/tag/2.5.7)
-* [OneWire](https://github.com/PaulStoffregen/OneWire): Library for Dallas/Maxim 1-Wire Chips
-* [PubSubClient](https://github.com/knolleary/PubSubClient): tested using L475 disco IOT using WiFi
-* [RTClib](https://github.com/adafruit/RTClib): tested with Adafruit module 3296
-* [Ucglib_Arduino](https://github.com/olikraus/Ucglib_Arduino): tested with ST7735
-* [UIPEthernet](https://github.com/UIPEthernet/UIPEthernet): tested with ENC28j60 module
-
-[Proximity Gesture]: https://github.com/stm32duino/Proximity_Gesture
-[STM32]: https://github.com/stm32duino/Arduino_Core_STM32
-[X-NUCLEO Expansion Boards]: https://www.st.com/en/evaluation-tools/stm32-nucleo-expansion-boards.html
+See the [additional libraries and compatibility](additional-libraries.md) page for more information.

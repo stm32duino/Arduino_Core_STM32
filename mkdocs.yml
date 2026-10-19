@@ -45,6 +45,7 @@ nav:
       - Library documentation index: libraries/Hosted-library-documentation.md
       - STM32LoRaWAN: https://stm32duino.github.io/STM32LoRaWAN/
       - HTS221: https://stm32duino.github.io/HTS221/
+    - Additional libraries and compatibility: libraries/additional-libraries.md
   - Development:
     - Contributing: https://github.com/stm32duino/Arduino_Core_STM32/blob/main/CONTRIBUTING.md
     - Using the Git Repository: development/Using-git-repository.md
