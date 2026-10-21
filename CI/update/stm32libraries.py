@@ -41,7 +41,7 @@ def check_config():
         config = {}
 
     if "REPO_STM32DUINO" not in config:
-        config["REPO_STM32DUINO"] = str(REPOSITORY_ROOT)
+        config["REPO_STM32DUINO"] = str(REPOSITORY_ROOT.parent)
         defaultConfig(CONFIG_PATH, config)
 
     configured_path = config["REPO_STM32DUINO"]

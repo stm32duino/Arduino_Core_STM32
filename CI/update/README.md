@@ -32,5 +32,5 @@ manually; this script is not run by CI.
 library repositories are cloned or fetched. Absolute paths are used as
 configured; relative paths are resolved from the `Arduino_Core_STM32` repository
 root. If the file or setting is missing, the script writes the default
-`REPO_STM32DUINO` path (the core repository root), asks you to check the
+`REPO_STM32DUINO` path (the parent of the core repository root), asks you to check the
 configuration, and exits; run it again after reviewing the generated setting.

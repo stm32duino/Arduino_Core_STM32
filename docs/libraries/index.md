@@ -104,13 +104,13 @@ This list is generated from public STM32duino repositories that contain a `libra
 * [STM32duino ASM330LHH](https://github.com/stm32duino/ASM330LHH): Automotive inertial measurement unit.
 * [STM32duino HTS221](https://github.com/stm32duino/HTS221): Capacitive digital sensor for relative humidity and temperature.
 * [STM32duino IIS2DLPC](https://github.com/stm32duino/IIS2DLPC): High Performance Ultra Low Power 3D accelerometer.
-* [STM32duino IIS2DULPX](https://github.com/stm32duino/IIS2DULPX): Ultra Low Power inertial measurement unit.
+* [STM32duino IIS2DULPX](https://github.com/stm32duino/IIS2DULPX): Ultra Low Power inertial measurement unit with I3C support.
 * [STM32duino IIS2MDC](https://github.com/stm32duino/IIS2MDC): Ultra Low Power 3D magnetometer.
-* [STM32duino ILPS22QS](https://github.com/stm32duino/ILPS22QS): Nano pressure sensor.
+* [STM32duino ILPS22QS](https://github.com/stm32duino/ILPS22QS): Nano pressure sensor with I3C support.
 * [STM32duino ISM330DHCX](https://github.com/stm32duino/ISM330DHCX): High-Performance 3D digital accelerometer and 3D digital gyroscope.
 * [STM32duino ISM330DLC](https://github.com/stm32duino/ISM330DLC): 3D accelerometer and 3D gyroscope.
 * [STM32duino ISM330IS](https://github.com/stm32duino/ISM330IS): Ultra Low Power inertial measurement unit.
-* [STM32duino ISM6HG256X](https://github.com/stm32duino/ISM6HG256X): Intelligent IMU with simultaneous low-g and high-g acceleration detection.
+* [STM32duino ISM6HG256X](https://github.com/stm32duino/ISM6HG256X): Intelligent IMU with simultaneous low-g and high-g acceleration detection and I3C support.
 * [STM32duino LIS2DU12](https://github.com/stm32duino/LIS2DU12): Ultra Low Power 3D accelerometer.
 * [STM32duino LIS2DUXS12](https://github.com/stm32duino/LIS2DUXS12): Ultra Low Power 3D accelerometer.
 * [STM32duino LIS2DW12](https://github.com/stm32duino/LIS2DW12): Ultra Low Power 3D accelerometer.
