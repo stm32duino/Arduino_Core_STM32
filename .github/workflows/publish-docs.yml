@@ -37,10 +37,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      - uses: actions/create-github-app-token@v1
+      - uses: actions/create-github-app-token@v3
         id: pages-token
         with:
-          app-id: ${{ secrets.DOCS_PUBLISH_APP_ID }}
+          client-id: ${{ vars.DOCS_PUBLISH_APP_CLIENT_ID }}
           private-key: ${{ secrets.DOCS_PUBLISH_APP_PRIVATE_KEY }}
           owner: stm32duino
           repositories: stm32duino.github.io
