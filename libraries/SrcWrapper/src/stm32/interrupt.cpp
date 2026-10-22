@@ -248,9 +248,9 @@ static const uint32_t ll_exti_lines[NB_EXTI] = {
 
 /* Private Functions */
 /**
-  * @brief  This function returns the pin ID function of the HAL PIN definition
-  * @param  pin : one of the gpio pin
-  * @retval None
+  * @brief Return the ID of a GPIO pin, i.e. its bit index in the port.
+  * @param pin One of the GPIO pins.
+  * @return The bit index of the pin.
   */
 static uint8_t get_pin_id(uint16_t pin)
 {
@@ -314,12 +314,6 @@ void stm32_interrupt_enable(PinName pn, callback_function_t callback, uint32_t m
 #endif
 }
 
-/**
-  * @brief  This function disable the interruption on the selected port/pin
-  * @param  port : one of the gpio port
-  * @param  pin : one of the gpio pin
-  * @retval None
-  */
 void stm32_interrupt_disable(GPIO_TypeDef *port, uint16_t pin)
 {
   (void)port;
@@ -409,9 +403,8 @@ void HAL_EXTI_TriggerCallback(hal_exti_handle_t *hexti, hal_exti_trigger_t trigg
 }
 #else
 /**
-  * @brief This function his called by the HAL if the IRQ is valid
-  * @param  GPIO_Pin : one of the gpio pin
-  * @retval None
+  * @brief Callback called by the HAL when a valid EXTI interrupt is detected.
+  * @param GPIO_Pin GPIO pin that triggered the interrupt.
   */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
@@ -426,9 +419,8 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     defined(STM32MP1xx) || defined(STM32L5xx) || defined(STM32U0xx) || \
     defined(STM32U3xx)  || defined(STM32U5xx)  || defined(STM32WBAxx)
 /**
-  * @brief  EXTI line detection callback.
-  * @param  GPIO_Pin Specifies the port pin connected to corresponding EXTI line.
-  * @retval None
+  * @brief EXTI line detection callback.
+  * @param GPIO_Pin Specifies the port pin connected to corresponding EXTI line.
   */
 void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
 {
@@ -436,9 +428,8 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
 }
 
 /**
-  * @brief  EXTI line detection callback.
-  * @param  GPIO_Pin Specifies the port pin connected to corresponding EXTI line.
-  * @retval None
+  * @brief EXTI line detection callback.
+  * @param GPIO_Pin Specifies the port pin connected to corresponding EXTI line.
   */
 void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 {
@@ -450,8 +441,6 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
     defined(STM32L0xx) || defined(STM32U0xx)
 /**
   * @brief This function handles external line 0 to 1 interrupt request.
-  * @param  None
-  * @retval None
   */
 void EXTI0_1_IRQHandler(void)
 {
@@ -464,8 +453,6 @@ void EXTI0_1_IRQHandler(void)
 
 /**
   * @brief This function handles external line 2 to 3 interrupt request.
-  * @param  None
-  * @retval None
   */
 void EXTI2_3_IRQHandler(void)
 {
@@ -477,8 +464,6 @@ void EXTI2_3_IRQHandler(void)
 
 /**
   * @brief This function handles external line 4 to 15 interrupt request.
-  * @param  None
-  * @retval None
   */
 void EXTI4_15_IRQHandler(void)
 {
@@ -555,8 +540,6 @@ void EXTI15_IRQHandler(void)
 #else
 /**
   * @brief This function handles external line 0 interrupt request.
-  * @param  None
-  * @retval None
   */
 void EXTI0_IRQHandler(void)
 {
@@ -565,8 +548,6 @@ void EXTI0_IRQHandler(void)
 
 /**
   * @brief This function handles external line 1 interrupt request.
-  * @param  None
-  * @retval None
   */
 void EXTI1_IRQHandler(void)
 {
@@ -575,8 +556,6 @@ void EXTI1_IRQHandler(void)
 
 /**
   * @brief This function handles external line 2 interrupt request.
-  * @param  None
-  * @retval None
   */
 void EXTI2_IRQHandler(void)
 {
@@ -585,8 +564,6 @@ void EXTI2_IRQHandler(void)
 
 /**
   * @brief This function handles external line 3 interrupt request.
-  * @param  None
-  * @retval None
   */
 void EXTI3_IRQHandler(void)
 {
@@ -595,8 +572,6 @@ void EXTI3_IRQHandler(void)
 
 /**
   * @brief This function handles external line 4 interrupt request.
-  * @param  None
-  * @retval None
   */
 void EXTI4_IRQHandler(void)
 {
@@ -607,8 +582,6 @@ void EXTI4_IRQHandler(void)
     !defined(STM32U3xx) && !defined(STM32U5xx) &&  !defined(STM32WBAxx)
 /**
   * @brief This function handles external line 5 to 9 interrupt request.
-  * @param  None
-  * @retval None
   */
 void EXTI9_5_IRQHandler(void)
 {
@@ -620,8 +593,6 @@ void EXTI9_5_IRQHandler(void)
 
 /**
   * @brief This function handles external line 10 to 15 interrupt request.
-  * @param  None
-  * @retval None
   */
 void EXTI15_10_IRQHandler(void)
 {
@@ -634,8 +605,6 @@ void EXTI15_10_IRQHandler(void)
 
 /**
   * @brief This function handles external line 5 interrupt request.
-  * @param  None
-  * @retval None
   */
 void EXTI5_IRQHandler(void)
 {
@@ -644,8 +613,6 @@ void EXTI5_IRQHandler(void)
 
 /**
   * @brief This function handles external line 6 interrupt request.
-  * @param  None
-  * @retval None
   */
 void EXTI6_IRQHandler(void)
 {
@@ -654,8 +621,6 @@ void EXTI6_IRQHandler(void)
 
 /**
   * @brief This function handles external line 7 interrupt request.
-  * @param  None
-  * @retval None
   */
 void EXTI7_IRQHandler(void)
 {
@@ -664,8 +629,6 @@ void EXTI7_IRQHandler(void)
 
 /**
   * @brief This function handles external line 8 interrupt request.
-  * @param  None
-  * @retval None
   */
 void EXTI8_IRQHandler(void)
 {
@@ -674,8 +637,6 @@ void EXTI8_IRQHandler(void)
 
 /**
   * @brief This function handles external line 9 interrupt request.
-  * @param  None
-  * @retval None
   */
 void EXTI9_IRQHandler(void)
 {
@@ -684,8 +645,6 @@ void EXTI9_IRQHandler(void)
 
 /**
   * @brief This function handles external line 10 interrupt request.
-  * @param  None
-  * @retval None
   */
 void EXTI10_IRQHandler(void)
 {
@@ -694,8 +653,6 @@ void EXTI10_IRQHandler(void)
 
 /**
   * @brief This function handles external line 11 interrupt request.
-  * @param  None
-  * @retval None
   */
 void EXTI11_IRQHandler(void)
 {
@@ -704,8 +661,6 @@ void EXTI11_IRQHandler(void)
 
 /**
   * @brief This function handles external line 12 interrupt request.
-  * @param  None
-  * @retval None
   */
 void EXTI12_IRQHandler(void)
 {
@@ -714,8 +669,6 @@ void EXTI12_IRQHandler(void)
 
 /**
   * @brief This function handles external line 13 interrupt request.
-  * @param  None
-  * @retval None
   */
 void EXTI13_IRQHandler(void)
 {
@@ -724,8 +677,6 @@ void EXTI13_IRQHandler(void)
 
 /**
   * @brief This function handles external line 14 interrupt request.
-  * @param  None
-  * @retval None
   */
 void EXTI14_IRQHandler(void)
 {
@@ -734,8 +685,6 @@ void EXTI14_IRQHandler(void)
 
 /**
   * @brief This function handles external line 15 interrupt request.
-  * @param  None
-  * @retval None
   */
 void EXTI15_IRQHandler(void)
 {

@@ -37,8 +37,8 @@ extern "C" {
  * @note  When the buffer overflows (2kb by default, configurable.),
  *        the buffer is cleaned by a null character. Consider increasing
  *        VIRTIO_LOG_BUFFER_SIZE if a larger log buffer is needed.
- * @param data: Data to send
- * @param size: size of data
+ * @param data Data to send.
+ * @param size Size of data, in bytes.
  */
 void virtio_log(uint8_t *data, uint32_t size);
 

@@ -20,8 +20,11 @@
 #define ARDUINO_MAIN
 #include "Arduino.h"
 
-// Force init to be called *first*, i.e. before static object allocation.
-// Otherwise, statically allocated objects that need HAL may fail.
+/**
+ * @brief Early initialization, run before static object allocation.
+ *
+ * Sets the NVIC priority grouping, enables the caches if present, then calls init().
+ */
 __attribute__((constructor(101))) void premain()
 {
 
@@ -42,8 +45,10 @@ __attribute__((constructor(101))) void premain()
   init();
 }
 
-/*
- * \brief Main entry point of Arduino application
+/**
+ * @brief Main entry point of Arduino application. Runs setup() once, then loop() forever.
+ *
+ * @return 0. Not reached in practice, the loop never ends.
  */
 int main(void)
 {

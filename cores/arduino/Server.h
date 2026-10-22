@@ -22,8 +22,14 @@
 
 #include "Print.h"
 
+/**
+ * @brief Base class for server objects that accept client connections.
+ */
 class Server : public Print {
   public:
+    /**
+     * @brief Start listening for connections.
+     */
     virtual void begin() = 0;
 };
 

@@ -64,10 +64,22 @@
     #include <functional>
 
     typedef std::function<void(void)> callback_function_t;
+    /**
+      * @brief Enable the EXTI interrupt on a pin and register its callback.
+      * @param pn Pin name (e.g. PA_0) to attach the interrupt to.
+      * @param callback Function called when the interrupt fires.
+      * @param mode Trigger mode, e.g. GPIO_MODE_IT_RISING, GPIO_MODE_IT_FALLING
+      *             or GPIO_MODE_IT_RISING_FALLING (hal_exti_trigger_t when USE_HALV2_DRIVER).
+      */
     void stm32_interrupt_enable(PinName pn, callback_function_t callback, uint32_t mode);
   #endif
 
   /* Exported functions ------------------------------------------------------- */
+  /**
+    * @brief Disable the EXTI interrupt on a pin and clear its callback.
+    * @param port GPIO port of the pin (unused, kept for API compatibility).
+    * @param pin GPIO pin mask (e.g. GPIO_PIN_0) to disable.
+    */
   void stm32_interrupt_disable(GPIO_TypeDef *port, uint16_t pin);
 #endif /* !HAL_EXTI_MODULE_DISABLED */
 

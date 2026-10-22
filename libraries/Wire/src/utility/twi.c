@@ -194,7 +194,7 @@ static I2C_HandleTypeDef *i2c_handles[I2C_NUM];
 /**
   * @brief  This function return the I2C clock source frequency.
   * @param  i2c: I2C instance
-  * @retval frequency in Hz
+  * @return frequency in Hz
   */
 static uint32_t i2c_getClkFreq(I2C_TypeDef *i2c)
 {
@@ -537,7 +537,7 @@ static uint32_t i2c_getClkFreq(I2C_TypeDef *i2c)
 * @brief Calculate PRESC, SCLDEL, SDADEL, SCLL and SCLH and find best configuration.
 * @param clkSrcFreq I2C source clock in HZ.
 * @param i2c_speed I2C frequency (index).
-* @retval config index (0 to I2C_VALID_TIMING_NBR], 0xFFFFFFFF for no
+* @return config index (0 to I2C_VALID_TIMING_NBR], 0xFFFFFFFF for no
 valid config.
 */
 static uint32_t i2c_computeTiming(uint32_t clkSrcFreq, uint32_t i2c_speed)
@@ -674,7 +674,7 @@ required I2C clock.
 * @param  obj : pointer to i2c_t structure
 * @param frequency
  Required I2C clock in Hz.
-* @retval I2C timing or 0 in case of error.
+* @return I2C timing or 0 in case of error.
 */
 static uint32_t i2c_getTiming(i2c_t *obj, uint32_t frequency)
 {
@@ -734,13 +734,6 @@ static uint32_t i2c_getTiming(i2c_t *obj, uint32_t frequency)
   return ret;
 }
 
-/**
-  * @brief  Initialize and setup GPIO and I2C peripheral
-  * @param  obj : pointer to i2c_t structure
-  * @param  timing : one of the i2c_timing_e
-  * @param  ownAddress : device address
-  * @retval none
-  */
 void i2c_init(i2c_t *obj, uint32_t timing, uint32_t ownAddress)
 {
   if (obj != NULL) {
@@ -927,11 +920,6 @@ void i2c_init(i2c_t *obj, uint32_t timing, uint32_t ownAddress)
   }
 }
 
-/**
-  * @brief  Initialize and setup GPIO and I2C peripheral
-  * @param  obj : pointer to i2c_t structure
-  * @retval none
-  */
 void i2c_deinit(i2c_t *obj)
 {
 #if defined(USE_HALV2_DRIVER)
@@ -1003,12 +991,6 @@ void i2c_deinit(i2c_t *obj)
 #endif // I2C6_BASE
 }
 
-/**
-  * @brief  Setup transmission speed. I2C must be configured before.
-  * @param  obj : pointer to i2c_t structure
-  * @param  frequency : i2c transmission speed
-  * @retval none
-  */
 void i2c_setTiming(i2c_t *obj, uint32_t frequency)
 {
   uint32_t f = i2c_getTiming(obj, frequency);
@@ -1033,14 +1015,6 @@ void i2c_setTiming(i2c_t *obj, uint32_t frequency)
   LL_I2C_Enable(obj->i2c);
 }
 
-/**
-  * @brief  Write bytes at a given address
-  * @param  obj : pointer to i2c_t structure
-  * @param  dev_address: specifies the address of the device.
-  * @param  data: pointer to data to be write
-  * @param  size: number of bytes to be write.
-  * @retval read status
-  */
 i2c_status_e i2c_master_write(i2c_t *obj, uint8_t dev_address,
                               uint8_t *data, uint16_t size)
 
@@ -1144,13 +1118,6 @@ i2c_status_e i2c_master_write(i2c_t *obj, uint8_t dev_address,
   return ret;
 }
 
-/**
-  * @brief  Write bytes to master
-  * @param  obj : pointer to i2c_t structure
-  * @param  data: pointer to data to be write
-  * @param  size: number of bytes to be write.
-  * @retval status
-  */
 i2c_status_e i2c_slave_write_IT(i2c_t *obj, uint8_t *data, uint16_t size)
 {
   uint8_t i = 0;
@@ -1170,14 +1137,6 @@ i2c_status_e i2c_slave_write_IT(i2c_t *obj, uint8_t *data, uint16_t size)
   return ret;
 }
 
-/**
-  * @brief  read bytes in master mode at a given address
-  * @param  obj : pointer to i2c_t structure
-  * @param  dev_address: specifies the address of the device.
-  * @param  data: pointer to data to be read
-  * @param  size: number of bytes to be read.
-  * @retval read status
-  */
 i2c_status_e i2c_master_read(i2c_t *obj, uint8_t dev_address, uint8_t *data, uint16_t size)
 {
   i2c_status_e ret = I2C_OK;
@@ -1273,13 +1232,6 @@ i2c_status_e i2c_master_read(i2c_t *obj, uint8_t dev_address, uint8_t *data, uin
   return ret;
 }
 
-/**
-  * @brief  Checks if target device is ready for communication
-  * @param  obj : pointer to i2c_t structure
-  * @param  devAddr: specifies the address of the device.
-  * @param  trials : Number of trials.
-  * @retval status
-  */
 i2c_status_e i2c_IsDeviceReady(i2c_t *obj, uint8_t devAddr, uint32_t trials)
 {
   i2c_status_e ret = I2C_OK;
@@ -1321,6 +1273,12 @@ i2c_status_e i2c_IsDeviceReady(i2c_t *obj, uint8_t devAddr, uint32_t trials)
 /* Aim of the function is to get i2c_s pointer using hi2c pointer */
 /* Highly inspired from magical linux kernel's "container_of" */
 /* (which was not directly used since not compatible with IAR toolchain) */
+/**
+ * @brief Get the i2c_t object that embeds a given HAL I2C handle.
+ * @param hi2c Pointer to the handle member of an i2c_t object (I2C_HandleTypeDef, or hal_i2c_handle_t with USE_HALV2_DRIVER).
+ * @return Pointer to the i2c_t object that contains hi2c.
+ * @note The object is recovered by pointer arithmetic (container_of style). hi2c must point to the handle member of a valid i2c_t, otherwise the result is undefined.
+ */
 #if defined(USE_HALV2_DRIVER)
 i2c_t *get_i2c_obj(hal_i2c_handle_t *hi2c)
 #else
@@ -1336,11 +1294,6 @@ i2c_t *get_i2c_obj(I2C_HandleTypeDef *hi2c)
   return (obj);
 }
 
-/** @brief  sets function called before a slave read operation
-  * @param  obj : pointer to i2c_t structure
-  * @param  function: callback function to use
-  * @retval None
-  */
 void i2c_attachSlaveRxEvent(i2c_t *obj, void (*function)(i2c_t *))
 {
   if ((obj != NULL) && (function != NULL)) {
@@ -1353,11 +1306,6 @@ void i2c_attachSlaveRxEvent(i2c_t *obj, void (*function)(i2c_t *))
   }
 }
 
-/** @brief  sets function called before a slave write operation
-  * @param  obj : pointer to i2c_t structure
-  * @param  function: callback function to use
-  * @retval None
-  */
 void i2c_attachSlaveTxEvent(i2c_t *obj, void (*function)(i2c_t *))
 {
   if ((obj != NULL) && (function != NULL)) {
@@ -1376,7 +1324,6 @@ void i2c_attachSlaveTxEvent(i2c_t *obj, void (*function)(i2c_t *))
   *                the configuration information for the specified I2C.
   * @param  TransferDirection: Master request Transfer Direction (Write/Read), value of @ref I2C_XferOptions_definition
   * @param  AddrMatchCode: Address Match Code
-  * @retval None
   */
 #if defined(USE_HALV2_DRIVER)
 void HAL_I2C_SLAVE_AddrCallback(hal_i2c_handle_t *hi2c, hal_i2c_slave_xfer_direction_t TransferDirection,
@@ -1430,7 +1377,6 @@ void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, ui
   * @brief  Listen Complete callback.
   * @param  hi2c Pointer to a I2C_HandleTypeDef or hal_i2c_handle_t structure that contains
   *                the configuration information for the specified I2C.
-  * @retval None
   */
 #if defined(USE_HALV2_DRIVER)
 void HAL_I2C_SLAVE_ListenCpltCallback(hal_i2c_handle_t *hi2c)
@@ -1458,7 +1404,6 @@ void HAL_I2C_ListenCpltCallback(I2C_HandleTypeDef *hi2c)
   * @brief Slave RX complete callback
   * @param  hi2c Pointer to a I2C_HandleTypeDef structure that contains
   *                the configuration information for the specified I2C.
-  * @retval None
   */
 #if defined(USE_HALV2_DRIVER)
 void HAL_I2C_SLAVE_RxCpltCallback(hal_i2c_handle_t *hi2c)
@@ -1489,7 +1434,6 @@ void HAL_I2C_SlaveRxCpltCallback(I2C_HandleTypeDef *hi2c)
   * @brief Slave TX complete callback
   * @param  hi2c Pointer to a I2C_HandleTypeDef structure that contains
   *                the configuration information for the specified I2C.
-  * @retval None
   */
 #if defined(USE_HALV2_DRIVER)
 void HAL_I2C_SLAVE_TxCpltCallback(hal_i2c_handle_t *hi2c)
@@ -1510,7 +1454,6 @@ void HAL_I2C_SlaveTxCpltCallback(I2C_HandleTypeDef *hi2c)
   *         so the error callback forces the slave to listen again.
   * @param  hi2c Pointer to a I2C_HandleTypeDef structure that contains
   *                the configuration information for the specified I2C.
-  * @retval None
   */
 #if defined(USE_HALV2_DRIVER)
 void HAL_I2C_ErrorCallback(hal_i2c_handle_t *hi2c)
@@ -1533,7 +1476,6 @@ void HAL_I2C_ErrorCallback(I2C_HandleTypeDef *hi2c)
 /**
 * @brief  This function handles I2C1 interrupt.
 * @param  None
-* @retval None
 */
 void I2C1_EV_IRQHandler(void)
 {
@@ -1553,7 +1495,6 @@ void I2C1_EV_IRQHandler(void)
 /**
 * @brief  This function handles I2C1 error interrupt.
 * @param  None
-* @retval None
 */
 void I2C1_ERR_IRQHandler(void)
 {
@@ -1565,7 +1506,6 @@ void I2C1_ERR_IRQHandler(void)
 /**
 * @brief  This function handles I2C1 error interrupt.
 * @param  None
-* @retval None
 */
 void I2C1_ER_IRQHandler(void)
 {
@@ -1579,7 +1519,6 @@ void I2C1_ER_IRQHandler(void)
 /**
 * @brief  This function handles I2C2 interrupt.
 * @param  None
-* @retval None
 */
 void I2C2_EV_IRQHandler(void)
 {
@@ -1621,7 +1560,6 @@ void I2C2_EV_IRQHandler(void)
 /**
 * @brief  This function handles I2C2 error interrupt.
 * @param  None
-* @retval None
 */
 void I2C2_ERR_IRQHandler(void)
 {
@@ -1633,7 +1571,6 @@ void I2C2_ERR_IRQHandler(void)
 /**
 * @brief  This function handles I2C2 error interrupt.
 * @param  None
-* @retval None
 */
 void I2C2_ER_IRQHandler(void)
 {
@@ -1647,7 +1584,6 @@ void I2C2_ER_IRQHandler(void)
 /**
 * @brief  This function handles I2C3 interrupt.
 * @param  None
-* @retval None
 */
 void I2C3_EV_IRQHandler(void)
 {
@@ -1662,7 +1598,6 @@ void I2C3_EV_IRQHandler(void)
 /**
 * @brief  This function handles I2C3 interrupt.
 * @param  None
-* @retval None
 */
 void I2C3_ER_IRQHandler(void)
 {
@@ -1676,7 +1611,6 @@ void I2C3_ER_IRQHandler(void)
 /**
 * @brief  This function handles I2C4 interrupt.
 * @param  None
-* @retval None
 */
 void I2C4_EV_IRQHandler(void)
 {
@@ -1688,7 +1622,6 @@ void I2C4_EV_IRQHandler(void)
 /**
 * @brief  This function handles I2C4 interrupt.
 * @param  None
-* @retval None
 */
 void I2C4_ER_IRQHandler(void)
 {
@@ -1701,7 +1634,6 @@ void I2C4_ER_IRQHandler(void)
 /**
 * @brief  This function handles I2C5 interrupt.
 * @param  None
-* @retval None
 */
 void I2C5_EV_IRQHandler(void)
 {
@@ -1712,7 +1644,6 @@ void I2C5_EV_IRQHandler(void)
 /**
 * @brief  This function handles I2C5 interrupt.
 * @param  None
-* @retval None
 */
 void I2C5_ER_IRQHandler(void)
 {
@@ -1725,7 +1656,6 @@ void I2C5_ER_IRQHandler(void)
 /**
 * @brief  This function handles I2C6 interrupt.
 * @param  None
-* @retval None
 */
 void I2C6_EV_IRQHandler(void)
 {
@@ -1736,7 +1666,6 @@ void I2C6_EV_IRQHandler(void)
 /**
 * @brief  This function handles I2C6 interrupt.
 * @param  None
-* @retval None
 */
 void I2C6_ER_IRQHandler(void)
 {

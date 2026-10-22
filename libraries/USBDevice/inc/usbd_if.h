@@ -23,12 +23,29 @@
 extern "C" {
 #endif
 
+/**
+ * @brief Force to re-enumerate USB.
+ *
+ * Intended to be called at startup by core code. It can also be used at
+ * runtime, while USB is connected, but that does not work in all cases
+ * (when USB is enabled on an F103C8, setting output mode on the DP pin
+ * no longer has any effect).
+ */
 void USBD_reenumerate(void);
+
 #ifdef USBD_USE_CDC
+/**
+ * @brief Initialize the CDC interface used by the USB serial port.
+ */
 void USBD_CDC_init(void);
 #endif
 
-/* Weaked function */
+/**
+ * @brief Configure the system clock and system IP clocks after wake-up
+ *        from the USB resume callback.
+ * @note  Weak function, can be redefined by the user at the sketch level.
+ *        By default, calls configIPClock() and SystemClock_Config().
+ */
 void USBD_SystemClockConfigFromResume(void);
 
 #ifdef __cplusplus

@@ -38,10 +38,8 @@ static timerPinInfo_t TimerTone_pinInfo = {NC, 0};
 static HardwareTimer *TimerTone = NULL;
 
 /**
-  * @brief  Tone Period elapsed callback in non-blocking mode
-  * @param  htim : timer handle
-  * @retval None
-  */
+ * @brief Tone Period elapsed callback in non-blocking mode.
+ */
 static void tonePeriodElapsedCallback()
 {
   GPIO_TypeDef *port = get_GPIO_Port(STM_PORT(TimerTone_pinInfo.pin));
@@ -59,11 +57,8 @@ static void tonePeriodElapsedCallback()
 }
 
 /**
-  * @brief  This function will reset the tone timer
-  * @param  port : pointer to port
-  * @param  pin : pin number to toggle
-  * @retval None
-  */
+ * @brief Reset the tone timer and release the tone pin.
+ */
 static void timerTonePinDeinit()
 {
   if (TimerTone != NULL) {
@@ -75,6 +70,13 @@ static void timerTonePinDeinit()
   }
 }
 
+/**
+ * @brief Configure the tone timer and output pin for a given frequency and duration.
+ *
+ * @param p Pin to output the tone on.
+ * @param frequency Tone frequency in Hertz. 0 pauses the timer, values above MAX_FREQ are ignored.
+ * @param duration Tone duration in milliseconds. 0 means the tone plays until noTone() is called.
+ */
 static void timerTonePinInit(PinName p, uint32_t frequency, uint32_t duration)
 {
   uint32_t timFreq = 2 * frequency;
@@ -103,7 +105,13 @@ static void timerTonePinInit(PinName p, uint32_t frequency, uint32_t duration)
   }
 }
 
-// frequency (in hertz) and duration (in milliseconds).
+/**
+ * @brief Generate a square wave of the given frequency on a pin.
+ *
+ * @param _pin Pin to output the tone on.
+ * @param frequency Frequency of the tone in Hertz.
+ * @param duration Duration of the tone in milliseconds. 0 plays the tone until noTone() is called.
+ */
 void tone(uint8_t _pin, unsigned int frequency, unsigned long duration)
 {
   PinName p = digitalPinToPinName(_pin);
@@ -120,6 +128,11 @@ void tone(uint8_t _pin, unsigned int frequency, unsigned long duration)
 }
 
 
+/**
+ * @brief Stop tone generation on a pin, keeping the tone timer allocated.
+ *
+ * @param _pin Pin on which to stop tone generation.
+ */
 void noTone(uint8_t _pin)
 {
   noTone(_pin, false);

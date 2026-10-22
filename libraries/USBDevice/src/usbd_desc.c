@@ -337,7 +337,7 @@ static void Get_SerialNum(void);
   * @brief  Returns the device descriptor.
   * @param  speed: Current device speed
   * @param  length: Pointer to data length variable
-  * @retval Pointer to descriptor buffer
+  * @return Pointer to descriptor buffer
   */
 uint8_t *USBD_Class_DeviceDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 {
@@ -350,7 +350,7 @@ uint8_t *USBD_Class_DeviceDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
   * @brief  Returns the LangID string descriptor.
   * @param  speed: Current device speed
   * @param  length: Pointer to data length variable
-  * @retval Pointer to descriptor buffer
+  * @return Pointer to descriptor buffer
   */
 uint8_t *USBD_LangIDStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 {
@@ -363,7 +363,7 @@ uint8_t *USBD_LangIDStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
   * @brief  Returns the product string descriptor.
   * @param  speed: Current device speed
   * @param  length: Pointer to data length variable
-  * @retval Pointer to descriptor buffer
+  * @return Pointer to descriptor buffer
   */
 uint8_t *USBD_Class_ProductStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 {
@@ -379,7 +379,7 @@ uint8_t *USBD_Class_ProductStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *leng
   * @brief  Returns the manufacturer string descriptor.
   * @param  speed: Current device speed
   * @param  length: Pointer to data length variable
-  * @retval Pointer to descriptor buffer
+  * @return Pointer to descriptor buffer
   */
 uint8_t *USBD_ManufacturerStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 {
@@ -392,7 +392,7 @@ uint8_t *USBD_ManufacturerStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *lengt
   * @brief  Returns the serial number string descriptor.
   * @param  speed: Current device speed
   * @param  length: Pointer to data length variable
-  * @retval Pointer to descriptor buffer
+  * @return Pointer to descriptor buffer
   */
 uint8_t *USBD_SerialStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 {
@@ -410,7 +410,7 @@ uint8_t *USBD_SerialStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
   * @brief  Returns the configuration string descriptor.
   * @param  speed: Current device speed
   * @param  length: Pointer to data length variable
-  * @retval Pointer to descriptor buffer
+  * @return Pointer to descriptor buffer
   */
 uint8_t *USBD_Class_ConfigStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 {
@@ -426,7 +426,7 @@ uint8_t *USBD_Class_ConfigStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *lengt
   * @brief  Returns the interface string descriptor.
   * @param  speed: Current device speed
   * @param  length: Pointer to data length variable
-  * @retval Pointer to descriptor buffer
+  * @return Pointer to descriptor buffer
   */
 uint8_t *USBD_Class_InterfaceStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 {
@@ -441,7 +441,6 @@ uint8_t *USBD_Class_InterfaceStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *le
 /**
   * @brief  Create the serial number string descriptor
   * @param  None
-  * @retval None
   */
 static void Get_SerialNum(void)
 {
@@ -464,7 +463,7 @@ static void Get_SerialNum(void)
   *         return the BOS descriptor
   * @param  speed : current device speed
   * @param  length : pointer to data length variable
-  * @retval pointer to descriptor buffer
+  * @return pointer to descriptor buffer
   */
 uint8_t *USBD_USR_BOSDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 {
@@ -481,7 +480,7 @@ uint8_t *USBD_USR_BOSDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
   * @param  speed: Current device speed
   * @param  idx: index of string descriptor
   * @param  length: Pointer to data length variable
-  * @retval Pointer to descriptor buffer
+  * @return Pointer to descriptor buffer
   */
 uint8_t *USBD_Class_UserStrDescriptor(USBD_SpeedTypeDef speed, uint8_t idx, uint16_t *length)
 {
@@ -499,7 +498,6 @@ uint8_t *USBD_Class_UserStrDescriptor(USBD_SpeedTypeDef speed, uint8_t idx, uint
   * @param  value: value to convert
   * @param  pbuf: pointer to the buffer
   * @param  len: buffer length
-  * @retval None
   */
 static void IntToUnicode(uint32_t value, uint8_t *pbuf, uint8_t len)
 {

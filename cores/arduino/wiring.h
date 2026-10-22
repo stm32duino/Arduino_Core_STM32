@@ -37,22 +37,22 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-/*
- * \brief Set the resolution of analogRead return values. Default is 10 bits (range from 0 to 1023).
+/**
+ * @brief Set the resolution of analogRead return values. Default is 10 bits (range from 0 to 1023).
  *
- * \param res
+ * @param res Number of bits of the resolution, from 1 to 32.
  */
 extern void analogReadResolution(int res);
-/*
- * \brief Set the resolution of analogWrite parameters. Default is 8 bits (range from 0 to 255).
+/**
+ * @brief Set the resolution of analogWrite parameters. Default is 8 bits (range from 0 to 255).
  *
- * \param res
+ * @param res Number of bits of the resolution, from 1 to 32.
  */
 extern void analogWriteResolution(int res);
-/*
- * \brief Set the frequency of analogWrite. Default is PWM_FREQUENCY (1000) in Hertz.
+/**
+ * @brief Set the frequency of analogWrite. Default is PWM_FREQUENCY (1000) in Hertz.
  *
- * \param freq
+ * @param freq PWM frequency in Hertz.
  */
 extern void analogWriteFrequency(uint32_t freq);
 
@@ -75,9 +75,9 @@ extern void analogWriteFrequency(uint32_t freq);
 
 /* wiring_digital */
 /**
- * \brief Toggle the value from a specified digital pin.
+ * @brief Toggle the value from a specified digital pin.
  *
- * \param ulPin The number of the digital pin you want to toggle (int)
+ * @param pinNumber The number of the digital pin you want to toggle.
  */
 extern void digitalToggle(pin_size_t pinNumber);
 
@@ -86,13 +86,21 @@ extern void digitalToggle(pin_size_t pinNumber);
 #endif
 
 #ifdef __cplusplus
-  /*
-  * \brief Stop tone generation on pin.
-  *
-  * \param _pin
-  */
+  /**
+   * @brief Stop tone generation on pin.
+   *
+   * @param _pin The pin on which to stop tone generation.
+   * @param destruct If true, the tone timer is deinitialized and deleted. If false, it is only paused.
+   */
   extern void noTone(uint8_t _pin, bool destruct);
   #if !defined(HAL_EXTI_MODULE_DISABLED)
+    /**
+     * @brief Attach a callback function to an external interrupt on a pin.
+     *
+     * @param pin The pin to attach the interrupt to.
+     * @param callback Function called when the interrupt fires. It takes no arguments.
+     * @param mode Trigger mode: CHANGE, RISING, FALLING, LOW or HIGH.
+     */
     extern void attachInterrupt(pin_size_t pin, callback_function_t callback, PinStatus mode);
   #endif
 #endif

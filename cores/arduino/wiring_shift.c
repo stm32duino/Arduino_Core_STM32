@@ -22,6 +22,14 @@
 extern "C" {
 #endif
 
+/**
+ * @brief Shift in a byte of data one bit at a time.
+ *
+ * @param dataPin Pin number to read the data from.
+ * @param clockPin Pin number to clock the data on.
+ * @param bitOrder LSBFIRST or MSBFIRST.
+ * @return The byte read.
+ */
 uint8_t shiftIn(pin_size_t dataPin, pin_size_t clockPin, BitOrder bitOrder)
 {
   uint8_t value = 0 ;
@@ -42,6 +50,14 @@ uint8_t shiftIn(pin_size_t dataPin, pin_size_t clockPin, BitOrder bitOrder)
   return value ;
 }
 
+/**
+ * @brief Shift out a byte of data one bit at a time.
+ *
+ * @param dataPin Pin number to write the data to.
+ * @param clockPin Pin number to clock the data on.
+ * @param bitOrder LSBFIRST or MSBFIRST.
+ * @param val Byte to shift out.
+ */
 void shiftOut(pin_size_t dataPin, pin_size_t clockPin, BitOrder bitOrder, uint8_t val)
 {
   uint8_t i ;

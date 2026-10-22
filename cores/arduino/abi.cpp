@@ -21,6 +21,11 @@
 extern "C" void __cxa_pure_virtual(void) __attribute__((__noreturn__));
 extern "C" void __cxa_deleted_virtual(void) __attribute__((__noreturn__));
 
+/**
+ * @brief Called on a pure virtual function call. Halts the program.
+ *
+ * Does not return.
+ */
 void __cxa_pure_virtual(void)
 {
   // We might want to write some diagnostics to uart in this case
@@ -29,6 +34,11 @@ void __cxa_pure_virtual(void)
     ;
 }
 
+/**
+ * @brief Called when a deleted virtual function is invoked. Halts the program.
+ *
+ * Does not return.
+ */
 void __cxa_deleted_virtual(void)
 {
   // We might want to write some diagnostics to uart in this case

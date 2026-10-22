@@ -22,90 +22,123 @@
   #error "This board does not seem to have a SubGhz radio module, cannot use this library."
 #endif
 
+/**
+ * @brief ISR entry point for the SubGHz radio IRQ. Forwards the event to the attached callback.
+ */
 extern "C" void SUBGHZ_Radio_IRQHandler();
 
 /**
- * Singleton class to manage the SubGHZ ISR and internal signals
+ * @brief Singleton class to manage the SubGHZ ISR and internal signals.
  */
 class SubGhzClass {
   public:
     using callback_function_t = std::function<void(void)>;
 
-    // Attach the passed handler to be called (from ISR context) when
-    // the radio IRQ triggers, then clear any pending IRQs and enable
-    // it.
-    //
-    // Note that the radio IRQ is *level* triggered, so the callback
-    // should either disable directly process the IRQ and clear the IRQ
-    // flags in the radio (so the radio module clears its DIO lines
-    // before the ISR returns), or the callback should disable the IRQ
-    // to prevent it from being triggered over and over again.
+    /**
+     * @brief Attach the handler called from ISR context when the radio IRQ triggers,
+     *        then clear any pending IRQs and enable the IRQ.
+     *
+     * The radio IRQ is *level* triggered, so the callback must either process the IRQ
+     * and clear the IRQ flags in the radio (so the radio clears its DIO lines before the
+     * ISR returns), or disable the IRQ to prevent it from being triggered over and over again.
+     * @param callback Function called from ISR context when the radio IRQ triggers.
+     */
     void attachInterrupt(callback_function_t callback);
 
-    // Detach the interrupt handler, disabling the IRQ too.
+    /**
+     * @brief Detach the interrupt handler, disabling the IRQ too.
+     */
     void detachInterrupt();
 
-    // Return whether an interrupt callback is currently attached
-    // (regardless of whether it is enabled or not).
+    /**
+     * @brief Check whether an interrupt callback is attached, regardless of whether it is enabled.
+     * @return true if a callback is attached, false otherwise.
+     */
     bool hasInterrupt();
 
-    // Enable the interrupt again if it was previously disabled using
-    // disableInterrupt(). This does *not* clear any pending interrupts,
-    // so if the IRQ was triggered while it was disabled, this will
-    // cause the callback (previously registered with attachInterrupt)
-    // to fire directly.
+    /**
+     * @brief Enable the interrupt again if it was previously disabled using disableInterrupt().
+     *
+     * This does *not* clear pending interrupts: if the IRQ triggered while it was disabled,
+     * the callback registered with attachInterrupt() fires directly.
+     */
     void enableInterrupt();
 
-    // Temporarily disable interrupt processing by disabling the IRQ in
-    // the NVIC.
+    /**
+     * @brief Temporarily disable interrupt processing by disabling the IRQ in the NVIC.
+     */
     void disableInterrupt();
 
-    // Clear the interrupt pending flag (to suppress an IRQs that
-    // happened while the interrupt was disabled).
+    /**
+     * @brief Clear the interrupt pending flag, suppressing IRQs that happened while the interrupt was disabled.
+     */
     void clearPendingInterrupt();
 
-    // Returns whether the interrupt is currently pending (only really
-    // useful when the interrupt is disabled, or while some higher
-    // priority interrupt is currently running).
+    /**
+     * @brief Check whether the interrupt is pending.
+     *
+     * Only really useful when the interrupt is disabled, or while a higher priority interrupt is running.
+     * @return true if the interrupt is pending, false otherwise.
+     */
     bool isInterruptPending();
 
-    // Update the NSS signal that is internally connected to the radio
-    // SPI block.
-    // This signal is active-low, so passing LOW activates the block,
-    // HIGH deactivates it.
+    /**
+     * @brief Update the NSS signal internally connected to the radio SPI block.
+     *
+     * The NSS signal is active-low: passing true asserts it (activates the block),
+     * passing false deasserts it (deactivates the block).
+     * @param value true to activate the NSS signal, false to deactivate it.
+     */
     void setNssActive(bool value);
 
-    // Read back the value written to NSS
+    /**
+     * @brief Read back the value written to NSS with setNssActive().
+     * @return true if the NSS signal is active, false otherwise.
+     */
     bool isNssActive();
 
-    // Update the RESET signal that is internally connected to the
-    // radio. Pass true to put the module in reset, or false to enable
-    // the module.
+    /**
+     * @brief Update the RESET signal internally connected to the radio.
+     * @param value true to put the module in reset, false to enable the module.
+     */
     void setResetActive(bool value);
 
-    // Read back the value written to RESET
+    /**
+     * @brief Read back the value written to RESET with setResetActive().
+     * @return true if the module is in reset, false otherwise.
+     */
     bool isResetActive();
 
-    // Return the state of busy signal exported by the radio module.
-    // Note that this uses the RFBUSYS flag that returns the radio busy
-    // signal directly, not the RFBUSYMS flag that also returns an extra
-    // busy period after every SPI transaction.
+    /**
+     * @brief Get the busy signal exported by the radio module.
+     *
+     * Uses the RFBUSYS flag, which returns the radio busy signal directly,
+     * not the RFBUSYMS flag that also returns an extra busy period after every SPI transaction.
+     * @return true if the radio is busy, false otherwise.
+     */
     bool isBusy();
 
-    // The SPI object that can be used to talk to the radio. Works
-    // like regular SPI objects, except that writeNSS() above must be
-    // used to control the (internal) NSS "pin".
+    /**
+     * @brief SPI object used to talk to the radio.
+     *
+     * Works like a regular SPI object, except that setNssActive() must be used
+     * to control the (internal) NSS signal.
+     */
     SUBGHZSPIClass SPI;
 
-    // SPI settings to use for the radio. This uses the maximum speed
-    // supported by the radio, which should always work (no chance of
-    // bad wiring that requires reducing the speed).
-    // This value should be passed to `SubGhz.SPI.beginTransaction()`.
+    /**
+     * @brief SPI settings to use for the radio, at the maximum speed supported by the radio.
+     *
+     * Pass this value to SubGhz.SPI.beginTransaction().
+     */
     static constexpr SPISettings spi_settings = {16000000, MSBFIRST, SPI_MODE0};
 
   protected:
     // To access handleIrq()
     friend void SUBGHZ_Radio_IRQHandler();
+    /**
+     * @brief Call the attached callback. Invoked from the ISR, not meant to be called directly.
+     */
     void handleIrq();
 
   private:

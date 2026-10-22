@@ -293,20 +293,66 @@ typedef struct  {
 } timerObj_t;
 
 /* Exported functions ------------------------------------------------------- */
+/**
+  * @brief Get the timerObj_t that embeds a HAL timer handle.
+  * @param htim HAL timer handle stored inside a timerObj_t.
+  * @return Pointer to the enclosing timerObj_t.
+  */
 #if defined(USE_HALV2_DRIVER)
 timerObj_t *get_timer_obj(hal_tim_handle_t *htim);
 #else
 timerObj_t *get_timer_obj(TIM_HandleTypeDef *htim);
 #endif
+
+/**
+  * @brief Enable the clock of a timer instance.
+  * @param instance Timer instance (e.g. TIM1).
+  */
 void enableTimerClock(TIM_TypeDef *instance);
+
+/**
+  * @brief Disable the clock of a timer instance.
+  * @param instance Timer instance (e.g. TIM1).
+  */
 void disableTimerClock(TIM_TypeDef *instance);
 
+/**
+  * @brief Get the IRQ number of a timer instance.
+  * @param tim Timer instance.
+  * @return IRQ number of the timer.
+  * This function is declared but has no definition in SrcWrapper.
+  */
 uint32_t getTimerIrq(TIM_TypeDef *tim);
+
+/**
+  * @brief Get the clock source of a timer instance.
+  * @param tim Timer instance.
+  * @return 1 for PCLK1, 2 for PCLK2.
+  */
 uint8_t getTimerClkSrc(TIM_TypeDef *tim);
 
+/**
+  * @brief Get the IRQ number of the update interrupt of a timer instance.
+  * @param tim Timer instance.
+  * @return IRQ number of the update interrupt.
+  * Calls _Error_Handler if the instance is unknown.
+  */
 IRQn_Type getTimerUpIrq(TIM_TypeDef *tim);
+
+/**
+  * @brief Get the IRQ number of the capture/compare interrupt of a timer instance.
+  * @param tim Timer instance.
+  * @return IRQ number of the capture/compare interrupt.
+  * Calls _Error_Handler if the instance is unknown.
+  */
 IRQn_Type getTimerCCIrq(TIM_TypeDef *tim);
 
+/**
+  * @brief Get the HAL timer channel linked to a pin.
+  * @param pin PinName with a timer function.
+  * @return HAL channel. Inverted pins map to the complementary (N) channel.
+  * Calls _Error_Handler if the pin channel is unknown.
+  */
 #if defined(USE_HALV2_DRIVER)
 hal_tim_channel_t getTimerChannel(PinName pin);
 #else

@@ -156,16 +156,73 @@ typedef enum {
 } i2c_status_e;
 
 /* Exported functions ------------------------------------------------------- */
+/**
+ * @brief Initialize and set up the GPIO pins and the I2C peripheral.
+ * @param obj Pointer to the i2c_t structure.
+ * @param timing I2C clock frequency in Hz.
+ * @param ownAddress Own address already shifted left by 1 (7-bit address << 1).
+ */
 void i2c_init(i2c_t *obj, uint32_t timing, uint32_t ownAddress);
+/**
+ * @brief Deinitialize the GPIO pins and the I2C peripheral.
+ * @param obj Pointer to the i2c_t structure.
+ */
 void i2c_deinit(i2c_t *obj);
+/**
+ * @brief Set the transmission speed. The I2C peripheral must be initialized before.
+ * @param obj Pointer to the i2c_t structure.
+ * @param frequency I2C transmission speed in Hz.
+ */
 void i2c_setTiming(i2c_t *obj, uint32_t frequency);
+/**
+ * @brief Write bytes to a device at a given address.
+ *
+ * A size of 0 checks whether the device is ready (scan / ping) instead of writing.
+ * @param obj Pointer to the i2c_t structure.
+ * @param dev_address 7-bit address of the device.
+ * @param data Pointer to the data to write.
+ * @param size Number of bytes to write.
+ * @return I2C_OK on success, otherwise the i2c_status_e error code.
+ */
 i2c_status_e i2c_master_write(i2c_t *obj, uint8_t dev_address, uint8_t *data, uint16_t size);
+/**
+ * @brief Buffer bytes to send to the master in slave transmit mode.
+ * @param obj Pointer to the i2c_t structure.
+ * @param data Pointer to the data to buffer.
+ * @param size Number of bytes to buffer, at most I2C_TXRX_BUFFER_SIZE.
+ * @return I2C_OK on success, I2C_DATA_TOO_LONG if size exceeds I2C_TXRX_BUFFER_SIZE.
+ */
 i2c_status_e i2c_slave_write_IT(i2c_t *obj, uint8_t *data, uint16_t size);
+/**
+ * @brief Read bytes from a device at a given address in master mode.
+ * @param obj Pointer to the i2c_t structure.
+ * @param dev_address 7-bit address of the device.
+ * @param data Pointer to the buffer receiving the data.
+ * @param size Number of bytes to read.
+ * @return I2C_OK on success, otherwise the i2c_status_e error code.
+ */
 i2c_status_e i2c_master_read(i2c_t *obj, uint8_t dev_address, uint8_t *data, uint16_t size);
 
+/**
+ * @brief Check whether the target device is ready for communication.
+ * @param obj Pointer to the i2c_t structure.
+ * @param devAddr 7-bit address of the device.
+ * @param trials Number of trials.
+ * @return I2C_OK if the device is ready, I2C_NACK_ADDR if it does not answer, otherwise the i2c_status_e error code.
+ */
 i2c_status_e i2c_IsDeviceReady(i2c_t *obj, uint8_t devAddr, uint32_t trials);
 
+/**
+ * @brief Set the function called when the slave receives data from a master.
+ * @param obj Pointer to the i2c_t structure.
+ * @param function Callback function to use, called with the i2c_t structure.
+ */
 void i2c_attachSlaveRxEvent(i2c_t *obj, void (*function)(i2c_t *));
+/**
+ * @brief Set the function called when a master requests data from the slave.
+ * @param obj Pointer to the i2c_t structure.
+ * @param function Callback function to use, called with the i2c_t structure.
+ */
 void i2c_attachSlaveTxEvent(i2c_t *obj, void (*function)(i2c_t *));
 
 #ifdef __cplusplus

@@ -112,11 +112,6 @@ extern "C" {
 static uint8_t eeprom_buffer[E2END + 1] __attribute__((aligned(8))) = {0};
 #endif
 
-/**
-  * @brief  Function reads a byte from emulated eeprom (flash)
-  * @param  pos : address to read
-  * @retval byte : data read from eeprom
-  */
 uint8_t eeprom_read_byte(const uint32_t pos)
 {
 #if defined(DATA_EEPROM_BASE)
@@ -132,12 +127,6 @@ uint8_t eeprom_read_byte(const uint32_t pos)
 #endif /* _EEPROM_BASE */
 }
 
-/**
-  * @brief  Function writes a byte to emulated eeprom (flash)
-  * @param  pos : address to write
-  * @param  value : value to write
-  * @retval none
-  */
 void eeprom_write_byte(uint32_t pos, uint8_t value)
 {
 #if defined(DATA_EEPROM_BASE)
@@ -156,32 +145,16 @@ void eeprom_write_byte(uint32_t pos, uint8_t value)
 
 #if !defined(DATA_EEPROM_BASE)
 
-/**
-  * @brief  Function reads a byte from the eeprom buffer
-  * @param  pos : address to read
-  * @retval byte : data read from eeprom
-  */
 uint8_t eeprom_buffered_read_byte(const uint32_t pos)
 {
   return eeprom_buffer[pos];
 }
 
-/**
-  * @brief  Function writes a byte to the eeprom buffer
-  * @param  pos : address to write
-  * @param  value : value to write
-  * @retval none
-  */
 void eeprom_buffered_write_byte(uint32_t pos, uint8_t value)
 {
   eeprom_buffer[pos] = value;
 }
 
-/**
-  * @brief  This function copies the data from flash into the buffer
-  * @param  none
-  * @retval none
-  */
 void eeprom_buffer_fill(void)
 {
 #if defined(ICACHE) && defined (HAL_ICACHE_MODULE_ENABLED) && !defined(HAL_ICACHE_MODULE_DISABLED)
@@ -207,11 +180,6 @@ void eeprom_buffer_fill(void)
 
 #if defined(EEPROM_RETRAM_MODE)
 
-/**
-  * @brief  This function writes the buffer content into the flash
-  * @param  none
-  * @retval none
-  */
 void eeprom_buffer_flush(void)
 {
   memcpy((uint8_t *)(FLASH_BASE_ADDRESS), eeprom_buffer, E2END + 1);
@@ -219,11 +187,6 @@ void eeprom_buffer_flush(void)
 
 #else /* defined(EEPROM_RETRAM_MODE) */
 
-/**
-  * @brief  This function writes the buffer content into the flash
-  * @param  none
-  * @retval none
-  */
 void eeprom_buffer_flush(void)
 {
 #if defined(ICACHE) && defined (HAL_ICACHE_MODULE_ENABLED) && !defined(HAL_ICACHE_MODULE_DISABLED)

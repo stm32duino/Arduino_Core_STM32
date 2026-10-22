@@ -38,10 +38,35 @@ typedef enum {
                                      ((DEVICE) == HID_MOUSE))
 
 /* Exported functions ------------------------------------------------------- */
+/**
+ * @brief Initialize the USB device stack for a HID composite interface.
+ * @param device HID interface to enable: HID_KEYBOARD or HID_MOUSE.
+ * @note The USB device is started once, when the first interface is
+ *       initialized. Calling it again for the other interface only
+ *       marks it as active.
+ */
 void HID_Composite_Init(HID_Interface device);
+
+/**
+ * @brief Release a HID composite interface.
+ * @param device HID interface to release: HID_KEYBOARD or HID_MOUSE.
+ * @note The USB device is stopped and de-initialized once no interface
+ *       is active.
+ */
 void HID_Composite_DeInit(HID_Interface device);
 
+/**
+ * @brief Send a HID mouse report.
+ * @param report Pointer to the report data.
+ * @param len Length of the report, in bytes.
+ */
 void HID_Composite_mouse_sendReport(uint8_t *report, uint16_t len);
+
+/**
+ * @brief Send a HID keyboard report.
+ * @param report Pointer to the report data.
+ * @param len Length of the report, in bytes.
+ */
 void HID_Composite_keyboard_sendReport(uint8_t *report, uint16_t len);
 
 #ifdef __cplusplus

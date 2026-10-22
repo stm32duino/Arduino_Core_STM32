@@ -388,6 +388,14 @@
   */
   #define assert_param(expr) ((expr) ? (void)0U : assert_failed((uint8_t *)__FILE__, __LINE__))
 /* Exported functions ------------------------------------------------------- */
+  /**
+  * @brief Reports the source file name and line number of a failed assert_param() check.
+  *
+  * Called by assert_param() when USE_FULL_ASSERT is defined. The default
+  * implementation is weak and can be overridden by the application.
+  * @param file pointer to the source file name
+  * @param line source line number of the failed assert_param() check
+  */
   void assert_failed(uint8_t* file, uint32_t line);
 #else
   #define assert_param(expr) ((void)0U)

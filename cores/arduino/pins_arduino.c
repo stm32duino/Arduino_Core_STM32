@@ -68,11 +68,6 @@ PinName analogInputToPinName(pin_size_t pin)
   return pn;
 }
 
-/**
-  * @brief  Return true if a digital pin is an analog input
-  * @param  pin Dx, x or PYn
-  * @retval boolean true if analog or false
-  */
 bool digitalpinIsAnalogInput(pin_size_t pin)
 {
   bool ret = false;
@@ -91,11 +86,6 @@ bool digitalpinIsAnalogInput(pin_size_t pin)
   return ret;
 }
 
-/**
-  * @brief  Return the analog input linked to a digital pin
-  * @param  pin Dx, x or PYn
-  * @retval analogInput valid analog input or NUM_ANALOG_INPUTS
-  */
 pin_size_t digitalPinToAnalogInput(pin_size_t pin)
 {
   pin_size_t ret = NUM_ANALOG_INPUTS;

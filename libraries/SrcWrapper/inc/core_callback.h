@@ -54,8 +54,25 @@ extern "C" {
 #endif
 
 /* Exported functions ------------------------------------------------------- */
+/**
+ * @brief Adds a callback function to the list called from the main loop.
+ * @param func Callback function pointer to add. Ignored if NULL.
+ * @note Up to CALLBACK_LIST_SIZE callbacks can be registered. Extra
+ *       registrations are silently dropped when the list is full.
+ */
 void registerCoreCallback(void (*func)(void));
+
+/**
+ * @brief Removes a callback function from the list.
+ * @param func Callback function pointer to remove. Ignored if NULL.
+ */
 void unregisterCoreCallback(void (*func)(void));
+
+/**
+ * @brief Calls every registered callback, in the order they were added.
+ * @note There is no priority: first added is first called. Must be called
+ *       only from the main() loop.
+ */
 void CoreCallback(void);
 
 #ifdef __cplusplus

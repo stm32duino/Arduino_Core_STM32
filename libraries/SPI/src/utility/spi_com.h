@@ -92,9 +92,34 @@ typedef enum {
 } spi_status_e;
 
 /* Exported functions ------------------------------------------------------- */
+/**
+  * @brief  Initialize the SPI instance.
+  * @param  obj Pointer to spi_t structure.
+  * @param  speed Clock speed of the SPI bus in Hz.
+  * @param  dataMode One of the SPI data modes (spi_mode_e).
+  * @param  msbFirst true for MSB first, false for LSB first.
+  * @param  busMode SPI bus mode: controller or peripheral.
+  */
 void spi_init(spi_t *obj, uint32_t speed, spi_mode_e dataMode, bool msbFirst, spi_busmode_e busMode);
+/**
+  * @brief  Deinitialize the SPI interface (IOs and SPI block).
+  * @param  obj Pointer to spi_t structure.
+  */
 void spi_deinit(spi_t *obj);
+/**
+  * @brief  Send and receive data over the SPI interface.
+  * @param  obj Pointer to spi_t structure.
+  * @param  tx_buffer Data to send before reception.
+  * @param  rx_buffer Buffer to store the received data. If NULL, the received data is discarded.
+  * @param  len Length in bytes of the data to send and receive.
+  * @return SPI_OK on success, SPI_TIMEOUT or SPI_ERROR otherwise.
+  */
 spi_status_e spi_transfer(spi_t *obj, const uint8_t *tx_buffer, uint8_t *rx_buffer, uint16_t len);
+/**
+  * @brief  Return the clock frequency of an SPI instance.
+  * @param  obj Pointer to spi_t structure.
+  * @return Clock frequency of the instance, or SystemCoreClock if not found.
+  */
 uint32_t spi_getClkFreq(spi_t *obj);
 
 #ifdef __cplusplus

@@ -29,6 +29,11 @@ inline void core_debug(const char *format, ...)
 #endif /* NDEBUG */
 }
 
+/** Output a debug message from a va_list
+ *
+ * @param format printf-style format string
+ * @param args variable argument list matching format
+ */
 inline void vcore_debug(const char *format, va_list args)
 {
 #if !defined(NDEBUG)

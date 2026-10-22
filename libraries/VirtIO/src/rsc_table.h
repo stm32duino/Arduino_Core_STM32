@@ -36,6 +36,12 @@ struct shared_resource_table {
   struct fw_rsc_trace cm_trace;
 };
 
+/**
+ * @brief Initialize the resource table used by the remote processor.
+ * @param RPMsgRole Role of the processor. Not used.
+ * @param table_ptr Output: pointer to the resource table.
+ * @param length Output: size of the resource table, in bytes.
+ */
 void resource_table_init(int RPMsgRole, void **table_ptr, int *length);
 
 #endif /* VIRTIOCON */

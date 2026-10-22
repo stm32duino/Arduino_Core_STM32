@@ -59,11 +59,6 @@ mbox_status_t msg_received_ch2 = MBOX_NO_MSG;
 void IPCC_channel1_callback(IPCC_HandleTypeDef *hipcc, uint32_t ChannelIndex, IPCC_CHANNELDirTypeDef ChannelDir);
 void IPCC_channel2_callback(IPCC_HandleTypeDef *hipcc, uint32_t ChannelIndex, IPCC_CHANNELDirTypeDef ChannelDir);
 
-/**
-  * @brief  Initialize MAILBOX with IPCC peripheral
-  * @param  None
-  * @retval : Operation result
-  */
 int MAILBOX_Init(void)
 {
   __HAL_RCC_IPCC_CLK_ENABLE();
@@ -90,12 +85,6 @@ int MAILBOX_Init(void)
   return 0;
 }
 
-/**
- * @brief  Process vring messages received from IPCC ISR
- * @param vdev: virtio device
- * @param vring_id: Vring ID
- * @retval : Operation result
- */
 int MAILBOX_Poll(struct virtio_device *vdev, uint32_t vring_id)
 {
   int ret = -1;
@@ -127,13 +116,6 @@ int MAILBOX_Poll(struct virtio_device *vdev, uint32_t vring_id)
   return ret;
 }
 
-/**
-  * @brief  Callback function called by OpenAMP MW to notify message processing (aka. kick)
-  * @note   This callback is called by virtqueue_kick() in rpmsg_virtio_send_offchannel_raw().
-  *         Therefore, it is only called while tx, but not rx.
-  * @param  Vring id
-  * @retval Operation result
-  */
 int MAILBOX_Notify(void *priv, uint32_t vring_id)
 {
   (void)priv;
@@ -163,7 +145,13 @@ int MAILBOX_Notify(void *priv, uint32_t vring_id)
 }
 
 /* Private function  ---------------------------------------------------------*/
-/* Callback from IPCC Interrupt Handler: Master Processor informs that there are some free buffers */
+/**
+ * @brief IPCC channel 1 RX callback: the master processor reports that
+ *        free buffers are available.
+ * @param hipcc IPCC handle.
+ * @param ChannelIndex IPCC channel index.
+ * @param ChannelDir Channel direction. Not used.
+ */
 void IPCC_channel1_callback(IPCC_HandleTypeDef *hipcc,
                             uint32_t ChannelIndex, IPCC_CHANNELDirTypeDef ChannelDir)
 {
@@ -174,7 +162,13 @@ void IPCC_channel1_callback(IPCC_HandleTypeDef *hipcc,
   HAL_IPCC_NotifyCPU(hipcc, ChannelIndex, IPCC_CHANNEL_DIR_RX);
 }
 
-/* Callback from IPCC Interrupt Handler: new message received from Master Processor */
+/**
+ * @brief IPCC channel 2 RX callback: the master processor reports a new
+ *        message.
+ * @param hipcc IPCC handle.
+ * @param ChannelIndex IPCC channel index.
+ * @param ChannelDir Channel direction. Not used.
+ */
 void IPCC_channel2_callback(IPCC_HandleTypeDef *hipcc,
                             uint32_t ChannelIndex, IPCC_CHANNELDirTypeDef ChannelDir)
 {

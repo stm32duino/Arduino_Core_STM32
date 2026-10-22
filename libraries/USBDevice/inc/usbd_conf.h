@@ -321,7 +321,17 @@ extern "C" {
 #endif /* (USBD_DEBUG_LEVEL > 2U) */
 
 /* Exported functions -------------------------------------------------------*/
+/**
+ * @brief Allocate memory for the USB stack.
+ * @param size Number of bytes to allocate.
+ * @return Pointer to the allocated memory.
+ */
 void *USBD_static_malloc(uint32_t size);
+
+/**
+ * @brief Free memory allocated by USBD_static_malloc().
+ * @param p Pointer to the memory to free.
+ */
 void USBD_static_free(void *p);
 
 #endif /* USBCON */
