@@ -80,7 +80,14 @@ static int _internalReadResolution =
 #endif /* ADC_RESOLUTION > MAX_ADC_RESOLUTION */
   ;
 
-/* Common utility function to map a value from one resolution to another */
+/**
+ * @brief Map a value from one resolution to another.
+ *
+ * @param value Value to convert.
+ * @param from Resolution of value, in bits.
+ * @param to Target resolution, in bits.
+ * @return Value scaled to the target resolution.
+ */
 static inline uint32_t mapResolution(uint32_t value, uint32_t from, uint32_t to)
 {
   if (from != to) {
@@ -154,13 +161,22 @@ void analogReadResolution(int res)
   }
 }
 
+/**
+ * @brief Set the analog reference voltage. Not supported on this core, the call has no effect.
+ *
+ * @param mode Reference mode, ignored.
+ */
 void analogReference(uint8_t mode)
 {
   (void)mode;
 }
 
-// Perform the read operation on the selected analog pin.
-// the initialization of the analog PIN is done through this function
+/**
+ * @brief Read the analog value of a pin, scaled to the resolution set by analogReadResolution().
+ *
+ * @param pinNumber Analog pin number, e.g. A0 or PA0.
+ * @return Converted value, between 0 and 2^resolution - 1. 0 if the pin has no ADC.
+ */
 int analogRead(pin_size_t pinNumber)
 {
   pin_size_t value = 0;
@@ -198,8 +214,14 @@ void analogWriteFrequency(uint32_t freq)
   _writeFreq = freq;
 }
 
-// Output only works on the pins with Hardware Timer (PWM) or DAC support.
-// For the other pins, default to digital output.
+/**
+ * @brief Write an analog value to a pin, using PWM or DAC if the pin supports it.
+ *
+ * Pins without a timer or DAC output fall back to digital output.
+ *
+ * @param pinNumber Pin number to write to.
+ * @param value Value to write, scaled to the resolution set by analogWriteResolution().
+ */
 void analogWrite(pin_size_t pinNumber, int value)
 {
   PinName p = digitalPinToPinName(pinNumber);

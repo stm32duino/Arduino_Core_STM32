@@ -115,7 +115,12 @@ extern const pin_size_t analogInputPin[];
 #define digitalPinToPinName(p)      ((((pin_size_t)(p) & PNUM_MASK) < NUM_DIGITAL_PINS) ? \
             (PinName)(digitalPin[(pin_size_t)(p) & PNUM_MASK] | ((p) & ALTX_MASK)) : NC)
 #endif /* NUM_ANALOG_INPUTS > 0 */
-/* Convert a PinName PX_n to a digital pin number */
+/**
+ * @brief Convert a PinName (PX_n) to a digital pin number.
+ *
+ * @param p PinName to convert.
+ * @return Digital pin number, with the ALTX bits preserved. NUM_DIGITAL_PINS if not found.
+ */
 pin_size_t pinNametoDigitalPin(PinName p);
 
 /* Convert an analog pin number to a digital pin number */
@@ -131,7 +136,12 @@ pin_size_t pinNametoDigitalPin(PinName p);
 #define analogInputToDigitalPin(p)  (NUM_DIGITAL_PINS)
 #endif /* NUM_ANALOG_INPUTS > 0 */
 
-/* Convert an analog pin number Ax to a PinName PX_n */
+/**
+ * @brief Convert an analog pin number (Ax) to a PinName (PX_n).
+ *
+ * @param pin Analog pin number, Ax.
+ * @return PinName of the analog input. NC if the pin is not an analog input.
+ */
 PinName analogInputToPinName(pin_size_t pin);
 
 /* All pins could manage EXTI */
@@ -193,7 +203,19 @@ PinName analogInputToPinName(pin_size_t pin);
 #endif
 /* Convenient macro to handle Analog for Firmata */
 #define pinIsAnalogInput digitalpinIsAnalogInput
+/**
+ * @brief Check whether a digital pin is an analog input.
+ *
+ * @param pin Dx, x or PYn.
+ * @return true if the pin is an analog input, false otherwise.
+ */
 bool digitalpinIsAnalogInput(pin_size_t pin);
+/**
+ * @brief Get the analog input linked to a digital pin.
+ *
+ * @param pin Dx, x or PYn.
+ * @return Valid analog input number, or NUM_ANALOG_INPUTS if none.
+ */
 pin_size_t digitalPinToAnalogInput(pin_size_t pin);
 
 #ifdef __cplusplus

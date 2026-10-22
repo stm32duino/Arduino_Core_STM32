@@ -84,17 +84,60 @@ typedef struct {
   volatile unsigned int ticks;
 } servo_t;
 
+/**
+ * @brief Servo motor controller. Each instance drives one servo on a pin, using a shared 16 bit timer.
+ */
 class Servo {
   public:
+    /**
+     * @brief Create a servo instance and assign it a channel index. If no channel is left, the instance is invalid.
+     */
     Servo();
-    uint8_t attach(pin_size_t pin, int value = DEFAULT_PULSE_WIDTH);           // attach the given pin to the next free channel, sets pinMode, set angle value, returns channel number or 0 if failure
-    uint8_t attach(pin_size_t pin, int min, int max, int value = DEFAULT_PULSE_WIDTH); // as above but also sets min and max values for writes.
+    /**
+     * @brief Attach the servo to a pin, using the default min and max pulse widths.
+     * @param pin Pin number to attach the servo to.
+     * @param value Initial value, as an angle in degrees or a pulse width in microseconds. Default: DEFAULT_PULSE_WIDTH.
+     * @return Index of the channel used, or INVALID_SERVO if no channel is available.
+     */
+    uint8_t attach(pin_size_t pin, int value = DEFAULT_PULSE_WIDTH);
+    /**
+     * @brief Attach the servo to a pin, with custom min and max pulse widths.
+     * @param pin Pin number to attach the servo to.
+     * @param min Pulse width in microseconds for 0 degrees. Default: MIN_PULSE_WIDTH.
+     * @param max Pulse width in microseconds for 180 degrees. Default: MAX_PULSE_WIDTH.
+     * @param value Initial value, as an angle in degrees or a pulse width in microseconds. Default: DEFAULT_PULSE_WIDTH.
+     * @return Index of the channel used, or INVALID_SERVO if no channel is available.
+     */
+    uint8_t attach(pin_size_t pin, int min, int max, int value = DEFAULT_PULSE_WIDTH);
+    /**
+     * @brief Stop the servo from pulsing its pin. The timer is paused when no servo is active.
+     */
     void detach();
-    void write(int value);             // if value is < 200 its treated as an angle, otherwise as pulse width in microseconds
-    void writeMicroseconds(int value); // Write pulse width in microseconds
-    int read();                        // returns current pulse width as an angle between 0 and 180 degrees
-    int readMicroseconds();            // returns current pulse width in microseconds for this servo (was read_us() in first release)
-    bool attached();                   // return true if this servo is attached, otherwise false
+    /**
+     * @brief Set the servo position.
+     * @param value Angle in degrees (0 to 180) if less than MIN_PULSE_WIDTH, otherwise a pulse width in microseconds.
+     */
+    void write(int value);
+    /**
+     * @brief Set the servo pulse width. The value is clamped to the min and max pulse widths of this servo.
+     * @param value Pulse width in microseconds.
+     */
+    void writeMicroseconds(int value);
+    /**
+     * @brief Get the last written position.
+     * @return Current position as an angle between 0 and 180 degrees.
+     */
+    int read();
+    /**
+     * @brief Get the last written pulse width.
+     * @return Current pulse width in microseconds.
+     */
+    int readMicroseconds();
+    /**
+     * @brief Check if the servo is attached.
+     * @return true if the servo is attached, false otherwise.
+     */
+    bool attached();
   private:
     uint8_t servoIndex;               // index into the channel data for this servo
     int8_t min;                       // minimum is this value times 4 added to MIN_PULSE_WIDTH

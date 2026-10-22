@@ -59,6 +59,10 @@ extern "C" {
 #endif
 
 /* Exported functions ------------------------------------------------------- */
+/**
+ * @brief Reset the backup domain (RTC and backup registers).
+ * @note  Backup domain write access is enabled as part of the reset.
+ */
 static inline void resetBackupDomain(void)
 {
 #if defined(USE_HALV2_DRIVER)
@@ -88,6 +92,9 @@ static inline void resetBackupDomain(void)
 #endif
 }
 
+/**
+ * @brief Enable access to the backup domain and its clocks (RTC, backup registers and SRAM).
+ */
 static inline void enableBackupDomain(void)
 {
 #if defined(USE_HALV2_DRIVER)
@@ -145,6 +152,9 @@ static inline void enableBackupDomain(void)
 #endif /* USE_HALV2_DRIVER */
 }
 
+/**
+ * @brief Disable the backup domain clocks (RTC, backup registers and SRAM).
+ */
 static inline void disableBackupDomain(void)
 {
 #if defined(USE_HALV2_DRIVER)
@@ -174,6 +184,11 @@ static inline void disableBackupDomain(void)
 #endif /* USE_HALV2_DRIVER */
 }
 
+/**
+ * @brief Write a value in a backup register.
+ * @param index Backup register index.
+ * @param value Value to write.
+ */
 static inline void setBackupRegister(uint32_t index, uint32_t value)
 {
 #if defined(USE_HALV2_DRIVER)
@@ -200,6 +215,11 @@ static inline void setBackupRegister(uint32_t index, uint32_t value)
 #endif
 }
 
+/**
+ * @brief Read a value from a backup register.
+ * @param index Backup register index.
+ * @return The value stored in the backup register, or 0 if backup registers are not available.
+ */
 static inline uint32_t getBackupRegister(uint32_t index)
 {
 #if defined(USE_HALV2_DRIVER)
@@ -226,6 +246,12 @@ static inline uint32_t getBackupRegister(uint32_t index)
 #endif
 }
 
+/**
+ * @brief Write 32-bit words to the backup SRAM.
+ * @param offset Offset, in 32-bit words, from the start of the backup SRAM.
+ * @param data Pointer to the data to write.
+ * @param length Number of 32-bit words to write.
+ */
 static inline void writeBackupSRAM(uint32_t offset, uint32_t *data, uint32_t length)
 {
 #if defined(BKPSRAM_BASE)
@@ -241,6 +267,12 @@ static inline void writeBackupSRAM(uint32_t offset, uint32_t *data, uint32_t len
 #endif
 }
 
+/**
+ * @brief Read 32-bit words from the backup SRAM.
+ * @param offset Offset, in 32-bit words, from the start of the backup SRAM.
+ * @param data Pointer to the buffer receiving the data.
+ * @param length Number of 32-bit words to read.
+ */
 static inline void readBackupSRAM(uint32_t offset, uint32_t *data, uint32_t length)
 {
 #if defined(BKPSRAM_BASE)

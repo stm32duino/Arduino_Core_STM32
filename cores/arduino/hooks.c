@@ -19,7 +19,7 @@
 #include <stdint.h>
 
 /**
- * Empty yield() hook.
+ * @brief Empty yield() hook.
  *
  * This function is intended to be used by library writers to build
  * libraries or sketches that supports cooperative threads.
@@ -35,7 +35,7 @@ void yield(void) __attribute__((weak, alias("__empty")));
 
 #ifdef DTR_TOGGLING_SEQ
 /**
- * Empty dtr_toggling() hook.
+ * @brief Empty dtr_toggling() hook.
  *
  * This function is intended to be used by library writers to build
  * libraries or sketches that require DTR toggling feature.

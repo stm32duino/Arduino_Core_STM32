@@ -141,19 +141,59 @@ extern USBD_ClassTypeDef USBD_CDC;
 /** @defgroup USB_CORE_Exported_Functions
   * @{
   */
+/**
+ * @brief Register the application callbacks for the CDC class.
+ * @param pdev device instance.
+ * @param fops pointer to the CDC interface callbacks.
+ * @return USBD_OK on success, USBD_FAIL if fops is NULL.
+ */
 uint8_t USBD_CDC_RegisterInterface(USBD_HandleTypeDef *pdev,
                                    USBD_CDC_ItfTypeDef *fops);
 
+/**
+ * @brief Set the buffer and length of the next data to send on the CDC IN endpoint.
+ * @note Does not start the transfer, call USBD_CDC_TransmitPacket() for that.
+ * @param pdev device instance.
+ * @param pbuff pointer to the Tx buffer.
+ * @param length length of the data to send, in bytes.
+ * @param ClassId class ID, used only when USE_USBD_COMPOSITE is defined.
+ * @return USBD_OK on success, USBD_FAIL if the class instance is not allocated.
+ */
 #ifdef USE_USBD_COMPOSITE
 uint8_t USBD_CDC_SetTxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff,
                              uint32_t length, uint8_t ClassId);
-uint8_t USBD_CDC_TransmitPacket(USBD_HandleTypeDef *pdev, uint8_t ClassId);
 #else
 uint8_t USBD_CDC_SetTxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff,
                              uint32_t length);
+#endif /* USE_USBD_COMPOSITE */
+
+/**
+ * @brief Set the Rx buffer used for the next packet received on the CDC OUT endpoint.
+ * @param pdev device instance.
+ * @param pbuff pointer to the Rx buffer.
+ * @return USBD_OK on success, USBD_FAIL if the class instance is not allocated.
+ */
+uint8_t USBD_CDC_SetRxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff);
+
+/**
+ * @brief Transmit the buffer set by USBD_CDC_SetTxBuffer() on the CDC IN endpoint.
+ * @note Does nothing if a transfer is already in progress.
+ * @param pdev device instance.
+ * @param ClassId class ID, used only when USE_USBD_COMPOSITE is defined.
+ * @return USBD_OK if the transfer was started, USBD_BUSY if a transfer is in
+ *         progress, USBD_FAIL if the class instance is not allocated.
+ */
+#ifdef USE_USBD_COMPOSITE
+uint8_t USBD_CDC_TransmitPacket(USBD_HandleTypeDef *pdev, uint8_t ClassId);
+#else
 uint8_t USBD_CDC_TransmitPacket(USBD_HandleTypeDef *pdev);
 #endif /* USE_USBD_COMPOSITE */
-uint8_t USBD_CDC_SetRxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff);
+
+/**
+ * @brief Prepare the CDC OUT endpoint to receive the next packet into the Rx buffer.
+ * @param pdev device instance.
+ * @return USBD_OK on success, USBD_FAIL if the class instance is not allocated.
+ */
 uint8_t USBD_CDC_ReceivePacket(USBD_HandleTypeDef *pdev);
 /**
   * @}

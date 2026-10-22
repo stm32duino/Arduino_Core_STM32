@@ -1,5 +1,10 @@
 #include "WSerial.h"
 
+/**
+ * @brief Call serialEventN() for each hardware serial port that has data available.
+ *
+ * Called from main() after each loop() iteration. Weak, so a sketch can override it.
+ */
 WEAK void serialEventRun(void)
 {
 #if defined(HAVE_HWSERIAL1)

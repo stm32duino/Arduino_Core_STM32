@@ -228,6 +228,6 @@ int Servo::readMicroseconds()
 {
   return 0;
 }
-bool Servo::attached() {}
+bool Servo::attached() { return false; }
 
 #endif /* TIMER_SERVO && !HAL_TIM_MODULE_ONLY && (HAL_TIM_MODULE_ENABLED || USE_HAL_TIM_MODULE...) */

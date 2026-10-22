@@ -47,8 +47,8 @@ typedef struct __packed {
  *        | 8bits | 58bits    |
  *        | MSB   |  LSB      |
  *
- * @param  id: ID of the parameter to read from OTP
- * @retval Address of the ID in the OTP - returns 0 when no ID found
+ * @param id ID of the parameter to read from OTP.
+ * @return Address of the ID in the OTP, or 0 when no ID is found.
  */
 uint8_t *OTP_Read(uint8_t id);
 

@@ -21,11 +21,6 @@
 extern "C" {
 #endif
 
-/**
-  * @brief  Function called to read the current micro second
-  * @param  None
-  * @retval None
-  */
 uint32_t getCurrentMicros(void)
 {
   uint32_t m0 = HAL_GetTick();
@@ -41,26 +36,27 @@ uint32_t getCurrentMicros(void)
   }
 }
 
-/**
-  * @brief  Function called wto read the current millisecond
-  * @param  None
-  * @retval None
-  */
 uint32_t getCurrentMillis(void)
 {
   return HAL_GetTick();
 }
 
+/**
+  * @brief Weak default for the OS SysTick hook, does nothing
+  */
 void noOsSystickHandler()
 {
 
 }
 
-void osSystickHandler() __attribute__((weak, alias("noOsSystickHandler")));
 /**
-  * @brief  Function called when the tick interruption falls
-  * @param  None
-  * @retval None
+  * @brief Hook called from SysTick_Handler(), aliased to noOsSystickHandler()
+  *        unless an OS overrides it
+  */
+void osSystickHandler() __attribute__((weak, alias("noOsSystickHandler")));
+
+/**
+  * @brief Function called when the tick interruption falls
   */
 void SysTick_Handler(void)
 {
@@ -73,11 +69,6 @@ void SysTick_Handler(void)
   osSystickHandler();
 }
 
-/**
-  * @brief  Enable the specified clock if not already set
-  * @param  source: clock source: LSE_CLOCK, LSI_CLOCK, HSI_CLOCK or HSE_CLOCK
-  * @retval None
-  */
 void enableClock(sourceClock_t source)
 {
 #if defined(USE_HALV2_DRIVER)
@@ -222,11 +213,6 @@ void configHSECapacitorTuning(void)
 #endif
 }
 
-/**
-  * @brief  This function enables clocks for some system IP
-  * @param  None
-  * @retval None
-  */
 void configIPClock(void)
 {
 #ifdef HSEM_BASE

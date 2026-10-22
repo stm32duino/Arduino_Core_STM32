@@ -22,18 +22,36 @@
 extern "C" {
 #endif
 
+/**
+ * @brief Get the number of milliseconds since the board started.
+ *
+ * @return Milliseconds since startup. Overflows after about 49 days.
+ */
 unsigned long millis(void)
 {
   // ToDo: ensure no interrupts
   return getCurrentMillis();
 }
 
-// Interrupt-compatible version of micros
+/**
+ * @brief Get the number of microseconds since the board started.
+ *
+ * Interrupt-compatible version.
+ *
+ * @return Microseconds since startup. Overflows after about 70 minutes.
+ */
 unsigned long micros(void)
 {
   return getCurrentMicros();
 }
 
+/**
+ * @brief Pause the program for the given number of milliseconds.
+ *
+ * Calls yield() while waiting.
+ *
+ * @param ms Number of milliseconds to pause.
+ */
 void delay(unsigned long ms)
 {
   if (ms != 0) {
@@ -45,9 +63,9 @@ void delay(unsigned long ms)
 }
 
 /**
- * \brief Pauses the program for the amount of time (in microseconds) specified as parameter.
+ * @brief Pauses the program for the amount of time (in microseconds) specified as parameter.
  *
- * \param us the number of microseconds to pause (unsigned int)
+ * @param us the number of microseconds to pause (unsigned int)
  */
 
 void delayMicroseconds(unsigned int us)
@@ -76,17 +94,16 @@ void delayMicroseconds(unsigned int us)
 }
 
 /**
- * \brief gives the number of seconds and microseconds since the Epoch
+ * @brief Gives the number of seconds and microseconds since the Epoch.
  *
- *        based on millisecond since last power on.
+ * Based on milliseconds since last power on.
  *
- * \note  The function is declared as weak  to be overwritten  in case of other
- *        implementations in user file (using RTC values for example).
+ * @note The function is declared as weak to be overwritten in case of other
+ * implementations in user file (using RTC values for example).
  *
- * \param tv argument is a struct timeval
- * \param tz argument is a struct timezone (unused)
- *
- * \return 0
+ * @param tv Argument is a struct timeval.
+ * @param tz Argument is a struct timezone (unused).
+ * @return 0
  */
 int __attribute__((weak)) _gettimeofday(struct timeval *tv, void *tz)
 {

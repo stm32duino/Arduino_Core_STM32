@@ -21,6 +21,13 @@ extern "C" {
 #include "stdint.h"
 }
 
+/**
+ * @brief Seed the pseudo-random number generator.
+ *
+ * A seed of 0 is ignored.
+ *
+ * @param dwSeed Seed value.
+ */
 void randomSeed(unsigned long dwSeed)
 {
   if (dwSeed != 0) {
@@ -28,6 +35,12 @@ void randomSeed(unsigned long dwSeed)
   }
 }
 
+/**
+ * @brief Return a pseudo-random number in the range [0, howbig).
+ *
+ * @param howbig Upper bound, exclusive. 0 returns 0.
+ * @return Pseudo-random number.
+ */
 long random(long howbig)
 {
   if (howbig == 0) {
@@ -37,6 +50,13 @@ long random(long howbig)
   return rand() % howbig;
 }
 
+/**
+ * @brief Return a pseudo-random number in the range [howsmall, howbig).
+ *
+ * @param howsmall Lower bound, inclusive. Returned directly if it is not below howbig.
+ * @param howbig Upper bound, exclusive.
+ * @return Pseudo-random number.
+ */
 long random(long howsmall, long howbig)
 {
   if (howsmall >= howbig) {

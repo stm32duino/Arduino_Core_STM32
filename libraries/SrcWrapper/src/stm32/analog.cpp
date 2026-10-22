@@ -52,13 +52,9 @@ static PinName g_current_pin = NC;
 #endif
 
 /**
-  * @brief ADC Initialization
-  *        This function configures the hardware resources used in this example:
-  *           - Peripheral's clock enable
-  *           - Peripheral's GPIO Configuration
-  * @param instance: ADC instance
-  * @param pin: ADC pin
-  * @retval None
+  * @brief ADC initialization: enable the peripheral clock and configure the GPIO pin.
+  * @param instance ADC instance.
+  * @param pin ADC pin.
   */
 void adc_init(hal_adc_t instance, PinName pin)
 {
@@ -88,9 +84,8 @@ void adc_init(hal_adc_t instance, PinName pin)
 }
 
 /**
-  * @brief  DeInitializes the ADC.
-  * @param  instance: ADC instance
-  * @retval None
+  * @brief ADC de-initialization: disable the peripheral clock.
+  * @param instance ADC instance.
   */
 void adc_deinit(hal_adc_t instance)
 {
@@ -111,11 +106,6 @@ void adc_deinit(hal_adc_t instance)
 #endif
 }
 
-/**
-  * @brief  Return ADC HAL channel linked to a PinName
-  * @param  pin: PinName
-  * @retval Valid HAL channel
-  */
 hal_adc_channel_t get_adc_channel(PinName pin)
 {
   uint32_t function = pinmap_function(pin, PinMap_ADC);
@@ -170,13 +160,6 @@ hal_adc_channel_t get_adc_channel(PinName pin)
   return channel;
 }
 
-/**
-  * @brief  Return ADC HAL internal channel linked to a PinName
-  * @param  pin: specific PinName's for ADC internal. Value can be:
-  *         PADC_TEMP, PADC_VREF
-  *         Note that not all of these values ​​may be available for all series.
-  * @retval Valid HAL internal channel.
-  */
 hal_adc_channel_t get_adc_internal_channel(PinName pin)
 {
   hal_adc_channel_t channel = HAL_ADC_CHANNEL_NONE;
@@ -198,12 +181,6 @@ hal_adc_channel_t get_adc_internal_channel(PinName pin)
   return channel;
 }
 
-/**
-  * @brief  This function will set the ADC to the required value
-  * @param  pin : the pin to use
-  * @param  resolution : resolution for converted data: 6/8/10/12/14/16
-  * @retval the value of the adc
-  */
 uint16_t adc_read_value(PinName pin, uint32_t resolution)
 {
   hal_status_t status = HAL_OK;
@@ -380,12 +357,6 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 #endif /* STM32WB0x || STM32WL3x */
 
 /* Exported Functions */
-/**
-  * @brief  Return ADC HAL channel linked to a PinName
-  * @param  pin: PinName
-  * @param  bank: pointer to get ADC channel bank if required
-  * @retval Valid HAL channel
-  */
 uint32_t get_adc_channel(PinName pin, uint32_t *bank)
 {
   uint32_t function = pinmap_function(pin, PinMap_ADC);
@@ -536,13 +507,6 @@ uint32_t get_adc_channel(PinName pin, uint32_t *bank)
   return channel;
 }
 
-/**
-  * @brief  Return ADC HAL internal channel linked to a PinName
-  * @param  pin: specific PinName's for ADC internal. Value can be:
-  *         PADC_TEMP, PADC_TEMP_ADC5, PADC_VREF, PADC_VBAT
-  *         Note that not all of these values ​​may be available for all series.
-  * @retval Valid HAL internal channel.
-  */
 uint32_t get_adc_internal_channel(PinName pin)
 {
   uint32_t channel = 0;
@@ -580,12 +544,8 @@ uint32_t get_adc_internal_channel(PinName pin)
 }
 
 /**
-  * @brief ADC MSP Initialization
-  *        This function configures the hardware resources used in this example:
-  *           - Peripheral's clock enable
-  *           - Peripheral's GPIO Configuration
-  * @param hadc: ADC handle pointer
-  * @retval None
+  * @brief ADC MSP initialization: enable the peripheral clock and configure the GPIO pins.
+  * @param hadc ADC handle pointer.
   */
 void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
 {
@@ -670,9 +630,8 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
 }
 
 /**
-  * @brief  DeInitializes the ADC MSP.
-  * @param  hadc: ADC handle
-  * @retval None
+  * @brief ADC MSP de-initialization: disable the peripheral clock.
+  * @param hadc ADC handle pointer.
   */
 void HAL_ADC_MspDeInit(ADC_HandleTypeDef *hadc)
 {
@@ -803,12 +762,6 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef *hadc)
 #endif
 }
 
-/**
-  * @brief  This function will set the ADC to the required value
-  * @param  pin : the pin to use
-  * @param  resolution : resolution for converted data: 6/8/10/12/14/16
-  * @retval the value of the adc
-  */
 uint16_t adc_read_value(PinName pin, uint32_t resolution)
 {
   ADC_HandleTypeDef AdcHandle = {};
@@ -1178,6 +1131,11 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 #if !defined(HAL_ADC_MODULE_ONLY)
 /* DAC */
 #if defined(USE_HAL_DAC_MODULE) && (USE_HAL_DAC_MODULE == 1)
+/**
+  * @brief DAC initialization: enable the peripheral clock and configure the GPIO pin.
+  * @param instance DAC instance.
+  * @param pin DAC pin.
+  */
 void dac_init(hal_dac_t instance, PinName pin)
 {
   /* DAC Periph clock enable */
@@ -1191,6 +1149,11 @@ void dac_init(hal_dac_t instance, PinName pin)
   pinmap_pinout(pin, PinMap_DAC);
 }
 
+/**
+  * @brief DAC de-initialization: disable the peripheral clock and deconfigure the GPIO pin.
+  * @param instance DAC instance.
+  * @param pin DAC pin.
+  */
 void dac_deinit(hal_dac_t instance, PinName pin)
 {
   /* DAC Periph clock disable */
@@ -1203,11 +1166,6 @@ void dac_deinit(hal_dac_t instance, PinName pin)
   pin_function(pin, STM_PIN_DATA(STM_MODE_ANALOG, LL_GPIO_PULL_NO, 0));
 }
 
-/**
-  * @brief  Return DAC HAL channel linked to a PinName
-  * @param  pin: specific PinName's for ADC internal.
-  * @retval Valid HAL channel
-  */
 hal_dac_channel_t get_dac_channel(PinName pin)
 {
   uint32_t function = pinmap_function(pin, PinMap_DAC);
@@ -1228,14 +1186,6 @@ hal_dac_channel_t get_dac_channel(PinName pin)
   return channel;
 }
 
-/**
-  * @brief  This function will set the DAC to the required value
-  * @param  port : the gpio port to use
-  * @param  pin : the gpio pin to use
-  * @param  value : the value to push on the adc output
-  * @param  do_init : if set to true the initialization of the adc is done
-  * @retval None
-  */
 void dac_write_value(PinName pin, uint32_t value, bool do_init)
 {
   hal_status_t status = HAL_OK;
@@ -1285,12 +1235,6 @@ void dac_write_value(PinName pin, uint32_t value, bool do_init)
   }
 }
 
-/**
-  * @brief  This function will stop the DAC
-  * @param  port : the gpio port to use
-  * @param  pin : the gpio pin to use
-  * @retval None
-  */
 void dac_stop(PinName pin)
 {
   hal_dac_handle_t dac_handle;
@@ -1315,11 +1259,6 @@ void dac_stop(PinName pin)
 #endif /* USE_HAL_DAC_MODULE && (USE_HAL_DAC_MODULE == 1) */
 #if defined(HAL_DAC_MODULE_ENABLED)
 
-/**
-  * @brief  Return DAC HAL channel linked to a PinName
-  * @param  pin: specific PinName's for ADC internal.
-  * @retval Valid HAL channel
-  */
 uint32_t get_dac_channel(PinName pin)
 {
   uint32_t function = pinmap_function(pin, PinMap_DAC);
@@ -1348,12 +1287,8 @@ uint32_t get_dac_channel(PinName pin)
 ////////////////////////// DAC INTERFACE FUNCTIONS /////////////////////////////
 
 /**
-  * @brief DAC MSP Initialization
-  *        This function configures the hardware resources used in this example:
-  *           - Peripheral's clock enable
-  *           - Peripheral's GPIO Configuration
-  * @param hdac: DAC handle pointer
-  * @retval None
+  * @brief DAC MSP initialization: enable the peripheral clock and configure the GPIO pins.
+  * @param hdac DAC handle pointer.
   */
 void HAL_DAC_MspInit(DAC_HandleTypeDef *hdac)
 {
@@ -1399,14 +1334,6 @@ void HAL_DAC_MspInit(DAC_HandleTypeDef *hdac)
 }
 
 
-/**
-  * @brief  This function will set the DAC to the required value
-  * @param  port : the gpio port to use
-  * @param  pin : the gpio pin to use
-  * @param  value : the value to push on the adc output
-  * @param  do_init : if set to true the initialization of the adc is done
-  * @retval None
-  */
 void dac_write_value(PinName pin, uint32_t value, bool do_init)
 {
   DAC_HandleTypeDef DacHandle = {};
@@ -1482,10 +1409,8 @@ void dac_write_value(PinName pin, uint32_t value, bool do_init)
 }
 
 /**
-  * @brief  DeInitialize the DAC MSP.
-  * @param  hdac: pointer to a DAC_HandleTypeDef structure that contains
-  *         the configuration information for the specified DAC.
-  * @retval None
+  * @brief DAC MSP de-initialization: disable the peripheral clock.
+  * @param hdac DAC handle pointer.
   */
 void HAL_DAC_MspDeInit(DAC_HandleTypeDef *hdac)
 {
@@ -1569,12 +1494,6 @@ void HAL_DAC_MspDeInit(DAC_HandleTypeDef *hdac)
 #endif
 }
 
-/**
-  * @brief  This function will stop the DAC
-  * @param  port : the gpio port to use
-  * @param  pin : the gpio pin to use
-  * @retval None
-  */
 void dac_stop(PinName pin)
 {
   DAC_HandleTypeDef DacHandle;
@@ -1606,14 +1525,6 @@ void dac_stop(PinName pin)
 #if !defined(HAL_TIM_MODULE_ONLY) &&\
     (defined(HAL_TIM_MODULE_ENABLED) || (defined(USE_HAL_TIM_MODULE) && (USE_HAL_TIM_MODULE == 1)))
 /* PWM */
-/**
-  * @brief  This function will set the PWM to the required value
-  * @param  port : the gpio port to use
-  * @param  pin : the gpio pin to use
-  * @param  clock_freq : frequency of the tim clock
-  * @param  value : the value to push on the PWM output
-  * @retval None
-  */
 void pwm_start(PinName pin, uint32_t PWM_freq, uint32_t value, TimerCompareFormat_t resolution)
 {
   TIM_TypeDef *Instance = (TIM_TypeDef *)pinmap_peripheral(pin, PinMap_TIM);
@@ -1638,12 +1549,6 @@ void pwm_start(PinName pin, uint32_t PWM_freq, uint32_t value, TimerCompareForma
     HT->resume();
   }
 }
-/**
-  * @brief  This function will disable the PWM
-  * @param  port : the gpio port to use
-  * @param  pin : the gpio pin to use
-  * @retval None
-  */
 void pwm_stop(PinName pin)
 {
   TIM_TypeDef *Instance = (TIM_TypeDef *)pinmap_peripheral(pin, PinMap_TIM);

@@ -150,79 +150,348 @@ using callback_function_t = std::function<void(void)>;
 /* Class --------------------------------------------------------*/
 class HardwareTimer {
   public:
+    /**
+     * @brief HardwareTimer constructor: make uninitialized timer
+     *        Before calling any methods, call setup to select and setup
+     *        the timer to be used.
+     */
     HardwareTimer();
+    /**
+     * @brief HardwareTimer constructor: set default configuration values
+     *        The timer will be usable directly, there is no need to call
+     *        setup(). Using this constructor is not recommended for
+     *        global variables that are automatically initialized at
+     *        startup, since this will happen to early to report any
+     *        errors. Better use the argumentless constructor and call the
+     *        setup() method during initialization later.
+     * @param  instance: Timer instance ex: TIM1, ...
+     */
     HardwareTimer(TIM_TypeDef *instance);
+    /**
+     * @brief HardwareTimer destructor
+     */
     ~HardwareTimer();  // destructor
 
+    /**
+     * @brief HardwareTimer setup: configuration values. Must be called
+     *        exactly once before any other methods, except when an instance is
+     *        passed to the constructor.
+     * @param  instance: Timer instance ex: TIM1, ...
+     */
     void setup(TIM_TypeDef *instance); // Setup, only needed if no instance was passed to the constructor
 
+    /**
+     * @brief Pause HardwareTimer: stop timer
+     */
     void pause(void);  // Pause counter and all output channels
+    /**
+     * @brief Pause only one channel.
+     *        Timer is still running but channel is disabled (output and interrupt)
+     * @param  channel: Arduino channel [1..4]
+     */
     void pauseChannel(uint32_t channel); // Timer is still running but channel (output and interrupt) is disabled
+    /**
+     * @brief Start or resume HardwareTimer: all channels are resumed, interrupts are enabled if necessary
+     */
     void resume(void); // Resume counter and all output channels
+    /**
+     * @brief Configure specified channel and resume/start timer
+     * @param  channel: Arduino channel [1..4]
+     */
     void resumeChannel(uint32_t channel); // Resume only one channel
 
+    /**
+     * @brief Configure hardwareTimer prescaler
+     * @param  prescaler: prescaler factor
+     */
     void setPrescaleFactor(uint32_t prescaler); // set prescaler register (which is factor value - 1)
+    /**
+     * @brief Retrieve prescaler from hardware register
+     * @return prescaler factor
+     */
     uint32_t getPrescaleFactor();
 
-    void setOverflow(uint32_t val, TimerFormat_t format = TICK_FORMAT); // set AutoReload register depending on format provided
+    /**
+     * @brief Set overflow (rollover)
+     *
+     *        Note that by default, the new value will not be applied
+     *        immediately, but become effective at the next update event
+     *        (usually the next timer overflow). See setPreloadEnable()
+     *        for controlling this behaviour.
+     * @param  overflow: depend on format parameter
+     * @param  format: format of overflow parameter. If omitted default format is Tick
+     *           TICK_FORMAT:     overflow is the number of tick for overflow
+     *           MICROSEC_FORMAT: overflow is the number of microsecondes for overflow
+     *           HERTZ_FORMAT:    overflow is the frequency in hertz for overflow
+     */
+    void setOverflow(uint32_t overflow, TimerFormat_t format = TICK_FORMAT); // set AutoReload register depending on format provided
+    /**
+     * @brief Retrieve overflow (rollover) value from hardware register
+     * @param  format: format of returned value. If omitted default format is Tick
+     * @return overflow depending on format value:
+     *           TICK_FORMAT:     return number of tick for overflow
+     *           MICROSEC_FORMAT: return number of microsecondes for overflow
+     *           HERTZ_FORMAT:    return frequency in hertz for overflow
+     */
     uint32_t getOverflow(TimerFormat_t format = TICK_FORMAT); // return overflow depending on format provided
 
+    /**
+     * @brief All in one function to configure PWM
+     * @param  channel: Arduino channel [1..4]
+     * @param  pin: pin name, ex PB_0
+     * @param  frequency: PWM frequency expressed in hertz
+     * @param  dutycycle: PWM dutycycle expressed in percentage
+     * @param  PeriodCallback: timer period callback (timer rollover upon update event)
+     * @param  CompareCallback: timer compare callback
+     */
     void setPWM(uint32_t channel, PinName pin, uint32_t frequency, uint32_t dutycycle, callback_function_t PeriodCallback = nullptr, callback_function_t CompareCallback = nullptr); // Set all in one command freq in HZ, Duty in percentage. Including both interrupt.
+    /**
+     * @brief All in one function to configure PWM, using an Arduino pin number
+     * @param  channel: Arduino channel [1..4]
+     * @param  pin: Arduino pin number, ex D1, 1 or PA1
+     * @param  frequency: PWM frequency expressed in hertz
+     * @param  dutycycle: PWM dutycycle expressed in percentage
+     * @param  PeriodCallback: timer period callback (timer rollover upon update event)
+     * @param  CompareCallback: timer compare callback
+     */
     void setPWM(uint32_t channel, pin_size_t pin, uint32_t frequency, uint32_t dutycycle, callback_function_t PeriodCallback = nullptr, callback_function_t CompareCallback = nullptr);
 
-    void setCount(uint32_t val, TimerFormat_t format = TICK_FORMAT); // set timer counter to value 'val' depending on format provided
+    /**
+     * @brief Set timer counter value
+     * @param  counter: depend on format parameter
+     * @param  format: format of counter parameter. If omitted default format is Tick
+     *           TICK_FORMAT:     counter is the number of tick
+     *           MICROSEC_FORMAT: counter is the number of microsecondes
+     *           HERTZ_FORMAT:    counter is the frequency in hertz
+     */
+    void setCount(uint32_t counter, TimerFormat_t format = TICK_FORMAT); // set timer counter to value 'val' depending on format provided
+    /**
+     * @brief Retrieve timer counter value
+     * @param  format: format of returned value. If omitted default format is Tick
+     * @return counter value depending on format value:
+     *           TICK_FORMAT:     return number of tick for counter
+     *           MICROSEC_FORMAT: return number of microsecondes for counter
+     *           HERTZ_FORMAT:    return frequency in hertz for counter
+     */
     uint32_t getCount(TimerFormat_t format = TICK_FORMAT);  // return current counter value of timer depending on format provided
 
+    /**
+     * @brief Set channel mode
+     * @param  channel: Arduino channel [1..4]
+     * @param  mode: mode configuration for the channel (see TimerModes_t)
+     * @param  pin: pin name, ex: PB_0
+     * @param  filter: input capture filter (see ChannelInputFilter_t)
+     */
     void setMode(uint32_t channel, TimerModes_t mode, PinName pin = NC, ChannelInputFilter_t filter = FILTER_NONE); // Configure timer channel with specified mode on specified pin if available
+    /**
+     * @brief Set channel mode
+     * @param  channel: Arduino channel [1..4]
+     * @param  mode: mode configuration for the channel (see TimerModes_t)
+     * @param  pin: Arduino pin number, ex: D1, 1 or PA1
+     * @param  filter: input capture filter (see ChannelInputFilter_t)
+     */
     void setMode(uint32_t channel, TimerModes_t mode, pin_size_t pin, ChannelInputFilter_t filter = FILTER_NONE);
 
+    /**
+     * @brief Retrieves channel mode configured
+     * @param  channel: Arduino channel [1..4]
+     * @return returns configured mode
+     */
     TimerModes_t getMode(uint32_t channel);  // Retrieve configured mode
 
+    /**
+     * @brief Enable or disable preloading for overflow value
+     *        When disabled, changes to the overflow value take effect
+     *        immediately. When enabled (the default), the value takes
+     *        effect only at the next update event (typically the next
+     *        overflow).
+     *
+     *        Note that the capture/compare register has its own preload
+     *        enable bit, which is independent and enabled in PWM modes
+     *        and disabled otherwise. If you need more control of that
+     *        bit, you can use the HAL functions directly.
+     * @param  value: true to enable preloading, false to disable
+     */
     void setPreloadEnable(bool value); // Configure overflow preload enable setting
 
+    /**
+     * @brief Retrieve Capture/Compare value
+     * @param  channel: Arduino channel [1..4]
+     * @param  format: format of return value. If omitted default format is Tick
+     *           TICK_FORMAT:     return value is the number of tick for Capture/Compare value
+     *           MICROSEC_FORMAT: return value is the number of microsecondes for Capture/Compare value
+     *           HERTZ_FORMAT:    return value is the frequency in hertz for Capture/Compare value
+     * @return Capture/Compare value
+     */
     uint32_t getCaptureCompare(uint32_t channel, TimerCompareFormat_t format = TICK_COMPARE_FORMAT); // return Capture/Compare register value of specified channel depending on format provided
+    /**
+     * @brief Set channel Capture/Compare register
+     * @param  channel: Arduino channel [1..4]
+     * @param  compare: compare value depending on format
+     * @param  format: format of compare parameter. If omitted default format is Tick
+     *           TICK_FORMAT:     compare is the number of tick
+     *           MICROSEC_FORMAT: compare is the number of microsecondes
+     *           HERTZ_FORMAT:    compare is the frequency in hertz
+     */
     void setCaptureCompare(uint32_t channel, uint32_t compare, TimerCompareFormat_t format = TICK_COMPARE_FORMAT);  // set Compare register value of specified channel depending on format provided
 
+    /**
+     * @brief Set the priority of the interrupt
+     * @note Must be call before resume()
+     * @param  preemptPriority: the pre-emption priority for the IRQn channel
+     * @param  subPriority: the subpriority level for the IRQ channel.
+     */
     void setInterruptPriority(uint32_t preemptPriority, uint32_t subPriority); // set interrupt priority
 
     //Add interrupt to period update
+    /**
+     * @brief Attach interrupt callback on update (rollover) event
+     * @param  callback: interrupt callback
+     */
     void attachInterrupt(callback_function_t callback); // Attach interrupt callback which will be called upon update event (timer rollover)
+    /**
+     * @brief Detach interrupt callback on update (rollover) event
+     */
     void detachInterrupt();  // remove interrupt callback which was attached to update event
+    /**
+     * @brief Checks if there's an interrupt callback attached on Rollover event
+     * @return returns true if a timer rollover interrupt has already been set
+     */
     bool hasInterrupt();  //returns true if a timer rollover interrupt has already been set
     //Add interrupt to capture/compare channel
+    /**
+     * @brief Attach interrupt callback on Capture/Compare event
+     * @param  channel: Arduino channel [1..4]
+     * @param  callback: interrupt callback
+     */
     void attachInterrupt(uint32_t channel, callback_function_t callback); // Attach interrupt callback which will be called upon compare match event of specified channel
+    /**
+     * @brief Detach interrupt callback on Capture/Compare event
+     * @param  channel: Arduino channel [1..4]
+     */
     void detachInterrupt(uint32_t channel);  // remove interrupt callback which was attached to compare match event of specified channel
+    /**
+     * @brief Checks if there's an interrupt callback attached on Capture/Compare event
+     * @param  channel: Arduino channel [1..4]
+     * @return returns true if a channel compare match interrupt has already been set
+     */
     bool hasInterrupt(uint32_t channel);  //returns true if an interrupt has already been set on the channel compare match
+    /**
+     * @brief This function will reset the timer
+     */
     void timerHandleDeinit();  // Timer deinitialization
 
     // Refresh() is useful while timer is running after some registers update
+    /**
+     * @brief Generate an update event to force all registers (Autoreload, prescaler, compare) to be taken into account
+     * @note Refresh() can only be called after timer has been initialized,
+     *       either by calling setup() function or thanks to constructor with TIM instance parameter.
+     *       It is useful while timer is running after some registers update
+     */
     void refresh(void); // Generate update event to force all registers (Autoreload, prescaler, compare) to be taken into account
 
+    /**
+     * @brief This function return the timer clock frequency.
+     * @return frequency in Hz
+     */
     uint32_t getTimerClkFreq();  // return timer clock frequency in Hz.
 
 #if defined(USE_HALV2_DRIVER)
+    /**
+     * @brief Generic Capture and Compare callback which will call user callback
+     * @param  htim: HAL timer handle
+     * @param  hal_channel: HAL channel which triggered the callback
+     */
     static void captureCompareCallback(hal_tim_handle_t *htim, hal_tim_channel_t hal_channel); // Generic Capture and Compare callback which will call user callback
+    /**
+     * @brief Generic Update (rollover) callback which will call user callback
+     * @param  htim: HAL timer handle
+     */
     static void updateCallback(hal_tim_handle_t *htim);  // Generic Update (rollover) callback which will call user callback
 #else
+    /**
+     * @brief Generic Capture and Compare callback which will call user callback
+     * @param  htim: HAL timer handle
+     */
     static void captureCompareCallback(TIM_HandleTypeDef *htim); // Generic Capture and Compare callback which will call user callback
+    /**
+     * @brief Generic Update (rollover) callback which will call user callback
+     * @param  htim: HAL timer handle
+     */
     static void updateCallback(TIM_HandleTypeDef *htim);  // Generic Update (rollover) callback which will call user callback
 #endif
+    /**
+     * @brief Take into account registers update immediately if timer is not running,
+     *        (independently from Preload setting)
+     * @param  TIMx: Timer instance
+     */
     void updateRegistersIfNotRunning(TIM_TypeDef *TIMx); // Take into account registers update immediately if timer is not running,
 
+    /**
+     * @brief Check whether HardwareTimer is running (paused or resumed).
+     * @return return true if the HardwareTimer is running
+     */
     bool isRunning(); // return true if HardwareTimer is running
+    /**
+     * @brief Check whether channel is running (paused or resumed).
+     * @param  channel: Arduino channel [1..4]
+     * @return return true if HardwareTimer is running and the channel is enabled
+     */
     bool isRunningChannel(uint32_t channel); // return true if channel is running
 
     // The following function(s) are available for more advanced timer options
 #if defined(USE_HALV2_DRIVER)
+    /**
+     * @brief Return the timer object handle object for more advanced setup
+     * @note Using this function and editing the Timer handle is at own risk! No support will
+     *       be provided whatsoever if the HardwareTimer does not work as expected when editing
+     *       the handle using the HAL functionality or other custom coding.
+     * @return hal_tim_handle_t address
+     */
     hal_tim_handle_t *getHandle();  // return the handle address for HAL related configuration
+    /**
+     * @brief Convert arduino channel into HAL channel
+     * @param  channel: Arduino channel [1..4]
+     * @param  complementary: true to get the complementary (N) channel, false for the regular one
+     * @return HAL channel. Error handler called if arduino channel is invalid
+     */
     hal_tim_channel_t getChannel(uint32_t channel, bool complementary = false);
 #else
+    /**
+     * @brief Return the timer object handle object for more advanced setup
+     * @note Using this function and editing the Timer handle is at own risk! No support will
+     *       be provided whatsoever if the HardwareTimer does not work as expected when editing
+     *       the handle using the HAL functionality or other custom coding.
+     * @return TIM_HandleTypeDef address
+     */
     TIM_HandleTypeDef *getHandle();  // return the handle address for HAL related configuration
+    /**
+     * @brief Convert arduino channel into HAL channel
+     * @param  channel: Arduino channel [1..4]
+     * @return HAL channel. Error handler called if arduino channel is invalid
+     */
     uint32_t getChannel(uint32_t channel);
 #endif
+    /**
+     * @brief Convert arduino channel into LL channels used (regular and/or complementary)
+     * @param  channel: Arduino channel [1..4]
+     * @return LL channel. Error handler called if arduino channel is invalid
+     */
     uint32_t getLLChannel(uint32_t channel);
 
+    /**
+     * @brief Handle itterupt based on arduino channel
+     * @param  channel: Arduino channel [1..4]
+     * @param  config: configuration for the interrupt (enable, disable, clear, clear and disable)
+     * @return true if interrupt is enabled, false otherwise
+     */
     bool manageIT(uint32_t channel, ChannelITConfig_t config = DISABLE_IT);
+    /**
+     * @brief Get input associated channel
+     *        Channel 1 and 2 are associated; channel 3 and 4 are associated
+     * @param  channel: Arduino channel [1..4]
+     * @return associated channel [1..4]. Error handler called if arduino channel is invalid
+     */
     uint32_t getAssociatedChannel(uint32_t channel);
 
   private:
@@ -236,7 +505,12 @@ class HardwareTimer {
 
 extern timerObj_t *HardwareTimer_Handle[TIMER_NUM];
 
-extern timer_index_t get_timer_index(TIM_TypeDef *htim);
+/**
+ * @brief return timer index from timer handle
+ * @param  instance: one of the defined timer
+ * @return timer index
+ */
+extern timer_index_t get_timer_index(TIM_TypeDef *instance);
 
 #endif /* __cplusplus */
 

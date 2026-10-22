@@ -135,24 +135,56 @@ extern USBD_ClassTypeDef  USBD_COMPOSITE_HID;
 /** @defgroup USB_CORE_Exported_Functions
   * @{
   */
+/**
+ * @brief Send a HID mouse report.
+ * @param pdev Pointer to the device instance.
+ * @param report Pointer to the report data.
+ * @param len Length of the report, in bytes.
+ * @param ClassId Class instance ID. Only present when USE_USBD_COMPOSITE
+ *        is defined.
+ * @return USBD_OK on success or if the device is not configured,
+ *         USBD_BUSY if the previous report is still pending,
+ *         USBD_FAIL if the class instance is not allocated.
+ */
 #ifdef USE_USBD_COMPOSITE
 uint8_t USBD_HID_MOUSE_SendReport(USBD_HandleTypeDef *pdev,
                                   uint8_t *report,
                                   uint16_t len,
                                   uint8_t ClassId);
+#else
+uint8_t USBD_HID_MOUSE_SendReport(USBD_HandleTypeDef *pdev,
+                                  uint8_t *report,
+                                  uint16_t len);
+#endif /* USE_USBD_COMPOSITE */
+
+/**
+ * @brief Send a HID keyboard report.
+ * @param pdev Pointer to the device instance.
+ * @param report Pointer to the report data.
+ * @param len Length of the report, in bytes.
+ * @param ClassId Class instance ID. Only present when USE_USBD_COMPOSITE
+ *        is defined.
+ * @return USBD_OK on success or if the device is not configured,
+ *         USBD_BUSY if the previous report is still pending,
+ *         USBD_FAIL if the class instance is not allocated.
+ */
+#ifdef USE_USBD_COMPOSITE
 uint8_t USBD_HID_KEYBOARD_SendReport(USBD_HandleTypeDef *pdev,
                                      uint8_t *report,
                                      uint16_t len,
                                      uint8_t ClassId);
 #else
-uint8_t USBD_HID_MOUSE_SendReport(USBD_HandleTypeDef *pdev,
-                                  uint8_t *report,
-                                  uint16_t len);
 uint8_t USBD_HID_KEYBOARD_SendReport(USBD_HandleTypeDef *pdev,
                                      uint8_t *report,
                                      uint16_t len);
 #endif /* USE_USBD_COMPOSITE */
 
+/**
+ * @brief Get the polling interval from the HID endpoint descriptor.
+ * @param pdev Pointer to the device instance.
+ * @return Polling interval, computed from HID_HS_BINTERVAL when the device
+ *         runs at high speed, or from HID_FS_BINTERVAL otherwise.
+ */
 uint32_t USBD_HID_GetPollingInterval(USBD_HandleTypeDef *pdev);
 
 #ifdef __cplusplus

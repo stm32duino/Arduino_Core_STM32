@@ -80,7 +80,11 @@ typedef enum {
 
 /* Return GPIO base address */
 #define get_GPIO_Port(p) ((p < MAX_NB_PORT) ? GPIOPort_list[p] : (GPIO_TypeDef *)NULL)
-/* Enable GPIO clock and return GPIO base address */
+/**
+ * @brief Enables the clock of a GPIO port and returns its base address.
+ * @param port_idx Port index, one of the PortName values (PortA, PortB, ...).
+ * @return GPIO base address of the port, or NULL if port_idx is invalid.
+ */
 GPIO_TypeDef *set_GPIO_Port_Clock(uint32_t port_idx);
 
 #ifdef __cplusplus

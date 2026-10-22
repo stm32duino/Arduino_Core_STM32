@@ -890,12 +890,6 @@ uint8_t *USBD_CDC_GetDeviceQualifierDescriptor(uint16_t *length)
   return USBD_CDC_DeviceQualifierDesc;
 }
 #endif /* USE_USBD_COMPOSITE  */
-/**
-  * @brief  USBD_CDC_RegisterInterface
-  * @param  pdev: device instance
-  * @param  fops: CD  Interface callback
-  * @retval status
-  */
 uint8_t USBD_CDC_RegisterInterface(USBD_HandleTypeDef *pdev,
                                    USBD_CDC_ItfTypeDef *fops)
 {
@@ -908,14 +902,6 @@ uint8_t USBD_CDC_RegisterInterface(USBD_HandleTypeDef *pdev,
   return (uint8_t)USBD_OK;
 }
 
-/**
-  * @brief  USBD_CDC_SetTxBuffer
-  * @param  pdev: device instance
-  * @param  pbuff: Tx Buffer
-  * @param  length: length of data to be sent
-  * @param  ClassId: The Class ID
-  * @retval status
-  */
 #ifdef USE_USBD_COMPOSITE
 uint8_t USBD_CDC_SetTxBuffer(USBD_HandleTypeDef *pdev,
                              uint8_t *pbuff, uint32_t length, uint8_t ClassId)
@@ -938,12 +924,6 @@ uint8_t USBD_CDC_SetTxBuffer(USBD_HandleTypeDef *pdev,
   return (uint8_t)USBD_OK;
 }
 
-/**
-  * @brief  USBD_CDC_SetRxBuffer
-  * @param  pdev: device instance
-  * @param  pbuff: Rx Buffer
-  * @retval status
-  */
 uint8_t USBD_CDC_SetRxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff)
 {
   USBD_CDC_HandleTypeDef *hcdc = (USBD_CDC_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
@@ -957,13 +937,6 @@ uint8_t USBD_CDC_SetRxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff)
   return (uint8_t)USBD_OK;
 }
 
-/**
-  * @brief  USBD_CDC_TransmitPacket
-  *         Transmit packet on IN endpoint
-  * @param  pdev: device instance
-  * @param  ClassId: The Class ID
-  * @retval status
-  */
 #ifdef USE_USBD_COMPOSITE
 uint8_t USBD_CDC_TransmitPacket(USBD_HandleTypeDef *pdev, uint8_t ClassId)
 {
@@ -1001,12 +974,6 @@ uint8_t USBD_CDC_TransmitPacket(USBD_HandleTypeDef *pdev)
   return (uint8_t)ret;
 }
 
-/**
-  * @brief  USBD_CDC_ReceivePacket
-  *         prepare OUT Endpoint for reception
-  * @param  pdev: device instance
-  * @retval status
-  */
 uint8_t USBD_CDC_ReceivePacket(USBD_HandleTypeDef *pdev)
 {
   USBD_CDC_HandleTypeDef *hcdc = (USBD_CDC_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];

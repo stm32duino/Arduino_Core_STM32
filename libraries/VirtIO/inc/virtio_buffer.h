@@ -50,13 +50,56 @@ typedef struct {
   volatile uint16_t read_index;
 } virtio_buffer_t;
 
+/**
+ * @brief Initialize a virtio ring buffer to empty.
+ * @param ring Pointer to the ring buffer to initialize.
+ */
 void virtio_buffer_init(virtio_buffer_t *ring);
 
+/**
+ * @brief Get the number of bytes available to read.
+ * @param ring Pointer to the ring buffer.
+ * @return Number of bytes that virtio_buffer_read() can return.
+ */
 uint16_t virtio_buffer_read_available(virtio_buffer_t *ring);
+
+/**
+ * @brief Read and remove bytes from the ring buffer.
+ * @param ring Pointer to the ring buffer.
+ * @param dst Destination buffer.
+ * @param size Maximum number of bytes to read.
+ * @return Number of bytes actually read, at most size.
+ * @note Not protected against race conditions on read_index. Do not use
+ *       concurrently from an interrupt and the main loop.
+ */
 uint16_t virtio_buffer_read(virtio_buffer_t *ring, uint8_t *dst, uint16_t size);
+
+/**
+ * @brief Copy bytes from the ring buffer without removing them.
+ * @param ring Pointer to the ring buffer.
+ * @param dst Destination buffer.
+ * @param size Maximum number of bytes to copy.
+ * @return Number of bytes actually copied, at most size.
+ */
 uint16_t virtio_buffer_peek(virtio_buffer_t *ring, uint8_t *dst, uint16_t size);
 
+/**
+ * @brief Get the number of bytes that can be written.
+ * @param ring Pointer to the ring buffer.
+ * @return Number of free bytes. One byte is always kept unused to tell a
+ *         full buffer from an empty one.
+ */
 uint16_t virtio_buffer_write_available(virtio_buffer_t *ring);
+
+/**
+ * @brief Write bytes into the ring buffer.
+ * @param ring Pointer to the ring buffer.
+ * @param src Source data.
+ * @param size Maximum number of bytes to write.
+ * @return Number of bytes actually written, at most size.
+ * @note Not protected against race conditions on write_index. Do not use
+ *       concurrently from an interrupt and the main loop.
+ */
 uint16_t virtio_buffer_write(virtio_buffer_t *ring, uint8_t *src, uint16_t size);
 
 #ifdef __cplusplus

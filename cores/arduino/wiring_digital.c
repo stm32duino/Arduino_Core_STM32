@@ -26,6 +26,12 @@ extern "C" {
 
 extern pin_size_t g_anOutputPinConfigured[MAX_NB_PORT];
 
+/**
+ * @brief Set the mode of a pin.
+ *
+ * @param pinNumber Pin number, Dx or x.
+ * @param pinMode INPUT, INPUT_PULLUP, INPUT_PULLDOWN, INPUT_ANALOG, OUTPUT or OUTPUT_OPEN_DRAIN.
+ */
 void pinMode(pin_size_t pinNumber, PinMode pinMode)
 {
   PinName p = digitalPinToPinName(pinNumber);
@@ -79,6 +85,12 @@ void pinMode(pin_size_t pinNumber, PinMode pinMode)
   }
 }
 
+/**
+ * @brief Write a HIGH or LOW value to a digital pin.
+ *
+ * @param pinNumber Pin number, Dx or x.
+ * @param status HIGH or LOW.
+ */
 void digitalWrite(pin_size_t pinNumber, PinStatus status)
 {
   PinName p = digitalPinToPinName(pinNumber);
@@ -87,6 +99,12 @@ void digitalWrite(pin_size_t pinNumber, PinStatus status)
   }
 }
 
+/**
+ * @brief Read the value of a digital pin.
+ *
+ * @param pinNumber Pin number, Dx or x.
+ * @return HIGH or LOW. LOW if the pin is invalid.
+ */
 PinStatus digitalRead(pin_size_t pinNumber)
 {
   PinName p = digitalPinToPinName(pinNumber);

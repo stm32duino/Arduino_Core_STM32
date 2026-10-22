@@ -58,11 +58,6 @@ CRC_HandleTypeDef hcrc = {.Instance =
                          };
 #endif
 
-/**
-  * @brief  This function performs the global init of the system (HAL, IOs...)
-  * @param  None
-  * @retval None
-  */
 void hw_config_init(void)
 {
   configIPClock();

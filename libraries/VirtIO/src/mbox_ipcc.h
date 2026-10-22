@@ -30,9 +30,28 @@
     #define IPCC_IRQ_SUBPRIO    0
   #endif
 
+  /**
+   * @brief Initialize the mailbox with the IPCC peripheral.
+   * @return 0 on success, -1 on failure.
+   */
   int MAILBOX_Init(void);
+
+  /**
+   * @brief Process vring messages received from the IPCC ISR.
+   * @param vdev Virtio device.
+   * @param vring_id Vring ID.
+   * @return 0 if a message was processed, -1 otherwise.
+   */
   int MAILBOX_Poll(struct virtio_device *vdev, uint32_t vring_id);
-  int MAILBOX_Notify(void *priv, uint32_t id);
+
+  /**
+   * @brief Notify the remote processor (kick) that a message is ready.
+   * @note  Called by OpenAMP from virtqueue_kick() during tx only, never rx.
+   * @param priv Private data passed by OpenAMP. Unused.
+   * @param vring_id Vring ID.
+   * @return 0 on success, -1 otherwise.
+   */
+  int MAILBOX_Notify(void *priv, uint32_t vring_id);
 
 #endif /* VIRTIOCON */
 #endif /* __OPENAMP_MBOX_IPCC_H */

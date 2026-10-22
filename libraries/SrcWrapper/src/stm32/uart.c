@@ -351,11 +351,6 @@ bool uart_enable_clock(serial_t *obj)
   return status;
 }
 
-/**
-  * @brief  Function called to initialize the uart interface
-  * @param  obj : pointer to serial_t structure
-  * @retval boolean status
-  */
 #if defined(USE_HALV2_DRIVER)
 bool uart_init(serial_t *obj, uint32_t baudrate, hal_uart_word_length_t databits, hal_uart_parity_t parity, hal_uart_stop_bits_t stopbits, bool rx_invert, bool tx_invert, bool data_invert)
 #else
@@ -607,11 +602,6 @@ bool uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
   return status;
 }
 
-/**
-  * @brief  Function called to deinitialize the uart interface
-  * @param  obj : pointer to serial_t structure
-  * @retval None
-  */
 void uart_deinit(serial_t *obj)
 {
   /* Ensure uart is set to prevent deinitializing uart at index 0 */
@@ -840,11 +830,6 @@ void uart_init_lpuart(UART_HandleTypeDef *huart)
 
 
 #if defined(HAL_PWR_MODULE_ENABLED) && (defined(UART_IT_WUF) || defined(LPUART1_BASE))
-/**
-  * @brief  Function called to configure the uart interface for low power
-  * @param  obj : pointer to serial_t structure
-  * @retval None
-  */
 void uart_config_lowpower(serial_t *obj)
 {
   if (obj == NULL) {
@@ -939,11 +924,11 @@ void uart_config_lowpower(serial_t *obj)
 #endif
 
 /**
-  * @brief  Function called to initialize the debug uart interface
+  * @brief Function called to initialize the debug uart interface
   * @note   Call only if debug U(S)ART peripheral is not already initialized
   *         by a Serial instance
   *         Default config: 8N1
-  * @retval boolean status
+  * @return true on success, false otherwise
   */
 bool uart_debug_init(void)
 {
@@ -964,12 +949,6 @@ bool uart_debug_init(void)
   return status;
 }
 
-/**
-  * @brief  write the data on the uart: used by printf for debug only (syscalls)
-  * @param  data : bytes to write
-  * @param  size : number of data to write
-  * @retval The number of bytes written
-  */
 size_t uart_debug_write(uint8_t *data, uint32_t size)
 {
   uint32_t tickstart = HAL_GetTick();
@@ -1019,12 +998,6 @@ size_t uart_debug_write(uint8_t *data, uint32_t size)
   return size;
 }
 
-/**
- * Attempts to determine if the serial peripheral is already in use for RX
- *
- * @param obj The serial object
- * @return Non-zero if the RX transaction is ongoing, 0 otherwise
- */
 uint8_t serial_rx_active(serial_t *obj)
 {
 #if defined(USE_HALV2_DRIVER)
@@ -1034,12 +1007,6 @@ uint8_t serial_rx_active(serial_t *obj)
 #endif
 }
 
-/**
- * Attempts to determine if the serial peripheral is already in use for TX
- *
- * @param obj The serial object
- * @return Non-zero if the TX transaction is ongoing, 0 otherwise
- */
 uint8_t serial_tx_active(serial_t *obj)
 {
 #if defined(USE_HALV2_DRIVER)
@@ -1049,11 +1016,6 @@ uint8_t serial_tx_active(serial_t *obj)
 #endif
 }
 
-/**
-  * @brief  Read receive byte from uart
-  * @param  obj : pointer to serial_t structure
-  * @retval last character received
-  */
 int uart_getc(serial_t *obj, unsigned char *c)
 {
   if (obj == NULL) {
@@ -1071,13 +1033,6 @@ int uart_getc(serial_t *obj, unsigned char *c)
   return 0;
 }
 
-/**
- * Begin asynchronous RX transfer (enable interrupt for data collecting)
- *
- * @param obj : pointer to serial_t structure
- * @param callback : function call at the end of reception
- * @retval none
- */
 void uart_attach_rx_callback(serial_t *obj, void (*callback)(serial_t *))
 {
   if (obj == NULL) {
@@ -1107,13 +1062,6 @@ void uart_attach_rx_callback(serial_t *obj, void (*callback)(serial_t *))
 #endif
 }
 
-/**
- * Begin asynchronous TX transfer.
- *
- * @param obj : pointer to serial_t structure
- * @param callback : function call at the end of transmission
- * @retval none
- */
 void uart_attach_tx_callback(serial_t *obj, int (*callback)(serial_t *), size_t size)
 {
   if (obj == NULL) {
@@ -1139,12 +1087,6 @@ void uart_attach_tx_callback(serial_t *obj, int (*callback)(serial_t *), size_t 
 #endif
 }
 
-/**
- * Enable transmitter for half-duplex mode. NOOP in full-fuplex mode
- *
- * @param obj : pointer to serial_t structure
- * @retval none
- */
 void uart_enable_tx(serial_t *obj)
 {
   if (obj != NULL && obj->pin_rx == NC) {
@@ -1156,12 +1098,6 @@ void uart_enable_tx(serial_t *obj)
   }
 }
 
-/**
- * Enable receiver for half-duplex mode. NOOP in full-fuplex mode
- *
- * @param obj : pointer to serial_t structure
- * @retval none
- */
 void uart_enable_rx(serial_t *obj)
 {
   if (obj != NULL && obj->pin_rx == NC) {
@@ -1174,9 +1110,9 @@ void uart_enable_rx(serial_t *obj)
 }
 
 /**
-  * @brief  Return index of the serial handler
-  * @param  UartHandle pointer on the uart reference
-  * @retval index
+  * @brief Return index of the serial handler
+  * @param huart Pointer on the uart reference
+  * @return Index of the serial handler
   */
 /*
 uint8_t uart_index(UART_HandleTypeDef *huart)
@@ -1197,9 +1133,8 @@ uint8_t uart_index(UART_HandleTypeDef *huart)
 */
 
 /**
-  * @brief  Rx Transfer completed callback
-  * @param  UartHandle pointer on the uart reference
-  * @retval None
+  * @brief Rx Transfer completed callback
+  * @param huart Pointer on the uart reference
   */
 #if defined(USE_HALV2_DRIVER)
 void HAL_UART_RxCpltCallback(hal_uart_handle_t *huart, uint32_t size_byte, hal_uart_rx_event_types_t rx_event)
@@ -1218,9 +1153,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 }
 
 /**
-  * @brief  Tx Transfer completed callback
-  * @param  UartHandle pointer on the uart reference
-  * @retval None
+  * @brief Tx Transfer completed callback
+  * @param huart Pointer on the uart reference
   */
 #if defined(USE_HALV2_DRIVER)
 void HAL_UART_TxCpltCallback(hal_uart_handle_t *huart)
@@ -1235,9 +1169,8 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 }
 
 /**
-  * @brief  error callback from UART
-  * @param  UartHandle pointer on the uart reference
-  * @retval None
+  * @brief Error callback from UART
+  * @param huart Pointer on the uart reference
   */
 #if defined(USE_HALV2_DRIVER)
 void HAL_UART_ErrorCallback(hal_uart_handle_t *huart)
@@ -1287,9 +1220,7 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 }
 
 /**
-  * @brief  USART 1 IRQ handler
-  * @param  None
-  * @retval None
+  * @brief USART 1 IRQ handler
   */
 #if defined(USART1_BASE)
 void USART1_IRQHandler(void)
@@ -1304,9 +1235,7 @@ void USART1_IRQHandler(void)
 #endif
 
 /**
-  * @brief  USART 2 IRQ handler
-  * @param  None
-  * @retval None
+  * @brief USART 2 IRQ handler
   */
 #if defined(USART2_BASE)
 void USART2_IRQHandler(void)
@@ -1328,9 +1257,7 @@ void USART2_IRQHandler(void)
 #endif
 
 /**
-  * @brief  USART 3 IRQ handler
-  * @param  None
-  * @retval None
+  * @brief USART 3 IRQ handler
   */
 #if defined(USART3_BASE)
 void USART3_IRQHandler(void)
@@ -1387,9 +1314,7 @@ void USART3_IRQHandler(void)
 #endif
 
 /**
-  * @brief  UART 4 IRQ handler
-  * @param  None
-  * @retval None
+  * @brief UART 4 IRQ handler
   */
 #if defined(UART4_BASE)
 void UART4_IRQHandler(void)
@@ -1404,9 +1329,7 @@ void UART4_IRQHandler(void)
 #endif
 
 /**
-  * @brief  USART 4/5 IRQ handler
-  * @param  None
-  * @retval None
+  * @brief USART 4/5 IRQ handler
   */
 #if defined(STM32L0xx)
 #if defined(USART4_BASE) || defined(USART5_BASE)
@@ -1424,9 +1347,7 @@ void USART4_5_IRQHandler(void)
 #endif
 
 /**
-  * @brief  USART 4 IRQ handler
-  * @param  None
-  * @retval None
+  * @brief USART 4 IRQ handler
   */
 #if defined(STM32U0xx)
 #if defined(USART4_BASE)
@@ -1446,9 +1367,7 @@ void USART4_IRQHandler(void)
 #endif
 
 /**
-  * @brief  USART 5 IRQ handler
-  * @param  None
-  * @retval None
+  * @brief USART 5 IRQ handler
   */
 #if defined(UART5_BASE)
 void UART5_IRQHandler(void)
@@ -1463,9 +1382,7 @@ void UART5_IRQHandler(void)
 #endif
 
 /**
-  * @brief  USART 6 IRQ handler
-  * @param  None
-  * @retval None
+  * @brief USART 6 IRQ handler
   */
 #if defined(USART6_BASE) && !defined(STM32F0xx) && !defined(STM32G0xx)
 void USART6_IRQHandler(void)
@@ -1480,9 +1397,7 @@ void USART6_IRQHandler(void)
 #endif
 
 /**
-  * @brief  LPUART 1 IRQ handler
-  * @param  None
-  * @retval None
+  * @brief LPUART 1 IRQ handler
   */
 #if defined(LPUART1_BASE)
 void LPUART1_IRQHandler(void)
@@ -1497,9 +1412,7 @@ void LPUART1_IRQHandler(void)
 #endif
 
 /**
-  * @brief  UART 7 IRQ handler
-  * @param  None
-  * @retval None
+  * @brief UART 7 IRQ handler
   */
 #if defined(UART7_BASE)
 void UART7_IRQHandler(void)
@@ -1514,9 +1427,7 @@ void UART7_IRQHandler(void)
 #endif
 
 /**
-  * @brief  UART 8 IRQ handler
-  * @param  None
-  * @retval None
+  * @brief UART 8 IRQ handler
   */
 #if defined(UART8_BASE)
 void UART8_IRQHandler(void)
@@ -1527,9 +1438,7 @@ void UART8_IRQHandler(void)
 #endif
 
 /**
-  * @brief  UART 9 IRQ handler
-  * @param  None
-  * @retval None
+  * @brief UART 9 IRQ handler
   */
 #if defined(UART9_BASE)
 void UART9_IRQHandler(void)
@@ -1540,9 +1449,7 @@ void UART9_IRQHandler(void)
 #endif
 
 /**
-  * @brief  UART 10 IRQ handler
-  * @param  None
-  * @retval None
+  * @brief UART 10 IRQ handler
   */
 #if defined(UART10_BASE)
 void UART10_IRQHandler(void)
@@ -1553,9 +1460,7 @@ void UART10_IRQHandler(void)
 #endif
 
 /**
-  * @brief  USART 10 IRQ handler
-  * @param  None
-  * @retval None
+  * @brief USART 10 IRQ handler
   */
 #if defined(USART10_BASE)
 void USART10_IRQHandler(void)
@@ -1566,9 +1471,7 @@ void USART10_IRQHandler(void)
 #endif
 
 /**
-  * @brief  USART 11 IRQ handler
-  * @param  None
-  * @retval None
+  * @brief USART 11 IRQ handler
   */
 #if defined(USART11_BASE)
 void USART11_IRQHandler(void)
@@ -1579,9 +1482,7 @@ void USART11_IRQHandler(void)
 #endif
 
 /**
-  * @brief  UART 12 IRQ handler
-  * @param  None
-  * @retval None
+  * @brief UART 12 IRQ handler
   */
 #if defined(UART12_BASE)
 void UART12_IRQHandler(void)
@@ -1592,9 +1493,8 @@ void UART12_IRQHandler(void)
 #endif
 
 /**
-  * @brief  HAL UART Call Back
-  * @param  UART handler
-  * @retval None
+  * @brief HAL UART wakeup callback
+  * @param huart UART handle
   */
 #if defined(USE_HALV2_DRIVER)
 void HAL_UARTEx_WakeupCallback(hal_uart_handle_t *huart)
@@ -1607,11 +1507,6 @@ void HAL_UARTEx_WakeupCallback(UART_HandleTypeDef *huart)
 }
 
 #if defined(USE_HALV2_DRIVER)
-/**
-  * @brief  Function called to set the uart clock prescaler
-  * @param  huart : uart handle structure
-  * @retval hal_uart_prescaler_t clock prescaler
-  */
 hal_uart_prescaler_t uart_compute_prescaler(hal_uart_handle_t *huart, hal_uart_config_t *config)
 {
   hal_uart_prescaler_t prescaler = HAL_UART_PRESCALER_DIV1;
@@ -1644,11 +1539,6 @@ hal_uart_prescaler_t uart_compute_prescaler(hal_uart_handle_t *huart, hal_uart_c
 #endif
 
 #if defined(UART_PRESCALER_DIV1)
-/**
-  * @brief  Function called to set the uart clock prescaler
-  * @param  huart : uart handle structure
-  * @retval uint32_t clock prescaler
-  */
 uint32_t uart_compute_prescaler(UART_HandleTypeDef *huart)
 {
   uint32_t prescaler = UART_PRESCALER_DIV1;
@@ -1685,11 +1575,6 @@ uint32_t uart_compute_prescaler(UART_HandleTypeDef *huart)
   return prescaler;
 }
 
-/**
-  * @brief  Function called to get the clock source frequency of the uart
-  * @param  huart : uart handle structure
-  * @retval uint32_t clock source frequency
-  */
 uint32_t uart_get_clock_source_freq(UART_HandleTypeDef *huart)
 {
   uint32_t freq = 0;

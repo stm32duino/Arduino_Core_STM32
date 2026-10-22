@@ -110,13 +110,39 @@ extern "C" {
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 
+/**
+ * @brief Read a byte from the emulated EEPROM (flash).
+ * @param pos Address to read.
+ * @return Data read from EEPROM.
+ */
 uint8_t eeprom_read_byte(const uint32_t pos);
+/**
+ * @brief Write a byte to the emulated EEPROM (flash).
+ * @param pos Address to write.
+ * @param value Value to write.
+ */
 void eeprom_write_byte(uint32_t pos, uint8_t value);
 
 #if !defined(DATA_EEPROM_BASE)
+/**
+ * @brief Copy the data from flash into the EEPROM buffer.
+ */
 void eeprom_buffer_fill();
+/**
+ * @brief Write the EEPROM buffer content into flash.
+ */
 void eeprom_buffer_flush();
+/**
+ * @brief Read a byte from the EEPROM buffer.
+ * @param pos Address to read.
+ * @return Data read from the EEPROM buffer.
+ */
 uint8_t eeprom_buffered_read_byte(const uint32_t pos);
+/**
+ * @brief Write a byte to the EEPROM buffer, flash is not updated.
+ * @param pos Address to write.
+ * @param value Value to write.
+ */
 void eeprom_buffered_write_byte(uint32_t pos, uint8_t value);
 #endif /* ! DATA_EEPROM_BASE */
 

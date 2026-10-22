@@ -34,19 +34,55 @@
 #define IS_IWDG_TIMEOUT(X)  (((X) >= IWDG_TIMEOUT_MIN) &&\
                              ((X) <= IWDG_TIMEOUT_MAX))
 
+/**
+ * @brief Independent watchdog (IWDG) controller, exposed as the global IWatchdog object.
+ */
 class IWatchdogClass {
 
   public:
+    /**
+     * @brief Construct the controller and enable the watchdog peripheral clock when required.
+     */
     IWatchdogClass();
+    /**
+     * @brief Enable the IWDG. Must be called only once.
+     * @param timeout Timeout in microseconds. Ignored if it is not valid (see IS_IWDG_TIMEOUT()).
+     * @param window Optional window in microseconds. Default: IWDG_TIMEOUT_MAX.
+     */
     void begin(uint32_t timeout, uint32_t window = IWDG_TIMEOUT_MAX);
+    /**
+     * @brief Set the timeout and window values of the watchdog and refresh its counter.
+     * @param timeout Timeout in microseconds. Ignored if the watchdog is enabled and the value is not valid.
+     * @param window Optional window in microseconds. Default: IWDG_TIMEOUT_MAX.
+     */
     void set(uint32_t timeout, uint32_t window = IWDG_TIMEOUT_MAX);
+    /**
+     * @brief Get the current timeout and window values of the watchdog.
+     * @param timeout Pointer where the timeout in microseconds is stored. Nothing is done if NULL.
+     * @param window Optional pointer where the window in microseconds is stored. Default: NULL.
+     */
     void get(uint32_t *timeout, uint32_t *window = NULL);
+    /**
+     * @brief Reload the counter to prevent a watchdog reset. Does nothing if the watchdog is not enabled.
+     */
     void reload(void);
+    /**
+     * @brief Check whether the watchdog has been enabled with begin().
+     * @return true if the watchdog is enabled, false otherwise.
+     */
     bool isEnabled(void)
     {
       return _enabled;
     };
+    /**
+     * @brief Check if the system has resumed from an IWDG reset.
+     * @param clear If true, clear the IWDG reset flag after reading it. Default: false.
+     * @return true if the last reset was caused by the IWDG, false otherwise.
+     */
     bool isReset(bool clear = false);
+    /**
+     * @brief Clear the IWDG reset flag.
+     */
     void clearReset(void);
 
   private:

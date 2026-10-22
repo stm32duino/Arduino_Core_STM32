@@ -143,6 +143,8 @@ size_t VirtIOSerial::write(uint8_t ch)
 
 // Warning: Currently VirtIOSerial implementation is synchronous, blocking
 // until all bytes are sent. But it will be fast enough.
+// Warning: Currently VirtIOSerial implementation is synchronous, blocking
+// until all bytes are sent. But it will be fast enough.
 size_t VirtIOSerial::write(const uint8_t *buffer, size_t size)
 {
   checkMessageFromISR();
@@ -166,9 +168,7 @@ void VirtIOSerial::flush(void)
 }
 
 /**
- * @brief Check if RPMsg message arrived from IPCC ISR
- * @note  This should called as mush as possible to consume RPMsg ring buffers,
- *        so that the host processor can send more messages quickly.
+ * @brief Check if an RPMsg message arrived from the IPCC ISR.
  */
 void VirtIOSerial::checkMessageFromISR(void)
 {
@@ -205,8 +205,13 @@ void VirtIOSerial::rxCallback(VIRT_UART_HandleTypeDef *huart)
   }
 }
 
-/* Aim of the function is to get _VirtIOSerialObj pointer using huart pointer */
-/* Highly inspired from magical linux kernel's "container_of" */
+/**
+ * @brief Get the VirtIOSerial object from a VIRT_UART handle.
+ * @note  Uses the same offset trick as the Linux kernel's container_of()
+ *        macro, to go from the handle field back to the enclosing object.
+ * @param huart VIRT_UART handle.
+ * @return Pointer to the enclosing VirtIOSerialObj_t.
+ */
 VirtIOSerialObj_t *get_VirtIOSerial_obj(VIRT_UART_HandleTypeDef *huart)
 {
   VirtIOSerialObj_t *obj;
