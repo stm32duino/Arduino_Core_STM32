@@ -72,7 +72,7 @@ jobs:
             echo "Unsupported documentation release tag: $VERSION" >&2
             exit 1
           fi
-          latest=$(git tag --list | grep -E '^[0-9]{1,3}\.[0-9]+\.[0-9]+$' | sort -V | tail -n 1)
+          latest=$(git tag --list | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -n 1)
           if [[ "$VERSION" == "$latest" ]]; then
             mike deploy --remote pages --branch gh-pages --update-aliases --push "$VERSION" latest
             mike set-default --remote pages --branch gh-pages --push latest
