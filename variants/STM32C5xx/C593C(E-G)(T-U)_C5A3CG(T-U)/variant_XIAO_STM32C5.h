@@ -20,22 +20,27 @@
 #define PB9                     12
 #define PB5                     13
 #define PB13                    14
-#define PB14                    15
+
+/* PB14 is the XIAO D18 pad (CAN_STB). The board re-spin renamed the header
+ * net and silkscreen from D15 to D18. Pin numbers 15-17 are left unused
+ * (NC in digitalPin[]) so the Arduino numbering matches the silkscreen
+ * D0-D14 and D18. */
+#define PB14                    18
 
 /* Board-only pins: they follow the XIAO connector pins in digitalPin[]. */
-#define PB12                    16
-#define PIN_IMU_SCL             17  // PB3 / I2C2_SCL
-#define PIN_IMU_SDA             18  // PB4 / I2C2_SDA
-#define PIN_IMU_INT1            19  // PC13 / LSM6DS3TR-C INT1
-#define PIN_IMU_HEATER          20  // PA8 / TIM1_CH1
-#define PH2                     21  // BOOT0 / user button
+#define PB12                    19
+#define PIN_IMU_SCL             20  // PB3 / I2C2_SCL
+#define PIN_IMU_SDA             21  // PB4 / I2C2_SDA
+#define PIN_IMU_INT1            22  // PC13 / LSM6DS3TR-C INT1
+#define PIN_IMU_HEATER          23  // PA8 / TIM1_CH1
+#define PH2                     24  // BOOT0 / user button
 
 /* Alternate functions used by the default board peripherals. */
 #define PA9_ALT1                (PA9 | ALT1)
 #define PA10_ALT1               (PA10 | ALT1)
 #define PB15_ALT2               (PB15 | ALT2)
 
-#define NUM_DIGITAL_PINS        22
+#define NUM_DIGITAL_PINS        25
 #define NUM_ANALOG_INPUTS       4
 
 #ifndef LED_BUILTIN

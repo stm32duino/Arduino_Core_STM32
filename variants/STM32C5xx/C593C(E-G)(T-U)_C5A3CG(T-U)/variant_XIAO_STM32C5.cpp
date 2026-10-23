@@ -22,13 +22,16 @@ const PinName digitalPin[] = {
   PB_9,  // D12 / FDCAN1_TX
   PB_5,  // D13 / FDCAN2_RX
   PB_13, // D14 / FDCAN2_TX
-  PB_14, // D15 / CAN_STB
-  PB_12, // Board LED, active low
-  PB_3,  // Onboard IMU / I2C2_SCL
-  PB_4,  // Onboard IMU / I2C2_SDA
-  PC_13, // Onboard IMU / INT1
-  PA_8,  // Onboard IMU heater / TIM1_CH1
-  PH_2   // BOOT0 / user button (active low)
+  NC,    // D15: unused, header net renamed D15 -> D18
+  NC,    // D16: unused
+  NC,    // D17: unused
+  PB_14, // D18 / CAN_STB (formerly D15)
+  PB_12, // D19 / Board LED, active low
+  PB_3,  // D20 / Onboard IMU / I2C2_SCL
+  PB_4,  // D21 / Onboard IMU / I2C2_SDA
+  PC_13, // D22 / Onboard IMU / INT1
+  PA_8,  // D23 / Onboard IMU heater / TIM1_CH1
+  PH_2   // D24 / BOOT0 / user button (active low)
 };
 
 const pin_size_t analogInputPin[] = {
@@ -98,8 +101,8 @@ extern "C" void SystemClock_Config(void)
 void initVariant(void)
 {
   /* CAN_STB is active high. Keep the onboard transceiver out of standby. */
-  pinMode(D15, OUTPUT);
-  digitalWrite(D15, LOW);
+  pinMode(D18, OUTPUT);
+  digitalWrite(D18, LOW);
 }
 
 #endif /* ARDUINO_XIAO_STM32C5 */
