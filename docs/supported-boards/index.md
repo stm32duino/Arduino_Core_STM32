@@ -177,6 +177,12 @@
 | Generic C092RCIx | [STM32C092RC](https://www.st.com/en/microcontrollers-microprocessors/stm32c092rc.html) | `GENERIC_C092RCIX` | 2.11.0 |  |
 | Generic C092RCTx | [STM32C092RC](https://www.st.com/en/microcontrollers-microprocessors/stm32c092rc.html) | `GENERIC_C092RCTX` | 2.11.0 |  |
 
+### [Seeed Studio boards](https://www.seeedstudio.com/)
+
+| Board | STM32 MCU | `build.board` | First release | Notes |
+| --- | --- | --- | --- | --- |
+| [Seeed XIAO STM32C5](https://www.seeedstudio.com/XIAO-STM32C5-p-7011.html) | [STM32C5A3CG](https://www.st.com/en/microcontrollers-microprocessors/stm32c5a3cg.html) | `XIAO_STM32C5` | Next release |  |
+
 ### Generic STM32C5 series boards
 
 | Board | STM32 MCU | `build.board` | First release | Notes |
