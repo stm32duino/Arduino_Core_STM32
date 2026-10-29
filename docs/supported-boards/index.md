@@ -1603,3 +1603,9 @@
 | --- | --- | --- | --- | --- |
 | Phoque 1 | [STM32G431VB](https://www.st.com/en/microcontrollers-microprocessors/stm32g431vb.html) | `PHOQUE1` | Next release | STSPIN32G4-based |
 | Phoque 2 | [STM32G431CB](https://www.st.com/en/microcontrollers-microprocessors/stm32g431cb.html) | `PHOQUE2` | Next release |  |
+
+### [Seeed Studio boards](https://www.seeedstudio.com/)
+
+| Board | STM32 MCU | `build.board` | First release | Notes |
+| --- | --- | --- | --- | --- |
+| [Seeed XIAO STM32C5](https://www.seeedstudio.com/XIAO-STM32C5-p-7011.html) | [STM32C5A3CG](https://www.st.com/en/microcontrollers-microprocessors/stm32c5a3cg.html) | `XIAO_STM32C5` | Next release |  |
