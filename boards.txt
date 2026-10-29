@@ -17230,6 +17230,52 @@ Phoque.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interfac
 Phoque.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
+# Seeed Studio
+# Docs: url=https://www.seeedstudio.com/
+Seeed_studio.name=Seeed Studio
+Seeed_studio.build.core=arduino
+Seeed_studio.build.board=Seeed_studio
+Seeed_studio.build.family=SEEED_STUDIO
+Seeed_studio.build.variant_h=variant_{build.board}.h
+Seeed_studio.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Seeed_studio.build.flash_offset=0x0
+Seeed_studio.upload.maximum_size=0
+Seeed_studio.upload.maximum_data_size=0
+Seeed_studio.vid.0=0x2886
+Seeed_studio.pid.0=0x80C5
+
+# Seeed XIAO STM32C5
+# Docs: url=https://www.seeedstudio.com/XIAO-STM32C5-p-7011.html
+# Docs: mcu=STM32C5A3CG
+Seeed_studio.menu.pnum.XIAO_STM32C5=Seeed XIAO STM32C5
+Seeed_studio.menu.pnum.XIAO_STM32C5.upload.maximum_size=1015808
+Seeed_studio.menu.pnum.XIAO_STM32C5.upload.maximum_data_size=262144
+Seeed_studio.menu.pnum.XIAO_STM32C5.build.mcu=cortex-m33
+Seeed_studio.menu.pnum.XIAO_STM32C5.build.fpu=-mfpu=fpv5-sp-d16
+Seeed_studio.menu.pnum.XIAO_STM32C5.build.float-abi=-mfloat-abi=hard
+Seeed_studio.menu.pnum.XIAO_STM32C5.build.board=XIAO_STM32C5
+Seeed_studio.menu.pnum.XIAO_STM32C5.build.series=STM32C5xx
+Seeed_studio.menu.pnum.XIAO_STM32C5.build.product_line=STM32C5A3xx
+Seeed_studio.menu.pnum.XIAO_STM32C5.build.variant=STM32C5xx/C593C(E-G)(T-U)_C5A3CG(T-U)
+Seeed_studio.menu.pnum.XIAO_STM32C5.build.variant_h=variant_XIAO_STM32C5.h
+Seeed_studio.menu.pnum.XIAO_STM32C5.build.ldscript=ldscript_XIAO_STM32C5.ld
+Seeed_studio.menu.pnum.XIAO_STM32C5.build.hal=-DUSE_HALV2_DRIVER
+Seeed_studio.menu.pnum.XIAO_STM32C5.build.flash_offset=0x8000
+Seeed_studio.menu.pnum.XIAO_STM32C5.build.st_extra_flags=-D{build.product_line} -DHSE_VALUE=48000000U -DUSBD_SELF_POWERED=1 -DUSBD_MAX_POWER=50 {build.enable_usb} {build.xSerial}
+Seeed_studio.menu.pnum.XIAO_STM32C5.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C5xx/STM32C5A3.svd
+
+# Upload menu
+Seeed_studio.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+Seeed_studio.menu.upload_method.swdMethod.upload.protocol=swd
+Seeed_studio.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start} -f {upload.freq} -n {upload.stlink_sn}
+Seeed_studio.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+Seeed_studio.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
+Seeed_studio.menu.upload_method.jlinkMethod.upload.protocol=jlink
+Seeed_studio.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
+Seeed_studio.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
+
+################################################################################
 # Serialx activation
 Nucleo_144.menu.xserial.generic=Enabled (generic 'Serial')
 Nucleo_144.menu.xserial.none=Enabled (no generic 'Serial')
@@ -17495,6 +17541,12 @@ Phoque.menu.xserial.none=Enabled (no generic 'Serial')
 Phoque.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 Phoque.menu.xserial.disabled=Disabled (no Serial support)
 Phoque.menu.xserial.disabled.build.xSerial=
+
+Seeed_studio.menu.xserial.generic=Enabled (generic 'Serial')
+Seeed_studio.menu.xserial.none=Enabled (no generic 'Serial')
+Seeed_studio.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+Seeed_studio.menu.xserial.disabled=Disabled (no Serial support)
+Seeed_studio.menu.xserial.disabled.build.xSerial=
 
 # USB connectivity
 Nucleo_144.menu.usb.none=None
@@ -17889,6 +17941,12 @@ Phoque.menu.xusb.HS=High Speed
 Phoque.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 Phoque.menu.xusb.HSFS=High Speed in Full Speed mode
 Phoque.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
+Seeed_studio.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+Seeed_studio.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Seeed_studio.menu.usb.none=None
+Seeed_studio.menu.usb.CDC=CDC (no generic 'Serial')
+Seeed_studio.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
 
 # Optimizations
 Nucleo_144.menu.opt.osstd=Smallest (-Os default)
@@ -18751,6 +18809,24 @@ Phoque.menu.opt.ogstd.build.flags.optimize=-Og
 Phoque.menu.opt.o0std=No Optimization (-O0)
 Phoque.menu.opt.o0std.build.flags.optimize=-O0
 
+Seeed_studio.menu.opt.osstd=Smallest (-Os default)
+Seeed_studio.menu.opt.oslto=Smallest (-Os) with LTO
+Seeed_studio.menu.opt.oslto.build.flags.optimize=-Os -flto
+Seeed_studio.menu.opt.o1std=Fast (-O1)
+Seeed_studio.menu.opt.o1std.build.flags.optimize=-O1
+Seeed_studio.menu.opt.o1lto=Fast (-O1) with LTO
+Seeed_studio.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+Seeed_studio.menu.opt.o2std=Faster (-O2)
+Seeed_studio.menu.opt.o2std.build.flags.optimize=-O2
+Seeed_studio.menu.opt.o2lto=Faster (-O2) with LTO
+Seeed_studio.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+Seeed_studio.menu.opt.o3std=Fastest (-O3)
+Seeed_studio.menu.opt.o3std.build.flags.optimize=-O3
+Seeed_studio.menu.opt.o3lto=Fastest (-O3) with LTO
+Seeed_studio.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+Seeed_studio.menu.opt.ogstd=Debug (-Og)
+Seeed_studio.menu.opt.ogstd.build.flags.optimize=-Og
+
 # Debug information
 Nucleo_144.menu.dbg.none=None
 Nucleo_144.menu.dbg.enable_sym=Symbols Enabled (-g)
@@ -19087,6 +19163,14 @@ Phoque.menu.dbg.enable_log=Core logs Enabled
 Phoque.menu.dbg.enable_log.build.flags.debug=
 Phoque.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
 Phoque.menu.dbg.enable_all.build.flags.debug=-g
+
+Seeed_studio.menu.dbg.none=None
+Seeed_studio.menu.dbg.enable_sym=Symbols Enabled (-g)
+Seeed_studio.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+Seeed_studio.menu.dbg.enable_log=Core logs Enabled
+Seeed_studio.menu.dbg.enable_log.build.flags.debug=
+Seeed_studio.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+Seeed_studio.menu.dbg.enable_all.build.flags.debug=-g
 
 # C Runtime Library
 Nucleo_144.menu.rtlib.nano=Newlib Nano (default)
@@ -19518,3 +19602,13 @@ Phoque.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 Phoque.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 Phoque.menu.rtlib.full=Newlib Standard
 Phoque.menu.rtlib.full.build.flags.ldspecs=
+
+Seeed_studio.menu.rtlib.nano=Newlib Nano (default)
+Seeed_studio.menu.rtlib.nanofp=Newlib Nano + Float Printf
+Seeed_studio.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+Seeed_studio.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+Seeed_studio.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+Seeed_studio.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+Seeed_studio.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+Seeed_studio.menu.rtlib.full=Newlib Standard
+Seeed_studio.menu.rtlib.full.build.flags.ldspecs=
