@@ -10,6 +10,13 @@ on:
       - boards.txt
       - mkdocs.yml
       - requirements-docs.txt
+      - doxygen/**
+      - cores/**
+      - libraries/**
+      - variants/**
+      - system/**
+      - "!system/Drivers/**"
+      - "!system/Middlewares/**"
       - .github/workflows/docs-check.yml
 
 permissions:
@@ -26,6 +33,16 @@ jobs:
         with:
           python-version: "3.x"
       - run: python -m pip install -r requirements-docs.txt
+      - name: Install Doxygen
+        run: sudo apt-get update && sudo apt-get install --yes doxygen
+      - name: Build Doxygen API reference
+        run: |
+          STM32_CORE_VERSION=$(sed -n 's/^version=//p' platform.txt)
+          export STM32_CORE_VERSION
+          doxygen doxygen/Doxyfile
+          test -f build/doxygen/index.html
       - run: mkdocs build --strict
+      - name: Check the Doxygen API reference is part of the site
+        run: grep -q 'name="generator" content="Doxygen' site/doxygen/index.html
       - name: Check generated supported boards page is committed
         run: git diff --exit-code -- docs/supported-boards/index.md || { echo "::error::Run 'python docs/hooks/supported_boards.py' and commit docs/supported-boards/index.md"; exit 1; }

@@ -17,6 +17,7 @@ After installation, try the [Blink example](examples/Blink-example.md). For help
 
 - [Supported boards](supported-boards/index.md)
 - [Arduino API reference](API.md)
+- [Doxygen API reference](doxygen/index.html): classes, structures and functions of the core, generated from the source code comments
 - [Libraries](libraries/index.md), including built-in, STM32-specific libraries, and expansion-board libraries
 - [Hosted library API documentation](libraries/Hosted-library-documentation.md)
 
