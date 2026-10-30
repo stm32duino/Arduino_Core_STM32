@@ -27,12 +27,15 @@ extern "C" {
 /* Exported constants --------------------------------------------------------*/
 #ifndef TIM_IRQ_PRIO
 #if (__CORTEX_M == 0x00U)
+/** @brief Default timer IRQ pre-emption priority (Cortex-M0/M0+) */
 #define TIM_IRQ_PRIO       3
 #else
+/** @brief Default timer IRQ pre-emption priority */
 #define TIM_IRQ_PRIO       14
 #endif /* __CORTEX_M */
 #endif /* TIM_IRQ_PRIO */
 #ifndef TIM_IRQ_SUBPRIO
+/** @brief Default timer IRQ sub-priority */
 #define TIM_IRQ_SUBPRIO    0
 #endif
 
@@ -205,6 +208,8 @@ extern "C" {
 #endif
 #endif
 
+/** @brief Index of each timer available on the series, used to access
+ *         HardwareTimer_Handle */
 typedef enum {
 #if defined(TIM1_BASE)
   TIMER1_INDEX,
@@ -277,36 +282,82 @@ typedef enum {
 } timer_index_t;
 
 
-// This structure is used to be able to get HardwareTimer instance (C++ class)
-// from handler (C structure) specially for interrupt management
+/**
+  * @brief Timer object, used to retrieve the HardwareTimer instance (C++
+  *        class) from the HAL handle (C structure), especially for interrupt management.
+  */
 typedef struct  {
   // Those 2 first fields must remain in this order at the beginning of the structure
+  /** Pointer to the HardwareTimer instance */
   void    *__this;
 #if defined(USE_HALV2_DRIVER)
+  /** HAL timer handle */
   hal_tim_handle_t handle;
 #else
+  /** HAL timer handle */
   TIM_HandleTypeDef handle;
 #endif
+  /** Timer instance */
   TIM_TypeDef *instance;
+  /** Pre-emption priority of the timer interrupts */
   uint32_t preemptPriority;
+  /** Sub-priority of the timer interrupts */
   uint32_t subPriority;
 } timerObj_t;
 
 /* Exported functions ------------------------------------------------------- */
+/**
+  * @brief Get the timerObj_t that embeds a HAL timer handle.
+  * @param htim HAL timer handle stored inside a timerObj_t.
+  * @return Pointer to the enclosing timerObj_t.
+  */
 #if defined(USE_HALV2_DRIVER)
 timerObj_t *get_timer_obj(hal_tim_handle_t *htim);
 #else
 timerObj_t *get_timer_obj(TIM_HandleTypeDef *htim);
 #endif
+
+/**
+  * @brief Enable the clock of a timer instance.
+  * @param instance Timer instance (e.g. TIM1).
+  */
 void enableTimerClock(TIM_TypeDef *instance);
+
+/**
+  * @brief Disable the clock of a timer instance.
+  * @param instance Timer instance (e.g. TIM1).
+  */
 void disableTimerClock(TIM_TypeDef *instance);
 
-uint32_t getTimerIrq(TIM_TypeDef *tim);
+/**
+  * @brief Get the clock source of a timer instance.
+  * @param tim Timer instance.
+  * @return 1 for PCLK1, 2 for PCLK2. _Error_Handler is called if the instance is unknown.
+  */
 uint8_t getTimerClkSrc(TIM_TypeDef *tim);
 
+/**
+  * @brief Get the IRQ number of the update interrupt event of a timer instance.
+  * @param tim Timer instance.
+  * @return IRQ number of the update interrupt.
+  * @note _Error_Handler is called if the instance is unknown.
+  */
 IRQn_Type getTimerUpIrq(TIM_TypeDef *tim);
+
+/**
+  * @brief Get the IRQ number of the Capture or Compare interrupt event of a timer instance.
+  * @param tim Timer instance.
+  * @return IRQ number of the capture/compare interrupt.
+  * @note _Error_Handler is called if the instance is unknown.
+  */
 IRQn_Type getTimerCCIrq(TIM_TypeDef *tim);
 
+/**
+  * @brief Get the HAL timer channel linked to a pin.
+  * @param pin PinName with a timer function.
+  * @return Valid HAL channel. Inverted pins map to the complementary (N) channel.
+  * @note _Error_Handler is called if the pin channel is unknown.
+  */
 #if defined(USE_HALV2_DRIVER)
 hal_tim_channel_t getTimerChannel(PinName pin);
 #else

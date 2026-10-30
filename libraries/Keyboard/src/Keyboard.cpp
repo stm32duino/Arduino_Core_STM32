@@ -54,6 +54,8 @@ void Keyboard_::sendReport(KeyReport *keys)
   delay(20);
 }
 
+// ASCII to HID usage code map, indexed by the ASCII code.
+// The SHIFT flag is set when the shift modifier is needed to get the character.
 extern
 const uint8_t _asciimap[128] PROGMEM;
 

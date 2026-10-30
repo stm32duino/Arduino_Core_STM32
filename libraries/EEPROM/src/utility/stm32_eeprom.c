@@ -26,7 +26,10 @@
 extern "C" {
 #endif
 
-/* Be able to change FLASH_BANK_NUMBER to use if relevant */
+/**
+ * @brief Flash bank used for the EEPROM emulation.
+ *        Can be overridden before including this file.
+ */
 #if !defined(FLASH_BANK_NUMBER) && defined(FLASH_BANK_1) && !defined(STM32WBAxx)
 #if defined(FLASH_BANK_2)
 #define FLASH_BANK_NUMBER   FLASH_BANK_2
@@ -38,7 +41,10 @@ extern "C" {
 #endif
 #endif /* !FLASH_BANK_NUMBER */
 
-/* Be able to change FLASH_DATA_SECTOR to use if relevant */
+/**
+ * @brief Flash sector used for the EEPROM emulation.
+ *        Can be overridden before including this file.
+ */
 #if defined(FLASH_SECTOR_TOTAL) || defined(FLASH_SECTOR_NB)
 #if !defined(FLASH_DATA_SECTOR)
 #if defined(FLASH_SECTOR_TOTAL)
@@ -53,7 +59,10 @@ extern "C" {
 #endif /* !FLASH_DATA_SECTOR */
 #endif /* FLASH_SECTOR_TOTAL || FLASH_SECTOR_NB */
 
-/* Be able to change EEPROM_FLASH_PAGE_NUMBER to use if relevant */
+/**
+ * @brief Flash page number used for the EEPROM emulation.
+ *        Can be overridden before including this file.
+ */
 #if !defined(EEPROM_FLASH_PAGE_NUMBER) && defined(FLASH_PAGE_SIZE)
 #if defined(STM32WB0x) || defined(STM32WL3x)
 /* STM32WB0x and STM32WL3 define the FLASH_PAGE_NUMBER */
@@ -63,7 +72,10 @@ extern "C" {
 #endif
 #endif /* !EEPROM_FLASH_PAGE_NUMBER */
 
-/* Be able to change FLASH_END to use */
+/**
+ * @brief Address of the last byte of the flash area used for the EEPROM
+ *        emulation. Can be overridden.
+ */
 #if !defined(FLASH_END)
 #if defined(EEPROM_RETRAM_MODE)
 #define FLASH_END  ((uint32_t)(EEPROM_RETRAM_START_ADDRESS + EEPROM_RETRAM_MODE_SIZE -1))
@@ -91,13 +103,14 @@ extern "C" {
 #endif
 #endif /* FLASH_END */
 
-/* Be able to change FLASH_BASE_ADDRESS to use */
-#ifndef FLASH_BASE_ADDRESS
-/*
- * By default, Use the last page of the flash to store data
- * in order to prevent overwriting
- * program data
+/**
+ * @brief Start address of the flash area used for the EEPROM emulation.
+ *        Can be overridden.
+ *
+ * By default, use the last page of the flash to store data
+ * in order to prevent overwriting program data.
  */
+#ifndef FLASH_BASE_ADDRESS
 #if defined(EEPROM_RETRAM_MODE)
 #define FLASH_BASE_ADDRESS  EEPROM_RETRAM_START_ADDRESS
 #else
@@ -109,14 +122,12 @@ extern "C" {
 #endif /* FLASH_BASE_ADDRESS */
 
 #if !defined(DATA_EEPROM_BASE)
+/**
+ * @brief RAM copy of the emulated EEPROM, 8 bytes aligned for the flash programming.
+ */
 static uint8_t eeprom_buffer[E2END + 1] __attribute__((aligned(8))) = {0};
 #endif
 
-/**
-  * @brief  Function reads a byte from emulated eeprom (flash)
-  * @param  pos : address to read
-  * @retval byte : data read from eeprom
-  */
 uint8_t eeprom_read_byte(const uint32_t pos)
 {
 #if defined(DATA_EEPROM_BASE)
@@ -132,12 +143,6 @@ uint8_t eeprom_read_byte(const uint32_t pos)
 #endif /* _EEPROM_BASE */
 }
 
-/**
-  * @brief  Function writes a byte to emulated eeprom (flash)
-  * @param  pos : address to write
-  * @param  value : value to write
-  * @retval none
-  */
 void eeprom_write_byte(uint32_t pos, uint8_t value)
 {
 #if defined(DATA_EEPROM_BASE)
@@ -156,32 +161,16 @@ void eeprom_write_byte(uint32_t pos, uint8_t value)
 
 #if !defined(DATA_EEPROM_BASE)
 
-/**
-  * @brief  Function reads a byte from the eeprom buffer
-  * @param  pos : address to read
-  * @retval byte : data read from eeprom
-  */
 uint8_t eeprom_buffered_read_byte(const uint32_t pos)
 {
   return eeprom_buffer[pos];
 }
 
-/**
-  * @brief  Function writes a byte to the eeprom buffer
-  * @param  pos : address to write
-  * @param  value : value to write
-  * @retval none
-  */
 void eeprom_buffered_write_byte(uint32_t pos, uint8_t value)
 {
   eeprom_buffer[pos] = value;
 }
 
-/**
-  * @brief  This function copies the data from flash into the buffer
-  * @param  none
-  * @retval none
-  */
 void eeprom_buffer_fill(void)
 {
 #if defined(ICACHE) && defined (HAL_ICACHE_MODULE_ENABLED) && !defined(HAL_ICACHE_MODULE_DISABLED)
@@ -207,11 +196,6 @@ void eeprom_buffer_fill(void)
 
 #if defined(EEPROM_RETRAM_MODE)
 
-/**
-  * @brief  This function writes the buffer content into the flash
-  * @param  none
-  * @retval none
-  */
 void eeprom_buffer_flush(void)
 {
   memcpy((uint8_t *)(FLASH_BASE_ADDRESS), eeprom_buffer, E2END + 1);
@@ -219,11 +203,6 @@ void eeprom_buffer_flush(void)
 
 #else /* defined(EEPROM_RETRAM_MODE) */
 
-/**
-  * @brief  This function writes the buffer content into the flash
-  * @param  none
-  * @retval none
-  */
 void eeprom_buffer_flush(void)
 {
 #if defined(ICACHE) && defined (HAL_ICACHE_MODULE_ENABLED) && !defined(HAL_ICACHE_MODULE_DISABLED)

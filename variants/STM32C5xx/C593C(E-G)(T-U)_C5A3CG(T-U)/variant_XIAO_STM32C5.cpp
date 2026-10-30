@@ -41,6 +41,9 @@ const pin_size_t analogInputPin[] = {
   D3
 };
 
+/**
+  * @brief System Clock Configuration
+  */
 extern "C" void SystemClock_Config(void)
 {
   if (HAL_RCC_HSE_Enable(HAL_RCC_HSE_ON) != HAL_OK) {

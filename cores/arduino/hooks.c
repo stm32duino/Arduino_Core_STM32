@@ -16,15 +16,20 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+/**
+ * @file hooks.c
+ * @brief Weak hooks overridable by libraries or sketches: yield() and dtr_togglingHook().
+ */
+
 #include <stdint.h>
 
 /**
- * Empty yield() hook.
+ * @brief Empty yield() hook.
  *
  * This function is intended to be used by library writers to build
- * libraries or sketches that supports cooperative threads.
+ * libraries or sketches that support cooperative threads.
  *
- * Its defined as a weak symbol and it can be redefined to implement a
+ * It is defined as a weak symbol and it can be redefined to implement a
  * real cooperative scheduler.
  */
 static void __empty()
@@ -35,13 +40,16 @@ void yield(void) __attribute__((weak, alias("__empty")));
 
 #ifdef DTR_TOGGLING_SEQ
 /**
- * Empty dtr_toggling() hook.
+ * @brief Empty dtr_toggling() hook.
  *
  * This function is intended to be used by library writers to build
  * libraries or sketches that require DTR toggling feature.
  *
- * Its defined as a weak symbol and it can be redefined to implement
- * task to achieve in this case.
+ * It is defined as a weak symbol (dtr_togglingHook()) and it can be redefined
+ * to implement the task to achieve in this case.
+ *
+ * @param buf Buffer of the received data.
+ * @param len Pointer to the length of the received data.
  */
 static void __empty_dtr_toggling(uint8_t *buf, uint32_t *len)
 {

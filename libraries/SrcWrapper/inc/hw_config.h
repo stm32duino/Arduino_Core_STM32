@@ -51,6 +51,10 @@ extern "C" {
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 
+/**
+ * @brief Performs the global initialization of the system (HAL, IOs...).
+ * @note Called once at startup, before setup().
+ */
 void hw_config_init(void);
 
 #ifdef __cplusplus

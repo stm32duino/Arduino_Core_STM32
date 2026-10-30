@@ -53,6 +53,10 @@
 
   /* Exported macro ------------------------------------------------------------*/
   /* Exported functions ------------------------------------------------------- */
+  /**
+   * @brief USB device descriptors callbacks (device, strings, BOS) used by
+   *        the USB stack.
+   */
   extern USBD_DescriptorsTypeDef USBD_Desc;
 
 #endif /* USBCON */

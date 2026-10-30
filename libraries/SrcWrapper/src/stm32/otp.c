@@ -21,6 +21,8 @@ uint8_t *OTP_Read(uint8_t id)
 
   p_id = (uint8_t *)(OTP_AREA_END_ADDR - 7) ;
 
+  /* Walk the 64-bit slots from the top of the OTP down to its base,
+   * the ID is the MSB (byte 7) of a slot */
   while (((*(p_id + 7)) != id) && (p_id != (uint8_t *)OTP_AREA_BASE)) {
     p_id -= 8 ;
   }

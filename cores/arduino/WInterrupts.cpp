@@ -16,6 +16,10 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+/**
+ * @file WInterrupts.cpp
+ * @brief External interrupt functions: attachInterrupt() and detachInterrupt().
+ */
 
 #include "Arduino.h"
 
@@ -70,6 +74,13 @@ void attachInterrupt(pin_size_t interruptNumber, callback_function_t callback, P
   stm32_interrupt_enable(p, callback, it_mode);
 }
 #endif
+/**
+ * @brief Attach a function to an external interrupt on a pin, using a plain function pointer.
+ *
+ * @param interruptNumber Pin to attach the interrupt to.
+ * @param callback Function called when the interrupt fires.
+ * @param mode Trigger mode: CHANGE, RISING, FALLING, LOW or HIGH.
+ */
 void attachInterrupt(pin_size_t interruptNumber, voidFuncPtr callback, PinStatus mode)
 {
 #if !defined(HAL_EXTI_MODULE_DISABLED)
@@ -82,6 +93,11 @@ void attachInterrupt(pin_size_t interruptNumber, voidFuncPtr callback, PinStatus
 #endif
 }
 
+/**
+ * @brief Disable the external interrupt attached to a pin.
+ *
+ * @param interruptNumber Pin whose interrupt is disabled.
+ */
 void detachInterrupt(pin_size_t interruptNumber)
 {
 #if !defined(HAL_EXTI_MODULE_DISABLED)

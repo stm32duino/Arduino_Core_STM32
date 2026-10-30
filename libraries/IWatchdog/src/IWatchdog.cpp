@@ -31,13 +31,6 @@ IWatchdogClass::IWatchdogClass()
 #endif
 }
 
-/**
-  * @brief  Enable IWDG, must be called once
-  * @param  timeout: value in microseconds
-  * @param  window: optional value in microseconds
-  *         Default: IWDG_TIMEOUT_MAX
-  * @retval None
-  */
 void IWatchdogClass::begin(uint32_t timeout, uint32_t window)
 {
   if (!IS_IWDG_TIMEOUT(timeout)) {
@@ -64,13 +57,6 @@ void IWatchdogClass::begin(uint32_t timeout, uint32_t window)
   set(timeout, window);
 }
 
-/**
-  * @brief  Set the timeout and window values
-  * @param  timeout: value in microseconds
-  * @param  window: optional value in microseconds
-  *         Default: IWDG_TIMEOUT_MAX
-  * @retval None
-  */
 void IWatchdogClass::set(uint32_t timeout, uint32_t window)
 {
   if ((isEnabled()) && (!IS_IWDG_TIMEOUT(timeout))) {
@@ -139,12 +125,6 @@ void IWatchdogClass::set(uint32_t timeout, uint32_t window)
   LL_IWDG_ReloadCounter(IWDG);
 }
 
-/**
-  * @brief  Get the current timeout and window values
-  * @param  timeout: pointer to the get the value in microseconds
-  * @param  window: optional pointer to the get the value in microseconds
-  * @retval None
-  */
 void IWatchdogClass::get(uint32_t *timeout, uint32_t *window)
 {
   if (timeout != NULL) {
@@ -172,22 +152,14 @@ void IWatchdogClass::get(uint32_t *timeout, uint32_t *window)
   }
 }
 
-/**
-  * @brief  Reload the counter value with IWDG_RLR (IWDG_KR = 0x0000 AAAA)
-  * @retval None
-  */
 void IWatchdogClass::reload(void)
 {
   if (isEnabled()) {
+    // Reload the counter with IWDG_RLR (IWDG_KR = 0x0000 AAAA)
     LL_IWDG_ReloadCounter(IWDG);
   }
 }
 
-/**
-  * @brief  Check if the system has resumed from IWDG reset
-  * @param  clear: if true clear IWDG reset flag. Default false
-  * @retval return reset flag status
-  */
 bool IWatchdogClass::isReset(bool clear)
 {
 #if defined(IWDG1)
@@ -205,10 +177,6 @@ bool IWatchdogClass::isReset(bool clear)
   return status;
 }
 
-/**
-  * @brief  Clear IWDG reset flag
-  * @retval None
-  */
 void IWatchdogClass::clearReset(void)
 {
 #if defined(USE_HALV2_DRIVER)

@@ -119,6 +119,9 @@ const pin_size_t analogInputPin[] = {
   63  // A15, PB1
 };
 
+/**
+  * @brief System Clock Configuration
+  */
 WEAK void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {};

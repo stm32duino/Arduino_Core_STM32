@@ -171,8 +171,6 @@
 
 /**
   * @brief  Setup the microcontroller system.
-  * @param  None
-  * @retval None
   */
 
 void SystemInit(void)
@@ -299,9 +297,6 @@ void SystemInit(void)
   *
   *         - The result of this function could be not correct when using fractional
   *           value for HSE crystal.
-  *
-  * @param  None
-  * @retval None
   */
 void SystemCoreClockUpdate(void)
 {

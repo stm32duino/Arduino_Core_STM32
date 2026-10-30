@@ -51,48 +51,73 @@ extern "C" {
 #else
 
 #ifndef UART_IRQ_PRIO
+/** @brief Default UART IRQ pre-emption priority */
 #define UART_IRQ_PRIO       1
 #endif
 #ifndef UART_IRQ_SUBPRIO
+/** @brief Default UART IRQ sub-priority */
 #define UART_IRQ_SUBPRIO    0
 #endif
 
 /* Exported types ------------------------------------------------------------*/
 typedef struct serial_s serial_t;
 
+/**
+ * @brief Serial (U(S)ART) object
+ */
 struct serial_s {
   /*  The 1st 2 members USART_TypeDef *uart
    *  and UART_HandleTypeDef handle should
    *  be kept as the first members of this struct
    *  to have get_serial_obj() function work as expected
    */
+  /** U(S)ART peripheral instance */
   USART_TypeDef *uart;
 #if defined(USE_HALV2_DRIVER)
+  /** HAL UART handle */
   hal_uart_handle_t handle;
 #else
+  /** HAL UART handle */
   UART_HandleTypeDef handle;
 #endif
 
+  /** Called when a byte has been received */
   void (*rx_callback)(serial_t *);
+  /** Called when a transmission is completed */
   int (*tx_callback)(serial_t *);
+  /** TX pin */
   PinName pin_tx;
+  /** RX pin, NC for half-duplex mode */
   PinName pin_rx;
+  /** RTS pin, NC if not used */
   PinName pin_rts;
+  /** CTS pin, NC if not used */
   PinName pin_cts;
+  /** U(S)ART IRQ number */
   IRQn_Type irq;
+  /** Index of the peripheral in the internal handlers table */
   uint8_t index;
+  /** Last received byte */
   uint8_t recv;
+  /** RX ring buffer */
   uint8_t *rx_buff;
+  /** TX ring buffer */
   uint8_t *tx_buff;
+  /** RX buffer tail index */
   uint16_t rx_tail;
+  /** TX buffer head index */
   uint16_t tx_head;
+  /** RX buffer head index */
   volatile uint16_t rx_head;
+  /** TX buffer tail index */
   volatile uint16_t tx_tail;
+  /** Number of bytes of the transfer in progress */
   size_t tx_size;
 };
 
 /* Exported constants --------------------------------------------------------*/
 #ifndef TX_TIMEOUT
+/** @brief Transmission timeout in ms */
 #define TX_TIMEOUT  1000
 #endif
 
@@ -260,28 +285,111 @@ struct serial_s {
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
+/**
+ * @brief Initialize the UART interface.
+ *        The U(S)ART peripheral is deduced from the pins set in obj (pin_tx,
+ *        pin_rx, pin_rts, pin_cts).
+ *        Swapped TX/RX pins are supported when the series allows it.
+ *        If pin_rx is NC, the UART is configured in half-duplex mode.
+ * @param obj Pointer to serial_t structure.
+ * @param baudrate Baud rate.
+ * @param databits Word length.
+ * @param parity Parity configuration.
+ * @param stopbits Number of stop bits.
+ * @param rx_invert Invert the RX line.
+ * @param tx_invert Invert the TX line.
+ * @param data_invert Invert the data bits.
+ * @return true on success, false otherwise (obj is NULL, pins do not match the
+ *         same U(S)ART peripheral or HAL initialization failed).
+ */
 #if defined(USE_HALV2_DRIVER)
 bool uart_init(serial_t *obj, uint32_t baudrate, hal_uart_word_length_t databits, hal_uart_parity_t parity, hal_uart_stop_bits_t stopbits, bool rx_invert, bool tx_invert, bool data_invert);
 #else
 bool uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t parity, uint32_t stopbits, bool rx_invert, bool tx_invert, bool data_invert);
 #endif
+/**
+ * @brief Deinitialize the UART interface: reset the peripheral and disable its clock.
+ * @param obj Pointer to serial_t structure.
+ */
 void uart_deinit(serial_t *obj);
+/**
+ * @brief Configure the UART interface for low power operation:
+ *        select HSI (LSE on STM32WB0x) as the source clock of the low power
+ *        wakeup and enable the wakeup EXTI line when available.
+ * @param obj Pointer to serial_t structure.
+ */
 #if defined(HAL_PWR_MODULE_ENABLED) && (defined(UART_IT_WUF) || defined(LPUART1_BASE))
 void uart_config_lowpower(serial_t *obj);
 #endif
+/**
+ * @brief Read the last received byte from the UART and restart the RX interrupt.
+ * @param obj Pointer to serial_t structure.
+ * @param c Pointer where the received character is stored.
+ * @return 0 on success, -1 if obj is NULL or a reception is ongoing.
+ */
 int uart_getc(serial_t *obj, unsigned char *c);
+/**
+ * @brief Begin an asynchronous RX transfer (enable interrupt for data
+ *        collecting).
+ *        Does nothing if obj is NULL or a reception is already ongoing.
+ * @param obj Pointer to serial_t structure.
+ * @param callback Function called at the end of reception.
+ */
 void uart_attach_rx_callback(serial_t *obj, void (*callback)(serial_t *));
+/**
+ * @brief Begin an asynchronous TX transfer (enable interrupt for data sending).
+ * @param obj Pointer to serial_t structure.
+ * @param callback Function called at the end of transmission.
+ * @param size Number of bytes to transmit, starting at the tx_tail index of
+ *             the TX buffer.
+ */
 void uart_attach_tx_callback(serial_t *obj, int (*callback)(serial_t *), size_t size);
 
+/**
+ * @brief Determine if the serial peripheral is already in use for TX.
+ * @param obj The serial object.
+ * @return Non-zero if the TX transaction is ongoing, 0 otherwise.
+ */
 uint8_t serial_tx_active(serial_t *obj);
+/**
+ * @brief Determine if the serial peripheral is already in use for RX.
+ * @param obj The serial object.
+ * @return Non-zero if the RX transaction is ongoing, 0 otherwise.
+ */
 uint8_t serial_rx_active(serial_t *obj);
 
+/**
+ * @brief Enable the transmitter for half-duplex mode (when pin_rx is NC).
+ *        No-op in full-duplex mode.
+ * @param obj Pointer to serial_t structure.
+ */
 void uart_enable_tx(serial_t *obj);
+/**
+ * @brief Enable the receiver for half-duplex mode (when pin_rx is NC).
+ *        No-op in full-duplex mode.
+ * @param obj Pointer to serial_t structure.
+ */
 void uart_enable_rx(serial_t *obj);
 
+/**
+ * @brief Write data on the UART, used by printf for debug only (syscalls).
+ *        The debug UART (DEBUG_UART) is initialized on first use if no Serial
+ *        instance already uses it.
+ * @param data Bytes to write.
+ * @param size Number of bytes to write.
+ * @return The number of bytes written, 0 on error or timeout (TX_TIMEOUT).
+ */
 size_t uart_debug_write(uint8_t *data, uint32_t size);
 
 #if defined(LPUART1_BASE) || defined(LPUART2_BASE)
+/**
+ * @brief Configure the LPUART stop mode according to the baud rate:
+ *        stop mode is enabled for baud rates up to 9600, disabled otherwise.
+ *        LPUART clock source must be in the range
+ *        [3 x baud rate, 4096 x baud rate].
+ * @param huart uart handle structure.
+ * @param baudrate Baud rate (HALv2 driver only, otherwise taken from the handle).
+ */
 #if defined(USE_HALV2_DRIVER)
 void uart_init_lpuart(hal_uart_handle_t *huart, uint32_t baudrate);
 #else
@@ -289,11 +397,31 @@ void uart_init_lpuart(UART_HandleTypeDef *huart);
 #endif
 #endif
 
+/**
+ * @brief Compute the UART clock prescaler: the first one giving a valid baud
+ *        rate divider for the current kernel clock (LPUART instances have
+ *        their own valid range).
+ * @param huart uart handle structure.
+ * @param config uart configuration structure (HALv2 driver only).
+ * @return The clock prescaler.
+ */
 #if defined(USE_HALV2_DRIVER)
 hal_uart_prescaler_t uart_compute_prescaler(hal_uart_handle_t *huart, hal_uart_config_t *config);
 #endif
 #if defined(UART_PRESCALER_DIV1)
+/**
+ * @brief Compute the UART clock prescaler: the first one giving a valid baud
+ *        rate divider for the current clock source (LPUART instances have
+ *        their own valid range).
+ * @param huart uart handle structure.
+ * @return The clock prescaler.
+ */
 uint32_t uart_compute_prescaler(UART_HandleTypeDef *huart);
+/**
+ * @brief Get the clock source frequency of the UART.
+ * @param huart uart handle structure.
+ * @return The clock source frequency in Hz.
+ */
 uint32_t uart_get_clock_source_freq(UART_HandleTypeDef *huart);
 #endif
 #endif /* HAL_UART_MODULE_ENABLED  && !HAL_UART_MODULE_ONLY */

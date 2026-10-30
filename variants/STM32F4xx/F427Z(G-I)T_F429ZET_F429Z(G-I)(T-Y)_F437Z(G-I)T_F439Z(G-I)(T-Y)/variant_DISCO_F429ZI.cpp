@@ -166,9 +166,7 @@ extern "C" {
 #endif
 
 /**
-  * @brief  None
-  * @param  None
-  * @retval None
+  * @brief  System Clock Configuration
   */
 WEAK void SystemClock_Config(void)
 {
