@@ -116922,3 +116922,67 @@ target_compile_options(WRAITH32_V1_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
+# XIAO_STM32C5
+# -----------------------------------------------------------------------------
+
+set(XIAO_STM32C5_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32C5xx/C593C(E-G)(T-U)_C5A3CG(T-U)")
+set(XIAO_STM32C5_MAXSIZE 1015808)
+set(XIAO_STM32C5_MAXDATASIZE 262144)
+set(XIAO_STM32C5_MCU cortex-m33)
+set(XIAO_STM32C5_FPCONF "fpv5-sp-d16-hard")
+add_library(XIAO_STM32C5 INTERFACE)
+target_compile_options(XIAO_STM32C5 INTERFACE
+  "SHELL:-DUSE_HALV2_DRIVER"
+  "SHELL:-DSTM32C5A3xx -DHSE_VALUE=48000000U -DUSBD_SELF_POWERED=1 -DUSBD_MAX_POWER=50"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${XIAO_STM32C5_MCU}
+)
+target_compile_definitions(XIAO_STM32C5 INTERFACE
+  "STM32C5xx"
+	"ARDUINO_XIAO_STM32C5"
+	"BOARD_NAME=\"XIAO_STM32C5\""
+	"BOARD_ID=XIAO_STM32C5"
+	"VARIANT_H=\"variant_XIAO_STM32C5.h\""
+)
+target_include_directories(XIAO_STM32C5 INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32C5xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C5xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C5xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C5xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C5xx/Source/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C5xx/Source/Templates/gcc/
+  ${XIAO_STM32C5_VARIANT_PATH}
+)
+
+target_link_options(XIAO_STM32C5 INTERFACE
+  "LINKER:--default-script=${XIAO_STM32C5_VARIANT_PATH}/ldscript_XIAO_STM32C5.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x8000"
+  "LINKER:--defsym=LD_MAX_SIZE=1015808"
+  "LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${XIAO_STM32C5_MCU}
+)
+
+add_library(XIAO_STM32C5_serial_disabled INTERFACE)
+target_compile_options(XIAO_STM32C5_serial_disabled INTERFACE
+)
+add_library(XIAO_STM32C5_serial_generic INTERFACE)
+target_compile_options(XIAO_STM32C5_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(XIAO_STM32C5_serial_none INTERFACE)
+target_compile_options(XIAO_STM32C5_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(XIAO_STM32C5_usb_CDC INTERFACE)
+target_compile_options(XIAO_STM32C5_usb_CDC INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x2886 -DUSBD_PID=0x80C5 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(XIAO_STM32C5_usb_CDCgen INTERFACE)
+target_compile_options(XIAO_STM32C5_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x2886 -DUSBD_PID=0x80C5 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(XIAO_STM32C5_usb_none INTERFACE)
+target_compile_options(XIAO_STM32C5_usb_none INTERFACE
+)
+
