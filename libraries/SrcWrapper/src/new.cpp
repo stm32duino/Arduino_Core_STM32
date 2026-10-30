@@ -24,31 +24,59 @@
  */
 #include <stdlib.h>
 
+/**
+ * @brief Allocate memory for a single object (C++ new).
+ * @param size Number of bytes to allocate.
+ * @return Pointer to the allocated memory, or NULL on failure.
+ */
 void *operator new (size_t size)
 {
   return malloc(size);
 }
 
+/**
+ * @brief Allocate memory for an array (C++ new[]).
+ * @param size Number of bytes to allocate.
+ * @return Pointer to the allocated memory, or NULL on failure.
+ */
 void *operator new[](size_t size)
 {
   return malloc(size);
 }
 
+/**
+ * @brief Free memory allocated by operator new.
+ * @param ptr Pointer to the memory to free.
+ */
 void operator delete (void *ptr)
 {
   free(ptr);
 }
 
+/**
+ * @brief Free memory allocated by operator new[].
+ * @param ptr Pointer to the memory to free.
+ */
 void operator delete[](void *ptr)
 {
   free(ptr);
 }
 
+/**
+ * @brief Free memory allocated by sized operator new.
+ * @param ptr Pointer to the memory to free.
+ * @note The size argument is unused.
+ */
 void operator delete (void *ptr, size_t /*size*/)
 {
   free(ptr);
 }
 
+/**
+ * @brief Free memory allocated by sized operator new[].
+ * @param ptr Pointer to the memory to free.
+ * @note The size argument is unused.
+ */
 void operator delete[](void *ptr, size_t /*size*/)
 {
   free(ptr);

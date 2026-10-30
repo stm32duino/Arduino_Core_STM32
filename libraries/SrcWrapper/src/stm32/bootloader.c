@@ -4,6 +4,12 @@
 #include "backup.h"
 
 #ifdef BL_LEGACY_LEAF
+/**
+ * @brief Reset into the bootloader when the "1EAF" magic packet is received on
+ *        the USB CDC DTR toggle.
+ * @param buf Received data buffer.
+ * @param len Pointer to the length of the received data.
+ */
 void dtr_togglingHook(uint8_t *buf, uint32_t *len)
 {
   /**
@@ -18,6 +24,12 @@ void dtr_togglingHook(uint8_t *buf, uint32_t *len)
 #endif /* BL_LEGACY_LEAF */
 
 #ifdef BL_HID
+/**
+ * @brief Set the HID bootloader magic numbers in the backup domain and reset
+ *        when the "1EAF" magic packet is received on the USB CDC DTR toggle.
+ * @param buf Received data buffer.
+ * @param len Pointer to the length of the received data.
+ */
 void dtr_togglingHook(uint8_t *buf, uint32_t *len)
 {
   /**

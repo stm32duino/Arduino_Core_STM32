@@ -1,3 +1,8 @@
+/**
+ * @file core_debug.c
+ * @brief Out-of-line definitions of the inline core_debug functions, needed
+ * for C code.
+ */
 #include "core_debug.h"
 
 // Ensure inline functions have a definition emitted for when they are

@@ -56,8 +56,8 @@ struct metal_device shm_device = {
 /**
  * @brief Initialize OpenAMP shared memory (libmetal and resource table)
  *
- * @param RPMsgRole: RPMSG_REMOTE - Device is remote (slave)
- * @retval 0 on success
+ * @param RPMsgRole RPMSG_REMOTE - Device is remote (slave)
+ * @return 0 on success
  */
 static int OPENAMP_shmem_init(int RPMsgRole)
 {
@@ -106,11 +106,6 @@ static int OPENAMP_shmem_init(int RPMsgRole)
   return 0;
 }
 
-/**
- * @brief Initialize the openamp framework
- *
- * @retval 0 when success
- */
 int OPENAMP_Init()
 {
   struct fw_rsc_vdev_vring *vring_rsc = NULL;
@@ -154,9 +149,6 @@ int OPENAMP_Init()
   return 0;
 }
 
-/**
- * @brief Deinitialize the openamp framework
- */
 void OPENAMP_DeInit()
 {
   rpmsg_deinit_vdev(&rvdev);
@@ -164,17 +156,6 @@ void OPENAMP_DeInit()
   metal_finish();
 }
 
-/**
- * @brief Create and register the name service endpoint
- *
- * @param ept: virtio rpmsg endpoint
- * @param name: virtio rpmsg name service name
- * @param dest: message destination address. Set RPMSG_ADDR_ANY if
- *              the host processor will decide this
- * @param cb: virtio rpmsg endpoint callback (receive)
- * @param unbind_cb: virtio rpmsg endpoint destroy callback
- * @retval 0 when success
- */
 int OPENAMP_create_endpoint(struct rpmsg_endpoint *ept, const char *name,
                             uint32_t dest, rpmsg_ept_cb cb,
                             rpmsg_ns_unbind_cb unbind_cb)
@@ -183,33 +164,16 @@ int OPENAMP_create_endpoint(struct rpmsg_endpoint *ept, const char *name,
                           unbind_cb);
 }
 
-/**
- * @brief Check and process any received messages from tx channel
- * @note  Don't call this in an ISR.
- */
 void OPENAMP_check_for_tx_message(void)
 {
   MAILBOX_Poll(rvdev.vdev, VRING0_ID);
 }
 
-/**
- * @brief Check and process any received messages from rx channel
- * @note  Don't call this in an ISR.
- */
 void OPENAMP_check_for_rx_message(void)
 {
   MAILBOX_Poll(rvdev.vdev, VRING1_ID);
 }
 
-/**
- * @brief Wait loop on rpmsg endpoint (VirtIOSerial) ready to send a message.
- *        (until message dest address is known)
- * @note  This will wait until the first message arrives from the Linux host.
- *        If we send a rpmsg message before this it will fail.
- * @note  Don't call this in an ISR.
- * @see   VirtIOSerial::rxCallback
- * @param rp_ept: virtio rpmsg endpoint
- */
 void OPENAMP_Wait_EndPointready(struct rpmsg_endpoint *rp_ept)
 {
   while (!is_rpmsg_ept_ready(rp_ept)) {

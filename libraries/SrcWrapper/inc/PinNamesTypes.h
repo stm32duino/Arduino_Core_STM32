@@ -66,6 +66,10 @@ extern "C" {
 #define STM_PIN_AN_CHAN_BANK_B_SHIFT 22
 #define STM_PIN_ANALOG_CHAN_BANK_B_BIT (STM_PIN_AN_CHAN_BANK_B_MASK << STM_PIN_AN_CHAN_BANK_B_SHIFT)
 
+/** @name Accessors of the STM pin data fields
+ *  Return the field of the pin data X
+ */
+/** @{ */
 #define STM_PIN_FUNCTION(X)               (((X) >> STM_PIN_FUNCTION_SHIFT) & STM_PIN_FUNCTION_MASK)
 #define STM_PIN_OD(X)                     (((X) >> STM_PIN_OD_SHIFT) & STM_PIN_OD_MASK)
 #define STM_PIN_PUPD(X)                   (((X) >> STM_PIN_PUPD_SHIFT) & STM_PIN_PUPD_MASK)
@@ -75,13 +79,25 @@ extern "C" {
 #define STM_PIN_INVERTED(X)               (((X) >> STM_PIN_INV_SHIFT) & STM_PIN_INV_MASK)
 #define STM_PIN_ANALOG_CONTROL(X)         (((X) >> STM_PIN_AN_CTRL_SHIFT) & STM_PIN_AN_CTRL_MASK)
 #define STM_PIN_ANALOG_CHANNEL_BANK_B(X)  (((X) >> STM_PIN_AN_CHAN_BANK_B_SHIFT) & STM_PIN_AN_CHAN_BANK_B_MASK)
+/** @} */
+/** @brief Mode of the pin data X: function and Push-Pull/Open Drain
+ *         configuration */
 #define STM_PIN_MODE(X)                   ((STM_PIN_OD((X)) << 4) | \
                                            (STM_PIN_FUNCTION((X)) & (~STM_PIN_OD_BITS)))
 
+/**
+ * @brief Build the pin data from the function/output type (FUNC_OD), the pull
+ *        configuration (PUPD)
+ *        and the alternate function number (AFNUM).
+ */
 #define STM_PIN_DEFINE(FUNC_OD, PUPD, AFNUM)  ((int)(FUNC_OD) |\
                           ((PUPD  & STM_PIN_PUPD_MASK) << STM_PIN_PUPD_SHIFT) |\
                           ((AFNUM & STM_PIN_AFNUM_MASK) << STM_PIN_AFNUM_SHIFT))
 
+/**
+ * @brief Same as STM_PIN_DEFINE() with the Analog/Timer specific channel (CHAN)
+ *        and its inverted flag (INV).
+ */
 #define STM_PIN_DEFINE_EXT(FUNC_OD, PUPD, AFNUM, CHAN, INV) \
                                             ((int)(FUNC_OD) |\
                        ((PUPD   & STM_PIN_PUPD_MASK) << STM_PIN_PUPD_SHIFT) |\
@@ -94,11 +110,14 @@ extern "C" {
  * The STM_MODE_ defines contain the function and the Push-pull/OpenDrain
  * configuration (legacy inheritance).
  */
+/** @brief Legacy alias of STM_PIN_DEFINE() */
 #define STM_PIN_DATA(FUNC_OD, PUPD, AFNUM) \
             STM_PIN_DEFINE(FUNC_OD, PUPD, AFNUM)
+/** @brief Legacy alias of STM_PIN_DEFINE_EXT() */
 #define STM_PIN_DATA_EXT(FUNC_OD, PUPD, AFNUM, CHANNEL, INVERTED) \
             STM_PIN_DEFINE_EXT(FUNC_OD, PUPD, AFNUM, CHANNEL, INVERTED)
 
+/** @brief Pin function, as in the MODER register */
 typedef enum {
   STM_PIN_INPUT = 0,
   STM_PIN_OUTPUT = 1,
@@ -106,6 +125,10 @@ typedef enum {
   STM_PIN_ANALOG = 3,
 } StmPinFunction;
 
+/**
+ * @name Pin modes: function and Push-Pull/Open Drain configuration
+ * @{
+ */
 #define STM_MODE_INPUT                      (STM_PIN_INPUT)
 #define STM_MODE_OUTPUT_PP                  (STM_PIN_OUTPUT)
 #define STM_MODE_OUTPUT_OD                  (STM_PIN_OUTPUT | STM_PIN_OD_BITS)
@@ -114,17 +137,22 @@ typedef enum {
 #define STM_MODE_ANALOG                     (STM_PIN_ANALOG)
 #define STM_MODE_ANALOG_ADC_CONTROL         (STM_PIN_ANALOG | STM_PIN_ANALOG_CONTROL_BIT)
 #define STM_MODE_ANALOG_ADC_CHANNEL_BANK_B  (STM_PIN_ANALOG | STM_PIN_ANALOG_CHAN_BANK_B_BIT)
+/** @} */
 
-// High nibble = port number (FirstPort <= PortName <= LastPort)
-// Low nibble  = pin number
+/** @brief Port index of a PinName: high nibble
+ *         (FirstPort <= PortName <= LastPort) */
 #define STM_PORT(X) (((uint32_t)(X) >> 4) & 0xF)
+/** @brief Pin number of a PinName: low nibble */
 #define STM_PIN(X)  ((uint32_t)(X) & 0xF)
 // Check PinName is valid: FirstPort <= PortName <= LastPort
 // As FirstPort is equal to 0 and STM_PORT cast as an unsigned
 // (STM_PORT(X) >= FirstPort)  is always true
 //#define STM_VALID_PINNAME(X) ((STM_PORT(X) >= FirstPort) && (STM_PORT(X) <= LastPort))
+/** @brief Check a PinName is valid: its port index is not greater than
+ *         LastPort */
 #define STM_VALID_PINNAME(X) (STM_PORT(X) <= LastPort)
 
+/** @brief GPIO pin mask of a PinName, as used by the HAL (GPIO_PIN_x) */
 #define STM_GPIO_PIN(X) ((uint16_t)(1<<STM_PIN(X)))
 
 #ifdef __cplusplus

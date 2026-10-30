@@ -18,11 +18,28 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+/**
+ * @file dtostrf.c
+ * @brief Emulation of the avr-libc dtostrf() function.
+ */
+
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * @brief Convert a double to a string with a fixed number of decimal places.
+ *
+ * Emulation of the avr-libc dtostrf() function.
+ *
+ * @param val Value to convert.
+ * @param width Minimum field width of the output string. Negative for left
+ * adjustment. Range -128 to 127.
+ * @param prec Number of digits after the decimal point.
+ * @param sout Buffer to write the result to. Must be large enough for the result.
+ * @return Pointer to sout.
+ */
 char *dtostrf(double val, signed char width, unsigned char prec, char *sout)
 {
   //Commented code is the original version

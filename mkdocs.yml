@@ -18,6 +18,7 @@ nav:
   - Supported Boards: supported-boards/index.md
   - Core Reference:
     - Arduino API: API.md
+    - Doxygen API reference: doxygen/index.html
     - Hardware Timer: HardwareTimer-library.md
     - Pin Naming: Pin-naming.md
     - STM32MP1: STM32MP1.md
@@ -123,6 +124,7 @@ plugins:
 
 hooks:
   - docs/hooks/supported_boards.py
+  - docs/hooks/doxygen.py
 
 extra:
   version:

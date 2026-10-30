@@ -15,9 +15,7 @@
 #include "pins_arduino.h"
 
 /**
-  * @brief  System Clock Configuration
-  * @param  None
-  * @retval None
+  * @brief System Clock Configuration
   */
 WEAK void SystemClock_Config(void)
 {

@@ -1,3 +1,7 @@
+/**
+ * @file stm32_def_build.h
+ * @brief Selects the CMSIS startup file (CMSIS_STARTUP_FILE) matching the STM32 device.
+ */
 #ifndef _STM32_DEF_BUILD_
 #define _STM32_DEF_BUILD_
 

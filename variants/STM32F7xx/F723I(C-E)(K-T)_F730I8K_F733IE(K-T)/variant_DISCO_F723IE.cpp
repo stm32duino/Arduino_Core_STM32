@@ -189,8 +189,6 @@ extern "C" {
   *         ST's own reference firmware for this board does the same thing
   *         for the same reason (see MPU_ConfigPSRAM() in the STM32CubeF7
   *         BSP example Applications/Display/LCD_PicturesFromUSB/Src/main.c).
-  * @param  None
-  * @retval None
   */
 WEAK void initVariant(void)
 {
@@ -230,8 +228,6 @@ WEAK void initVariant(void)
   *            VDD(V)                         = 3.3
   *            Main regulator output voltage  = Scale1 mode
   *            Flash Latency(WS)              = 7
-  * @param  None
-  * @retval None
   */
 WEAK void SystemClock_Config(void)
 {

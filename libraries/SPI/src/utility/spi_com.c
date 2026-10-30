@@ -22,9 +22,9 @@ extern "C" {
 
 /* Private Functions */
 /**
-  * @brief  return clock freq of an SPI instance
-  * @param  spi_inst : SPI instance
-  * @retval clock freq of the instance else SystemCoreClock
+  * @brief  Return the clock frequency of an SPI instance.
+  * @param  spi_inst SPI instance.
+  * @return Clock frequency of the instance, else SystemCoreClock.
   */
 uint32_t spi_getClkFreqInst(SPI_TypeDef *spi_inst)
 {
@@ -161,11 +161,6 @@ uint32_t spi_getClkFreqInst(SPI_TypeDef *spi_inst)
   return spi_freq;
 }
 
-/**
-  * @brief  return clock freq of an SPI instance
-  * @param  obj : pointer to spi_t structure
-  * @retval clock freq of the instance else SystemCoreClock
-  */
 uint32_t spi_getClkFreq(spi_t *obj)
 {
   SPI_TypeDef *spi_inst = NP;
@@ -194,8 +189,9 @@ uint32_t spi_getClkFreq(spi_t *obj)
   * @brief  Compute delay before disabling SPI
   *         See https://github.com/stm32duino/Arduino_Core_STM32/issues/1294
   *         Computed delay is half SPI clock
-  * @param  obj : pointer to spi_t structure
-  * @retval Disable delay in microsecondes
+  * @param  spi_freq SPI clock frequency.
+  * @param  prescaler SPI prescaler configuration.
+  * @return Disable delay in microseconds.
   */
 static uint32_t compute_disable_delay(uint32_t spi_freq, uint32_t prescaler)
 {
@@ -206,15 +202,6 @@ static uint32_t compute_disable_delay(uint32_t spi_freq, uint32_t prescaler)
 }
 #endif
 
-/**
-  * @brief  SPI initialization function
-  * @param  obj : pointer to spi_t structure
-  * @param  speed : spi output speed
-  * @param  dataMode : one of the spi modes
-  * @param  msbFirst : set to true in msb first
-  * @param  busMode : spi busMode: controller or peripheral
-  * @retval None
-  */
 void spi_init(spi_t *obj, uint32_t speed, spi_mode_e dataMode, bool msbFirst, spi_busmode_e busMode)
 {
   if (obj != NULL) {
@@ -461,12 +448,6 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e dataMode, bool msbFirst, sp
   }
 }
 
-/**
-  * @brief This function is implemented to deinitialize the SPI interface
-  *        (IOs + SPI block)
-  * @param  obj : pointer to spi_t structure
-  * @retval None
-  */
 void spi_deinit(spi_t *obj)
 {
   if (obj != NULL) {
@@ -550,15 +531,6 @@ void spi_deinit(spi_t *obj)
   }
 }
 
-/**
-  * @brief This function is implemented by user to send/receive data over
-  *         SPI interface
-  * @param  obj : pointer to spi_t structure
-  * @param  tx_buffer : tx data to send before reception
-  * @param  rx_buffer : rx data to receive if not numm
-  * @param  len : length in byte of the data to send and receive
-  * @retval status of the send operation (0) in case of error
-  */
 spi_status_e spi_transfer(spi_t *obj, const uint8_t *tx_buffer, uint8_t *rx_buffer,
                           uint16_t len)
 {

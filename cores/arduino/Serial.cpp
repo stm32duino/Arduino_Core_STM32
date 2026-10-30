@@ -22,6 +22,11 @@
   Modified 3 December 2013 by Matthijs Kooijman
 */
 
+/**
+ * @file Serial.cpp
+ * @brief Hardware serial (Uart class) implementation and SerialN / SerialLPN instances.
+ */
+
 #include <stdio.h>
 #include "Arduino.h"
 #include "Serial.h"

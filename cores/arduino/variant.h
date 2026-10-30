@@ -10,6 +10,11 @@
  *
  *******************************************************************************
  */
+/**
+ * @file variant.h
+ * @brief Includes the header of the selected variant (VARIANT_H) and the
+ * generic Serial selection.
+ */
 #pragma once
 
 #include VARIANT_H

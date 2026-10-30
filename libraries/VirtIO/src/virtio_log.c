@@ -1,4 +1,4 @@
-/**
+/*
  * MIT License:
  * Copyright (c) 2020 Bumsik kim <k.bumsik@gmail.com>
  *

@@ -9,8 +9,10 @@
  *
  */
 
-/* This file populates resource table for BM remote
- * for use by the Linux Master */
+/**
+ * @file    rsc_table.h
+ * @brief   Resource table for the BM remote, populated for use by the Linux Master.
+ */
 
 #ifndef __OPENAMP_RSC_TABLE_H
 #define __OPENAMP_RSC_TABLE_H
@@ -21,7 +23,10 @@
 #include "openamp/open_amp.h"
 #include "openamp_conf.h"
 
-/* Resource table for the given remote */
+/**
+ * @brief Resource table for the given remote: rpmsg vdev entry with its two
+ *        vrings, and the trace (log) entry.
+ */
 struct shared_resource_table {
   unsigned int version;
   unsigned int num;
@@ -36,6 +41,12 @@ struct shared_resource_table {
   struct fw_rsc_trace cm_trace;
 };
 
+/**
+ * @brief Initialize the resource table used by the remote processor.
+ * @param RPMsgRole Role of the processor. Not used.
+ * @param table_ptr Output: pointer to the resource table.
+ * @param length Output: size of the resource table, in bytes.
+ */
 void resource_table_init(int RPMsgRole, void **table_ptr, int *length);
 
 #endif /* VIRTIOCON */

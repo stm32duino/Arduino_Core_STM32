@@ -23,6 +23,7 @@ extern "C" {
 #endif
 
 /* Exported types ------------------------------------------------------------*/
+/** @brief Status returned by lock resource operations */
 typedef enum {
   LOCK_RESOURCE_STATUS_OK       = 0x00U,
   LOCK_RESOURCE_STATUS_ERROR    = 0x01U,
@@ -171,21 +172,23 @@ typedef enum {
 #define CFG_HW_EXTI_SEMID                      (HSEM_SEMID_MAX +1)
 #endif
 
-/* Hardware Semaphore wait forever value */
+/** @brief Hardware Semaphore wait forever value */
 #define HSEM_LOCK_WAIT_FOREVER                         0xFFFFFFFFU
-/* Hardware Semaphore default retry value */
 #ifndef HSEM_LOCK_DEFAULT_RETRY
+/** @brief Hardware Semaphore default retry value */
 #define HSEM_LOCK_DEFAULT_RETRY                            0xFFFFU
 #endif
 
-/*
- * @brief  hsem_lock function is used for register protection of shared Peripheral
- *         and shall be called before accessing registers of this shared Peripheral
- *         If Semaphore id is already taken, the function will busy loop waiting for it to
- *         be released, but give up after @retry downcounter have elapsed
- * @param  semID: Semaphore id used to identify which peripheral to protect
- * @param  retry: number of retry
- * @retval None
+/**
+ * @brief Acquire a hardware semaphore to protect a shared peripheral.
+ *        Used for register protection of a shared peripheral, it shall be
+ *        called before accessing the registers of this peripheral.
+ *        If the semaphore is already taken, the function busy-waits for it to
+ *        be released, but gives up after the retry down-counter has elapsed
+ *        (Error_Handler() is then called).
+ * @param semID Semaphore ID used to identify which peripheral to protect.
+ * @param retry Number of retries (HSEM_LOCK_WAIT_FOREVER to wait indefinitely).
+ * @note Only effective on STM32MP1xx and STM32WBxx, it does nothing on other series.
  */
 static inline void hsem_lock(uint32_t semID, uint32_t retry)
 {
@@ -206,10 +209,10 @@ static inline void hsem_lock(uint32_t semID, uint32_t retry)
 #endif /* STM32MP1xx || STM32WBxx */
 }
 
-/*
- * @brief  hsem_unlock released a previously-acquired semaphore
- * @param  semID Semaphore id used to identify which peripheral to release
- * @retval None
+/**
+ * @brief Release a previously acquired hardware semaphore.
+ * @param semID Semaphore ID used to identify which peripheral to release.
+ * @note Only effective on STM32MP1xx and STM32WBxx, it does nothing on other series.
  */
 static inline void hsem_unlock(uint32_t semID)
 {

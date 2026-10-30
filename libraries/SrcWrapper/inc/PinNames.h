@@ -20,7 +20,10 @@
 extern "C" {
 #endif
 
-// Alternative possibilities which use other HW peripheral instances
+/**
+ * @name Alternative possibilities which use other HW peripheral instances
+ * @{
+ */
 #define ALT0                        0x000
 #define ALT1                        0x100
 #define ALT2                        0x200
@@ -29,21 +32,30 @@ extern "C" {
 #define ALT5                        0x500
 #define ALT6                        0x600
 #define ALT7                        0x700
-// ALTX mask
+/** @} */
+/** @brief ALTX mask */
 #define ALTX_MASK                   0x700
 
 // Specific pinmap definition
-// Analog internal
+/** @brief Base of the analog internal pin names (PADC_xxx) */
 #define PNAME_ANALOG_INTERNAL_BASE  0x1000
-// Dual pad pin
-// Direct channels are connected to analog I/Os
-// (PY_C) to optimize ADC performance.
+/**
+ * @brief Dual pad pin flag.
+ *        Direct channels are connected to analog I/Os (PY_C) to optimize ADC performance.
+ */
 #define PDUAL                       0x2000
-// Remap pin
+/** @brief Remap pin flag */
 #define PREMAP                      0x3000
-// PinName mask
+/** @brief PinName mask */
 #define PNAME_MASK                  0xFF
 
+/**
+ * @brief Pin names: Pxy_n where x is the port letter and y the pin number,
+ *        followed by the internal analog pins (PADC_xxx) and the pins specific
+ *        to the variant.
+ *        The high nibble of the low byte is the port index and the low nibble
+ *        the pin number.
+ */
 typedef enum {
   // Not connected
   NC = 0xFFFFFFFF,
@@ -263,18 +275,23 @@ typedef enum {
   PZ_15 = (PortZ << 4) + 0x0F,
 #endif
   // Specific pin name
+  /** Base of the analog internal pins */
   PADC_BASE = PNAME_ANALOG_INTERNAL_BASE,
 #if defined(ADC_CHANNEL_TEMPSENSOR) || defined(ADC_CHANNEL_TEMPSENSOR_ADC1) ||\
     defined(LL_ADC_CHANNEL_TEMPSENSOR)
+  /** Internal temperature sensor */
   PADC_TEMP,
 #endif
 #if defined(ADC5) && defined(ADC_CHANNEL_TEMPSENSOR_ADC5)
+  /** Internal temperature sensor connected to ADC5 */
   PADC_TEMP_ADC5,
 #endif
 #if defined(ADC_CHANNEL_VREFINT) || defined(LL_ADC_CHANNEL_VREFINT)
+  /** Internal voltage reference */
   PADC_VREF,
 #endif
 #ifdef ADC_CHANNEL_VBAT
+  /** Internal battery voltage */
   PADC_VBAT,
 #endif
   ANA_START,

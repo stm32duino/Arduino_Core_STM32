@@ -26,23 +26,11 @@ uint8_t RGB_LED_TLC59731::CYAN[3]    = {0,                  DEFAULT_BRIGHTNESS, 
 uint8_t RGB_LED_TLC59731::YELLOW[3]  = {DEFAULT_BRIGHTNESS, DEFAULT_BRIGHTNESS, 0                 };
 uint8_t RGB_LED_TLC59731::WHITE[3]   = {DEFAULT_BRIGHTNESS, DEFAULT_BRIGHTNESS, DEFAULT_BRIGHTNESS};
 
-/**
-  * @brief  Set RGB LED color
-  * @param  rgb[3]: red,green, blue value in range [0-255]
-  * @retval None
-  */
 void RGB_LED_TLC59731::on(uint8_t rgb[3])
 {
   on(rgb[0], rgb[1], rgb[2]);
 }
 
-/**
-  * @brief  Set RGB LED color
-  * @param  red: red value in range [0-255]
-  * @param  green: green value in range [0-255]
-  * @param  blue: blue value in range [0-255]
-  * @retval None
-  */
 void RGB_LED_TLC59731::on(uint8_t red, uint8_t green, uint8_t blue)
 {
   if (!_enabled) {
@@ -60,20 +48,15 @@ void RGB_LED_TLC59731::on(uint8_t red, uint8_t green, uint8_t blue)
   digitalWriteFast(_rgb_pin, LOW);
   delayMicroseconds(_T_Cycle0);
   /* Write command */
-  senByte(WRITE_COMMAND);
+  sendByte(WRITE_COMMAND);
   /* Write the GS data */
-  senByte(red);
-  senByte(green);
-  senByte(blue);
+  sendByte(red);
+  sendByte(green);
+  sendByte(blue);
   /* GS Latch */
   delayMicroseconds(_T_GS_Lat);
 }
 
-/**
-  * @brief  Set RGB LED Off
-  * @param  None
-  * @retval None
-  */
 void RGB_LED_TLC59731::off(void)
 {
   /* Set RGB LED off value */
@@ -87,11 +70,6 @@ void RGB_LED_TLC59731::off(void)
   }
 }
 
-/**
-  * @brief  Set brightness value
-  * @param  value: new brightness value
-  * @retval None
-  */
 void RGB_LED_TLC59731::setBrightness(uint8_t value)
 {
   RGB_LED_TLC59731::brightness = value;
@@ -129,7 +107,7 @@ void RGB_LED_TLC59731::sendBit(uint8_t bit)
 }
 
 
-void RGB_LED_TLC59731::senByte(uint8_t byte)
+void RGB_LED_TLC59731::sendByte(uint8_t byte)
 {
   sendBit(byte & (1 << 7));
   sendBit(byte & (1 << 6));

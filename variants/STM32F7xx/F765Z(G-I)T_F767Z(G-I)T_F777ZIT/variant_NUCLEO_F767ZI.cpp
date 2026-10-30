@@ -188,8 +188,6 @@ extern "C" {
   *            VDD(V)                         = 3.3
   *            Main regulator output voltage  = Scale1 mode
   *            Flash Latency(WS)              = 7
-  * @param  None
-  * @retval None
   */
 WEAK void SystemClock_Config(void)
 {

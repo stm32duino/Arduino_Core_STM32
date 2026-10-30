@@ -122,8 +122,6 @@ extern "C" {
   *            PLL_P                          = 2
   *            PLL_Q                          = 2
   *            Flash Latency(WS)              = 2
-  * @param  None
-  * @retval None
   */
 WEAK void SystemClock_Config(void)
 {

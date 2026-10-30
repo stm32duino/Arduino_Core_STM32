@@ -1,5 +1,16 @@
+/**
+ * @file WSerial.cpp
+ * @brief serialEventRun(): dispatch of the serialEvent callbacks.
+ */
 #include "WSerial.h"
 
+/**
+ * @brief Call the serialEvent callback of each enabled serial port (hardware,
+ * USB, VirtIO) that has data available.
+ *
+ * A callback is only called if the sketch defines it. Called from main() after
+ * each loop() iteration. Weak, so a sketch can override it.
+ */
 WEAK void serialEventRun(void)
 {
 #if defined(HAVE_HWSERIAL1)

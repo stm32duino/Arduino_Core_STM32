@@ -116,17 +116,6 @@
   #define USBD_DP_TRICK
 #endif
 
-/**
-  * @brief  Force to re-enumerate USB.
-  *
-  * This is intended to be called at startup by core code. It could be
-  * used at runtime, while USB is connected, to force re-enumeration
-  * too, but that does not work in all cases (when USB is enabled on an
-  * F103C8, setting output mode on the DP pin no longer has any effect).
-  *
-  * @param  None
-  * @retval None
-  */
 WEAK void USBD_reenumerate(void)
 {
 #if defined(USBD_PULLUP_CONTROL_PINNAME)
@@ -176,14 +165,6 @@ void USBD_CDC_init(void)
 }
 #endif /* USBD_USE_CDC */
 
-/**
-  * @brief  Configures system clock and system IP clocks after wake-up from USB
-  *         resume callBack
-  * @note   Weaked function which can be redefined by user at the sketch level.
-  *         By default, calls 'SystemClock_Config()'.
-  * @param  None
-  * @retval None
-  */
 WEAK void USBD_SystemClockConfigFromResume(void)
 {
   configIPClock();

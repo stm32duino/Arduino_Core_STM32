@@ -163,8 +163,6 @@ const uint8_t APBPrescTable[8U] =  {0, 0, 0, 0, 1, 2, 3, 4};
   *         Initialize the Embedded Flash Interface, the PLL and update the
   *         SystemCoreClock variable.
   * @note   This function should be used only after reset.
-  * @param  None
-  * @retval None
   */
 void SystemInit (void)
 {
@@ -250,8 +248,6 @@ void SystemInit (void)
   *
   *         - The result of this function could be not correct when using fractional
   *           value for HSE crystal.
-  * @param  None
-  * @retval None
   */
 void SystemCoreClockUpdate (void)
 {
@@ -365,8 +361,6 @@ void SystemCoreClockUpdate (void)
 /**
   * @brief  Setup the external memory controller. Called in startup_stm32f1xx.s
   *          before jump to __main
-  * @param  None
-  * @retval None
   */
 #ifdef DATA_IN_ExtSRAM
 /**
@@ -375,8 +369,6 @@ void SystemCoreClockUpdate (void)
   *         This function configures the external SRAM mounted on STM3210E-EVAL
   *         board (STM32 High density devices). This SRAM will be used as program
   *         data memory (including heap and stack).
-  * @param  None
-  * @retval None
   */
 void SystemInit_ExtMemCtl(void)
 {

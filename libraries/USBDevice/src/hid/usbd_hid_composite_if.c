@@ -32,11 +32,6 @@ static bool HID_mouse_initialized = false;
   static bool icache_enabled = false;
 #endif
 
-/**
-  * @brief  Initialize USB devices
-  * @param  HID_Interface device type: HID_KEYBOARD or HID_MOUSE
-  * @retval none
-  */
 void HID_Composite_Init(HID_Interface device)
 {
 #if defined(ICACHE) && defined (HAL_ICACHE_MODULE_ENABLED) && !defined(HAL_ICACHE_MODULE_DISABLED)
@@ -69,11 +64,6 @@ void HID_Composite_Init(HID_Interface device)
   }
 }
 
-/**
-  * @brief  DeInitialize USB devices
-  * @param  HID_Interface device type: HID_KEYBOARD or HID_MOUSE
-  * @retval none
-  */
 void HID_Composite_DeInit(HID_Interface device)
 {
   if (IS_HID_INTERFACE(device) &&
@@ -100,23 +90,11 @@ void HID_Composite_DeInit(HID_Interface device)
   }
 }
 
-/**
-  * @brief  Send HID mouse Report
-  * @param  report pointer to report
-  * @param  len report length
-  * @retval none
-  */
 void HID_Composite_mouse_sendReport(uint8_t *report, uint16_t len)
 {
   USBD_HID_MOUSE_SendReport(&hUSBD_Device_HID, report, len);
 }
 
-/**
-  * @brief  Send HID keyboard Report
-  * @param  report pointer to report
-  * @param  len report length
-  * @retval none
-  */
 void HID_Composite_keyboard_sendReport(uint8_t *report, uint16_t len)
 {
   USBD_HID_KEYBOARD_SendReport(&hUSBD_Device_HID, report, len);

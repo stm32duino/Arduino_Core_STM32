@@ -36,9 +36,9 @@ timerObj_t *get_timer_obj(TIM_HandleTypeDef *htim)
 
 #if !defined(USE_HALV2_DRIVER)
 /**
-  * @brief  TIMER Initialization - clock init and nvic init
-  * @param  htim_base: TIM handle
-  * @retval None
+  * @brief TIMER Initialization - enable the timer clock, then set priority of
+  *        and enable the update interrupt and, if different, the capture compare interrupt
+  * @param htim_base TIM handle
   */
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *htim_base)
 {
@@ -57,9 +57,8 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *htim_base)
 }
 
 /**
-  * @brief  TIMER Deinitialization - clock and nvic
-  * @param  htim_base: TIM handle
-  * @retval None
+  * @brief TIMER Deinitialization - clock and nvic
+  * @param htim_base TIM handle
   */
 void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef *htim_base)
 {
@@ -69,9 +68,8 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef *htim_base)
 }
 
 /**
-  * @brief  Initializes the TIM Output Compare MSP.
-  * @param  htim: TIM handle
-  * @retval None
+  * @brief Initializes the TIM Output Compare MSP.
+  * @param htim TIM handle
   */
 void HAL_TIM_OC_MspInit(TIM_HandleTypeDef *htim)
 {
@@ -90,9 +88,8 @@ void HAL_TIM_OC_MspInit(TIM_HandleTypeDef *htim)
 }
 
 /**
-  * @brief  DeInitialize TIM Output Compare MSP.
-  * @param  htim: TIM handle
-  * @retval None
+  * @brief DeInitialize TIM Output Compare MSP.
+  * @param htim TIM handle
   */
 void HAL_TIM_OC_MspDeInit(TIM_HandleTypeDef *htim)
 {
@@ -102,9 +99,8 @@ void HAL_TIM_OC_MspDeInit(TIM_HandleTypeDef *htim)
 }
 
 /**
-  * @brief  Initializes the TIM Input Capture MSP.
-  * @param  htim: TIM handle
-  * @retval None
+  * @brief Initializes the TIM Input Capture MSP.
+  * @param htim TIM handle
   */
 void HAL_TIM_IC_MspInit(TIM_HandleTypeDef *htim)
 {
@@ -112,9 +108,8 @@ void HAL_TIM_IC_MspInit(TIM_HandleTypeDef *htim)
 }
 
 /**
-  * @brief  DeInitialize TIM Input Capture MSP.
-  * @param  htim: TIM handle
-  * @retval None
+  * @brief DeInitialize TIM Input Capture MSP.
+  * @param htim TIM handle
   */
 void HAL_TIM_IC_MspDeInit(TIM_HandleTypeDef *htim)
 {
@@ -122,12 +117,6 @@ void HAL_TIM_IC_MspDeInit(TIM_HandleTypeDef *htim)
 }
 #endif /* !defined(USE_HALV2_DRIVER) */
 /* Exported functions */
-/**
-  * @brief  Enable the timer clock
-  * @param  instance: TIM instance
-  * @retval None
-  */
-
 void enableTimerClock(TIM_TypeDef *instance)
 {
   // Enable TIM clock
@@ -291,11 +280,6 @@ void enableTimerClock(TIM_TypeDef *instance)
 #endif
 }
 
-/**
-  * @brief  Disable the timer clock
-  * @param  htim: TIM handle
-  * @retval None
-  */
 void disableTimerClock(TIM_TypeDef *instance)
 {
   // Disable TIM clock
@@ -459,11 +443,6 @@ void disableTimerClock(TIM_TypeDef *instance)
 #endif
 }
 
-/**
-  * @brief  This function return IRQ number corresponding to update interrupt event of timer instance.
-  * @param  tim: timer instance
-  * @retval IRQ number
-  */
 IRQn_Type getTimerUpIrq(TIM_TypeDef *tim)
 {
   IRQn_Type IRQn = NonMaskableInt_IRQn;
@@ -590,11 +569,6 @@ IRQn_Type getTimerUpIrq(TIM_TypeDef *tim)
   return IRQn;
 }
 
-/**
-  * @brief  This function return IRQ number corresponding to Capture or Compare interrupt event of timer instance.
-  * @param  tim: timer instance
-  * @retval IRQ number
-  */
 IRQn_Type getTimerCCIrq(TIM_TypeDef *tim)
 {
   IRQn_Type IRQn = NonMaskableInt_IRQn;
@@ -721,11 +695,6 @@ IRQn_Type getTimerCCIrq(TIM_TypeDef *tim)
   return IRQn;
 }
 
-/**
-  * @brief  This function return the timer clock source.
-  * @param  tim: timer instance
-  * @retval 1 = PCLK1 or 2 = PCLK2
-  */
 uint8_t getTimerClkSrc(TIM_TypeDef *tim)
 {
   uint8_t clkSrc = 0;
@@ -819,11 +788,6 @@ uint8_t getTimerClkSrc(TIM_TypeDef *tim)
   return clkSrc;
 }
 
-/**
-  * @brief  Return HAL timer channel linked to a PinName
-  * @param  pin: PinName
-  * @retval Valid HAL channel
-  */
 #if defined(USE_HALV2_DRIVER)
 hal_tim_channel_t getTimerChannel(PinName pin)
 {

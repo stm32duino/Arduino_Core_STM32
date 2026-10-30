@@ -107,8 +107,6 @@ extern "C" {
   *            PLL_Mul                        = 6
   *            Flash Latency(WS)              = 0
   *            ADC Prescaler                  = 2
-  * @param  None
-  * @retval None
   */
 WEAK void SystemClock_Config(void)
 {

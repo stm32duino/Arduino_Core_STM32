@@ -9,6 +9,7 @@ on:
       - '*.json'
       - '**.md'
       - docs/**
+      - doxygen/**
       - mkdocs.yml
       - requirements-docs.txt
       - keywords.txt
@@ -24,6 +25,7 @@ on:
       - '*.json'
       - '**.md'
       - docs/**
+      - doxygen/**
       - mkdocs.yml
       - requirements-docs.txt
       - keywords.txt

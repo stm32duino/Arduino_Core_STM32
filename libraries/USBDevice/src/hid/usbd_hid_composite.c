@@ -518,9 +518,9 @@ static uint8_t HIDKInEpAdd = HID_KEYBOARD_EPIN_ADDR;
 /**
   * @brief  USBD_HID_Init
   *         Initialize the HID interface
-  * @param  pdev: device instance
-  * @param  cfgidx: Configuration index
-  * @retval status
+  * @param  pdev device instance
+  * @param  cfgidx Configuration index
+  * @return status
   */
 static uint8_t USBD_HID_Init(USBD_HandleTypeDef *pdev,
                              uint8_t cfgidx)
@@ -572,9 +572,9 @@ static uint8_t USBD_HID_Init(USBD_HandleTypeDef *pdev,
 /**
   * @brief  USBD_HID_DeInit
   *         DeInitialize the HID layer
-  * @param  pdev: device instance
-  * @param  cfgidx: Configuration index
-  * @retval status
+  * @param  pdev device instance
+  * @param  cfgidx Configuration index
+  * @return status
   */
 static uint8_t USBD_HID_DeInit(USBD_HandleTypeDef *pdev,
                                uint8_t cfgidx)
@@ -607,9 +607,9 @@ static uint8_t USBD_HID_DeInit(USBD_HandleTypeDef *pdev,
 /**
   * @brief  USBD_COMPOSITE_HID_Setup
   *         Handle the HID specific requests
-  * @param  pdev: instance
-  * @param  req: usb requests
-  * @retval status
+  * @param  pdev instance
+  * @param  req usb requests
+  * @return status
   */
 static uint8_t  USBD_COMPOSITE_HID_Setup(USBD_HandleTypeDef *pdev,
                                          USBD_SetupReqTypedef *req)
@@ -625,9 +625,9 @@ static uint8_t  USBD_COMPOSITE_HID_Setup(USBD_HandleTypeDef *pdev,
 /**
   * @brief  USBD_HID_MOUSE_Setup
   *         Handle the HID specific requests
-  * @param  pdev: instance
-  * @param  req: usb requests
-  * @retval status
+  * @param  pdev instance
+  * @param  req usb requests
+  * @return status
   */
 static uint8_t  USBD_HID_MOUSE_Setup(USBD_HandleTypeDef *pdev,
                                      USBD_SetupReqTypedef *req)
@@ -734,9 +734,9 @@ static uint8_t  USBD_HID_MOUSE_Setup(USBD_HandleTypeDef *pdev,
 /**
   * @brief  USBD_HID_KEYBOARD_Setup
   *         Handle the HID specific requests
-  * @param  pdev: instance
-  * @param  req: usb requests
-  * @retval status
+  * @param  pdev instance
+  * @param  req usb requests
+  * @return status
   */
 static uint8_t  USBD_HID_KEYBOARD_Setup(USBD_HandleTypeDef *pdev,
                                         USBD_SetupReqTypedef *req)
@@ -839,14 +839,6 @@ static uint8_t  USBD_HID_KEYBOARD_Setup(USBD_HandleTypeDef *pdev,
   return (uint8_t)ret;
 }
 
-/**
-  * @brief  USBD_HID_SendReport
-  *         Send HID Report
-  * @param  pdev: device instance
-  * @param  buff: pointer to report
-  * @param  ClassId: The Class ID
-  * @retval status
-  */
 #ifdef USE_USBD_COMPOSITE
 uint8_t USBD_HID_MOUSE_SendReport(USBD_HandleTypeDef *pdev,
                                   uint8_t *report,
@@ -883,14 +875,6 @@ uint8_t USBD_HID_MOUSE_SendReport(USBD_HandleTypeDef  *pdev,
   return (uint8_t)USBD_OK;
 }
 
-/**
-  * @brief  USBD_HID_SendReport
-  *         Send HID Report
-  * @param  pdev: device instance
-  * @param  buff: pointer to report
-  * @param  ClassId: The Class ID
-  * @retval status
-  */
 #ifdef USE_USBD_COMPOSITE
 uint8_t USBD_HID_KEYBOARD_SendReport(USBD_HandleTypeDef  *pdev,
                                      uint8_t *report,
@@ -927,12 +911,6 @@ uint8_t USBD_HID_KEYBOARD_SendReport(USBD_HandleTypeDef  *pdev,
   return (uint8_t)USBD_OK;
 }
 
-/**
-  * @brief  USBD_HID_GetPollingInterval
-  *         return polling interval from endpoint descriptor
-  * @param  pdev: device instance
-  * @retval polling interval
-  */
 uint32_t USBD_HID_GetPollingInterval(USBD_HandleTypeDef *pdev)
 {
   uint32_t polling_interval = 0U;
@@ -956,9 +934,8 @@ uint32_t USBD_HID_GetPollingInterval(USBD_HandleTypeDef *pdev)
 /**
   * @brief  USBD_HID_GetCfgFSDesc
   *         return FS configuration descriptor
-  * @param  speed : current device speed
-  * @param  length : pointer data length
-  * @retval pointer to descriptor buffer
+  * @param  length pointer data length
+  * @return pointer to descriptor buffer
   */
 static uint8_t *USBD_HID_GetFSCfgDesc(uint16_t *length)
 {
@@ -980,9 +957,8 @@ static uint8_t *USBD_HID_GetFSCfgDesc(uint16_t *length)
 /**
   * @brief  USBD_HID_GetCfgHSDesc
   *         return HS configuration descriptor
-  * @param  speed : current device speed
-  * @param  length : pointer data length
-  * @retval pointer to descriptor buffer
+  * @param  length pointer data length
+  * @return pointer to descriptor buffer
   */
 static uint8_t *USBD_HID_GetHSCfgDesc(uint16_t *length)
 {
@@ -1004,9 +980,8 @@ static uint8_t *USBD_HID_GetHSCfgDesc(uint16_t *length)
 /**
   * @brief  USBD_HID_GetOtherSpeedCfgDesc
   *         return other speed configuration descriptor
-  * @param  speed : current device speed
-  * @param  length : pointer data length
-  * @retval pointer to descriptor buffer
+  * @param  length pointer data length
+  * @return pointer to descriptor buffer
   */
 static uint8_t *USBD_HID_GetOtherSpeedCfgDesc(uint16_t *length)
 {
@@ -1029,9 +1004,9 @@ static uint8_t *USBD_HID_GetOtherSpeedCfgDesc(uint16_t *length)
 /**
   * @brief  USBD_HID_DataIn
   *         handle data IN Stage
-  * @param  pdev: device instance
-  * @param  epnum: endpoint index
-  * @retval status
+  * @param  pdev device instance
+  * @param  epnum endpoint index
+  * @return status
   */
 static uint8_t USBD_HID_DataIn(USBD_HandleTypeDef *pdev,
                                uint8_t epnum)
@@ -1055,8 +1030,8 @@ static uint8_t USBD_HID_DataIn(USBD_HandleTypeDef *pdev,
 /**
   * @brief  DeviceQualifierDescriptor
   *         return Device Qualifier descriptor
-  * @param  length : pointer data length
-  * @retval pointer to descriptor buffer
+  * @param  length pointer data length
+  * @return pointer to descriptor buffer
   */
 static uint8_t *USBD_HID_GetDeviceQualifierDesc(uint16_t *length)
 {

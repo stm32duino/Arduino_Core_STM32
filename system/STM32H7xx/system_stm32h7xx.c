@@ -159,8 +159,6 @@
   * @brief  Setup the microcontroller system
   *         Initialize the FPU setting and  vector table location
   *         configuration.
-  * @param  None
-  * @retval None
   */
 void SystemInit (void)
 {
@@ -326,8 +324,6 @@ if(READ_BIT(RCC->AHB3ENR, RCC_AHB3ENR_FMCEN) == 0U)
   *
   *         - The result of this function could be not correct when using fractional
   *           value for HSE crystal.
-  * @param  None
-  * @retval None
   */
 void SystemCoreClockUpdate (void)
 {
@@ -446,9 +442,6 @@ void SystemCoreClockUpdate (void)
   * @note   The function modifies the PWR->CR3 register to enable or disable specific
   *         power supply modes and waits until the voltage level flag is set, indicating
   *         that the power supply configuration is stable.
-  *
-  * @param  None
-  * @retval None
   */
 void ExitRun0Mode(void)
 {

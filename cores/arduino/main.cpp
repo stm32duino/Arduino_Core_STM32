@@ -17,11 +17,23 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+/**
+ * @file main.cpp
+ * @brief Entry point of Arduino sketches: early initialization and main loop.
+ */
+
 #define ARDUINO_MAIN
 #include "Arduino.h"
 
-// Force init to be called *first*, i.e. before static object allocation.
-// Otherwise, statically allocated objects that need HAL may fail.
+/**
+ * @brief Early initialization, run before static object allocation.
+ *
+ * Sets the NVIC priority grouping, enables the caches if present, then calls init().
+ *
+ * @note Forced to be called *first* (constructor priority 101), i.e. before
+ * static object allocation. Otherwise, statically allocated objects that need
+ * the HAL may fail.
+ */
 __attribute__((constructor(101))) void premain()
 {
 
@@ -42,8 +54,13 @@ __attribute__((constructor(101))) void premain()
   init();
 }
 
-/*
- * \brief Main entry point of Arduino application
+/**
+ * @brief Main entry point of the Arduino application.
+ *
+ * Calls initVariant() and setup() once, then runs loop() and serialEventRun()
+ * forever. When CORE_CALLBACK is defined, CoreCallback() is called before each loop().
+ *
+ * @return 0. Never reached in practice, the main loop never ends.
  */
 int main(void)
 {

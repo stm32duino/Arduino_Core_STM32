@@ -141,8 +141,6 @@ const uint8_t  APBPrescTable[8] =  {0U, 0U, 0U, 0U, 1U, 2U, 3U, 4U};
 
 /**
   * @brief  Setup the microcontroller system.
-  * @param  None
-  * @retval None
   */
 
 void SystemInit(void)
@@ -161,7 +159,6 @@ void SystemInit(void)
   *         The SystemCoreClock variable contains the core clock (HCLK), it can
   *         be used by the user application to setup the SysTick timer or configure
   *         other parameters.
-  * @param  None
   * @note   Each time the core clock (HCLK) changes, this function must be called
   *         to update SystemCoreClock variable value. Otherwise, any configuration
   *         based on this variable will be incorrect.
@@ -191,7 +188,6 @@ void SystemInit(void)
   *
   *         - The result of this function could be not correct when using fractional
   *           value for HSE crystal.
-  * @retval None
   */
 void SystemCoreClockUpdate(void)
 {

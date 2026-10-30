@@ -1,3 +1,8 @@
+/**
+ * @file    virtio_config.h
+ * @brief   Configuration of the OpenAMP rpmsg buffers and of the trace (log) buffer.
+ */
+
 #ifndef __OPENAMP_VIRTIO_CONFIG_H
 #define __OPENAMP_VIRTIO_CONFIG_H
 
@@ -17,7 +22,9 @@
 #define RPMSG_VRING_PAYLOAD_SIZE (RPMSG_BUFFER_SIZE - RPMSG_VRING_HEADER_SIZE)
 
 /**
- * number of rpmsg buffer
+ * @def VRING_NUM_BUFFS
+ * @brief Number of rpmsg buffers.
+ *
  * This means that a single call of rproc_virtio_notified(rvdev.vdev, VRING1_ID)
  * will trigger VirtIOSerial::rxCallback() VRING_NUM_BUFFS times at maximum.
  * A buffer handles VirtIOSerial::rxCallback() requires to be
@@ -26,12 +33,14 @@
 #ifndef VRING_NUM_BUFFS
   #define VRING_NUM_BUFFS         (16)
 #endif
+/** Total payload size of all the vqueue message buffers */
 #define RPMSG_VRING_TOTAL_PAYLOAD_SIZE (RPMSG_VRING_PAYLOAD_SIZE * VRING_NUM_BUFFS)
 
 #if defined (VIRTIO_LOG)
   /**
-  * OpenAMP trace (log) buffer configuration.
-  * Users are free to redefine the size if needed.
+  * @def VIRTIO_LOG_BUFFER_SIZE
+  * @brief Size of the OpenAMP trace (log) buffer, in bytes.
+  * @note  Users are free to redefine the size if needed.
   */
   #ifndef VIRTIO_LOG_BUFFER_SIZE
     #define VIRTIO_LOG_BUFFER_SIZE (2048)

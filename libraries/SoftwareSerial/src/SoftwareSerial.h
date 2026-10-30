@@ -39,8 +39,15 @@
 * Definitions
 ******************************************************************************/
 
-#define _SS_MAX_RX_BUFF 64 // RX buffer size
+/**
+ * @brief Size of the receive buffer in bytes.
+ */
+#define _SS_MAX_RX_BUFF 64
 
+/**
+ * @brief Software serial (UART) emulation on any pair of GPIO pins, driven by a timer interrupt.
+ * @note  When the receive and transmit pins are the same, the instance works in half-duplex mode.
+ */
 class SoftwareSerial : public Stream {
   private:
     // per object data
@@ -77,28 +84,92 @@ class SoftwareSerial : public Stream {
     static int32_t rx_bit_cnt;
     static uint32_t cur_speed;
 
-    // private methods
+    /**
+     * @brief Timer interrupt handler for the transmit side: send the next TX bit.
+     */
     void send();
+    /**
+     * @brief Timer interrupt handler for the receive side: sample the next RX bit.
+     */
     void recv();
+    /**
+     * @brief Configure the transmit pin as output, idle high (low if inverse
+     *        logic is used).
+     */
     void setTX();
+    /**
+     * @brief Configure the receive pin as input with pull-up (pull-down if
+     *        inverse logic is used).
+     */
     void setRX();
+    /**
+     * @brief Configure the timer for the given baud rate, or stop it when speed is 0.
+     * @param speed Baud rate in bits per second. 0 disables the timer interrupt.
+     */
     void setSpeed(uint32_t speed);
+    /**
+     * @brief Switch the pin between receive and transmit in half-duplex mode.
+     * @param input true to switch to receive, false to switch to transmit.
+     */
     void setRXTX(bool input);
+    /**
+     * @brief Timer interrupt handler dispatching to the active receiver and transmitter.
+     */
     static void handleInterrupt();
 
   public:
-    // public methods
-
+    /**
+     * @brief Create a software serial instance on the given pins.
+     * @param receivePin Pin used to receive data (RX).
+     * @param transmitPin Pin used to transmit data (TX). Use the same pin as
+     *        receivePin for half-duplex mode.
+     * @param inverse_logic Optional, true to invert the logic level of the
+     *        data. Default: false.
+     */
     SoftwareSerial(pin_size_t receivePin, pin_size_t transmitPin, bool inverse_logic = false);
+    /**
+     * @brief Stop this instance: stop listening and disable its timer interrupt.
+     */
     virtual ~SoftwareSerial();
+    /**
+     * @brief Set the baud rate and initialize the pins. Starts listening unless
+     *        the instance is half-duplex.
+     * @param speed Baud rate in bits per second. If FORCE_BAUD_RATE is defined,
+     *        its value is used instead.
+     */
     void begin(long speed);
+    /**
+     * @brief Set this instance as the listening one. Only one instance can
+     *        listen at a time.
+     *
+     * If another instance was listening, it is stopped and replaced by this one.
+     * @return true if this instance became the listening one (replacing another
+     *         one if any),
+     *         false if it was already listening.
+     */
     bool listen();
+    /**
+     * @brief Stop this instance: stop listening and disable the timer interrupt.
+     */
     void end();
+    /**
+     * @brief Check if this instance is the active listener.
+     * @return true if this instance is listening, false otherwise.
+     */
     bool isListening()
     {
       return active_listener == this;
     }
+    /**
+     * @brief Stop listening on this instance. Waits for any pending output to complete.
+     * @return true if this instance was actually listening, false otherwise.
+     */
     bool stopListening();
+    /**
+     * @brief Check whether a byte was dropped because the receive buffer was
+     *        full. Clears the flag.
+     * @return true if an overflow occurred since the last call, false otherwise.
+     */
     bool overflow()
     {
       bool ret = _buffer_overflow;
@@ -107,17 +178,46 @@ class SoftwareSerial : public Stream {
       }
       return ret;
     }
+    /**
+     * @brief Get the next received byte without removing it from the receive buffer.
+     * @return The next byte, or -1 if the receive buffer is empty.
+     */
     int peek();
 
+    /**
+     * @brief Send one byte. Waits for any previous transmission to complete.
+     * @param byte Byte to send.
+     * @return Always 1.
+     */
     virtual size_t write(uint8_t byte);
+    /**
+     * @brief Read the next byte from the receive buffer.
+     * @return The byte read, or -1 if the receive buffer is empty.
+     */
     virtual int read();
+    /**
+     * @brief Get the number of bytes in the receive buffer.
+     * @return Number of bytes available to read.
+     */
     virtual int available();
+    /**
+     * @brief Clear the receive buffer and wait for any pending transmission to complete.
+     */
     virtual void flush();
+    /**
+     * @brief Allow the instance to be used in a boolean context.
+     * @return Always true.
+     */
     operator bool()
     {
       return true;
     }
 
+    /**
+     * @brief Set the priority of the timer interrupt shared by all software serial instances.
+     * @param preemptPriority Preemption priority of the interrupt.
+     * @param subPriority Sub-priority of the interrupt.
+     */
     static void setInterruptPriority(uint32_t preemptPriority, uint32_t subPriority);
 
     using Print::write;

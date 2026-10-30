@@ -16,12 +16,27 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+/**
+ * @file wiring_shift.c
+ * @brief Bit-banged serial shift functions: shiftIn() and shiftOut().
+ */
+
 #include "Arduino.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+/**
+ * @brief Shift in a byte of data one bit at a time.
+ *
+ * Each bit is read while the clock is HIGH, then the clock is set back to LOW.
+ *
+ * @param dataPin Pin number to read the data from.
+ * @param clockPin Pin number to clock the data on.
+ * @param bitOrder LSBFIRST or MSBFIRST.
+ * @return The byte read.
+ */
 uint8_t shiftIn(pin_size_t dataPin, pin_size_t clockPin, BitOrder bitOrder)
 {
   uint8_t value = 0 ;
@@ -42,6 +57,16 @@ uint8_t shiftIn(pin_size_t dataPin, pin_size_t clockPin, BitOrder bitOrder)
   return value ;
 }
 
+/**
+ * @brief Shift out a byte of data one bit at a time.
+ *
+ * Each bit is written to the data pin, then the clock is pulsed HIGH then LOW.
+ *
+ * @param dataPin Pin number to write the data to.
+ * @param clockPin Pin number to clock the data on.
+ * @param bitOrder LSBFIRST or MSBFIRST.
+ * @param val Byte to shift out.
+ */
 void shiftOut(pin_size_t dataPin, pin_size_t clockPin, BitOrder bitOrder, uint8_t val)
 {
   uint8_t i ;
