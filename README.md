@@ -53,7 +53,7 @@ Users can add an STM32-based board by following [Add a board variant](https://st
 
 ## Supported boards
 
-See the [supported boards list](docs/supported-boards/index.md).
+See the [supported boards list](https://stm32duino.github.io/dev/supported-boards/).
 
 ## Next release
 
