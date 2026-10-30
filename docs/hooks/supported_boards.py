@@ -3,7 +3,7 @@ import subprocess
 from pathlib import Path
 
 
-RELEASE_TAG_PATTERN = re.compile(r"^\d+\.\d+\.\d+$")
+RELEASE_TAG_PATTERN = re.compile(r"^\d{1,3}\.\d+\.\d+$")
 DOCS_PATTERN = re.compile(r"^# Docs: (mcu|url|notes|release)=(.*)$")
 PART_PATTERN = re.compile(
     r"MP1\d\d[A-F]|WBA\d\d[A-Z][0-9A-Z]|WLE\d[A-Z][0-9A-Z]|W[BL][0-9A-Z]{2}[A-Z][0-9A-Z]"

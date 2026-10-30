@@ -5,6 +5,9 @@
 
 This page documents STM32-specific additions and extensions. For the standard Arduino API, see the [Arduino language reference](https://docs.arduino.cc/language-reference/) and the [ArduinoCore-API documentation](https://github.com/arduino/ArduinoCore-API).
 
+> [!TIP]
+> The source-level reference of the core, generated with Doxygen from the code comments (classes, structures, functions and their parameters), is available in the [Doxygen API reference](doxygen/index.html). It follows the documentation version selected in this site: use the version selector to switch between `dev` and the released versions.
+
 ## Core
 
 This part describes the STM32 core functions.

@@ -44,42 +44,42 @@
 //       optimize all the modulo operations for ring buffers.
 #if !defined(SERIAL_TX_BUFFER_SIZE)
   /**
-   * Size in bytes of the transmit ring buffer.
-   * Can be defined before including this file.
-   */
+  * Size in bytes of the transmit ring buffer.
+  * Can be defined before including this file.
+  */
   #define SERIAL_TX_BUFFER_SIZE 64
 #endif
 #if !defined(SERIAL_RX_BUFFER_SIZE)
   /**
-   * Size in bytes of the receive ring buffer.
-   * Can be defined before including this file.
-   */
+  * Size in bytes of the receive ring buffer.
+  * Can be defined before including this file.
+  */
   #define SERIAL_RX_BUFFER_SIZE 64
 #endif
 #if (SERIAL_TX_BUFFER_SIZE>256)
   /**
-   * Index type of the transmit buffer, 16 bits when the buffer is larger than
-   * 256 bytes.
-   */
+  * Index type of the transmit buffer, 16 bits when the buffer is larger than
+  * 256 bytes.
+  */
   typedef uint16_t tx_buffer_index_t;
 #else
   /**
-   * Index type of the transmit buffer, 8 bits when the buffer is at most
-   * 256 bytes.
-   */
+  * Index type of the transmit buffer, 8 bits when the buffer is at most
+  * 256 bytes.
+  */
   typedef uint8_t tx_buffer_index_t;
 #endif
 #if  (SERIAL_RX_BUFFER_SIZE>256)
   /**
-   * Index type of the receive buffer, 16 bits when the buffer is larger than
-   * 256 bytes.
-   */
+  * Index type of the receive buffer, 16 bits when the buffer is larger than
+  * 256 bytes.
+  */
   typedef uint16_t rx_buffer_index_t;
 #else
   /**
-   * Index type of the receive buffer, 8 bits when the buffer is at most
-   * 256 bytes.
-   */
+  * Index type of the receive buffer, 8 bits when the buffer is at most
+  * 256 bytes.
+  */
   typedef uint8_t rx_buffer_index_t;
 #endif
 

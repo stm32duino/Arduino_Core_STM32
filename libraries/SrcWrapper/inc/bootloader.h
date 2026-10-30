@@ -5,7 +5,7 @@
 #if defined(BL_LEGACY_LEAF) || defined(BL_HID)
   #ifndef DTR_TOGGLING_SEQ
     /** @brief Enable the DTR toggling sequence, used to reset into the
-     *         bootloader (see dtr_togglingHook()) */
+    *         bootloader (see dtr_togglingHook()) */
     #define DTR_TOGGLING_SEQ
   #endif /* DTR_TOGGLING_SEQ || BL_HID */
 #endif /* BL_LEGACY_LEAF */

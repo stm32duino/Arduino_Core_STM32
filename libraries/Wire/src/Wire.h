@@ -45,11 +45,11 @@ extern "C" {
 #define BUFFER_LENGTH 32
 #if !defined(WIRE_MAX_TX_BUFF_LENGTH)
   /**
-   * @def WIRE_MAX_TX_BUFF_LENGTH
-   * @brief Maximum Tx buffer length in bytes.
-   *        Can be overridden before including Wire.h.
-   * @note Limited by the uint16_t type.
-   */
+  * @def WIRE_MAX_TX_BUFF_LENGTH
+  * @brief Maximum Tx buffer length in bytes.
+  *        Can be overridden before including Wire.h.
+  * @note Limited by the uint16_t type.
+  */
   #define WIRE_MAX_TX_BUFF_LENGTH       1024U
 #endif
 
