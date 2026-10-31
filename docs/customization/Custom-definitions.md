@@ -278,6 +278,14 @@ extern "C" void SystemClock_Config() {
 }
 ```
 
+### NUCLEO-F030R8 clock source
+
+For a NUCLEO-F030R8 without an external HSE clock, select **Nucleo F030R8 (HSI, 48 MHz)** under **Tools > Board part number**. This uses the internal 8 MHz HSI oscillator divided by 2 and multiplied by 12, giving a nominal 48 MHz system clock. No sketch changes are required.
+
+The existing **Nucleo F030R8** option continues to use an 8 MHz external clock in HSE bypass mode, normally provided by ST-LINK MCO, multiplied by 6 to reach 48 MHz. Both options share the same pin mapping, memory layout, upload methods and debugger configuration.
+
+[UM1724, section 7.9.1](https://www.st.com/resource/en/user_manual/dm00105823.pdf) documents MB1136 C-01 as configured with HSE not used, and C-02 or higher as configured with ST-LINK MCO connected. Choose the option that matches the actual clock wiring, which can differ after solder-bridge modifications. The internal HSI oscillator has lower frequency accuracy than a suitable external clock source; consider this for applications with strict timing requirements.
+
 ## Enable UCPD dead battery behavior
 
 > [!NOTE]

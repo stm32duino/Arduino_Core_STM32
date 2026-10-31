@@ -47,6 +47,7 @@
 | [Nucleo C092RC](https://www.st.com/en/evaluation-tools/nucleo-c092rc.html) | [STM32C092RC](https://www.st.com/en/microcontrollers-microprocessors/stm32c092rc.html) | `NUCLEO_C092RC` | 2.11.0 |  |
 | [Nucleo C562RE](https://www.st.com/en/evaluation-tools/stm32-nucleo-boards.html) | [STM32C562RE](https://www.st.com/en/microcontrollers-microprocessors/stm32c562re.html) | `NUCLEO_C562RE` | 3.0.0 |  |
 | [Nucleo F030R8](http://www.st.com/en/evaluation-tools/nucleo-f030r8.html) | [STM32F030R8](https://www.st.com/en/microcontrollers-microprocessors/stm32f030r8.html) | `NUCLEO_F030R8` | 0.2.0 |  |
+| [Nucleo F030R8 (HSI, 48 MHz)](https://www.st.com/en/evaluation-tools/nucleo-f030r8.html) | [STM32F030R8](https://www.st.com/en/microcontrollers-microprocessors/stm32f030r8.html) | `NUCLEO_F030R8` | Next release | Internal HSI / 2 x 12 = 48 MHz; suitable for MB1136 C-01 without ST-LINK MCO. |
 | [Nucleo F070RB](http://www.st.com/en/evaluation-tools/nucleo-f070rb.html) | [STM32F070RB](https://www.st.com/en/microcontrollers-microprocessors/stm32f070rb.html) | `NUCLEO_F070RB` | 2.0.0 |  |
 | [Nucleo F072RB](http://www.st.com/en/evaluation-tools/nucleo-f072rb.html) | [STM32F072RB](https://www.st.com/en/microcontrollers-microprocessors/stm32f072rb.html) | `NUCLEO_F072RB` | 1.9.0 |  |
 | [Nucleo F091RC](http://www.st.com/en/evaluation-tools/nucleo-f091rc.html) | [STM32F091RC](https://www.st.com/en/microcontrollers-microprocessors/stm32f091rc.html) | `NUCLEO_F091RC` | 0.1.0 |  |

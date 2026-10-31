@@ -633,6 +633,22 @@ Nucleo_64.menu.pnum.NUCLEO_F030R8.build.variant=STM32F0xx/F030R8T
 Nucleo_64.menu.pnum.NUCLEO_F030R8.openocd.target=stm32f0x
 Nucleo_64.menu.pnum.NUCLEO_F030R8.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x0.svd
 
+# NUCLEO_F030R8 with internal HSI clock (including MB1136 C-01)
+# Docs: url=https://www.st.com/en/evaluation-tools/nucleo-f030r8.html
+# Docs: notes=Internal HSI / 2 x 12 = 48 MHz; suitable for MB1136 C-01 without ST-LINK MCO.
+Nucleo_64.menu.pnum.NUCLEO_F030R8_HSI=Nucleo F030R8 (HSI, 48 MHz)
+Nucleo_64.menu.pnum.NUCLEO_F030R8_HSI.node="NODE_F030R8,NUCLEO"
+Nucleo_64.menu.pnum.NUCLEO_F030R8_HSI.upload.maximum_size=65536
+Nucleo_64.menu.pnum.NUCLEO_F030R8_HSI.upload.maximum_data_size=8192
+Nucleo_64.menu.pnum.NUCLEO_F030R8_HSI.build.mcu=cortex-m0
+Nucleo_64.menu.pnum.NUCLEO_F030R8_HSI.build.board=NUCLEO_F030R8
+Nucleo_64.menu.pnum.NUCLEO_F030R8_HSI.build.series=STM32F0xx
+Nucleo_64.menu.pnum.NUCLEO_F030R8_HSI.build.product_line=STM32F030x8
+Nucleo_64.menu.pnum.NUCLEO_F030R8_HSI.build.variant=STM32F0xx/F030R8T
+Nucleo_64.menu.pnum.NUCLEO_F030R8_HSI.openocd.target=stm32f0x
+Nucleo_64.menu.pnum.NUCLEO_F030R8_HSI.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x0.svd
+Nucleo_64.menu.pnum.NUCLEO_F030R8_HSI.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DNUCLEO_F030R8_USE_HSI
+
 # NUCLEO_F070RB board
 # Docs: release=2.0.0
 # Docs: url=http://www.st.com/en/evaluation-tools/nucleo-f070rb.html
