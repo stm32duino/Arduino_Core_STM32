@@ -113,6 +113,7 @@ WEAK void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {};
+  HAL_StatusTypeDef ret = HAL_OK;
   /*
    * Initializes the RCC Oscillators according to the specified parameters
    * in the RCC_OscInitTypeDef structure.
@@ -123,7 +124,19 @@ WEAK void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL6;
   RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV1;
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
+  ret = HAL_RCC_OscConfig(&RCC_OscInitStruct);
+  if (ret == HAL_TIMEOUT) {
+    /* Try HSI when no external clock is connected, e.g. MB1136 C-01. */
+    /* HSI 8 MHz / 2 * 12 = 48 MHz. */
+    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+    RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+    RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+    RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+    RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL12;
+    ret = HAL_RCC_OscConfig(&RCC_OscInitStruct);
+  }
+  if (ret != HAL_OK) {
     Error_Handler();
   }
   /* Initializes the CPU, AHB and APB buses clocks */
