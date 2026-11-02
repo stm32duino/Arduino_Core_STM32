@@ -28,8 +28,13 @@ nav:
       - CMSIS-DSP: libraries/built-in/CMSIS-DSP-library.md
       - EEPROM: libraries/built-in/EEPROM-library.md
       - I2C: libraries/built-in/I2C-library.md
+      - I3C: libraries/built-in/I3C-library.md
+      - IWatchdog: libraries/built-in/IWatchdog-library.md
+      - RGB_LED_TLC59731: libraries/built-in/RGB_LED_TLC59731-library.md
       - Servo: libraries/built-in/Servo-library.md
+      - SoftwareSerial: libraries/built-in/SoftwareSerial-library.md
       - SPI: libraries/built-in/SPI-library.md
+      - SubGhz: libraries/built-in/SubGhz-library.md
     - Dedicated:
       - LPS22HB: libraries/dedicated/LPS22HB.md
       - LIS3MDL: libraries/dedicated/LIS3MDL.md

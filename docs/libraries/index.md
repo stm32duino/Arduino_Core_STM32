@@ -26,12 +26,15 @@ Arduino libraries, community-tested libraries, and compatibility guidance.
 
 * CMSIS_DSP: see the [CMSIS-DSP reference](built-in/CMSIS-DSP-library.md) and the usage example [here](https://github.com/stm32duino/Arduino_Core_STM32/blob/main/libraries/CMSIS_DSP/examples/arm_sin_cos_example_f32/arm_sin_cos_example_f32.ino)
 * EEPROM: follow the official [EEPROM](https://docs.arduino.cc/learn/built-in-libraries/eeprom/) API, see also the [EEPROM emulation reference](built-in/EEPROM-library.md)
-* IWatchdog: see [here](https://github.com/stm32duino/Arduino_Core_STM32/blob/main/libraries/IWatchdog/README.md)
+* I3C: I3C controller and target for the STM32 series with an I3C peripheral, see the [I3C reference](built-in/I3C-library.md)
+* IWatchdog: independent watchdog, see the [IWatchdog reference](built-in/IWatchdog-library.md)
+* RGB_LED_TLC59731: RGB LED driven by a TLC59731, see the [RGB_LED_TLC59731 reference](built-in/RGB_LED_TLC59731-library.md)
 * Servo: follow the official [Servo](https://docs.arduino.cc/libraries/servo/) API, see also the [Servo reference](built-in/Servo-library.md)
-* SoftwareSerial: follow the official [SoftwareSerial](https://docs.arduino.cc/learn/built-in-libraries/software-serial/) API.<br>
+* SoftwareSerial: follow the official [SoftwareSerial](https://docs.arduino.cc/learn/built-in-libraries/software-serial/) API, see also the [SoftwareSerial reference](built-in/SoftwareSerial-library.md).<br>
   It uses an **hardware timer**. Interrupt is triggered at a `frequency = Baudrate * OVERSAMPLE` (by default _3*baudrate_) to handle RX as well as TX transmissions.
   This impacts CPU load specially at high baudrate.
 * SPI: follow the official [SPI](https://docs.arduino.cc/language-reference/en/functions/communication/SPI/) API, see also the [STM32 SPI reference](built-in/SPI-library.md)
+* SubGhz: low-level access to the STM32WL sub-GHz radio, see the [SubGhz reference](built-in/SubGhz-library.md)
 * Wire (I2C): follow the official [Wire](https://docs.arduino.cc/language-reference/en/functions/communication/Wire/) API, see also the [STM32 I2C reference](built-in/I2C-library.md)
 
 ## STM32-specific libraries
