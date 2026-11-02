@@ -1,0 +1,82 @@
+# Doxygen configuration for the STM32 core API reference.
+#
+# Run from the repository root:
+#   doxygen doxygen/Doxyfile
+#
+# The HTML output is written to build/doxygen and is copied to the
+# "doxygen/" folder of the MkDocs site by docs/hooks/doxygen.py.
+
+PROJECT_NAME           = "STM32 core"
+PROJECT_BRIEF          = "Arduino core for STM32 based boards: API reference"
+# Set the core version from platform.txt before running Doxygen, e.g.
+#   export STM32_CORE_VERSION=$(sed -n 's/^version=//p' platform.txt)
+PROJECT_NUMBER         = $(STM32_CORE_VERSION)
+OUTPUT_DIRECTORY       = build
+
+# Same scope as the documentation review: the core, its libraries, the STM32
+# system files and the variants. ST HAL/CMSIS drivers and middlewares, and the
+# ArduinoCore-API sources are documented by their own projects.
+INPUT                  = doxygen/mainpage.md \
+                         cores \
+                         libraries \
+                         system \
+                         variants
+RECURSIVE              = YES
+FILE_PATTERNS          = *.h \
+                         *.hpp \
+                         *.c \
+                         *.cpp
+EXCLUDE                = cores/arduino/api \
+                         system/Drivers \
+                         system/Middlewares
+USE_MDFILE_AS_MAINPAGE = doxygen/mainpage.md
+EXAMPLE_PATH           = libraries
+EXAMPLE_RECURSIVE      = YES
+EXAMPLE_PATTERNS       = *.ino
+FULL_PATH_NAMES        = YES
+STRIP_FROM_PATH        = .
+
+EXTRACT_ALL            = NO
+EXTRACT_STATIC         = YES
+JAVADOC_AUTOBRIEF      = YES
+MARKDOWN_SUPPORT       = YES
+# Source listings are not generated: they make the output ten times bigger and
+# every published version is stored in the gh-pages branch.
+SOURCE_BROWSER         = NO
+VERBATIM_HEADERS       = NO
+ALPHABETICAL_INDEX     = YES
+
+GENERATE_HTML          = YES
+HTML_OUTPUT            = doxygen
+HTML_HEADER            = doxygen/html-header.html
+HTML_EXTRA_FILES       = doxygen/version-selector.js
+GENERATE_TREEVIEW      = YES
+FULL_SIDEBAR           = NO
+SEARCHENGINE           = YES
+GENERATE_LATEX         = NO
+GENERATE_XML           = NO
+HAVE_DOT               = NO
+
+ENABLE_PREPROCESSING   = YES
+MACRO_EXPANSION        = YES
+EXPAND_ONLY_PREDEF     = YES
+# Doxygen does not read the HAL configuration, so enable the peripheral modules
+# the core guards its code with; otherwise classes such as HardwareTimer are hidden.
+PREDEFINED             = __cplusplus \
+                         "__attribute__(x)=" \
+                         __WEAK= \
+                         HAL_ADC_MODULE_ENABLED \
+                         HAL_CRC_MODULE_ENABLED \
+                         HAL_DAC_MODULE_ENABLED \
+                         HAL_FDCAN_MODULE_ENABLED \
+                         HAL_I2C_MODULE_ENABLED \
+                         HAL_PCD_MODULE_ENABLED \
+                         HAL_PWR_MODULE_ENABLED \
+                         HAL_SPI_MODULE_ENABLED \
+                         HAL_TIM_MODULE_ENABLED \
+                         HAL_UART_MODULE_ENABLED
+
+QUIET                  = YES
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = NO
+WARN_AS_ERROR          = NO

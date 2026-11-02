@@ -123,7 +123,6 @@ LoopForever:
  *         unexpected interrupt.  This simply enters an infinite loop, preserving
  *         the system state for examination by a debugger.
  *
- * @param  None
  * @retval : None
 */
     .section .text.Default_Handler,"ax",%progbits

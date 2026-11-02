@@ -1,3 +1,7 @@
+/**
+ * @file stm32yyxx_hal_conf.h
+ * @brief Selects the HAL modules to enable, for the HAL v1 and HAL v2 drivers.
+ */
 #ifndef __STM32YYxx_HAL_CONF_H
 #define __STM32YYxx_HAL_CONF_H
 

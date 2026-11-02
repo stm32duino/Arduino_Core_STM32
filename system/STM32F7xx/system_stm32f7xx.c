@@ -138,8 +138,6 @@
   * @brief  Setup the microcontroller system
   *         Initialize the Embedded Flash Interface, the PLL and update the
   *         SystemFrequency variable.
-  * @param  None
-  * @retval None
   */
 void SystemInit(void)
 {
@@ -203,9 +201,6 @@ void SystemInit(void)
   *
   *         - The result of this function could be not correct when using fractional
   *           value for HSE crystal.
-  *
-  * @param  None
-  * @retval None
   */
 void SystemCoreClockUpdate(void)
 {

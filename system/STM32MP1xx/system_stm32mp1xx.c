@@ -127,8 +127,6 @@
   * @brief  Setup the microcontroller system
   *         Initialize the FPU setting, vector table location and External memory
   *         configuration.
-  * @param  None
-  * @retval None
   */
 void SystemInit (void)
 {
@@ -196,9 +194,6 @@ void SystemInit (void)
   *
   *         - The result of this function could be not correct when using
   *           fractional value for HSE crystal.
-  *
-  * @param  None
-  * @retval None
   */
 void SystemCoreClockUpdate (void)
 {
@@ -266,8 +261,6 @@ void SystemCoreClockUpdate (void)
   *         Called in startup_stm32mp15xx.s before jump to main.
   *         This function configures the external SRAM mounted on Eval boards
   *         This SRAM will be used as program data memory (including heap and stack).
-  * @param  None
-  * @retval None
   */
 void SystemInit_ExtMemCtl(void)
 {

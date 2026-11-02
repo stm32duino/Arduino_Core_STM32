@@ -277,15 +277,16 @@
 extern "C" {
 #endif
 
-/*
- * Power saving mode, mcu runs significantly cooler
- * Sysclock 240 Mhz, bus clocks 120 Mhz
+/**
+ * @brief Power saving mode, the MCU runs significantly cooler.
+ *        Sysclock 240 MHz, bus clocks 120 MHz.
+ * @note  Uses the PLL configured by SystemClock_Config(). Calls Error_Handler() on failure.
  */
 void SysClkHalfSpeed();
 
-/*
- * Full speed - sysclk from PLL1 P - 480 Mhz
- * Sysclock 480 Mhz, bus clocks 240 Mhz
+/**
+ * @brief Full speed, sysclk from PLL1 P: sysclock 480 MHz, bus clocks 240 MHz.
+ * @note  Uses the PLL configured by SystemClock_Config(). Calls Error_Handler() on failure.
  */
 void SysClkFullSpeed();
 

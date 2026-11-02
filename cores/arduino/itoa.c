@@ -16,12 +16,25 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+/**
+ * @file itoa.c
+ * @brief Integer to ASCII conversion: itoa(), utoa(), ltoa() and ultoa().
+ */
+
 #include <string.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+/**
+ * @brief Convert a long to a null-terminated string.
+ *
+ * @param value Value to convert. Negative values are only signed for radix 10.
+ * @param string Buffer to write the result to. Must be large enough for the result.
+ * @param radix Base to use, from 2 to 36.
+ * @return Pointer to string, or NULL if string is NULL or radix is out of range.
+ */
 char *ltoa(long value, char *string, int radix)
 {
   char tmp[33];
@@ -69,6 +82,14 @@ char *ltoa(long value, char *string, int radix)
   return string;
 }
 
+/**
+ * @brief Convert an unsigned long to a null-terminated string.
+ *
+ * @param value Value to convert.
+ * @param string Buffer to write the result to. Must be large enough for the result.
+ * @param radix Base to use, from 2 to 36.
+ * @return Pointer to string, or NULL if string is NULL or radix is out of range.
+ */
 char *ultoa(unsigned long value, char *string, int radix)
 {
   char tmp[33];
@@ -106,11 +127,27 @@ char *ultoa(unsigned long value, char *string, int radix)
   return string;
 }
 
+/**
+ * @brief Convert an int to a null-terminated string.
+ *
+ * @param value Value to convert. Negative values are only signed for radix 10.
+ * @param string Buffer to write the result to. Must be large enough for the result.
+ * @param radix Base to use, from 2 to 36.
+ * @return Pointer to string, or NULL if string is NULL or radix is out of range.
+ */
 char *itoa(int value, char *string, int radix)
 {
   return ltoa(value, string, radix) ;
 }
 
+/**
+ * @brief Convert an unsigned int to a null-terminated string.
+ *
+ * @param value Value to convert.
+ * @param string Buffer to write the result to. Must be large enough for the result.
+ * @param radix Base to use, from 2 to 36.
+ * @return Pointer to string, or NULL if string is NULL or radix is out of range.
+ */
 char *utoa(unsigned value, char *string, int radix)
 {
   return ultoa(value, string, radix) ;

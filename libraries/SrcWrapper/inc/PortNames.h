@@ -38,6 +38,9 @@ extern "C" {
 
 extern GPIO_TypeDef *GPIOPort_list[];
 
+/**
+ * @brief GPIO port index, depending on the GPIO ports available on the series
+ */
 typedef enum {
   FirstPort = 0x00,
   PortA = FirstPort,
@@ -76,11 +79,21 @@ typedef enum {
   LastPort = PortEND - 1
 } PortName;
 
+/** @brief Number of GPIO ports available on the series */
 #define MAX_NB_PORT (LastPort-FirstPort+1)
 
-/* Return GPIO base address */
+/**
+ * @brief Return the GPIO base address of a port.
+ * @param p Port index, one of the PortName values.
+ * @return GPIO base address of the port, or NULL if p is invalid.
+ * @note The clock of the port is not enabled, see set_GPIO_Port_Clock().
+ */
 #define get_GPIO_Port(p) ((p < MAX_NB_PORT) ? GPIOPort_list[p] : (GPIO_TypeDef *)NULL)
-/* Enable GPIO clock and return GPIO base address */
+/**
+ * @brief Enable GPIO clock and return GPIO base address.
+ * @param port_idx Port index, one of the PortName values (PortA, PortB, ...).
+ * @return GPIO base address of the port, or NULL if port_idx is invalid.
+ */
 GPIO_TypeDef *set_GPIO_Port_Clock(uint32_t port_idx);
 
 #ifdef __cplusplus

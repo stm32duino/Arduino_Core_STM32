@@ -64,7 +64,6 @@ GPIO_TypeDef *GPIOPort_list[MAX_NB_PORT] = {
 #endif
 };
 
-/* Enable GPIO clock and return GPIO base address */
 GPIO_TypeDef *set_GPIO_Port_Clock(uint32_t port_idx)
 {
   GPIO_TypeDef *gpioPort = 0;

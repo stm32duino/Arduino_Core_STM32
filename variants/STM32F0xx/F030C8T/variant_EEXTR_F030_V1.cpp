@@ -82,8 +82,6 @@ extern "C" {
   *            PREDIV                         = 1
   *            PLLMUL                         = 3
   *            Flash Latency(WS)              = 1
-  * @param  None
-  * @retval None
   */
 WEAK void SystemClock_Config(void)
 {

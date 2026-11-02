@@ -18,6 +18,7 @@ nav:
   - Supported Boards: supported-boards/index.md
   - Core Reference:
     - Arduino API: API.md
+    - Doxygen API reference: doxygen/index.html
     - Hardware Timer: HardwareTimer-library.md
     - Pin Naming: Pin-naming.md
     - STM32MP1: STM32MP1.md
@@ -27,16 +28,13 @@ nav:
       - CMSIS-DSP: libraries/built-in/CMSIS-DSP-library.md
       - EEPROM: libraries/built-in/EEPROM-library.md
       - I2C: libraries/built-in/I2C-library.md
+      - I3C: libraries/built-in/I3C-library.md
+      - IWatchdog: libraries/built-in/IWatchdog-library.md
+      - RGB_LED_TLC59731: libraries/built-in/RGB_LED_TLC59731-library.md
       - Servo: libraries/built-in/Servo-library.md
+      - SoftwareSerial: libraries/built-in/SoftwareSerial-library.md
       - SPI: libraries/built-in/SPI-library.md
-    - Dedicated:
-      - LPS22HB: libraries/dedicated/LPS22HB.md
-      - LIS3MDL: libraries/dedicated/LIS3MDL.md
-      - LSM6DSL: libraries/dedicated/LSM6DSL.md
-      - M24SR64-Y: libraries/dedicated/M24SR64-Y.md
-      - MX25R6435F: libraries/dedicated/MX25R6435F.md
-      - SPBTLE-RF: libraries/dedicated/SPBTLE-RF.md
-      - VL53L0X: libraries/dedicated/VL53L0X.md
+      - SubGhz: libraries/built-in/SubGhz-library.md
     - Connectivity:
       - LoRa: libraries/LoRa.md
       - STM32duinoBLE: libraries/STM32duinoBLE.md
@@ -123,6 +121,7 @@ plugins:
 
 hooks:
   - docs/hooks/supported_boards.py
+  - docs/hooks/doxygen.py
 
 extra:
   version:

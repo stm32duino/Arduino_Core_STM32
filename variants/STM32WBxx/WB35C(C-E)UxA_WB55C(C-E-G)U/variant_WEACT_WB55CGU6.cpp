@@ -63,8 +63,6 @@ extern "C" {
 
 /**
   * @brief  System Clock Configuration
-  * @param  None
-  * @retval None
   *
   * Board is fitted with a 32MHz HSE crystal (X2) and a 32.768kHz LSE
   * crystal (X1). SYSCLK is driven directly by HSE (no PLL needed) and

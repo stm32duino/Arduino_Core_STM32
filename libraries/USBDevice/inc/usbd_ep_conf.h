@@ -29,66 +29,101 @@
   #define USBD_CDC_USE_SINGLE_BUFFER
 #endif
 
+/** @brief Endpoint definition used to configure the USB packet memory. */
 typedef struct {
-  uint32_t ep_adress; /* Endpoint address */
-  uint32_t ep_size;   /* Endpoint size */
+  uint32_t ep_adress; /**< Endpoint address */
+  uint32_t ep_size;   /**< Endpoint size */
 #if defined (USB)
-  uint32_t ep_kind;   /* PCD Endpoint Kind: PCD_SNG_BUF or PCD_DBL_BUF */
+  uint32_t ep_kind;   /**< PCD Endpoint Kind: PCD_SNG_BUF or PCD_DBL_BUF */
 #endif
 } ep_desc_t;
 
 
-/* CDC Endpoints Configurations */
+/** @name CDC endpoints configuration */
+/** @{ */
 #ifdef USBD_USE_CDC
 
-  #define CDC_OUT_EP                    0x01U  /* EP1 for data OUT */
-  #define CDC_IN_EP                     0x82U  /* EP1 for data IN */
-  #define CDC_CMD_EP                    0x83U  /* EP2 for CDC commands */
+  #define CDC_OUT_EP                    0x01U  /**< EP1 for data OUT */
+  #define CDC_IN_EP                     0x82U  /**< EP2 for data IN */
+  #define CDC_CMD_EP                    0x83U  /**< EP3 for CDC commands */
 
-  #define DEV_NUM_EP                    0x04U   /* Device Endpoints number including EP0 */
+  /** Device endpoints number including EP0 */
+  #define DEV_NUM_EP                    0x04U
 
   /* CDC Endpoints parameters*/
-  #define CDC_DATA_HS_MAX_PACKET_SIZE   USB_HS_MAX_PACKET_SIZE  /* Endpoint IN & OUT Packet size */
-  #define CDC_DATA_FS_MAX_PACKET_SIZE   USB_FS_MAX_PACKET_SIZE  /* Endpoint IN & OUT Packet size */
-  #define CDC_CMD_PACKET_SIZE                               8U  /* Control Endpoint Packet size */
+  /** High speed endpoint IN & OUT packet size */
+  #define CDC_DATA_HS_MAX_PACKET_SIZE   USB_HS_MAX_PACKET_SIZE
+  /** Full speed endpoint IN & OUT packet size */
+  #define CDC_DATA_FS_MAX_PACKET_SIZE   USB_FS_MAX_PACKET_SIZE
+  /** Control endpoint packet size */
+  #define CDC_CMD_PACKET_SIZE                               8U
 #endif /* USBD_USE_CDC */
+/** @} */
 
 
-/* HID composite (Mouse + Keyboard) Endpoints Configurations */
+/** @name HID composite (mouse and keyboard) endpoints configuration */
+/** @{ */
 #ifdef USBD_USE_HID_COMPOSITE
-  #define HID_MOUSE_EPIN_ADDR           0x81U
+  #define HID_MOUSE_EPIN_ADDR           0x81U  /**< Mouse IN endpoint address */
+  /** Keyboard IN endpoint address */
   #define HID_KEYBOARD_EPIN_ADDR        0x82U
 
+  /** Mouse IN endpoint packet size */
   #define HID_MOUSE_EPIN_SIZE           0x04U
+  /** Keyboard IN endpoint packet size */
   #define HID_KEYBOARD_EPIN_SIZE        0x08U
 
-  #define DEV_NUM_EP                    0x03U   /* Device Endpoints number including EP0 */
+  /** Device endpoints number including EP0 */
+  #define DEV_NUM_EP                    0x03U
 #endif /* USBD_USE_HID_COMPOSITE */
+/** @} */
 
 /* Require DEV_NUM_EP to be defined */
 #if defined (USB)
-/* Size in words, byte size divided by 2 */
+/**
+ * @name Packet memory area (PMA) layout
+ * @brief Addresses of the endpoint buffers in the USB packet memory (PMA),
+ *        for peripherals using it. The buffer descriptor table takes the
+ *        first 8 bytes of each endpoint.
+ * @note  Original remark: size in words, byte size divided by 2.
+ */
+/** @{ */
+/** EP0 OUT buffer address */
 #define PMA_EP0_OUT_ADDR    (8 * DEV_NUM_EP)
+/** EP0 IN buffer address */
 #define PMA_EP0_IN_ADDR     (PMA_EP0_OUT_ADDR + USB_MAX_EP0_SIZE)
 
 #ifdef USBD_USE_CDC
+/** Start of the CDC data buffers */
 #define PMA_CDC_OUT_BASE    (PMA_EP0_IN_ADDR + USB_MAX_EP0_SIZE)
 #if !defined(USBD_CDC_USE_SINGLE_BUFFER)
+/** CDC OUT buffers address: both halves of the double buffer */
 #define PMA_CDC_OUT_ADDR    ((PMA_CDC_OUT_BASE + USB_FS_MAX_PACKET_SIZE) | \
                             (PMA_CDC_OUT_BASE << 16U))
+/** CDC IN buffer address */
 #define PMA_CDC_IN_ADDR     (PMA_CDC_OUT_BASE + USB_FS_MAX_PACKET_SIZE * 2)
 #else
+/** CDC OUT buffer address */
 #define PMA_CDC_OUT_ADDR    PMA_CDC_OUT_BASE
+/** CDC IN buffer address */
 #define PMA_CDC_IN_ADDR     (PMA_CDC_OUT_BASE + USB_FS_MAX_PACKET_SIZE)
 #endif
+/** CDC command buffer address */
 #define PMA_CDC_CMD_ADDR    (PMA_CDC_IN_ADDR + CDC_CMD_PACKET_SIZE)
 #endif /* USBD_USE_CDC */
 #ifdef USBD_USE_HID_COMPOSITE
+  /** Mouse IN buffer address */
   #define PMA_MOUSE_IN_ADDR   (PMA_EP0_IN_ADDR + HID_MOUSE_EPIN_SIZE)
+  /** Keyboard IN buffer address */
   #define PMA_KEYBOARD_IN_ADDR    (PMA_MOUSE_IN_ADDR + HID_KEYBOARD_EPIN_SIZE)
 #endif /* USBD_USE_HID_COMPOSITE */
+/** @} */
 #endif /* USB */
 
+/**
+ * @brief Endpoint definitions of the enabled USB classes, indexed by endpoint
+ *        number. Includes endpoint 0.
+ */
 extern const ep_desc_t ep_def[DEV_NUM_EP + 1];
 
 

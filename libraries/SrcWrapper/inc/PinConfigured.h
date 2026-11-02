@@ -36,6 +36,8 @@
 extern "C" {
 #endif
 
+/** @brief Index of the pin's port in a pin configured map
+ *         (one 16-bit entry per port) */
 #define PINCONF_INDEX(X) (STM_PORT(X)-FirstPort)
 
 #define PINCONF_MASK     0x01
@@ -44,10 +46,26 @@ extern "C" {
 
 #define PINCONF_VAL(X, Y)   ((Y >> PINCONF_SHIFT(X)) & PINCONF_MASK)
 
+/**
+ * @brief Check whether a pin is flagged as configured.
+ * @param pin Pin name.
+ * @param map Pin configured map, one entry per port with a bit per pin.
+ * @return 1 if the pin is flagged, 0 otherwise.
+ */
 #define is_pin_configured(pin, map) \
   (PINCONF_VAL(pin, map[PINCONF_INDEX(pin)]))
+/**
+ * @brief Flag a pin as configured.
+ * @param pin Pin name.
+ * @param map Pin configured map, one entry per port with a bit per pin.
+ */
 #define set_pin_configured(pin, map) \
   (map[PINCONF_INDEX(pin)] = map[PINCONF_INDEX(pin)] | PINCONF_BIT(pin))
+/**
+ * @brief Clear the configured flag of a pin.
+ * @param pin Pin name.
+ * @param map Pin configured map, one entry per port with a bit per pin.
+ */
 #define reset_pin_configured(pin, map) \
   (map[PINCONF_INDEX(pin)] = map[PINCONF_INDEX(pin)] & (~PINCONF_BIT(pin)))
 

@@ -1,4 +1,4 @@
-/**
+/*
  * MIT License:
  * Copyright (c) 2019 Bumsik kim <k.bumsik@gmail.com>
  *
@@ -30,6 +30,7 @@
   #define VIRTIOSERIAL_NUM    1
 #endif
 
+/** Registered VirtIOSerial instances, indexed by VirtIOSerial_index. */
 VirtIOSerialObj_t *VirtIOSerial_Handle[VIRTIOSERIAL_NUM] = {NULL};
 
 uint32_t VirtIOSerial::VirtIOSerial_index = 0;
@@ -37,6 +38,9 @@ uint32_t VirtIOSerial::VirtIOSerial_index = 0;
 // Default instance
 VirtIOSerial SerialVirtIO;
 
+/**
+ * @brief Weak user hook called by the core when data is available on SerialVirtIO.
+ */
 void serialEventVirtIO() __attribute__((weak));
 VirtIOSerialObj_t *get_VirtIOSerial_obj(VIRT_UART_HandleTypeDef *huart);
 
@@ -69,15 +73,18 @@ void VirtIOSerial::begin(void)
   OPENAMP_Wait_EndPointready(&_VirtIOSerialObj.handle.ept);
 }
 
-void VirtIOSerial::begin(uint32_t /* baud_count */)
+void VirtIOSerial::begin(uint32_t baud_count)
 {
   // uart config is ignored in OpenAMP
+  (void)baud_count;
   begin();
 }
 
-void VirtIOSerial::begin(uint32_t /* baud_count */, uint8_t /* config */)
+void VirtIOSerial::begin(uint32_t baud_count, uint8_t config)
 {
   // uart config is ignored in OpenAMP
+  (void)baud_count;
+  (void)config;
   begin();
 }
 
@@ -165,11 +172,6 @@ void VirtIOSerial::flush(void)
   return;
 }
 
-/**
- * @brief Check if RPMsg message arrived from IPCC ISR
- * @note  This should called as mush as possible to consume RPMsg ring buffers,
- *        so that the host processor can send more messages quickly.
- */
 void VirtIOSerial::checkMessageFromISR(void)
 {
   OPENAMP_check_for_tx_message();
@@ -205,8 +207,13 @@ void VirtIOSerial::rxCallback(VIRT_UART_HandleTypeDef *huart)
   }
 }
 
-/* Aim of the function is to get _VirtIOSerialObj pointer using huart pointer */
-/* Highly inspired from magical linux kernel's "container_of" */
+/**
+ * @brief Get the VirtIOSerial object from a VIRT_UART handle.
+ * @note  Uses the same offset trick as the Linux kernel's container_of()
+ *        macro, to go from the handle field back to the enclosing object.
+ * @param huart VIRT_UART handle.
+ * @return Pointer to the enclosing VirtIOSerialObj_t.
+ */
 VirtIOSerialObj_t *get_VirtIOSerial_obj(VIRT_UART_HandleTypeDef *huart)
 {
   VirtIOSerialObj_t *obj;

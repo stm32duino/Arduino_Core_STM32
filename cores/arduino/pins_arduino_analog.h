@@ -10,22 +10,28 @@
  *
  *******************************************************************************
  */
+/**
+ * @file pins_arduino_analog.h
+ * @brief Analog pin numbering: Arduino analog pins (A0...), PIN_Ax and ADC internal channels.
+ */
 #ifndef _PINS_ARDUINO_ANALOG_H_
 #define _PINS_ARDUINO_ANALOG_H_
 #include "variant.h"
 #include "PinNames.h"
 
-/*
- * Pin number Analog base
+/**
+ * @brief Pin number Analog base.
+ *
  * To check if a pin number is an analog pin:
  * ((p & PNUM_ANALOG_BASE) == PNUM_ANALOG_BASE)
  * if true then p is an analog pin number
  * else not
  */
 #define PNUM_ANALOG_BASE    0xC0
-/*
- * Pin number Analog index
- * allows to retrieve the pin number index of an analog pin
+/**
+ * @brief Pin number Analog index.
+ *
+ * Allows to retrieve the pin number index of an analog pin
  * in the analogInputPin[] array:
  * analogInputPin[p & PNUM_ANALOG_INDEX]
  */
@@ -33,25 +39,33 @@
 
 /* Arduino analog pins */
 #ifndef NUM_ANALOG_INPUTS
+  /** Number of Arduino analog pins (A0...). 0 when the variant defines none. */
   #define NUM_ANALOG_INPUTS 0
 #endif
 
-/* Analog internal pin numbers follow the analog pin number */
+/**
+ * First analog internal pin number.
+ * Analog internal pin numbers follow the analog pin numbers.
+ */
 #define NUM_ANALOG_INTERNAL_FIRST (PNUM_ANALOG_BASE + NUM_ANALOG_INPUTS)
 
 /* ADC internal channels (not a pins) */
 /* Only used for analogRead() */
 #if defined(ADC_CHANNEL_TEMPSENSOR) || defined(ADC_CHANNEL_TEMPSENSOR_ADC1) ||\
   defined(LL_ADC_CHANNEL_TEMPSENSOR)
+  /** Internal temperature sensor channel, to use with analogRead(). */
   #define ATEMP        (NUM_ANALOG_INTERNAL_FIRST)
 #endif
 #if defined(ADC_CHANNEL_VREFINT) || defined(LL_ADC_CHANNEL_VREFINT)
+  /** Internal voltage reference channel, to use with analogRead(). */
   #define AVREF        (NUM_ANALOG_INTERNAL_FIRST + 1)
 #endif
 #ifdef ADC_CHANNEL_VBAT
+  /** Internal battery voltage channel, to use with analogRead(). */
   #define AVBAT        (NUM_ANALOG_INTERNAL_FIRST + 2)
 #endif
 #if defined(ADC5) && defined(ADC_CHANNEL_TEMPSENSOR_ADC5)
+  /** Internal temperature sensor channel of ADC5, to use with analogRead(). */
   #define ATEMP_ADC5   (NUM_ANALOG_INTERNAL_FIRST + 3)
 #endif
 
@@ -442,6 +456,7 @@ enum {
   , A63 = PIN_A63
 #endif
 };
+/** Maximum number of Arduino analog pins supported by the core. */
 #define MAX_ANALOG_INPUTS 64
 #else
 #define MAX_ANALOG_INPUTS 0

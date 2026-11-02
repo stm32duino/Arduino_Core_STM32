@@ -1,6 +1,15 @@
 #ifndef WIRING_SERIAL_H
 #define WIRING_SERIAL_H
 
+/**
+ * @file WSerial.h
+ * @brief Selection of the generic 'Serial' object and of the matching serialEvent() callback.
+ *
+ * The generic Serial is USB CDC, VirtIO or the hardware serial defined by
+ * SERIAL_UART_INSTANCE.
+ * ENABLE_xxx macros select the serial ports to enable, HAVE_xxx the ones
+ * present on the MCU.
+ */
 #include "variant.h"
 #include "Serial.h"
 #if defined (USBCON) && defined(USBD_USE_CDC)
@@ -23,6 +32,10 @@
     #define HAVE_SERIALUSB
   #endif
 
+  /**
+  * @brief Weak USB CDC serial callback, called by serialEventRun(). Override
+  * to handle USB data.
+  */
   extern void serialEventUSB(void) __attribute__((weak));
 #endif /* USBCON && USBD_USE_CDC */
 
@@ -39,6 +52,10 @@
     #define HAVE_SERIALVIRTIO
   #endif
 
+  /**
+  * @brief Weak VirtIO serial callback, called by serialEventRun(). Override
+  * to handle VirtIO data.
+  */
   extern void serialEventVirtIO(void) __attribute__((weak));
 #endif /* VIRTIOCON */
 
@@ -196,42 +213,94 @@
   #endif
 
   #if defined(HAVE_HWSERIAL1)
+    /**
+    * @brief Weak callback for Serial1, called by serialEventRun(). Override to
+    * handle incoming data.
+    */
     extern void serialEvent1(void) __attribute__((weak));
   #endif
   #if defined(HAVE_HWSERIAL2)
+    /**
+    * @brief Weak callback for Serial2, called by serialEventRun(). Override to
+    * handle incoming data.
+    */
     extern void serialEvent2(void) __attribute__((weak));
   #endif
   #if defined(HAVE_HWSERIAL3)
+    /**
+    * @brief Weak callback for Serial3, called by serialEventRun(). Override to
+    * handle incoming data.
+    */
     extern void serialEvent3(void) __attribute__((weak));
   #endif
   #if defined(HAVE_HWSERIAL4)
+    /**
+    * @brief Weak callback for Serial4, called by serialEventRun(). Override to
+    * handle incoming data.
+    */
     extern void serialEvent4(void) __attribute__((weak));
   #endif
   #if defined(HAVE_HWSERIAL5)
+    /**
+    * @brief Weak callback for Serial5, called by serialEventRun(). Override to
+    * handle incoming data.
+    */
     extern void serialEvent5(void) __attribute__((weak));
   #endif
   #if defined(HAVE_HWSERIAL6)
+    /**
+    * @brief Weak callback for Serial6, called by serialEventRun(). Override to
+    * handle incoming data.
+    */
     extern void serialEvent6(void) __attribute__((weak));
   #endif
   #if defined(HAVE_HWSERIAL7)
+    /**
+    * @brief Weak callback for Serial7, called by serialEventRun(). Override to
+    * handle incoming data.
+    */
     extern void serialEvent7(void) __attribute__((weak));
   #endif
   #if defined(HAVE_HWSERIAL8)
+    /**
+    * @brief Weak callback for Serial8, called by serialEventRun(). Override to
+    * handle incoming data.
+    */
     extern void serialEvent8(void) __attribute__((weak));
   #endif
   #if defined(HAVE_HWSERIAL9)
+    /**
+    * @brief Weak callback for Serial9, called by serialEventRun(). Override to
+    * handle incoming data.
+    */
     extern void serialEvent9(void) __attribute__((weak));
   #endif
   #if defined(HAVE_HWSERIAL10)
+    /**
+    * @brief Weak callback for Serial10, called by serialEventRun(). Override to
+    * handle incoming data.
+    */
     extern void serialEvent10(void) __attribute__((weak));
   #endif
   #if defined(HAVE_HWSERIALLP1)
+    /**
+    * @brief Weak callback for SerialLP1, called by serialEventRun(). Override
+    * to handle incoming data.
+    */
     extern void serialEventLP1(void) __attribute__((weak));
   #endif
   #if defined(HAVE_HWSERIALLP2)
+    /**
+    * @brief Weak callback for SerialLP2, called by serialEventRun(). Override
+    * to handle incoming data.
+    */
     extern void serialEventLP2(void) __attribute__((weak));
   #endif
   #if defined(HAVE_HWSERIALLP3)
+    /**
+    * @brief Weak callback for SerialLP3, called by serialEventRun(). Override
+    * to handle incoming data.
+    */
     extern void serialEventLP3(void) __attribute__((weak));
   #endif
 #endif /* HAL_UART_MODULE_ENABLED  && !HAL_UART_MODULE_ONLY */

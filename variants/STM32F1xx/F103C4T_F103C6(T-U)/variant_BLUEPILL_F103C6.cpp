@@ -89,8 +89,6 @@ extern "C" {
   *            Flash Latency(WS)              = 2
   *            ADC Prescaler                  = 6
   *            USB Prescaler                  = 1.5
-  * @param  None
-  * @retval None
   */
 WEAK void SystemClock_Config(void)
 {

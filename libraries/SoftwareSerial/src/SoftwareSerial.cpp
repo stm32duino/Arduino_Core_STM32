@@ -141,8 +141,6 @@ void SoftwareSerial::setSpeed(uint32_t speed)
   }
 }
 
-// This function sets the current object as the "listening"
-// one and returns true if it replaces another
 bool SoftwareSerial::listen()
 {
   if (active_listener != this) {
@@ -165,7 +163,6 @@ bool SoftwareSerial::listen()
   return false;
 }
 
-// Stop listening. Returns true if we were actually listening.
 bool SoftwareSerial::stopListening()
 {
   if (active_listener == this) {
@@ -363,7 +360,6 @@ void SoftwareSerial::end()
   setSpeed(0);
 }
 
-// Read data from buffer
 int SoftwareSerial::read()
 {
   // Empty buffer?

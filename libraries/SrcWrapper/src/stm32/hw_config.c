@@ -44,6 +44,8 @@ The application shall set one of the following configuration option:\n\
 #endif
 
 #if defined(HAL_CRC_MODULE_ENABLED)
+/** @brief CRC handle used to initialize the CRC peripheral in
+ *         hw_config_init() */
 CRC_HandleTypeDef hcrc = {.Instance =
 #if defined(CRC2_BASE)
                             CRC2,
@@ -58,11 +60,6 @@ CRC_HandleTypeDef hcrc = {.Instance =
                          };
 #endif
 
-/**
-  * @brief  This function performs the global init of the system (HAL, IOs...)
-  * @param  None
-  * @retval None
-  */
 void hw_config_init(void)
 {
   configIPClock();

@@ -179,8 +179,6 @@ void CPUcontextRestore(void);
 
 /**
   * @brief  Setup the microcontroller system.
-  * @param  None
-  * @retval None
   */
 
 void SystemInit(void)
@@ -298,9 +296,6 @@ void SystemInit(void)
   * @note   Each time the core clock (HCLK) changes, this function must be called
   *         to update SystemCoreClock variable value. Otherwise, any configuration
   *         based on this variable will be incorrect.
-  *
-  * @param  None
-  * @retval None
   */
 void SystemCoreClockUpdate(void)
 {
@@ -331,8 +326,6 @@ void SystemCoreClockUpdate(void)
 /**
   * @brief  Restores the saved CPU state before to enter in power save
   *         by popping it from the stack
-  * @param  None
-  * @retval None
   */
 __WEAK void CPUcontextRestore(void)
 {

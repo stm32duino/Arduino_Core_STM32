@@ -89,6 +89,7 @@
 #endif /* USE_HALV2_DRIVER */
 
 #ifndef F_CPU
+  /** @brief CPU frequency in Hz */
   #define F_CPU SystemCoreClock
 #endif
 
@@ -149,54 +150,55 @@
 #endif
 
 /**
-  * @brief  Get Binary mode (Sub Second Register)
-  * @rmtoll RTC_ICSR           BIN           LL_RTC_GetBinaryMode
-  * @param  RTCx RTC Instance
-  * @retval This parameter can be one of the following values:
-  *         @arg @ref LL_RTC_BINARY_NONE
-  *         @arg @ref LL_RTC_BINARY_ONLY
-  *         @arg @ref LL_RTC_BINARY_MIX
-  * @retval None
-  */
+ * @brief Get Binary mode (Sub Second Register)
+ * @rmtoll RTC_ICSR           BIN           LL_RTC_GetBinaryMode
+ * @param RTCx RTC Instance
+ * @return Binary mode, one of the following values:
+ *         @li @ref LL_RTC_BINARY_NONE
+ *         @li @ref LL_RTC_BINARY_ONLY
+ *         @li @ref LL_RTC_BINARY_MIX
+ */
 __STATIC_INLINE uint32_t LL_RTC_GetBinaryMode(const RTC_TypeDef *RTCx)
 {
   return (uint32_t)(READ_BIT(RTCx->ICSR, RTC_ICSR_BIN));
 }
 
 /**
-  * @brief  Set Binary mode (Sub Second Register)
-  * @note   Bit is write-protected. @ref LL_RTC_DisableWriteProtection function should be called before.
-  * @note   It can be written in initialization mode only (@ref LL_RTC_EnableInitMode function).
-  * @rmtoll RTC_ICSR           BIN           LL_RTC_SetBinaryMode
-  * @param  RTCx RTC Instance
-  * @param  BinaryMode can be one of the following values:
-  *         @arg @ref LL_RTC_BINARY_NONE
-  *         @arg @ref LL_RTC_BINARY_ONLY
-  *         @arg @ref LL_RTC_BINARY_MIX
-  * @retval None
-  */
+ * @brief Set Binary mode (Sub Second Register)
+ * @note Bit is write-protected. @ref LL_RTC_DisableWriteProtection function
+ *       should be called before.
+ * @note It can be written in initialization mode only
+ *       (@ref LL_RTC_EnableInitMode function).
+ * @rmtoll RTC_ICSR           BIN           LL_RTC_SetBinaryMode
+ * @param RTCx RTC Instance
+ * @param BinaryMode can be one of the following values:
+ *         @li @ref LL_RTC_BINARY_NONE
+ *         @li @ref LL_RTC_BINARY_ONLY
+ *         @li @ref LL_RTC_BINARY_MIX
+ */
 __STATIC_INLINE void LL_RTC_SetBinaryMode(RTC_TypeDef *RTCx, uint32_t BinaryMode)
 {
   MODIFY_REG(RTCx->ICSR, RTC_ICSR_BIN, BinaryMode);
 }
 
 /**
-  * @brief  Set Binary Mix mode BCDU
-  * @note   Bit is write-protected. @ref LL_RTC_DisableWriteProtection function should be called before.
-  * @note   It can be written in initialization mode only (@ref LL_RTC_EnableInitMode function).
-  * @rmtoll RTC_ICSR           BCDU          LL_RTC_SetBinMixBCDU
-  * @param  RTCx RTC Instance
-  * @param  BinMixBcdU can be one of the following values:
-  *         @arg @ref LL_RTC_BINARY_MIX_BCDU_0
-  *         @arg @ref LL_RTC_BINARY_MIX_BCDU_1
-  *         @arg @ref LL_RTC_BINARY_MIX_BCDU_2
-  *         @arg @ref LL_RTC_BINARY_MIX_BCDU_3
-  *         @arg @ref LL_RTC_BINARY_MIX_BCDU_4
-  *         @arg @ref LL_RTC_BINARY_MIX_BCDU_5
-  *         @arg @ref LL_RTC_BINARY_MIX_BCDU_6
-  *         @arg @ref LL_RTC_BINARY_MIX_BCDU_7
-  * @retval None
-  */
+ * @brief Set Binary Mix mode BCDU
+ * @note Bit is write-protected. @ref LL_RTC_DisableWriteProtection function
+ *       should be called before.
+ * @note It can be written in initialization mode only
+ *       (@ref LL_RTC_EnableInitMode function).
+ * @rmtoll RTC_ICSR           BCDU          LL_RTC_SetBinMixBCDU
+ * @param RTCx RTC Instance
+ * @param BinMixBcdU can be one of the following values:
+ *         @li @ref LL_RTC_BINARY_MIX_BCDU_0
+ *         @li @ref LL_RTC_BINARY_MIX_BCDU_1
+ *         @li @ref LL_RTC_BINARY_MIX_BCDU_2
+ *         @li @ref LL_RTC_BINARY_MIX_BCDU_3
+ *         @li @ref LL_RTC_BINARY_MIX_BCDU_4
+ *         @li @ref LL_RTC_BINARY_MIX_BCDU_5
+ *         @li @ref LL_RTC_BINARY_MIX_BCDU_6
+ *         @li @ref LL_RTC_BINARY_MIX_BCDU_7
+ */
 __STATIC_INLINE void LL_RTC_SetBinMixBCDU(RTC_TypeDef *RTCx, uint32_t BinMixBcdU)
 {
   MODIFY_REG(RTCx->ICSR, RTC_ICSR_BCDU, BinMixBcdU);
@@ -243,6 +245,7 @@ __STATIC_INLINE void LL_RTC_SetBinMixBCDU(RTC_TypeDef *RTCx, uint32_t BinMixBcdU
  * Libc porting layers
  */
 #if defined (  __GNUC__  ) /* GCC CS3 */
+  /** @brief Mark a function as weak, i.e. overridable by the user */
   #define WEAK __attribute__ ((weak))
 #endif
 
@@ -251,10 +254,14 @@ extern "C" {
 #endif // __cplusplus
 
 // weaked functions declaration
+/**
+ * @brief Configure the system clock. Overridable by the board variant.
+ */
 void SystemClock_Config(void);
 
 #if defined(NDEBUG)
 #if !defined(_Error_Handler)
+/** @brief In release builds (NDEBUG): loop forever, no message is reported */
 #define _Error_Handler(str, value) \
   while (1) {\
     (void)str;\
@@ -262,13 +269,23 @@ void SystemClock_Config(void);
   }
 #endif
 #if !defined(Error_Handler)
+/** @brief In release builds (NDEBUG): loop forever */
 #define Error_Handler() \
   while (1) {\
   }
 #endif
 #else
-void _Error_Handler(const char *, int);
+/**
+ * @brief Function executed in case of error occurrence: report the error
+ *        with core_debug() and halt execution.
+ * @param msg Error message (typically __FILE__).
+ * @param val Error value (typically __LINE__).
+ * @note Weak function: user can add his own implementation to report the HAL
+ *       error return state.
+ */
+void _Error_Handler(const char *msg, int val);
 
+/** @brief Report the current source file and line with _Error_Handler() */
 #define Error_Handler() _Error_Handler(__FILE__, __LINE__)
 #endif
 

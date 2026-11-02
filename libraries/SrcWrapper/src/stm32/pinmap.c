@@ -23,6 +23,8 @@
   #include "lock_resource.h"
 #endif
 
+/** Pin of an analog dualpad and the LL define used to configure its analog
+ *  switch. */
 typedef struct {
   PinName pin;
   uint32_t LL_AnalogSwitch;
@@ -67,8 +69,11 @@ const uint32_t pin_map_ll[16] = {
 
 #if defined(DUALPAD_ANALOG_SWITCH)
 /**
- * Configure Analog dualpad switch if necessary
- * LL_AnalogSwitch: LL define to be used to configure Analog switch
+ * @brief Configure the analog dualpad switch if necessary.
+ * @param pin Pin name.
+ * @param function Pin function, encoded with the STM_PIN_* macros.
+ * @param LL_AnalogSwitch LL define used to configure the analog switch
+ *                        (0 = none).
  */
 static void configure_dualpad_switch(PinName pin, int function, uint32_t LL_AnalogSwitch)
 {
@@ -97,10 +102,11 @@ static void configure_dualpad_switch(PinName pin, int function, uint32_t LL_Anal
 }
 
 /**
- * In case of dual pad, determine whether gpio needs to be configured
- * pLL_AnalogSwitch: pointer used to return LL define to be used to configure
- * Analog switch
- * return: true when gpio must be configured
+ * @brief Determine whether the GPIO of a dualpad pin must be configured.
+ * @param pin Pin name.
+ * @param function Pin function, encoded with the STM_PIN_* macros.
+ * @param pLL_AnalogSwitch Output: LL define to use to configure the analog switch.
+ * @return true when the GPIO must be configured, false otherwise.
  */
 static bool is_dualpad_switch_gpio_configurable(PinName pin, int function, uint32_t *pLL_AnalogSwitch)
 {
@@ -142,9 +148,6 @@ bool pin_in_pinmap(PinName pin, const PinMap *map)
   return false;
 }
 
-/**
- * Configure pin (mode, speed, output type and pull-up/pull-down)
- */
 void pin_function(PinName pin, int function)
 {
   /* Get the pin information */

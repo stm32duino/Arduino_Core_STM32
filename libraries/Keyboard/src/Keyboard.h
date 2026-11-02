@@ -34,6 +34,12 @@
 //================================================================================
 //  Keyboard
 
+/**
+ * @name Modifier keys
+ * @brief Key codes of the modifier keys, usable with Keyboard.press(),
+ *        Keyboard.release() and Keyboard.write().
+ * @{
+ */
 #define KEY_LEFT_CTRL   0x80
 #define KEY_LEFT_SHIFT    0x81
 #define KEY_LEFT_ALT    0x82
@@ -42,6 +48,14 @@
 #define KEY_RIGHT_SHIFT   0x85
 #define KEY_RIGHT_ALT   0x86
 #define KEY_RIGHT_GUI   0x87
+/** @} */
+
+/**
+ * @name Non-printing keys
+ * @brief Key codes of the non-printing keys, usable with Keyboard.press(),
+ *        Keyboard.release() and Keyboard.write().
+ * @{
+ */
 
 #define KEY_UP_ARROW    0xDA
 #define KEY_DOWN_ARROW    0xD9
@@ -82,27 +96,77 @@
 #define KEY_F22       0xF9
 #define KEY_F23       0xFA
 #define KEY_F24       0xFB  // Keyboard F24
+/** @} */
 
-//  Low level key report: up to 6 keys and shift, ctrl etc at once
+/**
+ * @brief Low level key report: up to 6 keys and shift, ctrl etc at once.
+ */
 typedef struct {
-  uint8_t modifiers;
-  uint8_t reserved;
+  uint8_t modifiers;  /**< Bit mask of the pressed modifier keys. */
+  uint8_t reserved;   /**< Reserved, always 0. */
+  /** HID usage codes of the pressed keys, 0 for an empty slot. */
   uint8_t keys[6];
 } KeyReport;
 
+/**
+ * @brief USB HID keyboard, used through the global Keyboard object.
+ *
+ * Requires the 'HID' USB interface selected in the 'Tools->USB interface' menu.
+ */
 class Keyboard_ : public Print {
   private:
     KeyReport _keyReport;
+    /**
+     * @brief Send a key report to the host.
+     * @param keys Key report to send.
+     */
     void sendReport(KeyReport *keys);
   public:
+    /**
+     * @brief Create the keyboard instance, not started.
+     */
     Keyboard_(void);
+    /**
+     * @brief Start the USB HID keyboard interface.
+     */
     void begin(void);
+    /**
+     * @brief Stop the USB HID keyboard interface.
+     */
     void end(void);
+    /**
+     * @brief Press then release a key: send a key stroke.
+     * @param k ASCII character, modifier or non-printing key code (KEY_xxx).
+     * @return 1 if the key was pressed, 0 otherwise (e.g. unsupported character).
+     */
     size_t write(uint8_t k);
+    /**
+     * @brief Add a key (printing, non-printing or modifier) to the persistent
+     *        key report and send the report.
+     *
+     * Because of the way USB HID works, the host acts like the key remains
+     * pressed until release(), releaseAll() or write() is called.
+     * Up to 6 keys can be pressed at the same time.
+     * @param k ASCII character, modifier or non-printing key code (KEY_xxx).
+     * @return 1 if the key was added to the report, 0 otherwise (unsupported
+     *         character or no free slot).
+     */
     size_t press(uint8_t k);
+    /**
+     * @brief Remove a key from the persistent key report and send the report.
+     *
+     * This tells the host the key is no longer pressed and that it shouldn't be
+     * repeated any more.
+     * @param k ASCII character, modifier or non-printing key code (KEY_xxx).
+     * @return 1 if the report was sent, 0 if the character is not supported.
+     */
     size_t release(uint8_t k);
+    /**
+     * @brief Release all the pressed keys and modifiers and send the report.
+     */
     void releaseAll(void);
 };
+/** @brief Global keyboard instance. */
 extern Keyboard_ Keyboard;
 
 #endif

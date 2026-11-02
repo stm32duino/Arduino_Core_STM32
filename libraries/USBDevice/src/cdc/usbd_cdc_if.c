@@ -94,8 +94,7 @@ USBD_CDC_LineCodingTypeDef linecoding = {
 /**
   * @brief  USBD_CDC_Init
   *         Initializes the CDC media low layer
-  * @param  None
-  * @retval Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
+  * @return Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
   */
 static int8_t USBD_CDC_Init(void)
 {
@@ -111,8 +110,7 @@ static int8_t USBD_CDC_Init(void)
 /**
   * @brief  USBD_CDC_DeInit
   *         DeInitializes the CDC media low layer
-  * @param  None
-  * @retval Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
+  * @return Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
   */
 static int8_t USBD_CDC_DeInit(void)
 {
@@ -123,10 +121,10 @@ static int8_t USBD_CDC_DeInit(void)
 /**
   * @brief  USBD_CDC_Control
   *         Manage the CDC class requests
-  * @param  cmd: Command code
-  * @param  pbuf: Buffer containing command data (request parameters)
-  * @param  length: Number of data to be sent (in bytes)
-  * @retval Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
+  * @param  cmd Command code
+  * @param  pbuf Buffer containing command data (request parameters)
+  * @param  length Number of data to be sent (in bytes)
+  * @return Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
   */
 static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
 {
@@ -223,9 +221,9 @@ static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
   *         it will result in receiving more data while previous ones are still
   *         not sent.
   *
-  * @param  Buf: Buffer of data to be received
-  * @param  Len: Number of data received (in bytes)
-  * @retval Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
+  * @param  Buf Buffer of data to be received
+  * @param  Len Number of data received (in bytes)
+  * @return Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
   */
 static int8_t USBD_CDC_Receive(uint8_t *Buf, uint32_t *Len)
 {
@@ -261,9 +259,10 @@ static int8_t USBD_CDC_Receive(uint8_t *Buf, uint32_t *Len)
   *         This function is IN transfer complete callback used to inform user that
   *         the submitted Data is successfully sent over USB.
   *
-  * @param  Buf: Buffer of data to be received
-  * @param  Len: Number of data received (in bytes)
-  * @retval Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
+  * @param  Buf Buffer of data that was transmitted
+  * @param  Len Number of data transmitted (in bytes)
+  * @param  epnum Endpoint number
+  * @return Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
   */
 static int8_t USBD_CDC_TransmitCplt(uint8_t *Buf, uint32_t *Len, uint8_t epnum)
 {
@@ -390,19 +389,16 @@ uint32_t CDC_getBaudrate()
   return linecoding.bitrate;
 }
 
-// getter for CDC stop bits. Note: CDC definition identical to USBSerial.h
 uint8_t  CDC_getStopBits(void)
 {
   return linecoding.format;
 }
 
-// getter for CDC parity. Note: CDC definition identical to USBSerial.h
 uint8_t  CDC_getParity(void)
 {
   return linecoding.paritytype;
 }
 
-// getter for CDC data bits. Note: CDC definition identical to USBSerial.h
 uint8_t  CDC_getDataBits(void)
 {
   return linecoding.datatype;

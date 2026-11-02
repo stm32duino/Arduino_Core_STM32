@@ -47,11 +47,21 @@ static constexpr uint8_t I3C_CCC_DISEC_DIR = 0x81U;
   static_cast<hal_i3c_transfer_mode_t>(LL_I3C_CONTROLLER_MTYPE_PRIVATE);
 #endif
 
+/**
+  * @brief  Check that an address can be used for an I3C private transfer.
+  * @param  addr 7-bit address.
+  * @return true if the address is not 0 and below the reserved 0x7E address, false otherwise.
+  */
 static bool isValidI3CTransferAddr(uint8_t addr)
 {
   return (addr != 0U) && (addr < 0x7EU);
 }
 
+/**
+  * @brief  Rebuild the BCR register value from the BCR fields reported by the HAL.
+  * @param  bcrInfo BCR fields.
+  * @return BCR register value.
+  */
 #if defined(USE_HALV2_DRIVER)
 static uint8_t reconstructBcr(const hal_i3c_bcr_t &bcrInfo)
 {
@@ -84,6 +94,12 @@ static uint8_t reconstructBcr(const I3C_BCRTypeDef &bcrInfo)
 // HAL callback bridge
 // ============================================================================
 
+/**
+  * @brief  HAL notification callback: forward the event to the bus instance
+  *         owning the peripheral.
+  * @param  hi3c HAL I3C handle.
+  * @param  eventId HAL event identifier.
+  */
 #if defined(USE_HALV2_DRIVER)
 extern "C" void HAL_I3C_NotifyCallback(hal_i3c_handle_t *hi3c, uint32_t eventId)
 {
@@ -2885,6 +2901,9 @@ void I3CBus::unregisterInstanceOwner()
 #endif
 }
 
+/**
+  * @brief  I3C1 event interrupt handler.
+  */
 extern "C" void I3C1_EV_IRQHandler(void)
 {
 #if defined(I3C1)
@@ -2895,6 +2914,9 @@ extern "C" void I3C1_EV_IRQHandler(void)
 }
 
 #if defined(USE_HALV2_DRIVER)
+/**
+  * @brief  I3C1 error interrupt handler.
+  */
 extern "C" void I3C1_ERR_IRQHandler(void)
 {
 #if defined(I3C1)
@@ -2904,6 +2926,9 @@ extern "C" void I3C1_ERR_IRQHandler(void)
 #endif
 }
 #else
+/**
+  * @brief  I3C1 error interrupt handler.
+  */
 extern "C" void I3C1_ER_IRQHandler(void)
 {
 #if defined(I3C1)
@@ -2915,6 +2940,9 @@ extern "C" void I3C1_ER_IRQHandler(void)
 #endif
 
 #if defined(I3C2)
+/**
+  * @brief  I3C2 event interrupt handler.
+  */
 extern "C" void I3C2_EV_IRQHandler(void)
 {
   if (g_i3c2Owner != nullptr) {
@@ -2922,6 +2950,9 @@ extern "C" void I3C2_EV_IRQHandler(void)
   }
 }
 
+/**
+  * @brief  I3C2 error interrupt handler.
+  */
 extern "C" void I3C2_ER_IRQHandler(void)
 {
   if (g_i3c2Owner != nullptr) {

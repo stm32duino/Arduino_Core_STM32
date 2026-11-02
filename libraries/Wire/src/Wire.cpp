@@ -45,10 +45,6 @@ TwoWire::TwoWire(pin_size_t sda, pin_size_t scl)
   rxBufferAllocated = 0;
 }
 
-/**
-  * @brief  TwoWire destructor
-  * @retval None
-  */
 TwoWire::~TwoWire()
 {
   end();
@@ -215,19 +211,6 @@ void TwoWire::beginTransmission(int address)
   beginTransmission((uint8_t)address);
 }
 
-//
-//  Originally, 'endTransmission' was an f(void) function.
-//  It has been modified to take one parameter indicating
-//  whether or not a STOP should be performed on the bus.
-//  Calling endTransmission(false) allows a sketch to
-//  perform a repeated start.
-//
-//  WARNING: Nothing in the library keeps track of whether
-//  the bus tenure has been properly ended with a STOP. It
-//  is very possible to leave the bus in a hung state if
-//  no call to endTransmission(true) is made. Some I2C
-//  devices will behave oddly if they do not see a STOP.
-//
 uint8_t TwoWire::endTransmission(bool stopBit)
 {
 #if !defined(I2C_OTHER_FRAME)
@@ -285,17 +268,11 @@ uint8_t TwoWire::endTransmission(bool stopBit)
   return ret;
 }
 
-//  This provides backwards compatibility with the original
-//  definition, and expected behaviour, of endTransmission
-//
 uint8_t TwoWire::endTransmission(void)
 {
   return endTransmission(true);
 }
 
-// must be called in:
-// slave tx event callback
-// or after beginTransmission(address)
 size_t TwoWire::write(uint8_t data)
 {
   size_t ret = 1;
@@ -319,13 +296,6 @@ size_t TwoWire::write(uint8_t data)
   return ret;
 }
 
-/**
-  * @brief  This function must be called in slave Tx event callback or after
-  *         beginTransmission() and before endTransmission().
-  * @param  pdata: pointer to the buffer data
-  * @param  quantity: number of bytes to write
-  * @retval number of bytes ready to write.
-  */
 size_t TwoWire::write(const uint8_t *data, size_t quantity)
 {
   size_t ret = quantity;
@@ -351,17 +321,11 @@ size_t TwoWire::write(const uint8_t *data, size_t quantity)
   return ret;
 }
 
-// must be called in:
-// slave rx event callback
-// or after requestFrom(address, numBytes)
 int TwoWire::available(void)
 {
   return rxBufferLength - rxBufferIndex;
 }
 
-// must be called in:
-// slave rx event callback
-// or after requestFrom(address, numBytes)
 int TwoWire::read(void)
 {
   int value = -1;
@@ -381,9 +345,6 @@ int TwoWire::read(void)
   return value;
 }
 
-// must be called in:
-// slave rx event callback
-// or after requestFrom(address, numBytes)
 int TwoWire::peek(void)
 {
   int value = -1;
@@ -403,7 +364,6 @@ void TwoWire::flush(void)
   resetTxBuffer();
 }
 
-// behind the scenes function that is called when data is received
 void TwoWire::onReceiveService(i2c_t *obj)
 {
   uint8_t *inBytes = (uint8_t *) obj->i2cTxRxBuffer;
@@ -431,7 +391,6 @@ void TwoWire::onReceiveService(i2c_t *obj)
   }
 }
 
-// behind the scenes function that is called when data is requested
 void TwoWire::onRequestService(i2c_t *obj)
 {
   TwoWire *TW = (TwoWire *)(obj->__this);
@@ -446,7 +405,6 @@ void TwoWire::onRequestService(i2c_t *obj)
   }
 }
 
-// sets function called on slave write
 void TwoWire::onReceive(cb_function_receive_t function)
 {
   user_onReceive = function;
@@ -457,7 +415,6 @@ void TwoWire::onReceive(void(*function)(int))
   user_onReceive = function;
 }
 
-// sets function called on slave read
 void TwoWire::onRequest(cb_function_request_t function)
 {
   user_onRequest = function;
@@ -468,11 +425,6 @@ void TwoWire::onRequest(void(*function)(void))
   user_onRequest = function;
 }
 
-/**
-  * @brief  Allocate the Rx/Tx buffer to the requested length if needed
-  * @note   Minimum allocated size is BUFFER_LENGTH)
-  * @param  length: number of bytes to allocate
-  */
 void TwoWire::allocateRxBuffer(size_t length)
 {
   if (rxBufferAllocated < length) {
@@ -511,9 +463,6 @@ inline size_t TwoWire::allocateTxBuffer(size_t length)
   return ret;
 }
 
-/**
-  * @brief  Reset Rx/Tx buffer content to 0
-  */
 inline void TwoWire::resetRxBuffer(void)
 {
   if (rxBuffer != nullptr) {
@@ -528,9 +477,7 @@ inline void TwoWire::resetTxBuffer(void)
   }
 }
 
-// Send clear bus (clock pulse) sequence to recover bus.
-// Useful in case of bus stuck after a reset for example
-// a mix implementation of Clear Bus from
+// Implementation based on the clear bus sequence from
 // https://www.nxp.com/docs/en/user-guide/UM10204.pdf
 // https://bits4device.wordpress.com/2017/07/28/i2c-bus-recovery/
 void TwoWire::recoverBus(void)

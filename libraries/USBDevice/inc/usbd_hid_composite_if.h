@@ -28,20 +28,51 @@ extern "C" {
 #endif
 
 /* Exported types ------------------------------------------------------------*/
+/** @brief HID interfaces of the composite device. */
 typedef enum {
-  HID_KEYBOARD,
-  HID_MOUSE
+  HID_KEYBOARD, /**< Keyboard interface. */
+  HID_MOUSE     /**< Mouse interface. */
 } HID_Interface;
 
 /* Exported macro ------------------------------------------------------------*/
+/**
+ * @brief Check that DEVICE is a valid HID_Interface value.
+ * @param DEVICE value to check.
+ */
 #define IS_HID_INTERFACE(DEVICE)    (((DEVICE) == HID_KEYBOARD) ||\
                                      ((DEVICE) == HID_MOUSE))
 
 /* Exported functions ------------------------------------------------------- */
+/**
+ * @brief Initialize the USB device stack for a HID composite interface.
+ * @param device HID interface to enable: HID_KEYBOARD or HID_MOUSE.
+ * @note The USB device is started once, when the first interface is
+ *       initialized. Calling it again for the other interface only
+ *       marks it as active.
+ */
 void HID_Composite_Init(HID_Interface device);
+
+/**
+ * @brief Release a HID composite interface.
+ * @param device HID interface to release: HID_KEYBOARD or HID_MOUSE.
+ * @note The USB device is stopped and de-initialized once no interface is active.
+ */
 void HID_Composite_DeInit(HID_Interface device);
 
+/**
+ * @brief Send a HID mouse report.
+ * @param report Pointer to the report data.
+ * @param len Length of the report, in bytes.
+ * @note The report is not sent if the previous one is still pending.
+ */
 void HID_Composite_mouse_sendReport(uint8_t *report, uint16_t len);
+
+/**
+ * @brief Send a HID keyboard report.
+ * @param report Pointer to the report data.
+ * @param len Length of the report, in bytes.
+ * @note The report is not sent if the previous one is still pending.
+ */
 void HID_Composite_keyboard_sendReport(uint8_t *report, uint16_t len);
 
 #ifdef __cplusplus

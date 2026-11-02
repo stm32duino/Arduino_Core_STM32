@@ -17,6 +17,7 @@ After installation, try the [Blink example](examples/Blink-example.md). For help
 
 - [Supported boards](supported-boards/index.md)
 - [Arduino API reference](API.md)
+- [Doxygen API reference](doxygen/index.html): classes, structures and functions of the core, generated from the source code comments
 - [Libraries](libraries/index.md), including built-in, STM32-specific libraries, and expansion-board libraries
 - [Hosted library API documentation](libraries/Hosted-library-documentation.md)
 
@@ -42,15 +43,15 @@ After installation, try the [Blink example](examples/Blink-example.md). For help
 
 - For core or upload-tool problems, report an issue in the relevant repository:
 
-- [Arduino_Core_STM32](https://github.com/stm32duino/Arduino_Core_STM32/issues/new)
-- [Arduino_Tools](https://github.com/stm32duino/Arduino_Tools/issues/new)
+    - [Arduino_Core_STM32](https://github.com/stm32duino/Arduino_Core_STM32/issues/new)
+    - [Arduino_Tools](https://github.com/stm32duino/Arduino_Tools/issues/new)
 
 - For a library problem, open an issue in that library's source repository; find its link on the [Libraries](libraries/index.md) page.
 
 - For community questions, visit the [STM32duino forum](http://stm32duino.com):
 
-- [STM32 Core questions](http://stm32duino.com/viewforum.php?f=48)
-- [STM32 Core bugs and enhancements](http://stm32duino.com/viewforum.php?f=49)
+    - [STM32 Core questions](http://stm32duino.com/viewforum.php?f=48)
+    - [STM32 Core bugs and enhancements](http://stm32duino.com/viewforum.php?f=49)
 
 ## External resources
 

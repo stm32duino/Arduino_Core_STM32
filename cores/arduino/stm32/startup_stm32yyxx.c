@@ -1,3 +1,8 @@
+/**
+ * @file startup_stm32yyxx.c
+ * @brief Includes the CMSIS startup file of the selected device when using the
+ * HAL v2 driver.
+ */
 #ifndef _STARTUP_STM32YYXX_C_
 #define _STARTUP_STM32YYXX_C_
 

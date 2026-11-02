@@ -10,12 +10,29 @@
  *
  *******************************************************************************
  */
+/**
+ * @file pins_arduino_digital.h
+ * @brief Digital pin numbering: Arduino digital pins alias (Dx) and PYn_ALT0 pin numbers.
+ */
 #ifndef _PINS_ARDUINO_DIGITAL_H_
 #define _PINS_ARDUINO_DIGITAL_H_
 #include "variant.h"
 
-/* GPIO port (A to K + Z) * 16 pins: 192 */
-/* Arduino digital pins alias */
+/*
+ * Digital pin numbering scheme:
+ *  - A digital pin number is an index in the digitalPin[] array of the variant,
+ *    which gives the PinName (PX_n) of the pin. Only the low 8 bits
+ *    (PNUM_MASK) are the index.
+ *  - Dx (D0, D1, ...) is the Arduino alias of the pin number x.
+ *  - PYn (PA0, PB3, ...) are the STM32 pin numbers defined in the variant.h.
+ *    They are numbers like Dx, not PinName: PYn is the index of the pin Y n
+ *    in digitalPin[], or an analog pin number (PIN_Ax) for pins which are
+ *    also an analog input.
+ *  - Bits 8 to 10 (ALTX_MASK) select an alternate PinName (ALT0 to ALT7),
+ *    see PYn_ALTx below.
+ * GPIO port (A to K + Z) * 16 pins: 192 maximum.
+ */
+/** Arduino digital pins alias (D0 to D191), limited by NUM_DIGITAL_PINS. */
 enum {
   D0,  D1,  D2,  D3,  D4,  D5,  D6,  D7,  D8,  D9,
   D10, D11, D12, D13, D14, D15, D16, D17, D18, D19,
@@ -537,7 +554,14 @@ enum {
 
 /*
  * Each STM32 pin number PYn defined in the variant.h
- * is also the alternate pin number PYn_ALT0
+ * is also the alternate pin number PYn_ALT0.
+ *
+ * PYn_ALTx (x from 0 to 7) is the pin number PYn with the ALTx bits set
+ * (PYn | ALTx). It selects the alternate PinName PY_n_ALTx (e.g. PA_0_ALT1) of
+ * the pin, i.e. the duplicated entry of PYn in the peripheral pin maps
+ * (PeripheralPins.c), when the same pin has several possible functions
+ * (e.g. several timer channels or ADC instances).
+ * Only the PYn_ALT0 aliases are defined here, the other ones are defined by the variant.
  */
 #ifdef PA0
   #define PA0_ALT0       (PA0  | ALT0)

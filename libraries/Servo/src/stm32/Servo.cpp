@@ -38,6 +38,10 @@ uint8_t ServoCount = 0;                                    // the total number o
 /************ static functions common to all instances ***********************/
 
 volatile uint32_t CumulativeCountSinceRefresh = 0;
+/**
+  * @brief  Timer update callback: pulse the servos one after the other,
+  *         then wait for the refresh interval to expire before starting over.
+  */
 static void Servo_PeriodElapsedCallback()
 {
   // Only 1 timer used
@@ -73,6 +77,10 @@ static void Servo_PeriodElapsedCallback()
   }
 }
 
+/**
+  * @brief  Configure the servo timer with a 1 microsecond tick, the refresh
+  *         interval as period and the update callback, then start it.
+  */
 static void TimerServoInit()
 {
   // prescaler is computed so that timer tick correspond to 1 microseconde
@@ -86,9 +94,12 @@ static void TimerServoInit()
 }
 
 
+/**
+  * @brief  Check if any servo is active on the servo timer.
+  * @return true if at least one servo is active, false otherwise.
+  */
 static bool isTimerActive()
 {
-  // returns true if any servo is active on this timer
   for (uint8_t channel = 0; channel < SERVOS_PER_TIMER; channel++) {
     if (servos[channel].Pin.isActive == true) {
       return true;
@@ -199,16 +210,18 @@ bool Servo::attached()
 
 #warning "TIMER_TONE or HAL_TIM_MODULE_ENABLED or USE_HAL_TIM_MODULE set to 1 not defined"
 Servo::Servo() {}
-uint8_t Servo::attach(pin_size_t pin)
+uint8_t Servo::attach(pin_size_t pin, int value)
 {
   (void)pin;
+  (void)value;
   return 0;
 }
-uint8_t Servo::attach(pin_size_t pin, int min, int max)
+uint8_t Servo::attach(pin_size_t pin, int min, int max, int value)
 {
   (void)pin;
   (void)min;
   (void)max;
+  (void)value;
   return 0;
 }
 void Servo::detach() {}
@@ -228,6 +241,9 @@ int Servo::readMicroseconds()
 {
   return 0;
 }
-bool Servo::attached() {}
+bool Servo::attached()
+{
+  return false;
+}
 
 #endif /* TIMER_SERVO && !HAL_TIM_MODULE_ONLY && (HAL_TIM_MODULE_ENABLED || USE_HAL_TIM_MODULE...) */

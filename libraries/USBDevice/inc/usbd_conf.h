@@ -44,6 +44,16 @@ extern "C" {
 
 #if defined(USB_BASE)
 
+/**
+ * @name USB interrupt mapping
+ * @brief Interrupt numbers and handler names of the USB peripheral, selected
+ *        according to the STM32 series. USB_IRQn and USB_IRQHandler are the
+ *        main interrupt, USB_H_* the high priority one and USB_WKUP_* the
+ *        wake-up one, when the series provides them.
+ *        Define USE_USB_INTERRUPT_REMAPPED to use the remapped wake-up
+ *        interrupt on series providing the remap.
+ */
+/** @{ */
 #if defined(STM32F1xx) || defined(STM32F3xx) || defined(STM32G4xx) || \
     defined(STM32L1xx) || defined(STM32WBxx)
 #if defined(SYSCFG_CFGR1_USB_IT_RMP) && !defined(USE_USB_INTERRUPT_REMAPPED)
@@ -83,8 +93,17 @@ extern "C" {
 #define USB_IRQHandler      USB_FS_IRQHandler
 #endif
 
+/** @} */
+
 #endif /* USB_BASE */
 
+/**
+ * @name PCD buffer kind aliases
+ * @brief Map the HAL names of the packet memory buffer kinds to the PCD_*
+ *        names used by the USB stack, and provide empty PHY clock gating
+ *        macros for HAL versions not defining them.
+ */
+/** @{ */
 #if !defined(PCD_SNG_BUF) && defined(HAL_PCD_SNG_BUF)
 #define PCD_SNG_BUF HAL_PCD_SNG_BUF
 #endif
@@ -99,31 +118,62 @@ extern "C" {
 #ifndef __HAL_PCD_UNGATE_PHYCLOCK
 #define __HAL_PCD_UNGATE_PHYCLOCK(_DUMMY_)
 #endif
+/** @} */
 
+/**
+ * @name USB device stack configuration
+ * @brief Limits and options of the USB device stack. Each one can be
+ *        overridden before including this file.
+ */
+/** @{ */
+/** @brief Maximum number of interfaces of the device. */
 #ifndef USBD_MAX_NUM_INTERFACES
 #define USBD_MAX_NUM_INTERFACES                     2U
 #endif /* USBD_MAX_NUM_INTERFACES */
 
+/** @brief Maximum number of configurations of the device. */
 #ifndef USBD_MAX_NUM_CONFIGURATION
 #define USBD_MAX_NUM_CONFIGURATION                  1U
 #endif /* USBD_MAX_NUM_CONFIGURATION */
 
+/** @brief Size, in bytes, of the buffer used to build string descriptors. */
 #ifndef USBD_MAX_STR_DESC_SIZ
 #define USBD_MAX_STR_DESC_SIZ                       0x100U
 #endif /* USBD_MAX_STR_DESC_SIZ */
 
+/**
+ * @brief Set to 1 to report the device as self powered in the configuration descriptor.
+ */
 #ifndef USBD_SELF_POWERED
 #define USBD_SELF_POWERED                           1U
 #endif /* USBD_SELF_POWERED */
 
+/**
+ * @brief Verbosity of the USBD_UsrLog(), USBD_ErrLog() and USBD_DbgLog()
+ *        macros. 0 disables them, 1 enables user logs, 2 adds error logs and
+ *        3 adds debug logs.
+ */
 #ifndef USBD_DEBUG_LEVEL
 #define USBD_DEBUG_LEVEL                            0U
 #endif /* USBD_DEBUG_LEVEL */
 
+/**
+ * @brief Set to 1 to enable the registration of user callbacks in the USB stack.
+ */
 #ifndef USBD_USER_REGISTER_CALLBACK
 #define USBD_USER_REGISTER_CALLBACK                 0U
 #endif /* USBD_USER_REGISTER_CALLBACK */
+/** @} */
 
+/**
+ * @name Class specific configuration
+ * @brief Default settings of the ST USB device classes (ECM, RNDIS, DFU,
+ *        BillBoard, MSC, CDC, Audio, CustomHID and Video). Only the CDC and
+ *        HID composite classes are used by this core, the others are kept
+ *        for compatibility with the ST middleware. Each one can be
+ *        overridden before including this file.
+ */
+/** @{ */
 /* ECM, RNDIS, DFU Class Config */
 #ifndef USBD_SUPPORT_USER_STRING_DESC
 #define USBD_SUPPORT_USER_STRING_DESC               0U
@@ -148,6 +198,9 @@ extern "C" {
 #endif /* MSC_MEDIA_PACKET */
 
 /* CDC Class Config */
+/**
+ * @brief CDC class interval setting, kept from the ST middleware default configuration.
+ */
 #ifndef USBD_CDC_INTERVAL
 #define USBD_CDC_INTERVAL                           2000U
 #endif /* USBD_CDC_INTERVAL */
@@ -252,7 +305,14 @@ extern "C" {
 #ifndef UVC_MAX_FRAME_SIZE
 #define UVC_MAX_FRAME_SIZE                          (UVC_WIDTH * UVC_HEIGHT * 16U / 8U)
 #endif /* UVC_MAX_FRAME_SIZE */
+/** @} */
 
+/**
+ * @name Interrupt priority
+ * @brief Preemption priority and sub-priority of the USB interrupt. Can be
+ *        overridden before including this file.
+ */
+/** @{ */
 /* Interrupt priority */
 #ifndef USBD_IRQ_PRIO
 #define USBD_IRQ_PRIO                               1
@@ -261,7 +321,15 @@ extern "C" {
 #ifndef USBD_IRQ_SUBPRIO
 #define USBD_IRQ_SUBPRIO                            0
 #endif /* USBD_IRQ_SUBPRIO */
+/** @} */
 
+/**
+ * @name Memory management and delay aliases
+ * @brief Functions used by the USB stack for memory handling and delays.
+ *        The USB stack currently uses dynamic memory allocation. Can be
+ *        overridden before including this file.
+ */
+/** @{ */
 /* Memory management macros make sure to use static memory allocation */
 /* Currently dynamic memory allocation usage */
 /** Alias for memory allocation. */
@@ -288,7 +356,16 @@ extern "C" {
 #ifndef USBD_Delay
 #define USBD_Delay          HAL_Delay
 #endif /* USBD_Delay */
+/** @} */
 
+/**
+ * @name Debug log macros
+ * @brief Print a formatted message followed by a new line with printf().
+ *        Enabled according to USBD_DEBUG_LEVEL, otherwise they expand to
+ *        nothing. USBD_UsrLog() needs level 1, USBD_ErrLog() level 2 and
+ *        USBD_DbgLog() level 3.
+ */
+/** @{ */
 /* DEBUG macros */
 #if (USBD_DEBUG_LEVEL > 0U)
 #define  USBD_UsrLog(...)   do { \
@@ -319,9 +396,20 @@ extern "C" {
 #else
 #define USBD_DbgLog(...) do {} while (0)
 #endif /* (USBD_DEBUG_LEVEL > 2U) */
+/** @} */
 
 /* Exported functions -------------------------------------------------------*/
+/**
+ * @brief Allocate memory for the USB stack.
+ * @param size Number of bytes to allocate.
+ * @return Pointer to the allocated memory.
+ */
 void *USBD_static_malloc(uint32_t size);
+
+/**
+ * @brief Free memory allocated by USBD_static_malloc().
+ * @param p Pointer to the memory to free.
+ */
 void USBD_static_free(void *p);
 
 #endif /* USBCON */

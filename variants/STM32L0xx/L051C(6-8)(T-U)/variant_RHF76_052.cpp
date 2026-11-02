@@ -43,7 +43,6 @@ extern "C" {
 /**
   * @brief  System Clock Configuration
   *         The system Clock is configured as follow :
-  * @retval None
   */
 WEAK void SystemClock_Config(void)
 {

@@ -16,15 +16,28 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+/**
+ * @file wiring_pulse.cpp
+ * @brief Pulse width measurement: pulseIn() and pulseInLong().
+ */
+
 #include "Arduino.h"
 
-/* Measures the length (in microseconds) of a pulse on the pin; state is HIGH
- * or LOW, the type of pulse to measure.  Works on pulses from 2-3 microseconds
- * to 3 minutes in length, but must be called at least a few dozen microseconds
- * before the start of the pulse.
+/**
+ * @brief Measures the length (in microseconds) of a pulse on the pin.
  *
- * ATTENTION:
- * This function relies on micros() so cannot be used in noInterrupt() context
+ * Works on pulses from 2-3 microseconds to 3 minutes in length, but must be
+ * called at least a few dozen microseconds before the start of the pulse.
+ *
+ * @note This function relies on micros() so cannot be used in noInterrupt() context.
+ *
+ * @param pin Pin number, Dx or x.
+ * @param state HIGH or LOW, the type of pulse to measure.
+ * @param timeout Maximum time to wait for the whole measure (end of any
+ * previous pulse, start and end of the pulse), in microseconds.
+ * Defaults to 1 second when omitted in C++.
+ * @return Length of the pulse in microseconds, or 0 if the pulse was not
+ * completed before the timeout.
  */
 unsigned long pulseIn(pin_size_t pin, uint8_t state, unsigned long timeout)
 {
@@ -60,13 +73,20 @@ unsigned long pulseIn(pin_size_t pin, uint8_t state, unsigned long timeout)
   return (micros() - start);
 }
 
-/* Measures the length (in microseconds) of a pulse on the pin; state is HIGH
- * or LOW, the type of pulse to measure.  Works on pulses from 2-3 microseconds
- * to 3 minutes in length, but must be called at least a few dozen microseconds
- * before the start of the pulse.
+/**
+ * @brief Measures the length (in microseconds) of a pulse on the pin.
  *
- * ATTENTION:
- * This function relies on micros() so cannot be used in noInterrupt() context
+ * Same as pulseIn(); provided for compatibility with the AVR core.
+ *
+ * @note This function relies on micros() so cannot be used in noInterrupt() context.
+ *
+ * @param pin Pin number, Dx or x.
+ * @param state HIGH or LOW, the type of pulse to measure.
+ * @param timeout Maximum time to wait for the whole measure (end of any
+ * previous pulse, start and end of the pulse), in microseconds.
+ * Defaults to 1 second when omitted in C++.
+ * @return Length of the pulse in microseconds, or 0 if the pulse was not
+ * completed before the timeout.
  */
 unsigned long pulseInLong(pin_size_t pin, uint8_t state, unsigned long timeout)
 {

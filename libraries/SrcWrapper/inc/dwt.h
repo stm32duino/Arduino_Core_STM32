@@ -30,24 +30,49 @@
 extern "C" {
 #endif
 
+/**
+  * @brief Initialize the DWT cycle counter and check that it runs.
+  * @return 0 if the cycle counter started, 1 otherwise.
+  */
 uint32_t dwt_init(void);
+
+/**
+  * @brief Unlock or lock access to the DWT registers (Cortex-M7 only, no-op otherwise).
+  * @param ena true to unlock the DWT registers, false to lock them.
+  */
 void dwt_access(bool ena);
 
+/**
+  * @brief Get the maximum duration the cycle counter can measure before wrapping.
+  * @return Maximum duration in seconds.
+  */
 static inline uint32_t dwt_max_sec(void)
 {
   return (UINT32_MAX / SystemCoreClock);
 };
 
+/**
+  * @brief Get the maximum duration the cycle counter can measure before wrapping.
+  * @return Maximum duration in milliseconds.
+  */
 static inline uint32_t dwt_max_msec(void)
 {
   return (UINT32_MAX / (SystemCoreClock / 1000));
 };
 
+/**
+  * @brief Get the maximum duration the cycle counter can measure before wrapping.
+  * @return Maximum duration in microseconds.
+  */
 static inline uint32_t dwt_max_usec(void)
 {
   return (UINT32_MAX / (SystemCoreClock / 1000000));
 };
 
+/**
+  * @brief Get the current value of the DWT cycle counter.
+  * @return Number of CPU cycles (DWT CYCCNT register).
+  */
 static inline uint32_t dwt_getCycles(void)
 {
   return (DWT->CYCCNT);

@@ -21,8 +21,6 @@
 
 /**
   * @brief  System Clock Configuration
-  * @param  None
-  * @retval None
   */
 WEAK void SystemClock_Config(void)
 {

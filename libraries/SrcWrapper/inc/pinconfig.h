@@ -19,6 +19,11 @@
 #include "lock_resource.h"
 #include "stm32yyxx_ll_gpio.h"
 
+/**
+  * @brief Disconnect the debug pins (JTAG/SWD) so they can be used as GPIO.
+  * @param pin Pin name.
+  * @note Only acts on STM32F1xx; no-op on other families.
+  */
 static inline void pin_DisconnectDebug(PinName pin)
 {
 #ifdef STM32F1xx
@@ -28,6 +33,14 @@ static inline void pin_DisconnectDebug(PinName pin)
 #endif /* STM32F1xx */
 }
 
+/**
+  * @brief Set the pull configuration of a GPIO pin.
+  * @param gpio GPIO port of the pin.
+  * @param ll_pin LL GPIO pin mask (see STM_LL_GPIO_PIN).
+  * @param pull_config LL_GPIO_PULL_NO, LL_GPIO_PULL_UP or LL_GPIO_PULL_DOWN.
+  * @note On STM32F1xx, a pin without pull is set to floating input.
+  *       On other series the GPIO hardware semaphore is taken during the update.
+  */
 static inline void pin_PullConfig(GPIO_TypeDef *gpio, uint32_t ll_pin, uint32_t pull_config)
 {
 #ifdef STM32F1xx
@@ -51,6 +64,12 @@ static inline void pin_PullConfig(GPIO_TypeDef *gpio, uint32_t ll_pin, uint32_t 
 #endif
 }
 
+/**
+  * @brief Set the alternate function number of a GPIO pin.
+  * @param gpio GPIO port of the pin.
+  * @param pin Pin name.
+  * @param afnum Alternate function number (AFIO remap value on STM32F1xx).
+  */
 static inline void pin_SetAFPin(GPIO_TypeDef *gpio, PinName pin, uint32_t afnum)
 {
 #ifdef STM32F1xx

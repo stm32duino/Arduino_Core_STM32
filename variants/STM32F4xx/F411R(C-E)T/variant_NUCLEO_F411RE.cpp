@@ -104,8 +104,6 @@ extern "C" {
   * @brief  System Clock Configuration
   *         SYSCLK = 100000000 Hz for ARDUINO_NUCLEO_F411RE
   *         SYSCLK = 84000000 Hz for ARDUINO_NUCLEO_F401RE
-  * @param  None
-  * @retval None
   */
 WEAK void SystemClock_Config(void)
 {

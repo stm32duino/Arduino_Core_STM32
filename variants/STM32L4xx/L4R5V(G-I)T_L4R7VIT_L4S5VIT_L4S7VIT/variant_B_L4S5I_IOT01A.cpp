@@ -137,7 +137,6 @@ extern "C" {
 
 /**
   * @brief System Clock Configuration 120MHz
-  * @retval None
   */
 WEAK void SystemClock_Config(void)
 {

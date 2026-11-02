@@ -38,17 +38,22 @@ extern "C" {
 #define RTC_BKP_INDEX 0
 #endif
 #ifndef RTC_BKP_VALUE
+/** @brief Default value written in an RTC backup register */
 #define RTC_BKP_VALUE 0x32F2
 #endif
 
 #if defined (BL_HID)
 #if !defined(HID_MAGIC_NUMBER_BKP_INDEX)
+/** @brief Backup register holding the HID bootloader magic number */
 #define HID_MAGIC_NUMBER_BKP_INDEX LL_RTC_BKP_DR4
 #endif /* HID_MAGIC_NUMBER_BKP_INDEX */
 #if !defined(HID_OLD_MAGIC_NUMBER_BKP_INDEX) && defined(LL_RTC_BKP_DR10)
+/** @brief Backup register holding the magic number of the old HID bootloader */
 #define HID_OLD_MAGIC_NUMBER_BKP_INDEX LL_RTC_BKP_DR10
 #endif /* HID_OLD_MAGIC_NUMBER_BKP_INDEX */
 #ifndef HID_MAGIC_NUMBER_BKP_VALUE
+/** @brief Magic number written in the backup register to enter the HID
+ *         bootloader */
 #define HID_MAGIC_NUMBER_BKP_VALUE 0x424C
 #endif /* HID_MAGIC_NUMBER_BKP_VALUE */
 #endif /* BL_HID */
@@ -59,6 +64,10 @@ extern "C" {
 #endif
 
 /* Exported functions ------------------------------------------------------- */
+/**
+ * @brief Reset the backup domain (RTC and backup registers).
+ * @note  Backup domain write access is enabled as part of the reset.
+ */
 static inline void resetBackupDomain(void)
 {
 #if defined(USE_HALV2_DRIVER)
@@ -88,6 +97,10 @@ static inline void resetBackupDomain(void)
 #endif
 }
 
+/**
+ * @brief Enable access to the backup domain and its clocks (RTC, backup
+ *        registers and SRAM).
+ */
 static inline void enableBackupDomain(void)
 {
 #if defined(USE_HALV2_DRIVER)
@@ -145,6 +158,9 @@ static inline void enableBackupDomain(void)
 #endif /* USE_HALV2_DRIVER */
 }
 
+/**
+ * @brief Disable the backup domain clocks (RTC, backup registers and SRAM).
+ */
 static inline void disableBackupDomain(void)
 {
 #if defined(USE_HALV2_DRIVER)
@@ -174,6 +190,12 @@ static inline void disableBackupDomain(void)
 #endif /* USE_HALV2_DRIVER */
 }
 
+/**
+ * @brief Write a value in a backup register.
+ * @param index Backup register index.
+ * @param value Value to write.
+ * @note Does nothing if backup registers are not available.
+ */
 static inline void setBackupRegister(uint32_t index, uint32_t value)
 {
 #if defined(USE_HALV2_DRIVER)
@@ -200,6 +222,12 @@ static inline void setBackupRegister(uint32_t index, uint32_t value)
 #endif
 }
 
+/**
+ * @brief Read a value from a backup register.
+ * @param index Backup register index.
+ * @return The value stored in the backup register, or 0 if backup registers
+ *         are not available.
+ */
 static inline uint32_t getBackupRegister(uint32_t index)
 {
 #if defined(USE_HALV2_DRIVER)
@@ -226,6 +254,13 @@ static inline uint32_t getBackupRegister(uint32_t index)
 #endif
 }
 
+/**
+ * @brief Write 32-bit words to the backup SRAM.
+ * @param offset Offset, in 32-bit words, from the start of the backup SRAM.
+ * @param data Pointer to the data to write.
+ * @param length Number of 32-bit words to write.
+ * @note Does nothing if backup SRAM is not available.
+ */
 static inline void writeBackupSRAM(uint32_t offset, uint32_t *data, uint32_t length)
 {
 #if defined(BKPSRAM_BASE)
@@ -241,6 +276,13 @@ static inline void writeBackupSRAM(uint32_t offset, uint32_t *data, uint32_t len
 #endif
 }
 
+/**
+ * @brief Read 32-bit words from the backup SRAM.
+ * @param offset Offset, in 32-bit words, from the start of the backup SRAM.
+ * @param data Pointer to the buffer receiving the data.
+ * @param length Number of 32-bit words to read.
+ * @note Does nothing if backup SRAM is not available.
+ */
 static inline void readBackupSRAM(uint32_t offset, uint32_t *data, uint32_t length)
 {
 #if defined(BKPSRAM_BASE)

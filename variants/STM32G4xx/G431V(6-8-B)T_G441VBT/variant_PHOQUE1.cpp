@@ -135,6 +135,9 @@ extern "C" const pin_size_t analogInputPin[] = {
 extern "C" {
 #endif
 
+/**
+  * @brief System Clock Configuration
+  */
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {};

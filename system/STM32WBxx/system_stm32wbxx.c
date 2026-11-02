@@ -184,8 +184,6 @@ const uint32_t MSIRangeTable[16UL] = {100000UL, 200000UL, 400000UL, 800000UL, 10
 
 /**
   * @brief  Setup the microcontroller system.
-  * @param  None
-  * @retval None
   */
 void SystemInit(void)
 {
@@ -274,9 +272,6 @@ void SystemInit(void)
   *
   *         - The result of this function could be not correct when using fractional
   *           value for HSE crystal.
-  *
-  * @param  None
-  * @retval None
   */
 void SystemCoreClockUpdate(void)
 {

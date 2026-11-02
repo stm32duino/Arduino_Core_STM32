@@ -40,28 +40,29 @@
 
 #include "cdc_queue.h"
 
-// Initialize read and write position of queue
+// Both queues are single-producer/single-consumer ring buffers accessed
+// without locks: the producer only moves `write`, the consumer only moves `read`.
+
+// Transmit queue: `read == write` means empty. One byte is always left free
+// so that a full queue can be told from an empty one.
 void CDC_TransmitQueue_Init(CDC_TransmitQueue_TypeDef *queue)
 {
   queue->read = 0;
   queue->write = 0;
 }
 
-// Determine size, available for write in queue
 int CDC_TransmitQueue_WriteSize(CDC_TransmitQueue_TypeDef *queue)
 {
   return (queue->read + CDC_TRANSMIT_QUEUE_BUFFER_SIZE - queue->write - 1)
          % CDC_TRANSMIT_QUEUE_BUFFER_SIZE;
 }
 
-// Determine size of data, stored in queue
 int CDC_TransmitQueue_ReadSize(CDC_TransmitQueue_TypeDef *queue)
 {
   return (queue->write + CDC_TRANSMIT_QUEUE_BUFFER_SIZE - queue->read)
          % CDC_TRANSMIT_QUEUE_BUFFER_SIZE;
 }
 
-// Write provided data into queue.
 void CDC_TransmitQueue_Enqueue(CDC_TransmitQueue_TypeDef *queue,
                                const uint8_t *buffer, uint32_t size)
 {
@@ -76,7 +77,9 @@ void CDC_TransmitQueue_Enqueue(CDC_TransmitQueue_TypeDef *queue,
                             CDC_TRANSMIT_QUEUE_BUFFER_SIZE);
 }
 
-// Read flat block from queue biggest as possible, but max QUEUE_MAX_PACKET_SIZE
+// Transmit read side: `reserved` remembers the size of the block handed out
+// by ReadBlock, `read` only advances when CommitRead is called, so the block
+// stays valid while USB is sending it.
 uint8_t *CDC_TransmitQueue_ReadBlock(CDC_TransmitQueue_TypeDef *queue,
                                      uint16_t *size)
 {
@@ -95,7 +98,11 @@ void CDC_TransmitQueue_CommitRead(CDC_TransmitQueue_TypeDef *queue)
                 CDC_TRANSMIT_QUEUE_BUFFER_SIZE;
 }
 
-// Initialize read and write position of queue.
+// Receive queue: USB writes whole packets at `write` (ReserveBlock then
+// CommitBlock) while the application consumes from `read`. A packet is never
+// split, so when the end of the buffer is too close for a full packet the
+// writer wraps early and `length` records where the valid data ends. `read`
+// wraps to 0 when it reaches `length`. `write == read` means empty.
 void CDC_ReceiveQueue_Init(CDC_ReceiveQueue_TypeDef *queue)
 {
   queue->read = 0;
@@ -103,7 +110,6 @@ void CDC_ReceiveQueue_Init(CDC_ReceiveQueue_TypeDef *queue)
   queue->length = CDC_RECEIVE_QUEUE_BUFFER_SIZE;
 }
 
-// Reserve block in queue and return pointer to it.
 uint8_t *CDC_ReceiveQueue_ReserveBlock(CDC_ReceiveQueue_TypeDef *queue)
 {
   const uint16_t limit =
@@ -130,7 +136,6 @@ uint8_t *CDC_ReceiveQueue_ReserveBlock(CDC_ReceiveQueue_TypeDef *queue)
   return 0;
 }
 
-// Commits block in queue and make it available for reading
 void CDC_ReceiveQueue_CommitBlock(CDC_ReceiveQueue_TypeDef *queue,
                                   uint16_t size)
 {
@@ -143,7 +148,6 @@ void CDC_ReceiveQueue_CommitBlock(CDC_ReceiveQueue_TypeDef *queue,
   }
 }
 
-// Determine size, available for read
 int CDC_ReceiveQueue_ReadSize(CDC_ReceiveQueue_TypeDef *queue)
 {
   // reading length after write make guarantee, that length >= write
@@ -156,7 +160,6 @@ int CDC_ReceiveQueue_ReadSize(CDC_ReceiveQueue_TypeDef *queue)
   return length + write - queue->read;
 }
 
-// Read one byte from queue.
 int CDC_ReceiveQueue_Dequeue(CDC_ReceiveQueue_TypeDef *queue)
 {
   volatile uint16_t write = queue->write;
@@ -174,7 +177,6 @@ int CDC_ReceiveQueue_Dequeue(CDC_ReceiveQueue_TypeDef *queue)
   return ch;
 }
 
-// Peek byte from queue.
 int CDC_ReceiveQueue_Peek(CDC_ReceiveQueue_TypeDef *queue)
 {
   volatile uint16_t write = queue->write;

@@ -109,8 +109,6 @@ extern "C" {
 
 /**
   * @brief  System Clock Configuration
-  * @param  None
-  * @retval None
   */
 void SystemClock_Config(void)
 {

@@ -100,8 +100,6 @@ extern "C" {
 /**
   * @brief  System Clock Configuration
   *         SYSCLK = 100MHz for ARDUINO_NUCLEO_F410RB
-  * @param  None
-  * @retval None
   */
 void SystemClock_Config(void)
 {
