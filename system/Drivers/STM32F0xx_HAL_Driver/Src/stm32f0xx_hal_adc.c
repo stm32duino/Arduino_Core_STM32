@@ -1536,7 +1536,7 @@ HAL_StatusTypeDef HAL_ADC_Start_DMA(ADC_HandleTypeDef* hadc, uint32_t* pData, ui
       hadc->Instance->CFGR1 |= ADC_CFGR1_DMAEN;
       
       /* Start the DMA channel */
-      HAL_DMA_Start_IT(hadc->DMA_Handle, (uint32_t)&hadc->Instance->DR, (uint32_t)pData, Length);
+      tmp_hal_status = HAL_DMA_Start_IT(hadc->DMA_Handle, (uint32_t)&hadc->Instance->DR, (uint32_t)pData, Length);
            
       /* Enable conversion of regular group.                                  */
       /* If software start has been selected, conversion starts immediately.  */

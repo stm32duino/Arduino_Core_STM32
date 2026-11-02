@@ -78,10 +78,12 @@ typedef struct __DAC_HandleTypeDef
   void (* ConvHalfCpltCallbackCh1)        (struct __DAC_HandleTypeDef *hdac);
   void (* ErrorCallbackCh1)               (struct __DAC_HandleTypeDef *hdac);
   void (* DMAUnderrunCallbackCh1)         (struct __DAC_HandleTypeDef *hdac);
+#if defined(DAC_CHANNEL2_SUPPORT)
   void (* ConvCpltCallbackCh2)            (struct __DAC_HandleTypeDef* hdac);
   void (* ConvHalfCpltCallbackCh2)        (struct __DAC_HandleTypeDef* hdac);
   void (* ErrorCallbackCh2)               (struct __DAC_HandleTypeDef* hdac);
   void (* DMAUnderrunCallbackCh2)         (struct __DAC_HandleTypeDef* hdac); 
+#endif /* DAC_CHANNEL2_SUPPORT */
 
   void (* MspInitCallback)                (struct __DAC_HandleTypeDef *hdac);
   void (* MspDeInitCallback )             (struct __DAC_HandleTypeDef *hdac); 
@@ -112,10 +114,12 @@ typedef enum
   HAL_DAC_CH1_HALF_COMPLETE_CB_ID            = 0x01U,  /*!< DAC CH1 half Complete Callback ID */
   HAL_DAC_CH1_ERROR_ID                       = 0x02U,  /*!< DAC CH1 error Callback ID         */
   HAL_DAC_CH1_UNDERRUN_CB_ID                 = 0x03U,  /*!< DAC CH1 underrun Callback ID      */
+#if defined(DAC_CHANNEL2_SUPPORT)
   HAL_DAC_CH2_COMPLETE_CB_ID                 = 0x04U,  /*!< DAC CH2 Complete Callback ID      */
   HAL_DAC_CH2_HALF_COMPLETE_CB_ID            = 0x05U,  /*!< DAC CH2 half Complete Callback ID */
   HAL_DAC_CH2_ERROR_ID                       = 0x06U,  /*!< DAC CH2 error Callback ID         */
   HAL_DAC_CH2_UNDERRUN_CB_ID                 = 0x07U,  /*!< DAC CH2 underrun Callback ID      */
+#endif /* DAC_CHANNEL2_SUPPORT */
   HAL_DAC_MSPINIT_CB_ID                      = 0x08U,  /*!< DAC MspInit Callback ID           */
   HAL_DAC_MSPDEINIT_CB_ID                    = 0x09U,  /*!< DAC MspDeInit Callback ID         */
   HAL_DAC_ALL_CB_ID                          = 0x0AU   /*!< DAC All ID                        */
@@ -142,7 +146,9 @@ typedef void (*pDAC_CallbackTypeDef)(DAC_HandleTypeDef *hdac);
   */
 #define  HAL_DAC_ERROR_NONE              0x00U    /*!< No error                          */
 #define  HAL_DAC_ERROR_DMAUNDERRUNCH1    0x01U    /*!< DAC channel1 DMA underrun error   */
+#if defined(DAC_CHANNEL2_SUPPORT)
 #define  HAL_DAC_ERROR_DMAUNDERRUNCH2    0x02U    /*!< DAC channel2 DMA underrun error   */
+#endif /* DAC_CHANNEL2_SUPPORT */
 #define  HAL_DAC_ERROR_DMA               0x04U    /*!< DMA error                         */   
 #define  HAL_DAC_ERROR_TIMEOUT           0x08U    /*!< Timeout error                     */
 #if (USE_HAL_DAC_REGISTER_CALLBACKS == 1)

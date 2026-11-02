@@ -345,7 +345,7 @@ HAL_StatusTypeDef HAL_DAC_Start(DAC_HandleTypeDef* hdac, uint32_t Channel)
 HAL_StatusTypeDef HAL_DAC_Start_DMA(DAC_HandleTypeDef* hdac, uint32_t Channel, uint32_t* pData, uint32_t Length, uint32_t Alignment)
 {
   uint32_t tmpreg = 0U;
-    
+  HAL_StatusTypeDef status;
   /* Check the parameters */
   assert_param(IS_DAC_CHANNEL(Channel));
   assert_param(IS_DAC_ALIGN(Alignment));
@@ -430,7 +430,7 @@ HAL_StatusTypeDef HAL_DAC_Start_DMA(DAC_HandleTypeDef* hdac, uint32_t Channel, u
     __HAL_DAC_ENABLE_IT(hdac, DAC_IT_DMAUDR1);
     
     /* Enable the DMA channel */
-    HAL_DMA_Start_IT(hdac->DMA_Handle1, (uint32_t)pData, tmpreg, Length);
+    status = HAL_DMA_Start_IT(hdac->DMA_Handle1, (uint32_t)pData, tmpreg, Length);
   } 
   else
   {
@@ -438,7 +438,7 @@ HAL_StatusTypeDef HAL_DAC_Start_DMA(DAC_HandleTypeDef* hdac, uint32_t Channel, u
     __HAL_DAC_ENABLE_IT(hdac, DAC_IT_DMAUDR2);
     
     /* Enable the DMA channel */
-    HAL_DMA_Start_IT(hdac->DMA_Handle2, (uint32_t)pData, tmpreg, Length);
+    status = HAL_DMA_Start_IT(hdac->DMA_Handle2, (uint32_t)pData, tmpreg, Length);
   }
   
   /* Enable the Peripharal */
@@ -448,7 +448,7 @@ HAL_StatusTypeDef HAL_DAC_Start_DMA(DAC_HandleTypeDef* hdac, uint32_t Channel, u
   __HAL_UNLOCK(hdac);
   
   /* Return function status */
-  return HAL_OK;
+  return status;
 }
 
 

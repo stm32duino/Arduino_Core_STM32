@@ -315,10 +315,12 @@ HAL_StatusTypeDef HAL_DAC_Init(DAC_HandleTypeDef* hdac)
     hdac->ErrorCallbackCh1              = HAL_DAC_ErrorCallbackCh1;
     hdac->DMAUnderrunCallbackCh1        = HAL_DAC_DMAUnderrunCallbackCh1;
 
+#if defined(DAC_CHANNEL2_SUPPORT)
     hdac->ConvCpltCallbackCh2           = HAL_DACEx_ConvCpltCallbackCh2;
     hdac->ConvHalfCpltCallbackCh2       = HAL_DACEx_ConvHalfCpltCallbackCh2;
     hdac->ErrorCallbackCh2              = HAL_DACEx_ErrorCallbackCh2;
     hdac->DMAUnderrunCallbackCh2        = HAL_DACEx_DMAUnderrunCallbackCh2;
+#endif  /* DAC_CHANNEL2_SUPPORT */
 
     if (hdac->MspInitCallback == NULL)
     {
@@ -895,6 +897,7 @@ HAL_StatusTypeDef HAL_DAC_RegisterCallback(DAC_HandleTypeDef *hdac, HAL_DAC_Call
     case HAL_DAC_CH1_UNDERRUN_CB_ID :
       hdac->DMAUnderrunCallbackCh1 = pCallback;
       break;
+#if defined(DAC_CHANNEL2_SUPPORT)
     case HAL_DAC_CH2_COMPLETE_CB_ID :
       hdac->ConvCpltCallbackCh2 = pCallback;
       break;
@@ -907,6 +910,7 @@ HAL_StatusTypeDef HAL_DAC_RegisterCallback(DAC_HandleTypeDef *hdac, HAL_DAC_Call
     case HAL_DAC_CH2_UNDERRUN_CB_ID :
       hdac->DMAUnderrunCallbackCh2 = pCallback;
       break;
+#endif  /* DAC_CHANNEL2_SUPPORT */
     case HAL_DAC_MSPINIT_CB_ID :
       hdac->MspInitCallback = pCallback;
       break;
@@ -994,6 +998,7 @@ HAL_StatusTypeDef HAL_DAC_UnRegisterCallback(DAC_HandleTypeDef *hdac, HAL_DAC_Ca
     case HAL_DAC_CH1_UNDERRUN_CB_ID :
       hdac->DMAUnderrunCallbackCh1 = HAL_DAC_DMAUnderrunCallbackCh1;
       break;
+#if defined(DAC_CHANNEL2_SUPPORT)
     case HAL_DAC_CH2_COMPLETE_CB_ID :
       hdac->ConvCpltCallbackCh2 = HAL_DACEx_ConvCpltCallbackCh2;
       break;
@@ -1006,6 +1011,7 @@ HAL_StatusTypeDef HAL_DAC_UnRegisterCallback(DAC_HandleTypeDef *hdac, HAL_DAC_Ca
     case HAL_DAC_CH2_UNDERRUN_CB_ID :
       hdac->DMAUnderrunCallbackCh2 = HAL_DACEx_DMAUnderrunCallbackCh2;
       break;
+#endif  /* DAC_CHANNEL2_SUPPORT */
     case HAL_DAC_MSPINIT_CB_ID :
       hdac->MspInitCallback = HAL_DAC_MspInit;
       break;
@@ -1017,10 +1023,12 @@ HAL_StatusTypeDef HAL_DAC_UnRegisterCallback(DAC_HandleTypeDef *hdac, HAL_DAC_Ca
       hdac->ConvHalfCpltCallbackCh1 = HAL_DAC_ConvHalfCpltCallbackCh1;
       hdac->ErrorCallbackCh1 = HAL_DAC_ErrorCallbackCh1;
       hdac->DMAUnderrunCallbackCh1 = HAL_DAC_DMAUnderrunCallbackCh1;
+#if defined(DAC_CHANNEL2_SUPPORT)
       hdac->ConvCpltCallbackCh2 = HAL_DACEx_ConvCpltCallbackCh2;
       hdac->ConvHalfCpltCallbackCh2 = HAL_DACEx_ConvHalfCpltCallbackCh2;
       hdac->ErrorCallbackCh2 = HAL_DACEx_ErrorCallbackCh2;
       hdac->DMAUnderrunCallbackCh2 = HAL_DACEx_DMAUnderrunCallbackCh2;
+#endif  /* DAC_CHANNEL2_SUPPORT */
       hdac->MspInitCallback = HAL_DAC_MspInit;
       hdac->MspDeInitCallback = HAL_DAC_MspDeInit;
       break;
