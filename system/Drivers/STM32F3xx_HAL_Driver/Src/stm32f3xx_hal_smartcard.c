@@ -2250,14 +2250,6 @@ static HAL_StatusTypeDef SMARTCARD_SetConfig(SMARTCARD_HandleTypeDef *hsmartcard
             ((uint32_t)hsmartcard->Init.WordLength));
   MODIFY_REG(hsmartcard->Instance->CR1, USART_CR1_FIELDS, tmpreg);
 
-  /*-------------------------- USART CR2 Configuration -----------------------*/
-  tmpreg = hsmartcard->Init.StopBits;
-  /* Synchronous mode is activated by default */
-  tmpreg |= (uint32_t) USART_CR2_CLKEN | hsmartcard->Init.CLKPolarity;
-  tmpreg |= (uint32_t) hsmartcard->Init.CLKPhase | hsmartcard->Init.CLKLastBit;
-  tmpreg |= (uint32_t) hsmartcard->Init.TimeOutEnable;
-  MODIFY_REG(hsmartcard->Instance->CR2, USART_CR2_FIELDS, tmpreg);
-
   /*-------------------------- USART CR3 Configuration -----------------------*/
   /* Configure
    * - one-bit sampling method versus three samples' majority rule
@@ -2274,6 +2266,14 @@ static HAL_StatusTypeDef SMARTCARD_SetConfig(SMARTCARD_HandleTypeDef *hsmartcard
   /*-------------------------- USART GTPR Configuration ----------------------*/
   tmpreg = (hsmartcard->Init.Prescaler | ((uint32_t)hsmartcard->Init.GuardTime << USART_GTPR_GT_Pos));
   MODIFY_REG(hsmartcard->Instance->GTPR, (uint16_t)(USART_GTPR_GT | USART_GTPR_PSC), (uint16_t)tmpreg);
+
+  /*-------------------------- USART CR2 Configuration -----------------------*/
+  tmpreg = hsmartcard->Init.StopBits;
+  /* Synchronous mode is activated by default */
+  tmpreg |= (uint32_t) USART_CR2_CLKEN | hsmartcard->Init.CLKPolarity;
+  tmpreg |= (uint32_t) hsmartcard->Init.CLKPhase | hsmartcard->Init.CLKLastBit;
+  tmpreg |= (uint32_t) hsmartcard->Init.TimeOutEnable;
+  MODIFY_REG(hsmartcard->Instance->CR2, USART_CR2_FIELDS, tmpreg);
 
   /*-------------------------- USART RTOR Configuration ----------------------*/
   tmpreg = ((uint32_t)hsmartcard->Init.BlockLength << USART_RTOR_BLEN_Pos);

@@ -197,7 +197,7 @@ static HAL_StatusTypeDef I2SEx_FullDuplexWaitFlagStateUntilTimeout(I2S_HandleTyp
   * @note   When a 16-bit data frame or a 16-bit data frame extended is selected during the I2S
   *         configuration phase, the Size parameter means the number of 16-bit data length
   *         in the transaction and when a 24-bit data frame or a 32-bit data frame is selected
-  *         the Size parameter means the number of 16-bit data length.
+  *         the Size parameter means the number of 24-bit or 32-bit data length.
   * @param  Timeout Timeout duration
   * @note   The I2S is kept enabled at the end of transaction to avoid the clock de-synchronization
   *         between Master and Slave(example: audio streaming).
@@ -228,7 +228,7 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive(I2S_HandleTypeDef *hi2s,
   /* Check the Data format: When a 16-bit data frame or a 16-bit data frame extended
      is selected during the I2S configuration phase, the Size parameter means the number
      of 16-bit data length in the transaction and when a 24-bit data frame or a 32-bit data
-     frame is selected the Size parameter means the number of 16-bit data length. */
+     frame is selected the Size parameter means the number of 24-bit or 32-bit data length. */
   if ((tmp1 == I2S_DATAFORMAT_24B) || (tmp1 == I2S_DATAFORMAT_32B))
   {
     hi2s->TxXferSize  = (Size << 1U);
@@ -431,7 +431,7 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive(I2S_HandleTypeDef *hi2s,
   * @note   When a 16-bit data frame or a 16-bit data frame extended is selected during the I2S
   *         configuration phase, the Size parameter means the number of 16-bit data length
   *         in the transaction and when a 24-bit data frame or a 32-bit data frame is selected
-  *         the Size parameter means the number of 16-bit data length.
+  *         the Size parameter means the number of 24-bit or 32-bit data length.
   * @note   The I2S is kept enabled at the end of transaction to avoid the clock de-synchronization
   *         between Master and Slave(example: audio streaming).
   * @retval HAL status
@@ -463,7 +463,7 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive_IT(I2S_HandleTypeDef *hi2s,
   /* Check the Data format: When a 16-bit data frame or a 16-bit data frame extended
   is selected during the I2S configuration phase, the Size parameter means the number
   of 16-bit data length in the transaction and when a 24-bit data frame or a 32-bit data
-  frame is selected the Size parameter means the number of 16-bit data length. */
+  frame is selected the Size parameter means the number of 24-bit or 32-bit data length. */
   if ((tmp1 == I2S_DATAFORMAT_24B) || (tmp1 == I2S_DATAFORMAT_32B))
   {
     hi2s->TxXferSize  = (Size << 1U);
@@ -540,7 +540,7 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive_IT(I2S_HandleTypeDef *hi2s,
   * @note   When a 16-bit data frame or a 16-bit data frame extended is selected during the I2S
   *         configuration phase, the Size parameter means the number of 16-bit data length
   *         in the transaction and when a 24-bit data frame or a 32-bit data frame is selected
-  *         the Size parameter means the number of 16-bit data length.
+  *         the Size parameter means the number of 24-bit or 32-bit data length.
   * @note   The I2S is kept enabled at the end of transaction to avoid the clock de-synchronization
   *         between Master and Slave(example: audio streaming).
   * @retval HAL status
@@ -552,6 +552,7 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive_DMA(I2S_HandleTypeDef *hi2s,
 {
   uint32_t *tmp = NULL;
   uint32_t tmp1 = 0U;
+  HAL_StatusTypeDef status;
 
   if (hi2s->State != HAL_I2S_STATE_READY)
   {
@@ -573,7 +574,7 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive_DMA(I2S_HandleTypeDef *hi2s,
   /* Check the Data format: When a 16-bit data frame or a 16-bit data frame extended
   is selected during the I2S configuration phase, the Size parameter means the number
   of 16-bit data length in the transaction and when a 24-bit data frame or a 32-bit data
-  frame is selected the Size parameter means the number of 16-bit data length. */
+  frame is selected the Size parameter means the number of 24-bit or 32-bit data length. */
   if ((tmp1 == I2S_DATAFORMAT_24B) || (tmp1 == I2S_DATAFORMAT_32B))
   {
     hi2s->TxXferSize  = (Size << 1U);
@@ -616,14 +617,14 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive_DMA(I2S_HandleTypeDef *hi2s,
   {
     /* Enable the Rx DMA Stream */
     tmp = (uint32_t *)&pRxData;
-    HAL_DMA_Start_IT(hi2s->hdmarx, (uint32_t)&I2SxEXT(hi2s->Instance)->DR, *(uint32_t *)tmp, hi2s->RxXferSize);
+    status = HAL_DMA_Start_IT(hi2s->hdmarx, (uint32_t)&I2SxEXT(hi2s->Instance)->DR, *(uint32_t *)tmp, hi2s->RxXferSize);
 
     /* Enable Rx DMA Request */
     SET_BIT(I2SxEXT(hi2s->Instance)->CR2, SPI_CR2_RXDMAEN);
 
     /* Enable the Tx DMA Stream */
     tmp = (uint32_t *)&pTxData;
-    HAL_DMA_Start_IT(hi2s->hdmatx, *(uint32_t *)tmp, (uint32_t)&hi2s->Instance->DR, hi2s->TxXferSize);
+    status = HAL_DMA_Start_IT(hi2s->hdmatx, *(uint32_t *)tmp, (uint32_t)&hi2s->Instance->DR, hi2s->TxXferSize);
 
     /* Enable Tx DMA Request */
     SET_BIT(hi2s->Instance->CR2, SPI_CR2_TXDMAEN);
@@ -639,14 +640,14 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive_DMA(I2S_HandleTypeDef *hi2s,
     }
     /* Enable the Tx DMA Stream */
     tmp = (uint32_t *)&pTxData;
-    HAL_DMA_Start_IT(hi2s->hdmatx, *(uint32_t *)tmp, (uint32_t)&I2SxEXT(hi2s->Instance)->DR, hi2s->TxXferSize);
+    status = HAL_DMA_Start_IT(hi2s->hdmatx, *(uint32_t *)tmp, (uint32_t)&I2SxEXT(hi2s->Instance)->DR, hi2s->TxXferSize);
 
     /* Enable Tx DMA Request */
     SET_BIT(I2SxEXT(hi2s->Instance)->CR2, SPI_CR2_TXDMAEN);
 
     /* Enable the Rx DMA Stream */
     tmp = (uint32_t *)&pRxData;
-    HAL_DMA_Start_IT(hi2s->hdmarx, (uint32_t)&hi2s->Instance->DR, *(uint32_t *)tmp, hi2s->RxXferSize);
+    status = HAL_DMA_Start_IT(hi2s->hdmarx, (uint32_t)&hi2s->Instance->DR, *(uint32_t *)tmp, hi2s->RxXferSize);
 
     /* Enable Rx DMA Request */
     SET_BIT(hi2s->Instance->CR2, SPI_CR2_RXDMAEN);
@@ -662,7 +663,7 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive_DMA(I2S_HandleTypeDef *hi2s,
     __HAL_I2S_ENABLE(hi2s);
   }
 
-  return HAL_OK;
+  return status;
 }
 
 /**

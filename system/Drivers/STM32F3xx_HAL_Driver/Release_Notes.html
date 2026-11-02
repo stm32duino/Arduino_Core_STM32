@@ -39,13 +39,91 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history"><strong>Update History</strong></h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section1_5_8" checked aria-hidden="true"> <label for="collapse-section1_5_8" aria-hidden="true"><strong>V1.5.8 / 29-March-2024</strong></label>
+<input type="checkbox" id="collapse-section1_5_9" checked aria-hidden="true"> <label for="collapse-section1_5_9" aria-hidden="true"><strong>V1.5.9 / 19-September-2026</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <ul>
-<li>General updates to fix known defects and implementation enhancements.</li>
+<li>General updates to fix known defects and enhancements implementation.</li>
+<li>HAL code quality enhancement for MISRA-C.</li>
 </ul>
 <h2 id="contents">Contents</h2>
+<ul>
+<li><strong>HAL Generic</strong>
+<ul>
+<li>Fixed the TIM1 timebase initialization sequence by registering the callback before starting the timer.</li>
+</ul></li>
+<li><strong>HAL ADC</strong>
+<ul>
+<li>Fix __LL_ADC_DECIMAL_NB_TO_CHANNEL() to return values consistent with LL_ADC_CHANNEL_x macros.</li>
+<li>Fix ADC overrun interrupt handling behavior.</li>
+</ul></li>
+<li><strong>HAL CAN</strong>
+<ul>
+<li>Avoid losing the FOVR0 or FULL0 status by using a direct assignment.</li>
+</ul></li>
+<li><strong>HAL I2C</strong>
+<ul>
+<li>Update function HAL_I2C_IsDeviceReady() to take into account the number of trials.</li>
+</ul></li>
+<li><strong>HAL I2S</strong>
+<ul>
+<li>Fix the HAL_I2SEx_TransmitReceive(), HAL_I2SEx_TransmitReceive_DMA() and HAL_I2SEx_TransmitReceive_IT() documentation to correctly state that the Size parameter represents the number of data frames.</li>
+</ul></li>
+<li><strong>HAL/LL HRTIM</strong>
+<ul>
+<li>Align the HRTIM_Deadtime_Prescaler_Ratio macro comments with the reference manual.</li>
+<li>Fix the HRTIM_Deadtime_Prescaler_Ratio defines.</li>
+</ul></li>
+<li><strong>HAL/LL RTC</strong>
+<ul>
+<li>Add an explicit cast in RTC_ByteToBcd2() to avoid an implicit narrowing conversion warning.</li>
+</ul></li>
+<li><strong>HAL/LL SPI</strong>
+<ul>
+<li>Add a note to clarify the behavior of HAL_SPI_Receive() in master mode.</li>
+<li>Avoid a buffer overflow in SPI_WaitFifoStateUntilTimeout().</li>
+<li>Add units to physical measurements in the driver documentation.</li>
+<li>Check the data size before changing the state in the reception API.</li>
+<li>Update function HAL_I2C_IsDeviceReady() to take into account the number of trials.</li>
+</ul></li>
+<li><strong>HAL/LL TIM</strong>
+<ul>
+<li>Fix the build error when TIM18 and TIM19 are enabled for STM32F373xx and STM32F30x devices.</li>
+<li>Fix the update flag (UIF) clearing in TIM_Base_SetConfig().</li>
+<li>Update TIM_CCER_CCxE_MASK to support the internal TIM Channel5 and Channel6.</li>
+<li>Fix the complementary channel being systematically disabled by TIM_OCx_SetConfig().</li>
+<li>Add a condition to define the legacy macros LL_TIM_OCMODE_ASSYMMETRIC_PWM1 and LL_TIM_OCMODE_ASSYMMETRIC_PWM2 only if the TIM_CCMR1_OC1M_3 bit register is present.</li>
+</ul></li>
+<li><strong>HAL/LL USB</strong>
+<ul>
+<li>Fix the SA0035 USB driver buffer overflow issue.</li>
+</ul></li>
+<li><strong>HAL UART</strong>
+<ul>
+<li>Provide the accurate position in RxEventCallback when Reception-to-Idle mode is used with DMA and the interrupt processing is delayed.</li>
+<li>Fix the transfer count in the DMA linked list.</li>
+<li>Remove the __HAL_UART_DISABLE() call from the HAL_UART_DeInit() API.</li>
+<li>Correct references to HAL_UARTEx_WakeupCallback and the HAL_UART_WAKEUP_CB_ID define according to series capabilities.</li>
+<li>Fix the transfer count underflow when using polling mode.</li>
+<li>Add the HAL_UART_RXEVENT_IDLE event notification when using HAL_UARTEx_ReceiveToIdle_DMA() with circular DMA, even when it occurs just after the transfer complete event.</li>
+<li>Correct the DMA Rx abort procedure impact on an ongoing Tx transfer in polling mode.</li>
+<li>Align the UART baud rate macro definitions between LL and HAL.</li>
+</ul></li>
+<li><strong>HAL SMARTCARD</strong>
+<ul>
+<li>Update the configuration sequence to better fit SMARTCARD specifications.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section1_5_8" aria-hidden="true"> <label for="collapse-section1_5_8" aria-hidden="true"><strong>V1.5.8 / 29-March-2024</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<ul>
+<li>General updates to fix known defects and implementation enhancements.</li>
+</ul>
+<h2 id="contents-1">Contents</h2>
 <ul>
 <li><strong>HAL Generic</strong> update
 <ul>
@@ -152,12 +230,12 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_5_7" aria-hidden="true"> <label for="collapse-section1_5_7" aria-hidden="true"><strong>V1.5.7 / 27-January-2023</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and implementation enhancements.</li>
 <li>HAL code quality enhancement for MISRA-C Rule-8.13 by adding const qualifiers</li>
 </ul>
-<h2 id="contents-1">Contents</h2>
+<h2 id="contents-2">Contents</h2>
 <ul>
 <li><strong>HAL Generic</strong> update
 <ul>
@@ -289,11 +367,11 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_5_6" aria-hidden="true"> <label for="collapse-section1_5_6" aria-hidden="true"><strong>V1.5.6 / 23-July-2021</strong></label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation.</li>
 </ul>
-<h2 id="contents-2">Contents</h2>
+<h2 id="contents-3">Contents</h2>
 <ul>
 <li><strong>HAL GPIO</strong> driver
 <ul>
@@ -386,11 +464,11 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_5_5" aria-hidden="true"> <label for="collapse-section1_5_5" aria-hidden="true"><strong>V1.5.5 / 10-November-2020</strong></label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation.</li>
 </ul>
-<h2 id="contents-3">Contents</h2>
+<h2 id="contents-4">Contents</h2>
 <ul>
 <li><strong>HAL</strong> driver update
 <ul>
@@ -614,11 +692,11 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_5_4" aria-hidden="true"> <label for="collapse-section1_5_4" aria-hidden="true"><strong>V1.5.4 / 23-July-2020</strong></label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 </ul>
-<h2 id="contents-4">Contents</h2>
+<h2 id="contents-5">Contents</h2>
 <ul>
 <li><strong>HAL/LL GPIO</strong> update
 <ul>
@@ -656,7 +734,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_5_3" aria-hidden="true"> <label for="collapse-section1_5_3" aria-hidden="true"><strong>V1.5.3 / 12-September-2019</strong></label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li>Add support of HAL callback registration feature</li>
@@ -922,7 +1000,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_5_2" aria-hidden="true"> <label for="collapse-section1_5_2" aria-hidden="true"><strong>V1.5.2 / 12-June-2018</strong></label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
+<h2 id="main-changes-7">Main Changes</h2>
 <ul>
 <li><strong>Maintenance release to fix known defects and enhancements implementation</strong></li>
 <li><strong>Generic drivers changes</strong></li>
@@ -1018,7 +1096,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_5_1" aria-hidden="true"> <label for="collapse-section1_5_1" aria-hidden="true"><strong>V1.5.1 / 11-May-2018</strong></label>
 <div>
-<h2 id="main-changes-7">Main Changes</h2>
+<h2 id="main-changes-8">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li><strong>HAL Drivers changes</strong></li>
@@ -1119,7 +1197,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_5_0" aria-hidden="true"> <label for="collapse-section1_5_0" aria-hidden="true"><strong>V1.5.0 / 23-June-2017</strong></label>
 <div>
-<h2 id="main-changes-8">Main Changes</h2>
+<h2 id="main-changes-9">Main Changes</h2>
 <ul>
 <li><strong>Maintenance release to fix known defects and enhancements implementation</strong></li>
 <li><strong>Generic drivers changes</strong></li>
@@ -1258,7 +1336,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_4_0" aria-hidden="true"> <label for="collapse-section1_4_0" aria-hidden="true"><strong>V1.4.0 / 16-December-2016</strong></label>
 <div>
-<h2 id="main-changes-9">Main Changes</h2>
+<h2 id="main-changes-10">Main Changes</h2>
 <ul>
 <li><strong>Maintenance release to fix known defects and enhancements implementation</strong></li>
 <li><strong>HAL Drivers changes</strong></li>
@@ -1470,7 +1548,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_3_0" aria-hidden="true"> <label for="collapse-section1_3_0" aria-hidden="true"><strong>V1.3.0 / 01-July-2016</strong></label>
 <div>
-<h2 id="main-changes-10">Main Changes</h2>
+<h2 id="main-changes-11">Main Changes</h2>
 <ul>
 <li><strong>First official release supporting the Low Level drivers for the STM32F3xx series:</strong>
 <ul>
@@ -1556,7 +1634,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_2_1" aria-hidden="true"> <label for="collapse-section1_2_1" aria-hidden="true"><strong>V1.2.1 / 29-April-2016</strong></label>
 <div>
-<h2 id="main-changes-11">Main Changes</h2>
+<h2 id="main-changes-12">Main Changes</h2>
 <ul>
 <li><strong>Maintenance release to fix known defects and enhancements implementation.</strong></li>
 <li><strong>HAL generic</strong>
@@ -1703,7 +1781,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_2_0" aria-hidden="true"> <label for="collapse-section1_2_0" aria-hidden="true"><strong>V1.2.0 / 13-November-2015</strong></label>
 <div>
-<h2 id="main-changes-12">Main Changes</h2>
+<h2 id="main-changes-13">Main Changes</h2>
 <ul>
 <li><strong>Performed HAL API alignment (macros/functions/constants renaming).</strong></li>
 <li><strong>HAL generic</strong>
@@ -1966,7 +2044,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_1_1" aria-hidden="true"> <label for="collapse-section1_1_1" aria-hidden="true"><strong>V1.1.1 / 19-June-2015</strong></label>
 <div>
-<h2 id="main-changes-13">Main Changes</h2>
+<h2 id="main-changes-14">Main Changes</h2>
 <ul>
 <li>Fixed compilation warnings reported by TrueSTUDIO and SW4STM32 toolchains.</li>
 </ul>
@@ -1975,7 +2053,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_1_0" aria-hidden="true"> <label for="collapse-section1_1_0" aria-hidden="true"><strong>V1.1.0 / 12-September-2014</strong></label>
 <div>
-<h2 id="main-changes-14">Main Changes</h2>
+<h2 id="main-changes-15">Main Changes</h2>
 <ul>
 <li><strong>First official release of STM32F3xx HAL drivers for STM32F303xE, STM32F302xE and STM32F398xx devices.</strong></li>
 <li><strong>HAL generic</strong> update
@@ -2028,7 +2106,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_1_0_rc2" aria-hidden="true"> <label for="collapse-section1_1_0_rc2" aria-hidden="true"><strong>V1.5.2RC2 / 25-August-2014</strong></label>
 <div>
-<h2 id="main-changes-15">Main Changes</h2>
+<h2 id="main-changes-16">Main Changes</h2>
 <ul>
 <li><strong>HAL generic</strong> update
 <ul>
@@ -2167,7 +2245,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_0_1" aria-hidden="true"> <label for="collapse-section1_0_1" aria-hidden="true"><strong>V1.0.1 / 18-June-2014</strong></label>
 <div>
-<h2 id="main-changes-16">Main Changes</h2>
+<h2 id="main-changes-17">Main Changes</h2>
 <ul>
 <li><strong>HAL generic</strong> update
 <ul>
@@ -2281,7 +2359,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_0_0" aria-hidden="true"> <label for="collapse-section1_0_0" aria-hidden="true"><strong>V1.0.0 / 06-May-2014</strong></label>
 <div>
-<h2 id="main-changes-17">Main Changes</h2>
+<h2 id="main-changes-18">Main Changes</h2>
 <ul>
 <li>First official release of STM32F3xx HAL drivers for <strong>STM32F301x6/x8, STM32F302x6/x8, STM32F302xB/xC, STM32F303x6/x8, STM32F373xB/xC, STM32F334x4/x6/x8, STM32F318xx, STM32F328xx, STM32F358xx and STM32F378xx devices.</strong></li>
 </ul>

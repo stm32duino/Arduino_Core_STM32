@@ -165,7 +165,7 @@ extern void    FLASH_PageErase(uint32_t PageAddress);
   */
 HAL_StatusTypeDef HAL_FLASH_Program(uint32_t TypeProgram, uint32_t Address, uint64_t Data)
 {
-  HAL_StatusTypeDef status = HAL_ERROR;
+  HAL_StatusTypeDef status;
   uint8_t index = 0U;
   uint8_t nbiterations = 0U;
   

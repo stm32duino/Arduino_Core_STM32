@@ -310,8 +310,8 @@ HAL_StatusTypeDef HAL_FLASHEx_Erase_IT(FLASH_EraseInitTypeDef *pEraseInit)
 
 HAL_StatusTypeDef HAL_FLASHEx_OBErase(void)
 {
-  uint8_t rdptmp = OB_RDP_LEVEL_0;
-  HAL_StatusTypeDef status = HAL_ERROR;
+  uint8_t rdptmp;
+  HAL_StatusTypeDef status;
 
   /* Get the actual read protection Option Byte value */
   rdptmp = FLASH_OB_GetRDP();
@@ -519,15 +519,15 @@ static void FLASH_MassErase(void)
 static HAL_StatusTypeDef FLASH_OB_EnableWRP(uint32_t WriteProtectPage)
 {
   HAL_StatusTypeDef status = HAL_OK;
-  uint16_t WRP0_Data = 0xFFFFU;
+  uint16_t WRP0_Data;
 #if defined(OB_WRP1_WRP1)
-  uint16_t WRP1_Data = 0xFFFFU;
+  uint16_t WRP1_Data;
 #endif /* OB_WRP1_WRP1 */
 #if defined(OB_WRP2_WRP2)
-  uint16_t WRP2_Data = 0xFFFFU;
+  uint16_t WRP2_Data;
 #endif /* OB_WRP2_WRP2 */
 #if defined(OB_WRP3_WRP3)
-  uint16_t WRP3_Data = 0xFFFFU;
+  uint16_t WRP3_Data;
 #endif /* OB_WRP3_WRP3 */
 
   /* Check the parameters */
@@ -631,15 +631,15 @@ static HAL_StatusTypeDef FLASH_OB_EnableWRP(uint32_t WriteProtectPage)
 static HAL_StatusTypeDef FLASH_OB_DisableWRP(uint32_t WriteProtectPage)
 {
   HAL_StatusTypeDef status = HAL_OK;
-  uint16_t WRP0_Data = 0xFFFFU;
+  uint16_t WRP0_Data;
 #if defined(OB_WRP1_WRP1)
-  uint16_t WRP1_Data = 0xFFFFU;
+  uint16_t WRP1_Data;
 #endif /* OB_WRP1_WRP1 */
 #if defined(OB_WRP2_WRP2)
-  uint16_t WRP2_Data = 0xFFFFU;
+  uint16_t WRP2_Data;
 #endif /* OB_WRP2_WRP2 */
 #if defined(OB_WRP3_WRP3)
-  uint16_t WRP3_Data = 0xFFFFU;
+  uint16_t WRP3_Data;
 #endif /* OB_WRP3_WRP3 */
 
   /* Check the parameters */
@@ -845,7 +845,7 @@ static HAL_StatusTypeDef FLASH_OB_UserConfig(uint8_t UserConfig)
   */
 static HAL_StatusTypeDef FLASH_OB_ProgramData(uint32_t Address, uint8_t Data)
 {
-  HAL_StatusTypeDef status = HAL_ERROR;
+  HAL_StatusTypeDef status;
 
   /* Check the parameters */
   assert_param(IS_OB_DATA_ADDRESS(Address));

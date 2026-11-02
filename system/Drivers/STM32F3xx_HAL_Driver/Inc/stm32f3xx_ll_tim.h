@@ -539,8 +539,8 @@ typedef struct
 
                                       @note This bit-field can not be modified as long as LOCK level 1 has been
                                       programmed. */
-
 #endif /* TIM_BDTR_BK2E */
+
   uint32_t AutomaticOutput;      /*!< Specifies whether the TIM Automatic Output feature is enabled or not.
                                       This parameter can be a value of @ref TIM_LL_EC_AUTOMATICOUTPUT_ENABLE
 
@@ -757,8 +757,10 @@ typedef struct
 /** Legacy definitions for compatibility purpose
 @cond 0
   */
+#if defined(TIM_CCMR1_OC1M_3)
 #define LL_TIM_OCMODE_ASSYMETRIC_PWM1 LL_TIM_OCMODE_ASYMMETRIC_PWM1
 #define LL_TIM_OCMODE_ASSYMETRIC_PWM2 LL_TIM_OCMODE_ASYMMETRIC_PWM2
+#endif /* TIM_CCMR1_OC1M_3 */
 /**
 @endcond
   */
@@ -910,7 +912,7 @@ typedef struct
   * @}
   */
 
-#if   defined(TIM_CR2_MMS2)
+#if defined(TIM_CR2_MMS2)
 /** @defgroup TIM_LL_EC_TRGO2 Trigger Output 2
   * @{
   */
@@ -3438,7 +3440,7 @@ __STATIC_INLINE void LL_TIM_SetTriggerOutput(TIM_TypeDef *TIMx, uint32_t TimerSy
   MODIFY_REG(TIMx->CR2, TIM_CR2_MMS, TimerSynchronization);
 }
 
-#if   defined(TIM_CR2_MMS2)
+#if defined(TIM_CR2_MMS2)
 /**
   * @brief  Set the trigger output 2 (TRGO2) used for ADC synchronization .
   * @note Macro IS_TIM_TRGO2_INSTANCE(TIMx) can be used to check
@@ -4192,7 +4194,7 @@ __STATIC_INLINE uint32_t LL_TIM_IsActiveFlag_CC4(const TIM_TypeDef *TIMx)
   return ((READ_BIT(TIMx->SR, TIM_SR_CC4IF) == (TIM_SR_CC4IF)) ? 1UL : 0UL);
 }
 
-#if   defined (TIM_SR_CC5IF)
+#if defined (TIM_SR_CC5IF)
 /**
   * @brief  Clear the Capture/Compare 5 interrupt flag (CC5F).
   * @rmtoll SR           CC5IF         LL_TIM_ClearFlag_CC5
@@ -4216,7 +4218,7 @@ __STATIC_INLINE uint32_t LL_TIM_IsActiveFlag_CC5(const TIM_TypeDef *TIMx)
 }
 
 #endif /* TIM_SR_CC5IF */
-#if   defined (TIM_SR_CC6IF)
+#if defined (TIM_SR_CC6IF)
 /**
   * @brief  Clear the Capture/Compare 6 interrupt flag (CC6F).
   * @rmtoll SR           CC6IF         LL_TIM_ClearFlag_CC6

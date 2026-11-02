@@ -295,6 +295,13 @@ HAL_NOR_StatusTypeDef HAL_NOR_GetStatus(NOR_HandleTypeDef *hnor, uint32_t Addres
               ((uint32_t)((__NOR_ADDRESS) + (__ADDRESS__)))))
 
 /**
+  * @brief  NOR memory read data from specified address.
+  * @param  __ADDRESS__ NOR memory address
+  * @retval Read data
+  */
+#define NOR_READ(__ADDRESS__)             (*(__IO uint16_t *)((uint32_t)(__ADDRESS__)))
+
+/**
   * @brief  NOR memory write data to specified address.
   * @param  __ADDRESS__ NOR memory address
   * @param  __DATA__ Data to write

@@ -1793,7 +1793,7 @@ __weak void HAL_I2S_ErrorCallback(I2S_HandleTypeDef *hi2s)
   *         the configuration information for I2S module
   * @retval HAL state
   */
-HAL_I2S_StateTypeDef HAL_I2S_GetState(I2S_HandleTypeDef *hi2s)
+HAL_I2S_StateTypeDef HAL_I2S_GetState(const I2S_HandleTypeDef *hi2s)
 {
   return hi2s->State;
 }
@@ -1804,7 +1804,7 @@ HAL_I2S_StateTypeDef HAL_I2S_GetState(I2S_HandleTypeDef *hi2s)
   *         the configuration information for I2S module
   * @retval I2S Error Code
   */
-uint32_t HAL_I2S_GetError(I2S_HandleTypeDef *hi2s)
+uint32_t HAL_I2S_GetError(const I2S_HandleTypeDef *hi2s)
 {
   return hi2s->ErrorCode;
 }

@@ -1165,7 +1165,7 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
   *         divided by the smallest oversampling used on the USART (i.e. 8)
   * @retval SET (__BAUDRATE__ is valid) or RESET (__BAUDRATE__ is invalid)
   */
-#define IS_UART_BAUDRATE(__BAUDRATE__) ((__BAUDRATE__) < 9000001U)
+#define IS_UART_BAUDRATE(__BAUDRATE__) ((__BAUDRATE__) <= 9000000U)
 
 /** @brief  Check UART assertion time.
   * @param  __TIME__ 5-bit value assertion time.

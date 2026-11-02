@@ -82,14 +82,14 @@ HAL_StatusTypeDef  HAL_PCDEx_PMAConfig(PCD_HandleTypeDef *hpcd, uint16_t ep_addr
 {
   PCD_EPTypeDef *ep;
 
-  /* initialize ep structure*/
+  /* Initialize ep structure */
   if ((0x80U & ep_addr) == 0x80U)
   {
     ep = &hpcd->IN_ep[ep_addr & EP_ADDR_MSK];
   }
   else
   {
-    ep = &hpcd->OUT_ep[ep_addr];
+    ep = &hpcd->OUT_ep[ep_addr & EP_ADDR_MSK];
   }
 
   /* Here we check if the endpoint is single or double Buffer*/
@@ -97,6 +97,7 @@ HAL_StatusTypeDef  HAL_PCDEx_PMAConfig(PCD_HandleTypeDef *hpcd, uint16_t ep_addr
   {
     /* Single Buffer */
     ep->doublebuffer = 0U;
+
     /* Configure the PMA */
     ep->pmaadress = (uint16_t)pmaadress;
   }
@@ -105,6 +106,7 @@ HAL_StatusTypeDef  HAL_PCDEx_PMAConfig(PCD_HandleTypeDef *hpcd, uint16_t ep_addr
   {
     /* Double Buffer Endpoint */
     ep->doublebuffer = 1U;
+
     /* Configure the PMA */
     ep->pmaaddr0 = (uint16_t)(pmaadress & 0xFFFFU);
     ep->pmaaddr1 = (uint16_t)((pmaadress & 0xFFFF0000U) >> 16);
