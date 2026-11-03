@@ -43,7 +43,12 @@
   * @{
   */
 
+#if defined(STM32F373xC) || defined(STM32F378xx)
 #define IS_LL_EXTI_LINE_0_31(__VALUE__)              (((__VALUE__) & ~LL_EXTI_LINE_ALL_0_31) == 0x00000000U)
+#else
+#define IS_LL_EXTI_LINE_0_31(__VALUE__)              ((__VALUE__) > 0x00000000U)
+#endif /* STM32F373xC  ||  STM32F378xx */
+
 #if defined(EXTI_32_63_SUPPORT)
 #define IS_LL_EXTI_LINE_32_63(__VALUE__)             (((__VALUE__) & ~LL_EXTI_LINE_ALL_32_63) == 0x00000000U)
 #endif

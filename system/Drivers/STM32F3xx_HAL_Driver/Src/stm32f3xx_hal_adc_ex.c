@@ -2134,14 +2134,13 @@ HAL_StatusTypeDef HAL_ADC_Start_IT(ADC_HandleTypeDef* hadc)
           break;
       }
       
-      /* If overrun is set to overwrite previous data (default setting),      */
-      /* overrun interrupt is not activated (overrun event is not considered  */
-      /* as an error).                                                        */
-      /* (cf ref manual "Managing conversions without using the DMA and       */
-      /* without overrun ")                                                   */
+      /* Enable ADC overrun interrupt */
+      /* If hadc->Init.Overrun is set to ADC_OVR_DATA_PRESERVED, only then is
+         ADC_IT_OVR enabled; otherwise data overwrite is considered as normal
+         behavior and no CPU time is lost for a non-processed interruption */
       if (hadc->Init.Overrun == ADC_OVR_DATA_PRESERVED)
       {
-        __HAL_ADC_DISABLE_IT(hadc, ADC_IT_OVR);
+        __HAL_ADC_ENABLE_IT(hadc, ADC_IT_OVR);
       }
       
       /* Enable conversion of regular group.                                  */
@@ -2489,8 +2488,8 @@ HAL_StatusTypeDef HAL_ADC_Start_DMA(ADC_HandleTypeDef* hadc, uint32_t* pData, ui
         SET_BIT(hadc->Instance->CFGR, ADC_CFGR_DMAEN);
         
         /* Start the DMA channel */
-        HAL_DMA_Start_IT(hadc->DMA_Handle, (uint32_t)&hadc->Instance->DR, (uint32_t)pData, Length);
-                 
+        tmp_hal_status = HAL_DMA_Start_IT(hadc->DMA_Handle, (uint32_t)&hadc->Instance->DR, (uint32_t)pData, Length);
+
         /* Enable conversion of regular group.                                */
         /* If software start has been selected, conversion starts immediately.*/
         /* If external trigger has been selected, conversion will start at    */
@@ -2609,7 +2608,7 @@ HAL_StatusTypeDef HAL_ADC_Start_DMA(ADC_HandleTypeDef* hadc, uint32_t* pData, ui
     hadc->Instance->CR2 |= ADC_CR2_DMA;
     
     /* Start the DMA channel */
-    HAL_DMA_Start_IT(hadc->DMA_Handle, (uint32_t)&hadc->Instance->DR, (uint32_t)pData, Length);
+    tmp_hal_status = HAL_DMA_Start_IT(hadc->DMA_Handle, (uint32_t)&hadc->Instance->DR, (uint32_t)pData, Length);
 
     /* Enable conversion of regular group.                                    */
     /* If software start has been selected, conversion starts immediately.    */
@@ -4677,7 +4676,7 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef* hadc, uint32_t
       __HAL_ADC_ENABLE_IT(hadc, ADC_IT_OVR);
 
       /* Start the DMA channel */
-      HAL_DMA_Start_IT(hadc->DMA_Handle, (uint32_t)&tmpADC_Common->CDR, (uint32_t)pData, Length);
+      tmp_hal_status = HAL_DMA_Start_IT(hadc->DMA_Handle, (uint32_t)&tmpADC_Common->CDR, (uint32_t)pData, Length);
           
       /* Enable conversion of regular group.                                  */
       /* If software start has been selected, conversion starts immediately.  */
@@ -4822,8 +4821,8 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeStop_DMA(ADC_HandleTypeDef* hadc)
     else
     {
       /* In case of error, attempt to disable ADC instances anyway */
-      ADC_Disable(hadc);
-      ADC_Disable(&tmphadcSlave);
+      (void)ADC_Disable(hadc);
+      (void)ADC_Disable(&tmphadcSlave);
       
       /* Update ADC state machine (ADC master) to error */
       SET_BIT(hadc->State, HAL_ADC_STATE_ERROR_INTERNAL);
@@ -5225,7 +5224,7 @@ HAL_StatusTypeDef HAL_ADCEx_RegularStop_DMA(ADC_HandleTypeDef* hadc)
     }
     else
     {
-      ADC_Disable(hadc);
+      (void)ADC_Disable(hadc);
     }
     
     /* Check if ADC is effectively disabled */
@@ -5394,8 +5393,8 @@ HAL_StatusTypeDef HAL_ADCEx_RegularMultiModeStop_DMA(ADC_HandleTypeDef* hadc)
     else
     {
       /* In case of error, attempt to disable ADC instances anyway */
-      ADC_Disable(hadc);
-      ADC_Disable(&tmphadcSlave);
+      (void)ADC_Disable(hadc);
+      (void)ADC_Disable(&tmphadcSlave);
       
       /* Update ADC state machine (ADC master) to error */
       SET_BIT(hadc->State, HAL_ADC_STATE_ERROR_INTERNAL);
@@ -6182,8 +6181,10 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedConfigChannel(ADC_HandleTypeDef* hadc, ADC_I
                  ADC_JSQR_RK(sConfigInjected->InjectedChannel, sConfigInjected->InjectedRank) );
       
       /* Decrease channel count after setting into temporary JSQR variable */
-      hadc->InjectionConfig.ChannelCount --;
-      
+	  if (hadc->InjectionConfig.ChannelCount > 0U)
+      {
+        hadc->InjectionConfig.ChannelCount --;
+      }
       /* 3. End of context setting: If last channel set, then write context   */
       /*    into register JSQR and make it enter into queue                   */
       if (hadc->InjectionConfig.ChannelCount == 0U)

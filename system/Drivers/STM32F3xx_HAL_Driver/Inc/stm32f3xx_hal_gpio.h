@@ -210,25 +210,25 @@ typedef enum
 /** @defgroup GPIO_Private_Constants GPIO Private Constants
   * @{
   */
-#define GPIO_MODE_Pos                           0u
-#define GPIO_MODE                               (0x3uL << GPIO_MODE_Pos)
-#define MODE_INPUT                              (0x0uL << GPIO_MODE_Pos)
-#define MODE_OUTPUT                             (0x1uL << GPIO_MODE_Pos)
-#define MODE_AF                                 (0x2uL << GPIO_MODE_Pos)
-#define MODE_ANALOG                             (0x3uL << GPIO_MODE_Pos)
-#define OUTPUT_TYPE_Pos                         4u
-#define OUTPUT_TYPE                             (0x1uL << OUTPUT_TYPE_Pos)
-#define OUTPUT_PP                               (0x0uL << OUTPUT_TYPE_Pos)
-#define OUTPUT_OD                               (0x1uL << OUTPUT_TYPE_Pos)
-#define EXTI_MODE_Pos                           16u
-#define EXTI_MODE                               (0x3uL << EXTI_MODE_Pos)
-#define EXTI_IT                                 (0x1uL << EXTI_MODE_Pos)
-#define EXTI_EVT                                (0x2uL << EXTI_MODE_Pos)
-#define TRIGGER_MODE_Pos                         20u
-#define TRIGGER_MODE                            (0x7uL << TRIGGER_MODE_Pos)
-#define TRIGGER_RISING                          (0x1uL << TRIGGER_MODE_Pos)
-#define TRIGGER_FALLING                         (0x2uL << TRIGGER_MODE_Pos)
-#define TRIGGER_LEVEL                           (0x4uL << TRIGGER_MODE_Pos)
+#define GPIO_MODE_Pos                           0U
+#define GPIO_MODE                               (0x3UL << GPIO_MODE_Pos)
+#define MODE_INPUT                              (0x0UL << GPIO_MODE_Pos)
+#define MODE_OUTPUT                             (0x1UL << GPIO_MODE_Pos)
+#define MODE_AF                                 (0x2UL << GPIO_MODE_Pos)
+#define MODE_ANALOG                             (0x3UL << GPIO_MODE_Pos)
+#define OUTPUT_TYPE_Pos                         4U
+#define OUTPUT_TYPE                             (0x1UL << OUTPUT_TYPE_Pos)
+#define OUTPUT_PP                               (0x0UL << OUTPUT_TYPE_Pos)
+#define OUTPUT_OD                               (0x1UL << OUTPUT_TYPE_Pos)
+#define EXTI_MODE_Pos                           16U
+#define EXTI_MODE                               (0x3UL << EXTI_MODE_Pos)
+#define EXTI_IT                                 (0x1UL << EXTI_MODE_Pos)
+#define EXTI_EVT                                (0x2UL << EXTI_MODE_Pos)
+#define TRIGGER_MODE_Pos                        20U
+#define TRIGGER_MODE                            (0x7UL << TRIGGER_MODE_Pos)
+#define TRIGGER_RISING                          (0x1UL << TRIGGER_MODE_Pos)
+#define TRIGGER_FALLING                         (0x2UL << TRIGGER_MODE_Pos)
+#define TRIGGER_LEVEL                           (0x4UL << TRIGGER_MODE_Pos)
 /**
   * @}
   */
@@ -238,8 +238,8 @@ typedef enum
   */
 #define IS_GPIO_PIN_ACTION(ACTION)  (((ACTION) == GPIO_PIN_RESET) || ((ACTION) == GPIO_PIN_SET))
 
-#define IS_GPIO_PIN(__PIN__)        (((((uint32_t)__PIN__) & GPIO_PIN_MASK) != 0x00U) &&\
-                                     ((((uint32_t)__PIN__) & ~GPIO_PIN_MASK) == 0x00U))
+#define IS_GPIO_PIN(__PIN__)        (((((uint32_t)(__PIN__)) & GPIO_PIN_MASK) != 0x00U) &&\
+                                     ((((uint32_t)(__PIN__)) & ~GPIO_PIN_MASK) == 0x00U))
 
 #define IS_GPIO_MODE(__MODE__)      (((__MODE__) == GPIO_MODE_INPUT)              ||\
                                      ((__MODE__) == GPIO_MODE_OUTPUT_PP)          ||\

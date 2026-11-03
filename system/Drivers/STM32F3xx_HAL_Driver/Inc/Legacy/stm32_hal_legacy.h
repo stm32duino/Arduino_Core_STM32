@@ -361,7 +361,9 @@ extern "C" {
 #if defined(STM32L4R5xx) || defined(STM32L4R9xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || \
     defined(STM32L4S7xx) || defined(STM32L4S9xx)
 #define DMA_REQUEST_DCMI_PSSI                    DMA_REQUEST_DCMI
-#endif
+#elif defined(STM32L4P5xx) || defined(STM32L4Q5xx)
+#define DMA_REQUEST_PSSI                    DMA_REQUEST_DCMI_PSSI
+#endif /* STM32L4R5xx || STM32L4R9xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
 
 #endif /* STM32L4 */
 
@@ -472,7 +474,9 @@ extern "C" {
 #define TYPEPROGRAMDATA_FASTBYTE      FLASH_TYPEPROGRAMDATA_FASTBYTE
 #define TYPEPROGRAMDATA_FASTHALFWORD  FLASH_TYPEPROGRAMDATA_FASTHALFWORD
 #define TYPEPROGRAMDATA_FASTWORD      FLASH_TYPEPROGRAMDATA_FASTWORD
+#if !defined(STM32F2) && !defined(STM32F4) && !defined(STM32F7) && !defined(STM32H7) && !defined(STM32H5)
 #define PAGESIZE                      FLASH_PAGE_SIZE
+#endif /* STM32F2 && STM32F4 && STM32F7 &&  STM32H7 && STM32H5 */
 #define TYPEPROGRAM_FASTBYTE          FLASH_TYPEPROGRAM_BYTE
 #define TYPEPROGRAM_FASTHALFWORD      FLASH_TYPEPROGRAM_HALFWORD
 #define TYPEPROGRAM_FASTWORD          FLASH_TYPEPROGRAM_WORD
@@ -536,6 +540,10 @@ extern "C" {
 #define FLASH_FLAG_WDW                FLASH_FLAG_WBNE
 #define OB_WRP_SECTOR_All             OB_WRP_SECTOR_ALL
 #endif /* STM32H7 */
+#if defined(STM32H7RS)
+#define FLASH_OPTKEY1                 FLASH_OPT_KEY1
+#define FLASH_OPTKEY2                 FLASH_OPT_KEY2
+#endif /* STM32H7RS */
 #if defined(STM32U5)
 #define OB_USER_nRST_STOP             OB_USER_NRST_STOP
 #define OB_USER_nRST_STDBY            OB_USER_NRST_STDBY
@@ -558,6 +566,9 @@ extern "C" {
 #define OB_nBOOT0_RESET               OB_NBOOT0_RESET
 #define OB_nBOOT0_SET                 OB_NBOOT0_SET
 #endif /* STM32U0 */
+#if defined(STM32H5)
+#define FLASH_ECC_AREA_EDATA          FLASH_ECC_AREA_EDATA_BANK1
+#endif /* STM32H5 */
 
 /**
   * @}
@@ -600,6 +611,15 @@ extern "C" {
 #define HAL_SYSCFG_EnableIOAnalogSwitchVDD        HAL_SYSCFG_EnableIOSwitchVDD
 #define HAL_SYSCFG_DisableIOAnalogSwitchVDD       HAL_SYSCFG_DisableIOSwitchVDD
 #endif /* STM32G4 */
+
+#if defined(STM32U5)
+
+#define HAL_SYSCFG_EnableIOAnalogSwitchBooster                 HAL_SYSCFG_EnableIOAnalogBooster
+#define HAL_SYSCFG_DisableIOAnalogSwitchBooster                HAL_SYSCFG_DisableIOAnalogBooster
+#define HAL_SYSCFG_EnableIOAnalogSwitchVoltageSelection        HAL_SYSCFG_EnableIOAnalogVoltageSelection
+#define HAL_SYSCFG_DisableIOAnalogSwitchVoltageSelection       HAL_SYSCFG_DisableIOAnalogVoltageSelection
+
+#endif /* STM32U5 */
 
 #if defined(STM32H5)
 #define SYSCFG_IT_FPU_IOC         SBS_IT_FPU_IOC
@@ -806,6 +826,21 @@ extern "C" {
 #define GPIO_AF0_S2DSTOP                          GPIO_AF0_SRDSTOP
 #define GPIO_AF11_LPGPIO                          GPIO_AF11_LPGPIO1
 #endif /* STM32U5 */
+
+#if defined(STM32WBA)
+#define GPIO_AF11_RF_ANTSW0    GPIO_AF11_RF
+#define GPIO_AF11_RF_ANTSW1    GPIO_AF11_RF
+#define GPIO_AF11_RF_ANTSW2    GPIO_AF11_RF
+#define GPIO_AF11_RF_IO1       GPIO_AF11_RF
+#define GPIO_AF11_RF_IO2       GPIO_AF11_RF
+#define GPIO_AF11_RF_IO3       GPIO_AF11_RF
+#define GPIO_AF11_RF_IO4       GPIO_AF11_RF
+#define GPIO_AF11_RF_IO5       GPIO_AF11_RF
+#define GPIO_AF11_RF_IO6       GPIO_AF11_RF
+#define GPIO_AF11_RF_IO7       GPIO_AF11_RF
+#define GPIO_AF11_RF_IO8       GPIO_AF11_RF
+#define GPIO_AF11_RF_IO9       GPIO_AF11_RF
+#endif /* STM32WBA */
 /**
   * @}
   */
@@ -859,6 +894,10 @@ extern "C" {
 #define __HAL_HRTIM_GetClockPrescaler __HAL_HRTIM_GETCLOCKPRESCALER
 #define __HAL_HRTIM_SetCompare        __HAL_HRTIM_SETCOMPARE
 #define __HAL_HRTIM_GetCompare        __HAL_HRTIM_GETCOMPARE
+
+#if defined(STM32F3) || defined(STM32G4) || defined(STM32H7)
+#define HRTIMInterruptResquests  HRTIMInterruptRequests
+#endif /* STM32F3 || STM32G4 || STM32H7 */
 
 #if defined(STM32G4)
 #define HAL_HRTIM_ExternalEventCounterConfig    HAL_HRTIM_ExtEventCounterConfig
@@ -997,8 +1036,8 @@ extern "C" {
 #define HRTIM_CALIBRATIONRATE_910              (HRTIM_DLLCR_CALRTE_0)
 #define HRTIM_CALIBRATIONRATE_114              (HRTIM_DLLCR_CALRTE_1)
 #define HRTIM_CALIBRATIONRATE_14               (HRTIM_DLLCR_CALRTE_1 | HRTIM_DLLCR_CALRTE_0)
-
 #endif /* STM32F3 */
+
 /**
   * @}
   */
@@ -1249,10 +1288,10 @@ extern "C" {
 #define RTC_TAMPERPIN_PA0  RTC_TAMPERPIN_POS1
 #define RTC_TAMPERPIN_PI8  RTC_TAMPERPIN_POS1
 
-#if defined(STM32H5) || defined(STM32H7RS)
+#if defined(STM32H5) || defined(STM32H7RS) || defined(STM32N6)
 #define TAMP_SECRETDEVICE_ERASE_NONE        TAMP_DEVICESECRETS_ERASE_NONE
 #define TAMP_SECRETDEVICE_ERASE_BKP_SRAM    TAMP_DEVICESECRETS_ERASE_BKPSRAM
-#endif /* STM32H5 || STM32H7RS */
+#endif /* STM32H5 || STM32H7RS || STM32N6 */
 
 #if defined(STM32WBA)
 #define TAMP_SECRETDEVICE_ERASE_NONE            TAMP_DEVICESECRETS_ERASE_NONE
@@ -1264,27 +1303,27 @@ extern "C" {
 #define TAMP_SECRETDEVICE_ERASE_ALL             TAMP_DEVICESECRETS_ERASE_ALL
 #endif /* STM32WBA */
 
-#if defined(STM32H5) || defined(STM32WBA) || defined(STM32H7RS)
+#if defined(STM32H5) || defined(STM32WBA) || defined(STM32H7RS) || defined(STM32N6)
 #define TAMP_SECRETDEVICE_ERASE_DISABLE     TAMP_DEVICESECRETS_ERASE_NONE
 #define TAMP_SECRETDEVICE_ERASE_ENABLE      TAMP_SECRETDEVICE_ERASE_ALL
-#endif /* STM32H5 || STM32WBA || STM32H7RS */
+#endif /* STM32H5 || STM32WBA || STM32H7RS ||  STM32N6 */
 
-#if defined(STM32F7)
+#if defined(STM32F7) || defined(STM32WB)
 #define RTC_TAMPCR_TAMPXE          RTC_TAMPER_ENABLE_BITS_MASK
 #define RTC_TAMPCR_TAMPXIE         RTC_TAMPER_IT_ENABLE_BITS_MASK
-#endif /* STM32F7 */
+#endif /* STM32F7 || STM32WB */
 
 #if defined(STM32H7)
 #define RTC_TAMPCR_TAMPXE          RTC_TAMPER_X
 #define RTC_TAMPCR_TAMPXIE         RTC_TAMPER_X_INTERRUPT
 #endif /* STM32H7 */
 
-#if defined(STM32F7) || defined(STM32H7) || defined(STM32L0)
+#if defined(STM32F7) || defined(STM32H7) || defined(STM32L0) || defined(STM32WB)
 #define RTC_TAMPER1_INTERRUPT      RTC_IT_TAMP1
 #define RTC_TAMPER2_INTERRUPT      RTC_IT_TAMP2
 #define RTC_TAMPER3_INTERRUPT      RTC_IT_TAMP3
 #define RTC_ALL_TAMPER_INTERRUPT   RTC_IT_TAMP
-#endif /* STM32F7 || STM32H7 || STM32L0 */
+#endif /* STM32F7 || STM32H7 || STM32L0 || STM32WB */
 
 /**
   * @}
@@ -1451,7 +1490,7 @@ extern "C" {
 #define TIM_TIM3_TI1_COMP1COMP2_OUT   TIM_TIM3_TI1_COMP1_COMP2
 #endif
 
-#if defined(STM32U5)
+#if defined(STM32U5) || defined(STM32MP2)
 #define OCREF_CLEAR_SELECT_Pos       OCREF_CLEAR_SELECT_POS
 #define OCREF_CLEAR_SELECT_Msk       OCREF_CLEAR_SELECT_MSK
 #endif
@@ -1817,7 +1856,7 @@ extern "C" {
 #define HAL_FMPI2CEx_AnalogFilter_Config      HAL_FMPI2CEx_ConfigAnalogFilter
 #define HAL_FMPI2CEx_DigitalFilter_Config     HAL_FMPI2CEx_ConfigDigitalFilter
 
-#define HAL_I2CFastModePlusConfig(SYSCFG_I2CFastModePlus, cmd) ((cmd == ENABLE)? \
+#define HAL_I2CFastModePlusConfig(SYSCFG_I2CFastModePlus, cmd) (((cmd) == ENABLE)? \
                                                                 HAL_I2CEx_EnableFastModePlus(SYSCFG_I2CFastModePlus): \
                                                                 HAL_I2CEx_DisableFastModePlus(SYSCFG_I2CFastModePlus))
 
@@ -1878,7 +1917,11 @@ extern "C" {
 #define HAL_PWREx_DisableSDADCAnalog                  HAL_PWREx_DisableSDADC
 #define HAL_PWREx_EnableSDADCAnalog                   HAL_PWREx_EnableSDADC
 #define HAL_PWREx_PVMConfig                           HAL_PWREx_ConfigPVM
-
+#if defined(STM32G0C1xx) || defined(STM32G0B1xx)
+#define PWR_PVM_USB                                   PWR_PVM_ENABLE
+#define PWR_FLAG_PVMOUSB                              PWR_FLAG_PVMOVDDIO2
+#define PWR_FLAG_PVMO_USB                             PWR_FLAG_PVMO_VDDIO2
+#endif /* STM32G0C1xx || STM32G0B1xx */
 #define PWR_MODE_NORMAL                               PWR_PVD_MODE_NORMAL
 #define PWR_MODE_IT_RISING                            PWR_PVD_MODE_IT_RISING
 #define PWR_MODE_IT_FALLING                           PWR_PVD_MODE_IT_FALLING
@@ -1991,6 +2034,9 @@ extern "C" {
 
 #define PWR_ALL_RAM_RUN_RETENTION_MASK                PWR_ALL_RAM_RUN_MASK
 #endif
+#if defined (STM32H7RS)
+#define PWR_SMPS_1V8_SUPPLIES_EXT_AND_LDO             PWR_SMPS_1V8_SUPPLIES_EXT_VDD_SUPPLIES_LDO
+#endif
 
 /**
   * @}
@@ -1999,12 +2045,12 @@ extern "C" {
 /** @defgroup HAL_RTC_Aliased_Functions HAL RTC Aliased Functions maintained for legacy purpose
   * @{
   */
-#if defined(STM32H5) || defined(STM32WBA) || defined(STM32H7RS)
+#if defined(STM32H5) || defined(STM32WBA) || defined(STM32H7RS) || defined(STM32N6)
 #define HAL_RTCEx_SetBoothardwareKey            HAL_RTCEx_LockBootHardwareKey
 #define HAL_RTCEx_BKUPBlock_Enable              HAL_RTCEx_BKUPBlock
 #define HAL_RTCEx_BKUPBlock_Disable             HAL_RTCEx_BKUPUnblock
 #define HAL_RTCEx_Erase_SecretDev_Conf          HAL_RTCEx_ConfigEraseDeviceSecrets
-#endif /* STM32H5 || STM32WBA || STM32H7RS */
+#endif /* STM32H5 || STM32WBA || STM32H7RS || STM32N6 */
 
 /**
   * @}
@@ -2112,6 +2158,20 @@ extern "C" {
 #define UFB_MODE_BitNumber                    UFB_MODE_BIT_NUMBER
 #define CMP_PD_BitNumber                      CMP_PD_BIT_NUMBER
 
+#if defined(STM32H7RS) || defined(STM32N6)
+#define FMC_SWAPBMAP_DISABLE                  FMC_SWAPBANK_MODE0
+#define FMC_SWAPBMAP_SDRAM_SRAM               FMC_SWAPBANK_MODE1
+#define HAL_SetFMCMemorySwappingConfig        HAL_FMC_SetBankSwapConfig
+#define HAL_GetFMCMemorySwappingConfig        HAL_FMC_GetBankSwapConfig
+#endif /* STM32H7RS || STM32N6 */
+
+#if defined(STM32N6)
+/* alias CMSIS */
+#define CSI_PCR_PWRDOWN_Pos             CSI_PCR_NPWRDOWN_Pos
+#define CSI_PCR_PWRDOWN_Msk             CSI_PCR_NPWRDOWN_Msk
+#define CSI_PCR_PWRDOWN                 CSI_PCR_NPWRDOWN
+#endif /* STM32N6 */
+
 /**
   * @}
   */
@@ -2196,6 +2256,15 @@ extern "C" {
 #define __HAL_ADC_CFGR1_OVERRUN                          ADC_CFGR1_OVERRUN
 #define __HAL_ADC_CFGR1_SCANDIR                          ADC_CFGR1_SCANDIR
 #define __HAL_ADC_CFGR1_DMACONTREQ                       ADC_CFGR1_DMACONTREQ
+
+#if defined (STM32L031xx) || defined (STM32L041xx) || \
+    defined (STM32L051xx) || defined (STM32L052xx) || defined (STM32L053xx) || \
+    defined (STM32L062xx) || defined (STM32L063xx) || \
+    defined (STM32L071xx) || defined (STM32L072xx) || defined (STM32L073xx) || \
+    defined (STM32L081xx) || defined (STM32L082xx) || defined (STM32L083xx) || \
+    defined (STM32L010x6) || defined (STM32L010x8) || defined (STM32L010xB)
+#define ADC_EXTERNALTRIGCONV_T21_TRGO           (ADC_EXTERNALTRIGCONV_T22_TRGO)
+#endif
 
 /**
   * @}
@@ -3638,7 +3707,11 @@ extern "C" {
 #define RCC_PLLDIV_4                RCC_PLL_DIV4
 
 #define IS_RCC_MCOSOURCE            IS_RCC_MCO1SOURCE
+#define RCC_MCOSOURCE_SYSCLK        RCC_MCO1SOURCE_SYSCLK
+#define RCC_MCOSOURCE_HSE           RCC_MCO1SOURCE_HSE
 #define __HAL_RCC_MCO_CONFIG        __HAL_RCC_MCO1_CONFIG
+
+
 #define RCC_MCO_NODIV               RCC_MCODIV_1
 #define RCC_MCO_DIV1                RCC_MCODIV_1
 #define RCC_MCO_DIV2                RCC_MCODIV_2
@@ -3651,11 +3724,9 @@ extern "C" {
 #define RCC_MCOSOURCE_NONE          RCC_MCO1SOURCE_NOCLOCK
 #define RCC_MCOSOURCE_LSI           RCC_MCO1SOURCE_LSI
 #define RCC_MCOSOURCE_LSE           RCC_MCO1SOURCE_LSE
-#define RCC_MCOSOURCE_SYSCLK        RCC_MCO1SOURCE_SYSCLK
 #define RCC_MCOSOURCE_HSI           RCC_MCO1SOURCE_HSI
 #define RCC_MCOSOURCE_HSI14         RCC_MCO1SOURCE_HSI14
 #define RCC_MCOSOURCE_HSI48         RCC_MCO1SOURCE_HSI48
-#define RCC_MCOSOURCE_HSE           RCC_MCO1SOURCE_HSE
 #define RCC_MCOSOURCE_PLLCLK_DIV1   RCC_MCO1SOURCE_PLLCLK
 #define RCC_MCOSOURCE_PLLCLK_NODIV  RCC_MCO1SOURCE_PLLCLK
 #define RCC_MCOSOURCE_PLLCLK_DIV2   RCC_MCO1SOURCE_PLLCLK_DIV2
@@ -3664,8 +3735,14 @@ extern "C" {
 #define RCC_SYSCLKSOURCE_STATUS_PLLR   RCC_SYSCLKSOURCE_STATUS_PLLCLK
 #endif
 
+#if defined(STM32C0)
+#define RCC_LSEDRIVE_LOW            RCC_LSEDRIVE_MEDIUMHIGH
+#define RCC_LSEDRIVE_MEDIUMLOW      RCC_LSEDRIVE_MEDIUMHIGH
+#endif
+
 #if defined(STM32L4) || defined(STM32WB) || defined(STM32G0) || defined(STM32G4) || defined(STM32L5) || \
-    defined(STM32WL) || defined(STM32C0) || defined(STM32H7RS) || defined(STM32U0)
+      defined(STM32WL) || defined(STM32C0) || defined(STM32N6) || defined(STM32H7RS) || \
+      defined(STM32U0)
 #define RCC_RTCCLKSOURCE_NO_CLK     RCC_RTCCLKSOURCE_NONE
 #else
 #define RCC_RTCCLKSOURCE_NONE       RCC_RTCCLKSOURCE_NO_CLK
@@ -3914,10 +3991,7 @@ extern "C" {
 /** @defgroup HAL_RTC_Aliased_Macros HAL RTC Aliased Macros maintained for legacy purpose
   * @{
   */
-#if defined (STM32G0) || defined (STM32L5) || defined (STM32L412xx) || defined (STM32L422xx) || \
-    defined (STM32L4P5xx)|| defined (STM32L4Q5xx) || defined (STM32G4) || defined (STM32WL) || defined (STM32U5) || \
-    defined (STM32WBA) || defined (STM32H5) || \
-    defined (STM32C0) || defined (STM32H7RS) ||  defined (STM32U0)
+#if defined (STM32G0) || defined (STM32L5) || defined (STM32L412xx) || defined (STM32L422xx) || defined (STM32L4P5xx)|| defined (STM32L4Q5xx) || defined (STM32G4) || defined (STM32WL) || defined (STM32U5) || defined (STM32WBA) || defined (STM32H5) || defined (STM32C0) || defined (STM32N6) || defined (STM32H7RS) || defined (STM32U0) || defined (STM32U3)
 #else
 #define __HAL_RTC_CLEAR_FLAG                      __HAL_RTC_EXTI_CLEAR_FLAG
 #endif
@@ -4211,6 +4285,33 @@ extern "C" {
 
 #define HAL_PCD_SetTxFiFo                                  HAL_PCDEx_SetTxFiFo
 #define HAL_PCD_SetRxFiFo                                  HAL_PCDEx_SetRxFiFo
+#if defined(STM32U5)
+#define USB_OTG_GOTGCTL_BSESVLD                            USB_OTG_GOTGCTL_BSVLD
+#define USB_OTG_GAHBCFG_GINT                               USB_OTG_GAHBCFG_GINTMSK
+#define USB_OTG_GUSBCFG_PHYLPCS                            USB_OTG_GUSBCFG_PHYLPC
+#define USB_OTG_GRSTCTL_HSRST                              USB_OTG_GRSTCTL_PSRST
+#define USB_OTG_GINTSTS_BOUTNAKEFF                         USB_OTG_GINTSTS_GONAKEFF
+#define USB_OTG_GINTSTS_WKUINT                             USB_OTG_GINTSTS_WKUPINT
+#define USB_OTG_GINTMSK_PXFRM_IISOOXFRM                    USB_OTG_GINTMSK_IPXFRM_IISOOXFRM
+#define USB_OTG_GRXSTSP_EPNUM                              USB_OTG_GRXSTSP_EPNUM_CHNUM
+#define USB_OTG_GLPMCFG_L1ResumeOK                         USB_OTG_GLPMCFG_L1RSMOK
+#define USB_OTG_HPTXFSIZ_PTXFD                             USB_OTG_HPTXFSIZ_PTXFSIZ
+#define USB_OTG_HCCHAR_MC                                  USB_OTG_HCCHAR_MCNT
+#define USB_OTG_HCCHAR_MC_0                                USB_OTG_HCCHAR_MCNT_0
+#define USB_OTG_HCCHAR_MC_1                                USB_OTG_HCCHAR_MCNT_1
+#define USB_OTG_HCINTMSK_AHBERR                            USB_OTG_HCINTMSK_AHBERRM
+#define USB_OTG_HCTSIZ_DOPING                              USB_OTG_HCTSIZ_DOPNG
+#define USB_OTG_DOEPMSK_OPEM                               USB_OTG_DOEPMSK_OUTPKTERRM
+#define USB_OTG_DIEPCTL_SODDFRM                            USB_OTG_DIEPCTL_SD1PID_SODDFRM
+#define USB_OTG_DIEPTSIZ_MULCNT                            USB_OTG_DIEPTSIZ_MCNT
+#define USB_OTG_DOEPCTL_SODDFRM                            USB_OTG_DOEPCTL_SD1PID_SODDFRM
+#define USB_OTG_DOEPCTL_DPID                               USB_OTG_DOEPCTL_DPID_EONUM
+#define USB_OTG_DOEPTSIZ_STUPCNT                           USB_OTG_DOEPTSIZ_RXDPID
+#define USB_OTG_DOEPTSIZ_STUPCNT_0                         USB_OTG_DOEPTSIZ_RXDPID_0
+#define USB_OTG_DOEPTSIZ_STUPCNT_1                         USB_OTG_DOEPTSIZ_RXDPID_1
+#define USB_OTG_PCGCCTL_STOPCLK                            USB_OTG_PCGCCTL_STPPCLK
+#define USB_OTG_PCGCCTL_GATECLK                            USB_OTG_PCGCCTL_GATEHCLK
+#endif
 /**
   * @}
   */

@@ -1630,13 +1630,13 @@ typedef struct
   (((__DECIMAL_NB__) <= 9U)                                                                                     \
     ? (                                                                                                         \
        ((__DECIMAL_NB__) << ADC_CHANNEL_ID_NUMBER_BITOFFSET_POS)                                       |        \
-       (ADC_AWD2CR_AWD2CH_0 << (__DECIMAL_NB__))                                                       |        \
+       (0x00000001UL  << (__DECIMAL_NB__))                                                             |        \
        (ADC_SMPR1_REGOFFSET | (((uint32_t) (3U * (__DECIMAL_NB__))) << ADC_CHANNEL_SMPx_BITOFFSET_POS))         \
       )                                                                                                         \
       :                                                                                                         \
       (                                                                                                         \
        ((__DECIMAL_NB__) << ADC_CHANNEL_ID_NUMBER_BITOFFSET_POS)                                              | \
-       (ADC_AWD2CR_AWD2CH_0 << (__DECIMAL_NB__))                                                              | \
+       (0x00000001UL  << (__DECIMAL_NB__))                                                                    | \
        (ADC_SMPR2_REGOFFSET | (((uint32_t) (3U * ((__DECIMAL_NB__) - 10U))) << ADC_CHANNEL_SMPx_BITOFFSET_POS)) \
       )                                                                                                         \
   )

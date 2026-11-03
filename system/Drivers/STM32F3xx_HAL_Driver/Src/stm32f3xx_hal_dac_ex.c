@@ -445,7 +445,7 @@ HAL_StatusTypeDef HAL_DAC_Start_DMA(DAC_HandleTypeDef* hdac, uint32_t Channel, u
     __HAL_DAC_ENABLE_IT(hdac, DAC_IT_DMAUDR1);
 
     /* Enable the DMA Channel */
-    HAL_DMA_Start_IT(hdac->DMA_Handle1, (uint32_t)pData, tmpreg, Length);
+    (void)HAL_DMA_Start_IT(hdac->DMA_Handle1, (uint32_t)pData, tmpreg, Length);
   } 
   else
   {
@@ -453,7 +453,7 @@ HAL_StatusTypeDef HAL_DAC_Start_DMA(DAC_HandleTypeDef* hdac, uint32_t Channel, u
     __HAL_DAC_ENABLE_IT(hdac, DAC_IT_DMAUDR2);
 
     /* Enable the DMA Channel */
-    HAL_DMA_Start_IT(hdac->DMA_Handle2, (uint32_t)pData, tmpreg, Length);
+    (void)HAL_DMA_Start_IT(hdac->DMA_Handle2, (uint32_t)pData, tmpreg, Length);
   }
  
   /* Process Unlocked */
@@ -540,7 +540,7 @@ HAL_StatusTypeDef HAL_DAC_Start_DMA(DAC_HandleTypeDef* hdac, uint32_t Channel, u
   __HAL_DAC_ENABLE_IT(hdac, DAC_IT_DMAUDR1);
 
   /* Enable the DMA Channel */
-  HAL_DMA_Start_IT(hdac->DMA_Handle1, (uint32_t)pData, tmpreg, Length);
+  (void)HAL_DMA_Start_IT(hdac->DMA_Handle1, (uint32_t)pData, tmpreg, Length);
  
   /* Process Unlocked */
   __HAL_UNLOCK(hdac);

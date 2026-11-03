@@ -1468,31 +1468,31 @@
   */
 #if defined(STM32F303x8) || defined(STM32F334x8) || defined(STM32F328xx) || \
     defined(STM32F301x8) || defined(STM32F302x8) || defined(STM32F318xx)
-#define GPIO_GET_INDEX(__GPIOx__)    (((__GPIOx__) == (GPIOA))? 0U :\
-                                      ((__GPIOx__) == (GPIOB))? 1U :\
-                                      ((__GPIOx__) == (GPIOC))? 2U :\
-                                      ((__GPIOx__) == (GPIOD))? 3U : 5U)
+#define GPIO_GET_INDEX(__GPIOx__)    (((__GPIOx__) == (GPIOA))? 0UL :\
+                                      ((__GPIOx__) == (GPIOB))? 1UL :\
+                                      ((__GPIOx__) == (GPIOC))? 2UL :\
+                                      ((__GPIOx__) == (GPIOD))? 3UL : 5UL)
 #endif /* STM32F303x8 || STM32F334x8 || STM32F328xx || */
        /* STM32F301x8 || STM32F302x8 || STM32F318xx    */
 
 #if defined(STM32F302xC) || defined(STM32F303xC) || defined(STM32F358xx) || \
     defined(STM32F373xC) || defined(STM32F378xx)
-#define GPIO_GET_INDEX(__GPIOx__)    (((__GPIOx__) == (GPIOA))? 0U :\
-                                      ((__GPIOx__) == (GPIOB))? 1U :\
-                                      ((__GPIOx__) == (GPIOC))? 2U :\
-                                      ((__GPIOx__) == (GPIOD))? 3U :\
-                                      ((__GPIOx__) == (GPIOE))? 4U : 5U)
+#define GPIO_GET_INDEX(__GPIOx__)    (((__GPIOx__) == (GPIOA))? 0UL :\
+                                      ((__GPIOx__) == (GPIOB))? 1UL :\
+                                      ((__GPIOx__) == (GPIOC))? 2UL :\
+                                      ((__GPIOx__) == (GPIOD))? 3UL :\
+                                      ((__GPIOx__) == (GPIOE))? 4UL : 5UL)
 #endif /* STM32F302xC || STM32F303xC || STM32F358xx || */
        /* STM32F373xC || STM32F378xx                   */
 
 #if defined(STM32F302xE) || defined(STM32F303xE) || defined(STM32F398xx)
-#define GPIO_GET_INDEX(__GPIOx__)    (((__GPIOx__) == (GPIOA))? 0U :\
-                                      ((__GPIOx__) == (GPIOB))? 1U :\
-                                      ((__GPIOx__) == (GPIOC))? 2U :\
-                                      ((__GPIOx__) == (GPIOD))? 3U :\
-                                      ((__GPIOx__) == (GPIOE))? 4U :\
-                                      ((__GPIOx__) == (GPIOF))? 5U :\
-                                      ((__GPIOx__) == (GPIOG))? 6U : 7U)
+#define GPIO_GET_INDEX(__GPIOx__)    (((__GPIOx__) == (GPIOA))? 0UL :\
+                                      ((__GPIOx__) == (GPIOB))? 1UL :\
+                                      ((__GPIOx__) == (GPIOC))? 2UL :\
+                                      ((__GPIOx__) == (GPIOD))? 3UL :\
+                                      ((__GPIOx__) == (GPIOE))? 4UL :\
+                                      ((__GPIOx__) == (GPIOF))? 5UL :\
+                                      ((__GPIOx__) == (GPIOG))? 6UL : 7UL)
 #endif /* STM32F302xE || STM32F303xE || STM32F398xx */
 
 /**

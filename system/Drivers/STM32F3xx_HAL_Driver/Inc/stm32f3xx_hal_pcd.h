@@ -81,9 +81,6 @@ typedef enum
 } PCD_BCD_MsgTypeDef;
 
 
-
-
-
 typedef USB_TypeDef        PCD_TypeDef;
 typedef USB_CfgTypeDef     PCD_InitTypeDef;
 typedef USB_EPTypeDef      PCD_EPTypeDef;
@@ -109,7 +106,7 @@ typedef struct
   uint32_t                Setup[12];   /*!< Setup packet buffer               */
   PCD_LPM_StateTypeDef    LPM_State;   /*!< LPM State                         */
   uint32_t                BESL;
-
+  uint32_t                FrameNumber; /*!< Store Current Frame number        */
   void                    *pData;      /*!< Pointer to upper stack Handler */
 
 #if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
@@ -156,6 +153,7 @@ typedef struct
   */
 #define PCD_PHY_ULPI                 1U
 #define PCD_PHY_EMBEDDED             2U
+#define PCD_HS_PHY_EMBEDDED          3U
 #define PCD_PHY_UTMI                 3U
 /**
   * @}
@@ -202,7 +200,6 @@ typedef struct
     EXTI->FTSR &= ~(USB_WAKEUP_EXTI_LINE); \
     EXTI->RTSR |= USB_WAKEUP_EXTI_LINE; \
   } while(0U)
-
 
 
 /**
@@ -361,7 +358,7 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef const *hpcd);
   */
 
 
-#define USB_WAKEUP_EXTI_LINE                                          (0x1U << 18)  /*!< USB FS EXTI Line WakeUp Interrupt */
+#define USB_WAKEUP_EXTI_LINE                                          (0x1UL << 18)  /*!< USB FS EXTI Line WakeUp Interrupt */
 
 
 /**
@@ -413,8 +410,8 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef const *hpcd);
   */
 
 /********************  Bit definition for USB_COUNTn_RX register  *************/
-#define USB_CNTRX_NBLK_MSK                    (0x1FU << 10)
-#define USB_CNTRX_BLSIZE                      (0x1U << 15)
+#define USB_CNTRX_NBLK_MSK                    (0x1FUL << 10)
+#define USB_CNTRX_BLSIZE                      (0x1UL << 15)
 
 /* SetENDPOINT */
 #define PCD_SET_ENDPOINT(USBx, bEpNum, wRegValue) \
@@ -798,21 +795,21 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef const *hpcd);
 #define PCD_SET_EP_CNT_RX_REG(pdwReg, wCount) \
   do { \
     uint32_t wNBlocks; \
-    \
-    *(pdwReg) &= 0x3FFU; \
+    uint16_t wRegVal = (uint16_t)(*(pdwReg) & 0x3FFU); \
     \
     if ((wCount) == 0U) \
     { \
-      *(pdwReg) |= USB_CNTRX_BLSIZE; \
+      wRegVal |= (uint16_t)USB_CNTRX_BLSIZE; \
     } \
     else if ((wCount) <= 62U) \
     { \
-      PCD_CALC_BLK2((pdwReg), (wCount), wNBlocks); \
+      PCD_CALC_BLK2(&wRegVal, (wCount), wNBlocks); \
     } \
     else \
     { \
-      PCD_CALC_BLK32((pdwReg), (wCount), wNBlocks); \
+      PCD_CALC_BLK32(&wRegVal, (wCount), wNBlocks); \
     } \
+    *(pdwReg) = wRegVal; \
   } while(0) /* PCD_SET_EP_CNT_RX_REG */
 
 #define PCD_SET_EP_RX_DBUF0_CNT(USBx, bEpNum, wCount) \
@@ -963,7 +960,6 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef const *hpcd);
   */
 #define PCD_GET_EP_DBUF0_CNT(USBx, bEpNum)     (PCD_GET_EP_TX_CNT((USBx), (bEpNum)))
 #define PCD_GET_EP_DBUF1_CNT(USBx, bEpNum)     (PCD_GET_EP_RX_CNT((USBx), (bEpNum)))
-
 
 
 /**

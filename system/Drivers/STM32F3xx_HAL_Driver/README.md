@@ -1,6 +1,6 @@
 # STM32CubeF3 HAL Driver MCU Component
 
-![latest tag](https://img.shields.io/github/v/tag/STMicroelectronics/stm32f3xx_hal_driver.svg?color=brightgreen)
+![tag](https://img.shields.io/badge/tag-v1.5.9-brightgreen.svg)
 
 ## Overview
 
