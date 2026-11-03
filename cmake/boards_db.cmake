@@ -9067,6 +9067,414 @@ add_library(GENERIC_C562RETX_usb_none INTERFACE)
 target_compile_options(GENERIC_C562RETX_usb_none INTERFACE
 )
 
+# GENERIC_C593CETX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_C593CETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32C5xx/C593C(E-G)(T-U)_C5A3CG(T-U)")
+set(GENERIC_C593CETX_MAXSIZE 524288)
+set(GENERIC_C593CETX_MAXDATASIZE 262144)
+set(GENERIC_C593CETX_MCU cortex-m33)
+set(GENERIC_C593CETX_FPCONF "-")
+add_library(GENERIC_C593CETX INTERFACE)
+target_compile_options(GENERIC_C593CETX INTERFACE
+  "SHELL:-DUSE_HALV2_DRIVER"
+  "SHELL:-DSTM32C593xx"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_C593CETX_MCU}
+)
+target_compile_definitions(GENERIC_C593CETX INTERFACE
+  "STM32C5xx"
+	"ARDUINO_GENERIC_C593CETX"
+	"BOARD_NAME=\"GENERIC_C593CETX\""
+	"BOARD_ID=GENERIC_C593CETX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_C593CETX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32C5xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C5xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C5xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C5xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C5xx/Source/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C5xx/Source/Templates/gcc/
+  ${GENERIC_C593CETX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_C593CETX INTERFACE
+  "LINKER:--default-script=${GENERIC_C593CETX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+  "LINKER:--defsym=LD_MAX_SIZE=524288"
+  "LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_C593CETX_MCU}
+)
+
+add_library(GENERIC_C593CETX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_C593CETX_serial_disabled INTERFACE
+)
+add_library(GENERIC_C593CETX_serial_generic INTERFACE)
+target_compile_options(GENERIC_C593CETX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_C593CETX_serial_none INTERFACE)
+target_compile_options(GENERIC_C593CETX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_C593CETX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_C593CETX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_C593CETX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_C593CETX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_C593CETX_usb_HID INTERFACE)
+target_compile_options(GENERIC_C593CETX_usb_HID INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_C593CETX_usb_none INTERFACE)
+target_compile_options(GENERIC_C593CETX_usb_none INTERFACE
+)
+
+# GENERIC_C593CEUX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_C593CEUX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32C5xx/C593C(E-G)(T-U)_C5A3CG(T-U)")
+set(GENERIC_C593CEUX_MAXSIZE 524288)
+set(GENERIC_C593CEUX_MAXDATASIZE 262144)
+set(GENERIC_C593CEUX_MCU cortex-m33)
+set(GENERIC_C593CEUX_FPCONF "-")
+add_library(GENERIC_C593CEUX INTERFACE)
+target_compile_options(GENERIC_C593CEUX INTERFACE
+  "SHELL:-DUSE_HALV2_DRIVER"
+  "SHELL:-DSTM32C593xx"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_C593CEUX_MCU}
+)
+target_compile_definitions(GENERIC_C593CEUX INTERFACE
+  "STM32C5xx"
+	"ARDUINO_GENERIC_C593CEUX"
+	"BOARD_NAME=\"GENERIC_C593CEUX\""
+	"BOARD_ID=GENERIC_C593CEUX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_C593CEUX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32C5xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C5xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C5xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C5xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C5xx/Source/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C5xx/Source/Templates/gcc/
+  ${GENERIC_C593CEUX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_C593CEUX INTERFACE
+  "LINKER:--default-script=${GENERIC_C593CEUX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+  "LINKER:--defsym=LD_MAX_SIZE=524288"
+  "LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_C593CEUX_MCU}
+)
+
+add_library(GENERIC_C593CEUX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_C593CEUX_serial_disabled INTERFACE
+)
+add_library(GENERIC_C593CEUX_serial_generic INTERFACE)
+target_compile_options(GENERIC_C593CEUX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_C593CEUX_serial_none INTERFACE)
+target_compile_options(GENERIC_C593CEUX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_C593CEUX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_C593CEUX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_C593CEUX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_C593CEUX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_C593CEUX_usb_HID INTERFACE)
+target_compile_options(GENERIC_C593CEUX_usb_HID INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_C593CEUX_usb_none INTERFACE)
+target_compile_options(GENERIC_C593CEUX_usb_none INTERFACE
+)
+
+# GENERIC_C593CGTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_C593CGTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32C5xx/C593C(E-G)(T-U)_C5A3CG(T-U)")
+set(GENERIC_C593CGTX_MAXSIZE 1048576)
+set(GENERIC_C593CGTX_MAXDATASIZE 262144)
+set(GENERIC_C593CGTX_MCU cortex-m33)
+set(GENERIC_C593CGTX_FPCONF "-")
+add_library(GENERIC_C593CGTX INTERFACE)
+target_compile_options(GENERIC_C593CGTX INTERFACE
+  "SHELL:-DUSE_HALV2_DRIVER"
+  "SHELL:-DSTM32C593xx"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_C593CGTX_MCU}
+)
+target_compile_definitions(GENERIC_C593CGTX INTERFACE
+  "STM32C5xx"
+	"ARDUINO_GENERIC_C593CGTX"
+	"BOARD_NAME=\"GENERIC_C593CGTX\""
+	"BOARD_ID=GENERIC_C593CGTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_C593CGTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32C5xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C5xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C5xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C5xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C5xx/Source/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C5xx/Source/Templates/gcc/
+  ${GENERIC_C593CGTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_C593CGTX INTERFACE
+  "LINKER:--default-script=${GENERIC_C593CGTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+  "LINKER:--defsym=LD_MAX_SIZE=1048576"
+  "LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_C593CGTX_MCU}
+)
+
+add_library(GENERIC_C593CGTX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_C593CGTX_serial_disabled INTERFACE
+)
+add_library(GENERIC_C593CGTX_serial_generic INTERFACE)
+target_compile_options(GENERIC_C593CGTX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_C593CGTX_serial_none INTERFACE)
+target_compile_options(GENERIC_C593CGTX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_C593CGTX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_C593CGTX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_C593CGTX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_C593CGTX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_C593CGTX_usb_HID INTERFACE)
+target_compile_options(GENERIC_C593CGTX_usb_HID INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_C593CGTX_usb_none INTERFACE)
+target_compile_options(GENERIC_C593CGTX_usb_none INTERFACE
+)
+
+# GENERIC_C593CGUX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_C593CGUX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32C5xx/C593C(E-G)(T-U)_C5A3CG(T-U)")
+set(GENERIC_C593CGUX_MAXSIZE 1048576)
+set(GENERIC_C593CGUX_MAXDATASIZE 262144)
+set(GENERIC_C593CGUX_MCU cortex-m33)
+set(GENERIC_C593CGUX_FPCONF "-")
+add_library(GENERIC_C593CGUX INTERFACE)
+target_compile_options(GENERIC_C593CGUX INTERFACE
+  "SHELL:-DUSE_HALV2_DRIVER"
+  "SHELL:-DSTM32C593xx"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_C593CGUX_MCU}
+)
+target_compile_definitions(GENERIC_C593CGUX INTERFACE
+  "STM32C5xx"
+	"ARDUINO_GENERIC_C593CGUX"
+	"BOARD_NAME=\"GENERIC_C593CGUX\""
+	"BOARD_ID=GENERIC_C593CGUX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_C593CGUX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32C5xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C5xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C5xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C5xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C5xx/Source/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C5xx/Source/Templates/gcc/
+  ${GENERIC_C593CGUX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_C593CGUX INTERFACE
+  "LINKER:--default-script=${GENERIC_C593CGUX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+  "LINKER:--defsym=LD_MAX_SIZE=1048576"
+  "LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_C593CGUX_MCU}
+)
+
+add_library(GENERIC_C593CGUX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_C593CGUX_serial_disabled INTERFACE
+)
+add_library(GENERIC_C593CGUX_serial_generic INTERFACE)
+target_compile_options(GENERIC_C593CGUX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_C593CGUX_serial_none INTERFACE)
+target_compile_options(GENERIC_C593CGUX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_C593CGUX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_C593CGUX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_C593CGUX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_C593CGUX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_C593CGUX_usb_HID INTERFACE)
+target_compile_options(GENERIC_C593CGUX_usb_HID INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_C593CGUX_usb_none INTERFACE)
+target_compile_options(GENERIC_C593CGUX_usb_none INTERFACE
+)
+
+# GENERIC_C5A3CGTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_C5A3CGTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32C5xx/C593C(E-G)(T-U)_C5A3CG(T-U)")
+set(GENERIC_C5A3CGTX_MAXSIZE 1048576)
+set(GENERIC_C5A3CGTX_MAXDATASIZE 262144)
+set(GENERIC_C5A3CGTX_MCU cortex-m33)
+set(GENERIC_C5A3CGTX_FPCONF "-")
+add_library(GENERIC_C5A3CGTX INTERFACE)
+target_compile_options(GENERIC_C5A3CGTX INTERFACE
+  "SHELL:-DUSE_HALV2_DRIVER"
+  "SHELL:-DSTM32C5A3xx"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_C5A3CGTX_MCU}
+)
+target_compile_definitions(GENERIC_C5A3CGTX INTERFACE
+  "STM32C5xx"
+	"ARDUINO_GENERIC_C5A3CGTX"
+	"BOARD_NAME=\"GENERIC_C5A3CGTX\""
+	"BOARD_ID=GENERIC_C5A3CGTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_C5A3CGTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32C5xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C5xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C5xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C5xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C5xx/Source/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C5xx/Source/Templates/gcc/
+  ${GENERIC_C5A3CGTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_C5A3CGTX INTERFACE
+  "LINKER:--default-script=${GENERIC_C5A3CGTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+  "LINKER:--defsym=LD_MAX_SIZE=1048576"
+  "LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_C5A3CGTX_MCU}
+)
+
+add_library(GENERIC_C5A3CGTX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_C5A3CGTX_serial_disabled INTERFACE
+)
+add_library(GENERIC_C5A3CGTX_serial_generic INTERFACE)
+target_compile_options(GENERIC_C5A3CGTX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_C5A3CGTX_serial_none INTERFACE)
+target_compile_options(GENERIC_C5A3CGTX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_C5A3CGTX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_C5A3CGTX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_C5A3CGTX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_C5A3CGTX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_C5A3CGTX_usb_HID INTERFACE)
+target_compile_options(GENERIC_C5A3CGTX_usb_HID INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_C5A3CGTX_usb_none INTERFACE)
+target_compile_options(GENERIC_C5A3CGTX_usb_none INTERFACE
+)
+
+# GENERIC_C5A3CGUX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_C5A3CGUX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32C5xx/C593C(E-G)(T-U)_C5A3CG(T-U)")
+set(GENERIC_C5A3CGUX_MAXSIZE 1048576)
+set(GENERIC_C5A3CGUX_MAXDATASIZE 262144)
+set(GENERIC_C5A3CGUX_MCU cortex-m33)
+set(GENERIC_C5A3CGUX_FPCONF "-")
+add_library(GENERIC_C5A3CGUX INTERFACE)
+target_compile_options(GENERIC_C5A3CGUX INTERFACE
+  "SHELL:-DUSE_HALV2_DRIVER"
+  "SHELL:-DSTM32C5A3xx"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_C5A3CGUX_MCU}
+)
+target_compile_definitions(GENERIC_C5A3CGUX INTERFACE
+  "STM32C5xx"
+	"ARDUINO_GENERIC_C5A3CGUX"
+	"BOARD_NAME=\"GENERIC_C5A3CGUX\""
+	"BOARD_ID=GENERIC_C5A3CGUX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_C5A3CGUX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32C5xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C5xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C5xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C5xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C5xx/Source/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C5xx/Source/Templates/gcc/
+  ${GENERIC_C5A3CGUX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_C5A3CGUX INTERFACE
+  "LINKER:--default-script=${GENERIC_C5A3CGUX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+  "LINKER:--defsym=LD_MAX_SIZE=1048576"
+  "LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
+  "SHELL:-mfpu=fpv5-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_C5A3CGUX_MCU}
+)
+
+add_library(GENERIC_C5A3CGUX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_C5A3CGUX_serial_disabled INTERFACE
+)
+add_library(GENERIC_C5A3CGUX_serial_generic INTERFACE)
+target_compile_options(GENERIC_C5A3CGUX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_C5A3CGUX_serial_none INTERFACE)
+target_compile_options(GENERIC_C5A3CGUX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_C5A3CGUX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_C5A3CGUX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_C5A3CGUX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_C5A3CGUX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_C5A3CGUX_usb_HID INTERFACE)
+target_compile_options(GENERIC_C5A3CGUX_usb_HID INTERFACE
+  "SHELL:-DUSBCON -DUSBD_VID=0x0483 -DUSBD_PID=0x5740 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_C5A3CGUX_usb_none INTERFACE)
+target_compile_options(GENERIC_C5A3CGUX_usb_none INTERFACE
+)
+
 # GENERIC_F030C6TX
 # -----------------------------------------------------------------------------
 

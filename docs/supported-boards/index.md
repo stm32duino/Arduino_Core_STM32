@@ -184,6 +184,12 @@
 | Generic C552RCTx | [STM32C552RC](https://www.st.com/en/microcontrollers-microprocessors/stm32c552rc.html) | `GENERIC_C552RCTX` | 3.0.0 |  |
 | Generic C552RETx | [STM32C552RE](https://www.st.com/en/microcontrollers-microprocessors/stm32c552re.html) | `GENERIC_C552RETX` | 3.0.0 |  |
 | Generic C562RETx | [STM32C562RE](https://www.st.com/en/microcontrollers-microprocessors/stm32c562re.html) | `GENERIC_C562RETX` | 3.0.0 |  |
+| Generic C593CETx | [STM32C593CE](https://www.st.com/en/microcontrollers-microprocessors/stm32c593ce.html) | `GENERIC_C593CETX` | Next release |  |
+| Generic C593CEUx | [STM32C593CE](https://www.st.com/en/microcontrollers-microprocessors/stm32c593ce.html) | `GENERIC_C593CEUX` | Next release |  |
+| Generic C593CGTx | [STM32C593CG](https://www.st.com/en/microcontrollers-microprocessors/stm32c593cg.html) | `GENERIC_C593CGTX` | Next release |  |
+| Generic C593CGUx | [STM32C593CG](https://www.st.com/en/microcontrollers-microprocessors/stm32c593cg.html) | `GENERIC_C593CGUX` | Next release |  |
+| Generic C5A3CGTx | [STM32C5A3CG](https://www.st.com/en/microcontrollers-microprocessors/stm32c5a3cg.html) | `GENERIC_C5A3CGTX` | Next release |  |
+| Generic C5A3CGUx | [STM32C5A3CG](https://www.st.com/en/microcontrollers-microprocessors/stm32c5a3cg.html) | `GENERIC_C5A3CGUX` | Next release |  |
 
 ### Generic STM32F0 series boards
 
