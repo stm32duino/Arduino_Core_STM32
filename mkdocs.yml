@@ -11,6 +11,7 @@ nav:
     - Arduino IDE 2: Getting-Started.md
     - Legacy IDE 1.8.x: Getting-Started_V1.md
     - Upload Methods: Upload-methods.md
+    - Tools Menu Options: Tools-menu.md
     - Examples:
       - Overview: examples/Examples.md
       - Blink: examples/Blink-example.md

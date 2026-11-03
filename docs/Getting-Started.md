@@ -112,6 +112,11 @@ See [Upload methods](Upload-methods.md) for more details.
 
 ![Upload Method](img/v2/UploadMethod.png)
 
+### Other options
+Other options (U(S)ART, USB, optimization, debug, ...) are available in the "**Tools**" menu.
+
+See [Tools menu options](Tools-menu.md) for more details.
+
 ## Examples
 * [Blink example](examples/Blink-example.md)
 
