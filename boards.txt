@@ -2532,6 +2532,60 @@ GenC5.menu.pnum.GENERIC_C562RETX.build.product_line=STM32C562xx
 GenC5.menu.pnum.GENERIC_C562RETX.build.variant=STM32C5xx/C552R(C-E)Tx(J)_C562RETx(J)
 GenC5.menu.pnum.GENERIC_C562RETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C5xx/STM32C562.svd
 
+# Generic C593CETx
+GenC5.menu.pnum.GENERIC_C593CETX=Generic C593CETx
+GenC5.menu.pnum.GENERIC_C593CETX.upload.maximum_size=524288
+GenC5.menu.pnum.GENERIC_C593CETX.upload.maximum_data_size=262144
+GenC5.menu.pnum.GENERIC_C593CETX.build.board=GENERIC_C593CETX
+GenC5.menu.pnum.GENERIC_C593CETX.build.product_line=STM32C593xx
+GenC5.menu.pnum.GENERIC_C593CETX.build.variant=STM32C5xx/C593C(E-G)(T-U)_C5A3CG(T-U)
+GenC5.menu.pnum.GENERIC_C593CETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C5xx/STM32C593.svd
+
+# Generic C593CEUx
+GenC5.menu.pnum.GENERIC_C593CEUX=Generic C593CEUx
+GenC5.menu.pnum.GENERIC_C593CEUX.upload.maximum_size=524288
+GenC5.menu.pnum.GENERIC_C593CEUX.upload.maximum_data_size=262144
+GenC5.menu.pnum.GENERIC_C593CEUX.build.board=GENERIC_C593CEUX
+GenC5.menu.pnum.GENERIC_C593CEUX.build.product_line=STM32C593xx
+GenC5.menu.pnum.GENERIC_C593CEUX.build.variant=STM32C5xx/C593C(E-G)(T-U)_C5A3CG(T-U)
+GenC5.menu.pnum.GENERIC_C593CEUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C5xx/STM32C593.svd
+
+# Generic C593CGTx
+GenC5.menu.pnum.GENERIC_C593CGTX=Generic C593CGTx
+GenC5.menu.pnum.GENERIC_C593CGTX.upload.maximum_size=1048576
+GenC5.menu.pnum.GENERIC_C593CGTX.upload.maximum_data_size=262144
+GenC5.menu.pnum.GENERIC_C593CGTX.build.board=GENERIC_C593CGTX
+GenC5.menu.pnum.GENERIC_C593CGTX.build.product_line=STM32C593xx
+GenC5.menu.pnum.GENERIC_C593CGTX.build.variant=STM32C5xx/C593C(E-G)(T-U)_C5A3CG(T-U)
+GenC5.menu.pnum.GENERIC_C593CGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C5xx/STM32C593.svd
+
+# Generic C593CGUx
+GenC5.menu.pnum.GENERIC_C593CGUX=Generic C593CGUx
+GenC5.menu.pnum.GENERIC_C593CGUX.upload.maximum_size=1048576
+GenC5.menu.pnum.GENERIC_C593CGUX.upload.maximum_data_size=262144
+GenC5.menu.pnum.GENERIC_C593CGUX.build.board=GENERIC_C593CGUX
+GenC5.menu.pnum.GENERIC_C593CGUX.build.product_line=STM32C593xx
+GenC5.menu.pnum.GENERIC_C593CGUX.build.variant=STM32C5xx/C593C(E-G)(T-U)_C5A3CG(T-U)
+GenC5.menu.pnum.GENERIC_C593CGUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C5xx/STM32C593.svd
+
+# Generic C5A3CGTx
+GenC5.menu.pnum.GENERIC_C5A3CGTX=Generic C5A3CGTx
+GenC5.menu.pnum.GENERIC_C5A3CGTX.upload.maximum_size=1048576
+GenC5.menu.pnum.GENERIC_C5A3CGTX.upload.maximum_data_size=262144
+GenC5.menu.pnum.GENERIC_C5A3CGTX.build.board=GENERIC_C5A3CGTX
+GenC5.menu.pnum.GENERIC_C5A3CGTX.build.product_line=STM32C5A3xx
+GenC5.menu.pnum.GENERIC_C5A3CGTX.build.variant=STM32C5xx/C593C(E-G)(T-U)_C5A3CG(T-U)
+GenC5.menu.pnum.GENERIC_C5A3CGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C5xx/STM32C5A3.svd
+
+# Generic C5A3CGUx
+GenC5.menu.pnum.GENERIC_C5A3CGUX=Generic C5A3CGUx
+GenC5.menu.pnum.GENERIC_C5A3CGUX.upload.maximum_size=1048576
+GenC5.menu.pnum.GENERIC_C5A3CGUX.upload.maximum_data_size=262144
+GenC5.menu.pnum.GENERIC_C5A3CGUX.build.board=GENERIC_C5A3CGUX
+GenC5.menu.pnum.GENERIC_C5A3CGUX.build.product_line=STM32C5A3xx
+GenC5.menu.pnum.GENERIC_C5A3CGUX.build.variant=STM32C5xx/C593C(E-G)(T-U)_C5A3CG(T-U)
+GenC5.menu.pnum.GENERIC_C5A3CGUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C5xx/STM32C5A3.svd
+
 # Upload menu
 GenC5.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenC5.menu.upload_method.swdMethod.upload.protocol=swd
