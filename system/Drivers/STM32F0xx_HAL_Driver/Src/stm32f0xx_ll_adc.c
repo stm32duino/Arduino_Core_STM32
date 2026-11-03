@@ -242,6 +242,7 @@ ErrorStatus LL_ADC_DeInit(ADC_TypeDef *ADCx)
     {
       /* Time-out error */
       status = ERROR;
+      break;
     }
   }
   

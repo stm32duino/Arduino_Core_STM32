@@ -59,11 +59,13 @@ extern "C" {
 /* Max delay can be used in LL_mDelay */
 #define LL_MAX_DELAY                  0xFFFFFFFFU
 
+#if defined(STM32F031x6) || defined(STM32F038xx) || defined(STM32F042x6) || defined(STM32F048xx) || defined(STM32F051x8) || defined(STM32F058xx) || defined(STM32F071xB) || defined(STM32F072xB) || defined(STM32F078xx) || defined(STM32F091xC) || defined(STM32F098xx)
 /**
  * @brief Unique device ID register base address
  */
 #define UID_BASE_ADDRESS              UID_BASE
 
+#endif /* STM32F031x6 || STM32F038xx || STM32F042x6 || STM32F048xx || STM32F051x8) || STM32F058xx || STM32F071xB || STM32F072xB || STM32F078xx || STM32F091xC || STM32F098xx */
 /**
  * @brief Flash size data register base address
  */
@@ -161,6 +163,7 @@ typedef struct
   * @{
   */
 
+#if defined(STM32F031x6) || defined(STM32F038xx) || defined(STM32F042x6) || defined(STM32F048xx) || defined(STM32F051x8) || defined(STM32F058xx) || defined(STM32F071xB) || defined(STM32F072xB) || defined(STM32F078xx) || defined(STM32F091xC) || defined(STM32F098xx)
 /**
   * @brief  Get Word0 of the unique device identifier (UID based on 96 bits)
   * @retval UID[31:0]: X and Y coordinates on the wafer expressed in BCD format
@@ -187,6 +190,7 @@ __STATIC_INLINE uint32_t LL_GetUID_Word2(void)
 {
   return (uint32_t)(READ_REG(*((uint32_t *)(UID_BASE_ADDRESS + 8U))));
 }
+#endif /* STM32F031x6 || STM32F038xx || STM32F042x6 || STM32F048xx || STM32F051x8) || STM32F058xx || STM32F071xB || STM32F072xB || STM32F078xx || STM32F091xC || STM32F098xx */
 
 /**
   * @brief  Get Flash memory size

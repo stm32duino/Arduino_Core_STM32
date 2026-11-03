@@ -745,31 +745,31 @@
 * @{
   */
 #if defined(GPIOD) && defined(GPIOE)
-#define GPIO_GET_INDEX(__GPIOx__)    (((__GPIOx__) == (GPIOA))? 0U :\
-                                      ((__GPIOx__) == (GPIOB))? 1U :\
-                                      ((__GPIOx__) == (GPIOC))? 2U :\
-                                      ((__GPIOx__) == (GPIOD))? 3U :\
-                                      ((__GPIOx__) == (GPIOE))? 4U : 5U)
+#define GPIO_GET_INDEX(__GPIOx__)    (((__GPIOx__) == (GPIOA))? 0UL :\
+                                      ((__GPIOx__) == (GPIOB))? 1UL :\
+                                      ((__GPIOx__) == (GPIOC))? 2UL :\
+                                      ((__GPIOx__) == (GPIOD))? 3UL :\
+                                      ((__GPIOx__) == (GPIOE))? 4UL : 5UL)
 #endif
 
 #if defined(GPIOD) && !defined(GPIOE)
-#define GPIO_GET_INDEX(__GPIOx__)    (((__GPIOx__) == (GPIOA))? 0U :\
-                                      ((__GPIOx__) == (GPIOB))? 1U :\
-                                      ((__GPIOx__) == (GPIOC))? 2U :\
-                                      ((__GPIOx__) == (GPIOD))? 3U : 5U)
+#define GPIO_GET_INDEX(__GPIOx__)    (((__GPIOx__) == (GPIOA))? 0UL :\
+                                      ((__GPIOx__) == (GPIOB))? 1UL :\
+                                      ((__GPIOx__) == (GPIOC))? 2UL :\
+                                      ((__GPIOx__) == (GPIOD))? 3UL : 5UL)
 #endif
 
 #if !defined(GPIOD) && defined(GPIOE)
-#define GPIO_GET_INDEX(__GPIOx__)    (((__GPIOx__) == (GPIOA))? 0U :\
-                                      ((__GPIOx__) == (GPIOB))? 1U :\
-                                      ((__GPIOx__) == (GPIOC))? 2U :\
-                                      ((__GPIOx__) == (GPIOE))? 4U : 5U)
+#define GPIO_GET_INDEX(__GPIOx__)    (((__GPIOx__) == (GPIOA))? 0UL :\
+                                      ((__GPIOx__) == (GPIOB))? 1UL :\
+                                      ((__GPIOx__) == (GPIOC))? 2UL :\
+                                      ((__GPIOx__) == (GPIOE))? 4UL : 5UL)
 #endif
 
 #if !defined(GPIOD) && !defined(GPIOE)
-#define GPIO_GET_INDEX(__GPIOx__)    (((__GPIOx__) == (GPIOA))? 0U :\
-                                      ((__GPIOx__) == (GPIOB))? 1U :\
-                                      ((__GPIOx__) == (GPIOC))? 2U : 5U)
+#define GPIO_GET_INDEX(__GPIOx__)    (((__GPIOx__) == (GPIOA))? 0UL :\
+                                      ((__GPIOx__) == (GPIOB))? 1UL :\
+                                      ((__GPIOx__) == (GPIOC))? 2UL : 5UL)
 #endif
 
 /**

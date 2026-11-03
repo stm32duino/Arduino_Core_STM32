@@ -1234,6 +1234,8 @@ __STATIC_INLINE void LL_RCC_ConfigMCO(uint32_t MCOxSource, uint32_t MCOxPrescale
   MODIFY_REG(RCC->CFGR, RCC_CFGR_MCOSEL | RCC_CFGR_MCOPRE, MCOxSource | MCOxPrescaler);
 #endif /* RCC_CFGR_PLLNODIV */
 #else
+  /* Prevent unused argument compilation warning */
+  (void)MCOxPrescaler;
   MODIFY_REG(RCC->CFGR, RCC_CFGR_MCOSEL, MCOxSource);
 #endif /* RCC_CFGR_MCOPRE */
 }

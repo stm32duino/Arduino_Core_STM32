@@ -552,9 +552,11 @@ void                HAL_ResumeTick(void);
 uint32_t            HAL_GetHalVersion(void);
 uint32_t            HAL_GetREVID(void);
 uint32_t            HAL_GetDEVID(void);
+#if defined(UID_BASE)
 uint32_t            HAL_GetUIDw0(void);
 uint32_t            HAL_GetUIDw1(void);
 uint32_t            HAL_GetUIDw2(void);
+#endif /* UID_BASE */
 void                HAL_DBGMCU_EnableDBGStopMode(void);
 void                HAL_DBGMCU_DisableDBGStopMode(void);
 void                HAL_DBGMCU_EnableDBGStandbyMode(void);

@@ -277,6 +277,11 @@ void SystemCoreClockUpdate (void)
           STM32F091xC || STM32F098xx || STM32F030xC */
       }
       break;
+#if defined(STM32F042x6) || defined(STM32F048xx) || defined(STM32F071xB) || defined(STM32F072xB) || defined(STM32F078xx) || defined(STM32F091xC) || defined(STM32F098xx)
+    case RCC_CFGR_SWS_HSI48: /* HSI48 used as system clock */
+      SystemCoreClock = HSI48_VALUE;
+      break;
+#endif /* STM32F042x6 || STM32F048xx || STM32F071xB || STM32F072xB || STM32F078xx || STM32F091xC || STM32F098xx */
     default: /* HSI used as system clock */
       SystemCoreClock = HSI_VALUE;
       break;

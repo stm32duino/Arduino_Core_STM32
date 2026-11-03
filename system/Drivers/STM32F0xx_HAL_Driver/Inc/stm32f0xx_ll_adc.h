@@ -185,11 +185,11 @@ extern "C" {
 
 /* ADC internal channels related definitions */
 /* Internal voltage reference VrefInt */
-#define VREFINT_CAL_ADDR                   ((uint16_t*) (0x1FFFF7BAU)) /* Internal voltage reference, address of parameter VREFINT_CAL: VrefInt ADC raw data acquired at temperature 30 DegC (tolerance: +-5 DegC), Vref+ = 3.3 V (tolerance: +-10 mV). */
+#define VREFINT_CAL_ADDR                   ((const uint16_t*) (0x1FFFF7BAU)) /* Internal voltage reference, address of parameter VREFINT_CAL: VrefInt ADC raw data acquired at temperature 30 DegC (tolerance: +-5 DegC), Vref+ = 3.3 V (tolerance: +-10 mV). */
 #define VREFINT_CAL_VREF                   ( 3300U)                    /* Analog voltage reference (Vref+) value with which temperature sensor has been calibrated in production (tolerance: +-10 mV) (unit: mV). */
 /* Temperature sensor */
-#define TEMPSENSOR_CAL1_ADDR               ((uint16_t*) (0x1FFFF7B8U)) /* Internal temperature sensor, address of parameter TS_CAL1: On STM32F0, temperature sensor ADC raw data acquired at temperature  30 DegC (tolerance: +-5 DegC), Vref+ = 3.3 V (tolerance: +-10 mV). */
-#define TEMPSENSOR_CAL2_ADDR               ((uint16_t*) (0x1FFFF7C2U)) /* Internal temperature sensor, address of parameter TS_CAL2: On STM32F0, temperature sensor ADC raw data acquired at temperature 110 DegC (tolerance: +-5 DegC), Vref+ = 3.3 V (tolerance: +-10 mV). */
+#define TEMPSENSOR_CAL1_ADDR               ((const uint16_t*) (0x1FFFF7B8U)) /* Internal temperature sensor, address of parameter TS_CAL1: On STM32F0, temperature sensor ADC raw data acquired at temperature  30 DegC (tolerance: +-5 DegC), Vref+ = 3.3 V (tolerance: +-10 mV). */
+#define TEMPSENSOR_CAL2_ADDR               ((const uint16_t*) (0x1FFFF7C2U)) /* Internal temperature sensor, address of parameter TS_CAL2: On STM32F0, temperature sensor ADC raw data acquired at temperature 110 DegC (tolerance: +-5 DegC), Vref+ = 3.3 V (tolerance: +-10 mV). */
 #define TEMPSENSOR_CAL1_TEMP               (( int32_t)   30)           /* Internal temperature sensor, temperature at which temperature sensor has been calibrated in production for data into TEMPSENSOR_CAL1_ADDR (tolerance: +-5 DegC) (unit: DegC). */
 #define TEMPSENSOR_CAL2_TEMP               (( int32_t)  110)           /* Internal temperature sensor, temperature at which temperature sensor has been calibrated in production for data into TEMPSENSOR_CAL2_ADDR (tolerance: +-5 DegC) (unit: DegC). */
 #define TEMPSENSOR_CAL_VREFANALOG          ( 3300U)                    /* Analog voltage reference (Vref+) voltage with which temperature sensor has been calibrated in production (+-10 mV) (unit: mV). */
@@ -1349,17 +1349,16 @@ typedef struct
                                              __VREFANALOG_VOLTAGE__,\
                                              __TEMPSENSOR_ADC_DATA__,\
                                              __ADC_RESOLUTION__)               \
-  ((( (                                                                        \
-       (int32_t)(((__TEMPSENSOR_TYP_CALX_V__))                                 \
-                 * 1000)                                                       \
-       -                                                                       \
-       (int32_t)((((__TEMPSENSOR_ADC_DATA__) * (__VREFANALOG_VOLTAGE__))       \
+   (((((int32_t)((((__TEMPSENSOR_ADC_DATA__) * (__VREFANALOG_VOLTAGE__))       \
                   / __LL_ADC_DIGITAL_SCALE(__ADC_RESOLUTION__))                \
-                 * 1000)                                                       \
+                 * 1000UL)                                                     \
+       -                                                                       \
+       (int32_t)(((__TEMPSENSOR_TYP_CALX_V__))                                 \
+                 * 1000UL)                                                     \
       )                                                                        \
-    ) / (__TEMPSENSOR_TYP_AVGSLOPE__)                                          \
-   ) + (__TEMPSENSOR_CALX_TEMP__)                                              \
-  )
+     ) / (int32_t)(__TEMPSENSOR_TYP_AVGSLOPE__)                                \
+    ) + (int32_t)(__TEMPSENSOR_CALX_TEMP__)                                    \
+   )
 
 /**
   * @}

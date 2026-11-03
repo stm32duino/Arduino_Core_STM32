@@ -462,6 +462,7 @@ typedef struct
                                       @note This bit-field can not be modified as long as LOCK level 1 has been
                                       programmed. */
 
+
   uint32_t AutomaticOutput;      /*!< Specifies whether the TIM Automatic Output feature is enabled or not.
                                       This parameter can be a value of @ref TIM_LL_EC_AUTOMATICOUTPUT_ENABLE
 
@@ -843,8 +844,6 @@ typedef struct
 /**
   * @}
   */
-
-
 
 
 /** @defgroup TIM_LL_EC_OSSI OSSI

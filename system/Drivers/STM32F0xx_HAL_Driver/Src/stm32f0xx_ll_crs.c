@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    stm32f0xx_ll_crs.h
+  * @file    stm32f0xx_ll_crs.c
   * @author  MCD Application Team
   * @brief   CRS LL module driver.
   ******************************************************************************
@@ -62,7 +62,6 @@ ErrorStatus LL_CRS_DeInit(void)
 }
 
 
-
 /**
   * @}
   */
@@ -80,5 +79,5 @@ ErrorStatus LL_CRS_DeInit(void)
 /**
   * @}
   */
-  
+
 #endif /* USE_FULL_LL_DRIVER */
