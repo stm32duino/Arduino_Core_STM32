@@ -415,7 +415,7 @@ def store_eth(pin, name, signal, af):
     eth_list.append([pin, name, signal, af])
 
 
-# Store O/QSPI pins
+# Store O/Q/XSPI pins
 def store_xspi(pin, name, signal, af):
     if "_IO0" in signal:
         xspidata0_list.append([pin, name, signal, af])
@@ -1481,6 +1481,8 @@ def print_variant(generic_list, alt_syswkup_list):
     if xspidata0_list:
         if "OCTOSPI" in xspidata0_list[0][2]:
             hal_modules_list.append("OSPI")
+        elif "XSPI" in xspidata0_list[0][2]:
+            hal_modules_list.append("XSPI")
         else:
             hal_modules_list.append("QSPI")
     if sdxcmd_list:
