@@ -256,6 +256,9 @@
 #if !defined(HAL_I3C_MODULE_DISABLED)
   #define USE_HAL_I3C_MODULE    1U
 #endif
+#if !defined(HAL_XSPI_MODULE_DISABLED)
+  #define USE_HAL_XSPI_MODULE    1U
+#endif
 
 /*----------------------------------------------------------------------------
  *        Arduino objects - C++ only

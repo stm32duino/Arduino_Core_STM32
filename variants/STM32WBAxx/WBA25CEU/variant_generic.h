@@ -114,8 +114,8 @@
 #endif
 
 // Extra HAL modules
-#if !defined(HAL_QSPI_MODULE_DISABLED)
-  #define HAL_QSPI_MODULE_ENABLED
+#if !defined(HAL_XSPI_MODULE_DISABLED)
+  #define HAL_XSPI_MODULE_ENABLED
 #endif
 
 // Alternate SYS_WKUP definition
