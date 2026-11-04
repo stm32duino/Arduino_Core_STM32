@@ -15565,100 +15565,6 @@ GenWBA.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interfac
 GenWBA.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
-# Generic WL3
-GenWL3.name=Generic STM32WL3 series
-
-GenWL3.build.core=arduino
-GenWL3.build.board=GenWL3
-GenWL3.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
-GenWL3.build.mcu=cortex-m0plus
-GenWL3.build.series=STM32WL3x
-GenWL3.build.flash_offset=0x0
-GenWL3.upload.maximum_size=0
-GenWL3.upload.maximum_data_size=0
-GenWL3.openocd.target=stm32wl3x
-GenWL3.upload.address=0x10040000
-GenWL3.upload.mode=hwRstPulse
-GenWL3.upload.start=0x10000000
-GenWL3.upload.parity=none
-
-# Generic WL33C8Vx
-# Docs: release=2.12.0
-GenWL3.menu.pnum.GENERIC_WL33C8VX=Generic WL33C8Vx
-GenWL3.menu.pnum.GENERIC_WL33C8VX.upload.maximum_size=65536
-GenWL3.menu.pnum.GENERIC_WL33C8VX.upload.maximum_data_size=16384
-GenWL3.menu.pnum.GENERIC_WL33C8VX.build.board=GENERIC_WL33C8VX
-GenWL3.menu.pnum.GENERIC_WL33C8VX.build.product_line=STM32WL3XX
-GenWL3.menu.pnum.GENERIC_WL33C8VX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
-GenWL3.menu.pnum.GENERIC_WL33C8VX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
-
-# Generic WL33C8VxX
-# Docs: release=2.12.0
-GenWL3.menu.pnum.GENERIC_WL33C8VXX=Generic WL33C8VxX
-GenWL3.menu.pnum.GENERIC_WL33C8VXX.upload.maximum_size=65536
-GenWL3.menu.pnum.GENERIC_WL33C8VXX.upload.maximum_data_size=16384
-GenWL3.menu.pnum.GENERIC_WL33C8VXX.build.board=GENERIC_WL33C8VXX
-GenWL3.menu.pnum.GENERIC_WL33C8VXX.build.product_line=STM32WL3XX
-GenWL3.menu.pnum.GENERIC_WL33C8VXX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
-GenWL3.menu.pnum.GENERIC_WL33C8VXX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
-
-# Generic WL33CBVx
-# Docs: release=2.12.0
-GenWL3.menu.pnum.GENERIC_WL33CBVX=Generic WL33CBVx
-GenWL3.menu.pnum.GENERIC_WL33CBVX.upload.maximum_size=131072
-GenWL3.menu.pnum.GENERIC_WL33CBVX.upload.maximum_data_size=32768
-GenWL3.menu.pnum.GENERIC_WL33CBVX.build.board=GENERIC_WL33CBVX
-GenWL3.menu.pnum.GENERIC_WL33CBVX.build.product_line=STM32WL3XX
-GenWL3.menu.pnum.GENERIC_WL33CBVX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
-GenWL3.menu.pnum.GENERIC_WL33CBVX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
-
-# Generic WL33CBVxX
-# Docs: release=2.12.0
-GenWL3.menu.pnum.GENERIC_WL33CBVXX=Generic WL33CBVxX
-GenWL3.menu.pnum.GENERIC_WL33CBVXX.upload.maximum_size=131072
-GenWL3.menu.pnum.GENERIC_WL33CBVXX.upload.maximum_data_size=32768
-GenWL3.menu.pnum.GENERIC_WL33CBVXX.build.board=GENERIC_WL33CBVXX
-GenWL3.menu.pnum.GENERIC_WL33CBVXX.build.product_line=STM32WL3XX
-GenWL3.menu.pnum.GENERIC_WL33CBVXX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
-GenWL3.menu.pnum.GENERIC_WL33CBVXX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
-
-# Generic WL33CCVx
-# Docs: release=2.12.0
-GenWL3.menu.pnum.GENERIC_WL33CCVX=Generic WL33CCVx
-GenWL3.menu.pnum.GENERIC_WL33CCVX.upload.maximum_size=262144
-GenWL3.menu.pnum.GENERIC_WL33CCVX.upload.maximum_data_size=32768
-GenWL3.menu.pnum.GENERIC_WL33CCVX.build.board=GENERIC_WL33CCVX
-GenWL3.menu.pnum.GENERIC_WL33CCVX.build.product_line=STM32WL3XX
-GenWL3.menu.pnum.GENERIC_WL33CCVX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
-GenWL3.menu.pnum.GENERIC_WL33CCVX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
-
-# Generic WL33CCVxX
-# Docs: release=2.12.0
-GenWL3.menu.pnum.GENERIC_WL33CCVXX=Generic WL33CCVxX
-GenWL3.menu.pnum.GENERIC_WL33CCVXX.upload.maximum_size=262144
-GenWL3.menu.pnum.GENERIC_WL33CCVXX.upload.maximum_data_size=32768
-GenWL3.menu.pnum.GENERIC_WL33CCVXX.build.board=GENERIC_WL33CCVXX
-GenWL3.menu.pnum.GENERIC_WL33CCVXX.build.product_line=STM32WL3XX
-GenWL3.menu.pnum.GENERIC_WL33CCVXX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
-GenWL3.menu.pnum.GENERIC_WL33CCVXX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
-
-# Upload menu
-GenWL3.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
-GenWL3.menu.upload_method.swdMethod.upload.protocol=swd
-GenWL3.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start} -f {upload.freq} -n {upload.stlink_sn}
-GenWL3.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
-
-GenWL3.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
-GenWL3.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenWL3.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
-GenWL3.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
-
-GenWL3.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
-GenWL3.menu.upload_method.serialMethod.upload.protocol=serial
-GenWL3.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} -p {upload.parity}
-GenWL3.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
-
-################################################################################
 # Generic WL
 GenWL.name=Generic STM32WL series
 
@@ -15868,6 +15774,100 @@ GenWL.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 GenWL.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 GenWL.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
 GenWL.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
+
+################################################################################
+# Generic WL3
+GenWL3.name=Generic STM32WL3 series
+
+GenWL3.build.core=arduino
+GenWL3.build.board=GenWL3
+GenWL3.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
+GenWL3.build.mcu=cortex-m0plus
+GenWL3.build.series=STM32WL3x
+GenWL3.build.flash_offset=0x0
+GenWL3.upload.maximum_size=0
+GenWL3.upload.maximum_data_size=0
+GenWL3.openocd.target=stm32wl3x
+GenWL3.upload.address=0x10040000
+GenWL3.upload.mode=hwRstPulse
+GenWL3.upload.start=0x10000000
+GenWL3.upload.parity=none
+
+# Generic WL33C8Vx
+# Docs: release=2.12.0
+GenWL3.menu.pnum.GENERIC_WL33C8VX=Generic WL33C8Vx
+GenWL3.menu.pnum.GENERIC_WL33C8VX.upload.maximum_size=65536
+GenWL3.menu.pnum.GENERIC_WL33C8VX.upload.maximum_data_size=16384
+GenWL3.menu.pnum.GENERIC_WL33C8VX.build.board=GENERIC_WL33C8VX
+GenWL3.menu.pnum.GENERIC_WL33C8VX.build.product_line=STM32WL3XX
+GenWL3.menu.pnum.GENERIC_WL33C8VX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
+GenWL3.menu.pnum.GENERIC_WL33C8VX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
+
+# Generic WL33C8VxX
+# Docs: release=2.12.0
+GenWL3.menu.pnum.GENERIC_WL33C8VXX=Generic WL33C8VxX
+GenWL3.menu.pnum.GENERIC_WL33C8VXX.upload.maximum_size=65536
+GenWL3.menu.pnum.GENERIC_WL33C8VXX.upload.maximum_data_size=16384
+GenWL3.menu.pnum.GENERIC_WL33C8VXX.build.board=GENERIC_WL33C8VXX
+GenWL3.menu.pnum.GENERIC_WL33C8VXX.build.product_line=STM32WL3XX
+GenWL3.menu.pnum.GENERIC_WL33C8VXX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
+GenWL3.menu.pnum.GENERIC_WL33C8VXX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
+
+# Generic WL33CBVx
+# Docs: release=2.12.0
+GenWL3.menu.pnum.GENERIC_WL33CBVX=Generic WL33CBVx
+GenWL3.menu.pnum.GENERIC_WL33CBVX.upload.maximum_size=131072
+GenWL3.menu.pnum.GENERIC_WL33CBVX.upload.maximum_data_size=32768
+GenWL3.menu.pnum.GENERIC_WL33CBVX.build.board=GENERIC_WL33CBVX
+GenWL3.menu.pnum.GENERIC_WL33CBVX.build.product_line=STM32WL3XX
+GenWL3.menu.pnum.GENERIC_WL33CBVX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
+GenWL3.menu.pnum.GENERIC_WL33CBVX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
+
+# Generic WL33CBVxX
+# Docs: release=2.12.0
+GenWL3.menu.pnum.GENERIC_WL33CBVXX=Generic WL33CBVxX
+GenWL3.menu.pnum.GENERIC_WL33CBVXX.upload.maximum_size=131072
+GenWL3.menu.pnum.GENERIC_WL33CBVXX.upload.maximum_data_size=32768
+GenWL3.menu.pnum.GENERIC_WL33CBVXX.build.board=GENERIC_WL33CBVXX
+GenWL3.menu.pnum.GENERIC_WL33CBVXX.build.product_line=STM32WL3XX
+GenWL3.menu.pnum.GENERIC_WL33CBVXX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
+GenWL3.menu.pnum.GENERIC_WL33CBVXX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
+
+# Generic WL33CCVx
+# Docs: release=2.12.0
+GenWL3.menu.pnum.GENERIC_WL33CCVX=Generic WL33CCVx
+GenWL3.menu.pnum.GENERIC_WL33CCVX.upload.maximum_size=262144
+GenWL3.menu.pnum.GENERIC_WL33CCVX.upload.maximum_data_size=32768
+GenWL3.menu.pnum.GENERIC_WL33CCVX.build.board=GENERIC_WL33CCVX
+GenWL3.menu.pnum.GENERIC_WL33CCVX.build.product_line=STM32WL3XX
+GenWL3.menu.pnum.GENERIC_WL33CCVX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
+GenWL3.menu.pnum.GENERIC_WL33CCVX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
+
+# Generic WL33CCVxX
+# Docs: release=2.12.0
+GenWL3.menu.pnum.GENERIC_WL33CCVXX=Generic WL33CCVxX
+GenWL3.menu.pnum.GENERIC_WL33CCVXX.upload.maximum_size=262144
+GenWL3.menu.pnum.GENERIC_WL33CCVXX.upload.maximum_data_size=32768
+GenWL3.menu.pnum.GENERIC_WL33CCVXX.build.board=GENERIC_WL33CCVXX
+GenWL3.menu.pnum.GENERIC_WL33CCVXX.build.product_line=STM32WL3XX
+GenWL3.menu.pnum.GENERIC_WL33CCVXX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
+GenWL3.menu.pnum.GENERIC_WL33CCVXX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
+
+# Upload menu
+GenWL3.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+GenWL3.menu.upload_method.swdMethod.upload.protocol=swd
+GenWL3.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start} -f {upload.freq} -n {upload.stlink_sn}
+GenWL3.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+GenWL3.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
+GenWL3.menu.upload_method.jlinkMethod.upload.protocol=jlink
+GenWL3.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
+GenWL3.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
+
+GenWL3.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+GenWL3.menu.upload_method.serialMethod.upload.protocol=serial
+GenWL3.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} -p {upload.parity}
+GenWL3.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 ################################################################################
 # 3D printer boards
@@ -16412,6 +16412,51 @@ ESC_board.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 ESC_board.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 ESC_board.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
 ESC_board.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
+
+################################################################################
+# ELV Modular System boards
+
+# Docs: url=https://de.elv.com/
+ELV_Modular_System.name=ELV Modular System boards
+ELV_Modular_System.build.core=arduino
+ELV_Modular_System.build.board=ELV_Modular_System
+ELV_Modular_System.build.family=ELV_MODULAR_SYSTEM
+ELV_Modular_System.build.variant_h=variant_{build.board}.h
+ELV_Modular_System.upload.maximum_size=0
+ELV_Modular_System.upload.maximum_data_size=0
+
+# ELV-BM-TRX1 board
+# Docs: release=2.8.0
+# Docs: mcu=STM32WLE5JB
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1=ELV-LW-Base ELV_BM_TRX1
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1.upload.maximum_size=129024
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1.upload.maximum_data_size=49152
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.mcu=cortex-m4
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.board=ELV_BM_TRX1
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.series=STM32WLxx
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.product_line=STM32WLE5xx
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.variant=STM32WLxx/WL54JCI_WL55JCI_WLE4J(8-B-C)I_WLE5J(8-B-C)I
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.flash_offset=0x800
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.st_extra_flags=-D{build.product_line} -DUSE_CM4_STARTUP_FILE {build.xSerial}
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1.openocd.target=stm32wlx
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WLxx/STM32WLE5_CM4.svd
+
+# Upload menu
+ELV_Modular_System.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD) with Bootloader
+ELV_Modular_System.menu.upload_method.swdMethod.upload.protocol=swd
+ELV_Modular_System.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start} -f {upload.freq} -n {upload.stlink_sn}
+ELV_Modular_System.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+ELV_Modular_System.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link) with Bootloader
+ELV_Modular_System.menu.upload_method.jlinkMethod.upload.protocol=jlink
+ELV_Modular_System.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
+ELV_Modular_System.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
+
+ELV_Modular_System.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial) with Bootloader
+ELV_Modular_System.menu.upload_method.serialMethod.upload.protocol=serial
+ELV_Modular_System.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} -p {upload.parity}
+ELV_Modular_System.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 ################################################################################
 # Garatronic-McHobby STM32 boards
@@ -17027,191 +17072,6 @@ Midatronics.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 Midatronics.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
 Midatronics.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
-################################################################################
-# SparkFun Boards
-
-# Docs: url=https://www.sparkfun.com/
-SparkFun.name=SparkFun Boards
-
-SparkFun.build.core=arduino
-SparkFun.build.board=SparkFun
-SparkFun.build.family=SPARKFUN
-SparkFun.build.variant_h=variant_{build.board}.h
-SparkFun.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
-SparkFun.build.flash_offset=0x0
-SparkFun.upload.maximum_size=0
-SparkFun.upload.maximum_data_size=0
-SparkFun.vid.0=0x0483
-SparkFun.pid.0=0x5740
-
-# SparkFun MicroMod STM32F405 Board
-# Docs: release=2.6.0
-# Docs: mcu=STM32F405RG
-# Docs: url=https://www.sparkfun.com/products/21326
-SparkFun.menu.pnum.MICROMOD_F405=SparkFun MicroMod STM32F405
-SparkFun.menu.pnum.MICROMOD_F405.upload.maximum_size=1048576
-SparkFun.menu.pnum.MICROMOD_F405.upload.maximum_data_size=131072
-SparkFun.menu.pnum.MICROMOD_F405.build.mcu=cortex-m4
-SparkFun.menu.pnum.MICROMOD_F405.build.fpu=-mfpu=fpv4-sp-d16
-SparkFun.menu.pnum.MICROMOD_F405.build.float-abi=-mfloat-abi=hard
-SparkFun.menu.pnum.MICROMOD_F405.build.board=MICROMOD_F405
-SparkFun.menu.pnum.MICROMOD_F405.build.series=STM32F4xx
-SparkFun.menu.pnum.MICROMOD_F405.build.product_line=STM32F405xx
-SparkFun.menu.pnum.MICROMOD_F405.build.variant_h=variant_{build.board}.h
-SparkFun.menu.pnum.MICROMOD_F405.build.variant=STM32F4xx/F405RGT_F415RGT
-SparkFun.menu.pnum.MICROMOD_F405.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-SparkFun.menu.pnum.MICROMOD_F405.vid.0=0x1B4F
-SparkFun.menu.pnum.MICROMOD_F405.pid.0=0x0029
-SparkFun.menu.pnum.MICROMOD_F405.openocd.target=stm32f4x
-SparkFun.menu.pnum.MICROMOD_F405.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F405.svd
-
-# SFE_MMPB_STM32WB5MMG board
-# Docs: release=2.6.0
-# Docs: url=https://www.sparkfun.com/products/21438
-SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG=SparkFun MicroMod STM32WB5MMG
-SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.upload.maximum_size=827392
-SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.upload.maximum_data_size=196608
-SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.mcu=cortex-m4
-SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.fpu=-mfpu=fpv4-sp-d16
-SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.float-abi=-mfloat-abi=hard
-SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.board=SFE_MMPB_STM32WB5MMG
-SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.series=STM32WBxx
-SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.product_line=STM32WB5Mxx
-SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.variant=STM32WBxx/WB5MMGH
-SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.vid.0=0x1B4F
-SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.pid.0=0x0034
-SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.openocd.target=stm32wbx
-SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBxx/STM32WB55_CM4.svd
-
-# Upload menu
-SparkFun.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
-SparkFun.menu.upload_method.swdMethod.upload.protocol=swd
-SparkFun.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start} -f {upload.freq} -n {upload.stlink_sn}
-SparkFun.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
-
-SparkFun.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
-SparkFun.menu.upload_method.jlinkMethod.upload.protocol=jlink
-SparkFun.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
-SparkFun.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
-
-SparkFun.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
-SparkFun.menu.upload_method.serialMethod.upload.protocol=serial
-SparkFun.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} -p {upload.parity}
-SparkFun.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
-
-SparkFun.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
-SparkFun.menu.upload_method.dfuMethod.upload.protocol=dfu
-SparkFun.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
-SparkFun.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
-
-SparkFun.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
-SparkFun.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
-SparkFun.menu.upload_method.bmpMethod.upload.tool=bmp_upload
-
-SparkFun.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
-SparkFun.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
-SparkFun.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
-
-SparkFun.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
-SparkFun.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
-SparkFun.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
-SparkFun.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
-SparkFun.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
-
-################################################################################
-# ELV Modular System boards
-
-# Docs: url=https://de.elv.com/
-ELV_Modular_System.name=ELV Modular System boards
-ELV_Modular_System.build.core=arduino
-ELV_Modular_System.build.board=ELV_Modular_System
-ELV_Modular_System.build.family=ELV_MODULAR_SYSTEM
-ELV_Modular_System.build.variant_h=variant_{build.board}.h
-ELV_Modular_System.upload.maximum_size=0
-ELV_Modular_System.upload.maximum_data_size=0
-
-# ELV-BM-TRX1 board
-# Docs: release=2.8.0
-# Docs: mcu=STM32WLE5JB
-ELV_Modular_System.menu.pnum.ELV_BM_TRX1=ELV-LW-Base ELV_BM_TRX1
-ELV_Modular_System.menu.pnum.ELV_BM_TRX1.upload.maximum_size=129024
-ELV_Modular_System.menu.pnum.ELV_BM_TRX1.upload.maximum_data_size=49152
-ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.mcu=cortex-m4
-ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.board=ELV_BM_TRX1
-ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.series=STM32WLxx
-ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.product_line=STM32WLE5xx
-ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.variant=STM32WLxx/WL54JCI_WL55JCI_WLE4J(8-B-C)I_WLE5J(8-B-C)I
-ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.flash_offset=0x800
-ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.st_extra_flags=-D{build.product_line} -DUSE_CM4_STARTUP_FILE {build.xSerial}
-ELV_Modular_System.menu.pnum.ELV_BM_TRX1.openocd.target=stm32wlx
-ELV_Modular_System.menu.pnum.ELV_BM_TRX1.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WLxx/STM32WLE5_CM4.svd
-
-# Upload menu
-ELV_Modular_System.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD) with Bootloader
-ELV_Modular_System.menu.upload_method.swdMethod.upload.protocol=swd
-ELV_Modular_System.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start} -f {upload.freq} -n {upload.stlink_sn}
-ELV_Modular_System.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
-
-ELV_Modular_System.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link) with Bootloader
-ELV_Modular_System.menu.upload_method.jlinkMethod.upload.protocol=jlink
-ELV_Modular_System.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
-ELV_Modular_System.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
-
-ELV_Modular_System.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial) with Bootloader
-ELV_Modular_System.menu.upload_method.serialMethod.upload.protocol=serial
-ELV_Modular_System.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} -p {upload.parity}
-ELV_Modular_System.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
-
-################################################################################
-# STeaMi board
-# Docs: url=https://www.steami.cc/
-STeaMi.name=STeaMi Board
-STeaMi.build.core=arduino
-STeaMi.build.board=STeaMi
-STeaMi.build.family=STEAMI
-STeaMi.build.variant_h=variant_{build.board}.h
-STeaMi.build.st_extra_flags=-D{build.product_line} {build.xSerial}
-STeaMi.build.flash_offset=0x0
-STeaMi.upload.maximum_size=0
-STeaMi.upload.maximum_data_size=0
-STeaMi.vid.0=0x0d28
-STeaMi.pid.0=0x0204
-
-# Docs: release=2.9.0
-# Docs: url=https://www.steami.cc/
-STeaMi.menu.pnum.STEAM32_WB55RG=STeaMi
-STeaMi.menu.pnum.STEAM32_WB55RG.node="STeaMi,DAPLINK"
-STeaMi.menu.pnum.STEAM32_WB55RG.upload.maximum_size=524288
-STeaMi.menu.pnum.STEAM32_WB55RG.upload.maximum_data_size=196608
-STeaMi.menu.pnum.STEAM32_WB55RG.build.mcu=cortex-m4
-STeaMi.menu.pnum.STEAM32_WB55RG.build.fpu=-mfpu=fpv4-sp-d16
-STeaMi.menu.pnum.STEAM32_WB55RG.build.float-abi=-mfloat-abi=hard
-STeaMi.menu.pnum.STEAM32_WB55RG.build.board=STEAM32_WB55RG
-STeaMi.menu.pnum.STEAM32_WB55RG.build.series=STM32WBxx
-STeaMi.menu.pnum.STEAM32_WB55RG.build.product_line=STM32WB55xx
-STeaMi.menu.pnum.STEAM32_WB55RG.build.variant=STM32WBxx/WB55R(C-E-G)V
-STeaMi.menu.pnum.STEAM32_WB55RG.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
-STeaMi.menu.pnum.STEAM32_WB55RG.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
-STeaMi.menu.pnum.STEAM32_WB55RG.openocd.target=stm32wbx
-STeaMi.menu.pnum.STEAM32_WB55RG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBxx/STM32WB55_CM4.svd
-
-# Upload menu
-STeaMi.menu.upload_method.MassStorage=Mass Storage
-STeaMi.menu.upload_method.MassStorage.upload.protocol=
-STeaMi.menu.upload_method.MassStorage.upload.tool=massStorageCopy
-
-STeaMi.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
-STeaMi.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
-STeaMi.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
-STeaMi.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
-STeaMi.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
-
-STeaMi.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
-STeaMi.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
-STeaMi.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
-
 ###############################
 # Phoque-series brushless motor drivers
 Phoque.name=Phoque Brushless Motor Drivers
@@ -17328,6 +17188,146 @@ Seeed_studio.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 Seeed_studio.menu.upload_method.jlinkMethod.upload.protocol=jlink
 Seeed_studio.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 Seeed_studio.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
+
+################################################################################
+# SparkFun Boards
+
+# Docs: url=https://www.sparkfun.com/
+SparkFun.name=SparkFun Boards
+
+SparkFun.build.core=arduino
+SparkFun.build.board=SparkFun
+SparkFun.build.family=SPARKFUN
+SparkFun.build.variant_h=variant_{build.board}.h
+SparkFun.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+SparkFun.build.flash_offset=0x0
+SparkFun.upload.maximum_size=0
+SparkFun.upload.maximum_data_size=0
+SparkFun.vid.0=0x0483
+SparkFun.pid.0=0x5740
+
+# SparkFun MicroMod STM32F405 Board
+# Docs: release=2.6.0
+# Docs: mcu=STM32F405RG
+# Docs: url=https://www.sparkfun.com/products/21326
+SparkFun.menu.pnum.MICROMOD_F405=SparkFun MicroMod STM32F405
+SparkFun.menu.pnum.MICROMOD_F405.upload.maximum_size=1048576
+SparkFun.menu.pnum.MICROMOD_F405.upload.maximum_data_size=131072
+SparkFun.menu.pnum.MICROMOD_F405.build.mcu=cortex-m4
+SparkFun.menu.pnum.MICROMOD_F405.build.fpu=-mfpu=fpv4-sp-d16
+SparkFun.menu.pnum.MICROMOD_F405.build.float-abi=-mfloat-abi=hard
+SparkFun.menu.pnum.MICROMOD_F405.build.board=MICROMOD_F405
+SparkFun.menu.pnum.MICROMOD_F405.build.series=STM32F4xx
+SparkFun.menu.pnum.MICROMOD_F405.build.product_line=STM32F405xx
+SparkFun.menu.pnum.MICROMOD_F405.build.variant_h=variant_{build.board}.h
+SparkFun.menu.pnum.MICROMOD_F405.build.variant=STM32F4xx/F405RGT_F415RGT
+SparkFun.menu.pnum.MICROMOD_F405.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+SparkFun.menu.pnum.MICROMOD_F405.vid.0=0x1B4F
+SparkFun.menu.pnum.MICROMOD_F405.pid.0=0x0029
+SparkFun.menu.pnum.MICROMOD_F405.openocd.target=stm32f4x
+SparkFun.menu.pnum.MICROMOD_F405.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F405.svd
+
+# SFE_MMPB_STM32WB5MMG board
+# Docs: release=2.6.0
+# Docs: url=https://www.sparkfun.com/products/21438
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG=SparkFun MicroMod STM32WB5MMG
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.upload.maximum_size=827392
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.upload.maximum_data_size=196608
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.mcu=cortex-m4
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.fpu=-mfpu=fpv4-sp-d16
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.float-abi=-mfloat-abi=hard
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.board=SFE_MMPB_STM32WB5MMG
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.series=STM32WBxx
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.product_line=STM32WB5Mxx
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.variant=STM32WBxx/WB5MMGH
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.vid.0=0x1B4F
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.pid.0=0x0034
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.openocd.target=stm32wbx
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBxx/STM32WB55_CM4.svd
+
+# Upload menu
+SparkFun.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+SparkFun.menu.upload_method.swdMethod.upload.protocol=swd
+SparkFun.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start} -f {upload.freq} -n {upload.stlink_sn}
+SparkFun.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+SparkFun.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
+SparkFun.menu.upload_method.jlinkMethod.upload.protocol=jlink
+SparkFun.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
+SparkFun.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
+
+SparkFun.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+SparkFun.menu.upload_method.serialMethod.upload.protocol=serial
+SparkFun.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} -p {upload.parity}
+SparkFun.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+SparkFun.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+SparkFun.menu.upload_method.dfuMethod.upload.protocol=dfu
+SparkFun.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
+SparkFun.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+SparkFun.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+SparkFun.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+SparkFun.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
+SparkFun.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+SparkFun.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+SparkFun.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+SparkFun.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+SparkFun.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+SparkFun.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+SparkFun.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+SparkFun.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
+
+################################################################################
+# STeaMi board
+# Docs: url=https://www.steami.cc/
+STeaMi.name=STeaMi Board
+STeaMi.build.core=arduino
+STeaMi.build.board=STeaMi
+STeaMi.build.family=STEAMI
+STeaMi.build.variant_h=variant_{build.board}.h
+STeaMi.build.st_extra_flags=-D{build.product_line} {build.xSerial}
+STeaMi.build.flash_offset=0x0
+STeaMi.upload.maximum_size=0
+STeaMi.upload.maximum_data_size=0
+STeaMi.vid.0=0x0d28
+STeaMi.pid.0=0x0204
+
+# Docs: release=2.9.0
+# Docs: url=https://www.steami.cc/
+STeaMi.menu.pnum.STEAM32_WB55RG=STeaMi
+STeaMi.menu.pnum.STEAM32_WB55RG.node="STeaMi,DAPLINK"
+STeaMi.menu.pnum.STEAM32_WB55RG.upload.maximum_size=524288
+STeaMi.menu.pnum.STEAM32_WB55RG.upload.maximum_data_size=196608
+STeaMi.menu.pnum.STEAM32_WB55RG.build.mcu=cortex-m4
+STeaMi.menu.pnum.STEAM32_WB55RG.build.fpu=-mfpu=fpv4-sp-d16
+STeaMi.menu.pnum.STEAM32_WB55RG.build.float-abi=-mfloat-abi=hard
+STeaMi.menu.pnum.STEAM32_WB55RG.build.board=STEAM32_WB55RG
+STeaMi.menu.pnum.STEAM32_WB55RG.build.series=STM32WBxx
+STeaMi.menu.pnum.STEAM32_WB55RG.build.product_line=STM32WB55xx
+STeaMi.menu.pnum.STEAM32_WB55RG.build.variant=STM32WBxx/WB55R(C-E-G)V
+STeaMi.menu.pnum.STEAM32_WB55RG.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+STeaMi.menu.pnum.STEAM32_WB55RG.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
+STeaMi.menu.pnum.STEAM32_WB55RG.openocd.target=stm32wbx
+STeaMi.menu.pnum.STEAM32_WB55RG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBxx/STM32WB55_CM4.svd
+
+# Upload menu
+STeaMi.menu.upload_method.MassStorage=Mass Storage
+STeaMi.menu.upload_method.MassStorage.upload.protocol=
+STeaMi.menu.upload_method.MassStorage.upload.tool=massStorageCopy
+
+STeaMi.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+STeaMi.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+STeaMi.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+STeaMi.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+STeaMi.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
+
+STeaMi.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+STeaMi.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+STeaMi.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 
 ################################################################################
 # Serialx activation
@@ -17506,17 +17506,17 @@ GenWBA.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenWBA.menu.xserial.disabled=Disabled (no Serial support)
 GenWBA.menu.xserial.disabled.build.xSerial=
 
-GenWL3.menu.xserial.generic=Enabled (generic 'Serial')
-GenWL3.menu.xserial.none=Enabled (no generic 'Serial')
-GenWL3.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-GenWL3.menu.xserial.disabled=Disabled (no Serial support)
-GenWL3.menu.xserial.disabled.build.xSerial=
-
 GenWL.menu.xserial.generic=Enabled (generic 'Serial')
 GenWL.menu.xserial.none=Enabled (no generic 'Serial')
 GenWL.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenWL.menu.xserial.disabled=Disabled (no Serial support)
 GenWL.menu.xserial.disabled.build.xSerial=
+
+GenWL3.menu.xserial.generic=Enabled (generic 'Serial')
+GenWL3.menu.xserial.none=Enabled (no generic 'Serial')
+GenWL3.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+GenWL3.menu.xserial.disabled=Disabled (no Serial support)
+GenWL3.menu.xserial.disabled.build.xSerial=
 
 3dprinter.menu.xserial.generic=Enabled (generic 'Serial')
 3dprinter.menu.xserial.none=Enabled (no generic 'Serial')
@@ -17541,6 +17541,12 @@ ESC_board.menu.xserial.none=Enabled (no generic 'Serial')
 ESC_board.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 ESC_board.menu.xserial.disabled=Disabled (no Serial support)
 ESC_board.menu.xserial.disabled.build.xSerial=
+
+ELV_Modular_System.menu.xserial.generic=Enabled (generic 'Serial')
+ELV_Modular_System.menu.xserial.none=Enabled (no generic 'Serial')
+ELV_Modular_System.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+ELV_Modular_System.menu.xserial.disabled=Disabled (no Serial support)
+ELV_Modular_System.menu.xserial.disabled.build.xSerial=
 
 Garatronic.menu.xserial.generic=Enabled (generic 'Serial')
 Garatronic.menu.xserial.none=Enabled (no generic 'Serial')
@@ -17572,24 +17578,6 @@ Midatronics.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL
 Midatronics.menu.xserial.disabled=Disabled (No Serial support)
 Midatronics.menu.xserial.disabled.build.xSerial=
 
-SparkFun.menu.xserial.generic=Enabled (generic 'Serial')
-SparkFun.menu.xserial.none=Enabled (no generic 'Serial')
-SparkFun.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-SparkFun.menu.xserial.disabled=Disabled (no Serial support)
-SparkFun.menu.xserial.disabled.build.xSerial=
-
-ELV_Modular_System.menu.xserial.generic=Enabled (generic 'Serial')
-ELV_Modular_System.menu.xserial.none=Enabled (no generic 'Serial')
-ELV_Modular_System.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-ELV_Modular_System.menu.xserial.disabled=Disabled (no Serial support)
-ELV_Modular_System.menu.xserial.disabled.build.xSerial=
-
-STeaMi.menu.xserial.generic=Enabled (generic 'Serial')
-STeaMi.menu.xserial.none=Enabled (no generic 'Serial')
-STeaMi.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-STeaMi.menu.xserial.disabled=Disabled (no Serial support)
-STeaMi.menu.xserial.disabled.build.xSerial=
-
 Phoque.menu.xserial.generic=Enabled (generic 'Serial')
 Phoque.menu.xserial.none=Enabled (no generic 'Serial')
 Phoque.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
@@ -17601,6 +17589,18 @@ Seeed_studio.menu.xserial.none=Enabled (no generic 'Serial')
 Seeed_studio.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 Seeed_studio.menu.xserial.disabled=Disabled (no Serial support)
 Seeed_studio.menu.xserial.disabled.build.xSerial=
+
+SparkFun.menu.xserial.generic=Enabled (generic 'Serial')
+SparkFun.menu.xserial.none=Enabled (no generic 'Serial')
+SparkFun.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+SparkFun.menu.xserial.disabled=Disabled (no Serial support)
+SparkFun.menu.xserial.disabled.build.xSerial=
+
+STeaMi.menu.xserial.generic=Enabled (generic 'Serial')
+STeaMi.menu.xserial.none=Enabled (no generic 'Serial')
+STeaMi.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+STeaMi.menu.xserial.disabled=Disabled (no Serial support)
+STeaMi.menu.xserial.disabled.build.xSerial=
 
 # USB connectivity
 Nucleo_144.menu.usb.none=None
@@ -17970,19 +17970,6 @@ Midatronics.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 Midatronics.menu.xusb.HSFS=High Speed in Full Speed mode
 Midatronics.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
-SparkFun.menu.usb.none=None
-SparkFun.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
-SparkFun.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
-SparkFun.menu.usb.CDC=CDC (no generic 'Serial')
-SparkFun.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
-SparkFun.menu.usb.HID=HID (keyboard and mouse)
-SparkFun.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-SparkFun.menu.xusb.FS=Low/Full Speed
-SparkFun.menu.xusb.HS=High Speed
-SparkFun.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
-SparkFun.menu.xusb.HSFS=High Speed in Full Speed mode
-SparkFun.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
-
 Phoque.menu.usb.none=None
 Phoque.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 Phoque.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
@@ -18001,6 +17988,19 @@ Seeed_studio.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 Seeed_studio.menu.usb.none=None
 Seeed_studio.menu.usb.CDC=CDC (no generic 'Serial')
 Seeed_studio.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+
+SparkFun.menu.usb.none=None
+SparkFun.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+SparkFun.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+SparkFun.menu.usb.CDC=CDC (no generic 'Serial')
+SparkFun.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+SparkFun.menu.usb.HID=HID (keyboard and mouse)
+SparkFun.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+SparkFun.menu.xusb.FS=Low/Full Speed
+SparkFun.menu.xusb.HS=High Speed
+SparkFun.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+SparkFun.menu.xusb.HSFS=High Speed in Full Speed mode
+SparkFun.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 # Optimizations
 Nucleo_144.menu.opt.osstd=Smallest (-Os default)
@@ -18563,26 +18563,6 @@ GenWBA.menu.opt.ogstd.build.flags.optimize=-Og
 GenWBA.menu.opt.o0std=No Optimization (-O0)
 GenWBA.menu.opt.o0std.build.flags.optimize=-O0
 
-GenWL3.menu.opt.osstd=Smallest (-Os default)
-GenWL3.menu.opt.oslto=Smallest (-Os) with LTO
-GenWL3.menu.opt.oslto.build.flags.optimize=-Os -flto
-GenWL3.menu.opt.o1std=Fast (-O1)
-GenWL3.menu.opt.o1std.build.flags.optimize=-O1
-GenWL3.menu.opt.o1lto=Fast (-O1) with LTO
-GenWL3.menu.opt.o1lto.build.flags.optimize=-O1 -flto
-GenWL3.menu.opt.o2std=Faster (-O2)
-GenWL3.menu.opt.o2std.build.flags.optimize=-O2
-GenWL3.menu.opt.o2lto=Faster (-O2) with LTO
-GenWL3.menu.opt.o2lto.build.flags.optimize=-O2 -flto
-GenWL3.menu.opt.o3std=Fastest (-O3)
-GenWL3.menu.opt.o3std.build.flags.optimize=-O3
-GenWL3.menu.opt.o3lto=Fastest (-O3) with LTO
-GenWL3.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-GenWL3.menu.opt.ogstd=Debug (-Og)
-GenWL3.menu.opt.ogstd.build.flags.optimize=-Og
-GenWL3.menu.opt.o0std=No Optimization (-O0)
-GenWL3.menu.opt.o0std.build.flags.optimize=-O0
-
 GenWL.menu.opt.osstd=Smallest (-Os default)
 GenWL.menu.opt.oslto=Smallest (-Os) with LTO
 GenWL.menu.opt.oslto.build.flags.optimize=-Os -flto
@@ -18602,6 +18582,26 @@ GenWL.menu.opt.ogstd=Debug (-Og)
 GenWL.menu.opt.ogstd.build.flags.optimize=-Og
 GenWL.menu.opt.o0std=No Optimization (-O0)
 GenWL.menu.opt.o0std.build.flags.optimize=-O0
+
+GenWL3.menu.opt.osstd=Smallest (-Os default)
+GenWL3.menu.opt.oslto=Smallest (-Os) with LTO
+GenWL3.menu.opt.oslto.build.flags.optimize=-Os -flto
+GenWL3.menu.opt.o1std=Fast (-O1)
+GenWL3.menu.opt.o1std.build.flags.optimize=-O1
+GenWL3.menu.opt.o1lto=Fast (-O1) with LTO
+GenWL3.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+GenWL3.menu.opt.o2std=Faster (-O2)
+GenWL3.menu.opt.o2std.build.flags.optimize=-O2
+GenWL3.menu.opt.o2lto=Faster (-O2) with LTO
+GenWL3.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+GenWL3.menu.opt.o3std=Fastest (-O3)
+GenWL3.menu.opt.o3std.build.flags.optimize=-O3
+GenWL3.menu.opt.o3lto=Fastest (-O3) with LTO
+GenWL3.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+GenWL3.menu.opt.ogstd=Debug (-Og)
+GenWL3.menu.opt.ogstd.build.flags.optimize=-Og
+GenWL3.menu.opt.o0std=No Optimization (-O0)
+GenWL3.menu.opt.o0std.build.flags.optimize=-O0
 
 3dprinter.menu.opt.osstd=Smallest (-Os default)
 3dprinter.menu.opt.oslto=Smallest (-Os) with LTO
@@ -18682,6 +18682,26 @@ ESC_board.menu.opt.ogstd=Debug (-Og)
 ESC_board.menu.opt.ogstd.build.flags.optimize=-Og
 ESC_board.menu.opt.o0std=No Optimization (-O0)
 ESC_board.menu.opt.o0std.build.flags.optimize=-O0
+
+ELV_Modular_System.menu.opt.osstd=Smallest (-Os default)
+ELV_Modular_System.menu.opt.oslto=Smallest (-Os) with LTO
+ELV_Modular_System.menu.opt.oslto.build.flags.optimize=-Os -flto
+ELV_Modular_System.menu.opt.o1std=Fast (-O1)
+ELV_Modular_System.menu.opt.o1std.build.flags.optimize=-O1
+ELV_Modular_System.menu.opt.o1lto=Fast (-O1) with LTO
+ELV_Modular_System.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+ELV_Modular_System.menu.opt.o2std=Faster (-O2)
+ELV_Modular_System.menu.opt.o2std.build.flags.optimize=-O2
+ELV_Modular_System.menu.opt.o2lto=Faster (-O2) with LTO
+ELV_Modular_System.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+ELV_Modular_System.menu.opt.o3std=Fastest (-O3)
+ELV_Modular_System.menu.opt.o3std.build.flags.optimize=-O3
+ELV_Modular_System.menu.opt.o3lto=Fastest (-O3) with LTO
+ELV_Modular_System.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+ELV_Modular_System.menu.opt.ogstd=Debug (-Og)
+ELV_Modular_System.menu.opt.ogstd.build.flags.optimize=-Og
+ELV_Modular_System.menu.opt.o0std=No Optimization (-O0)
+ELV_Modular_System.menu.opt.o0std.build.flags.optimize=-O0
 
 Garatronic.menu.opt.osstd=Smallest (-Os default)
 Garatronic.menu.opt.oslto=Smallest (-Os) with LTO
@@ -18783,66 +18803,6 @@ Midatronics.menu.opt.ogstd.build.flags.optimize=-Og
 Midatronics.menu.opt.o0std=No Optimization (-O0)
 Midatronics.menu.opt.o0std.build.flags.optimize=-O0
 
-SparkFun.menu.opt.osstd=Smallest (-Os default)
-SparkFun.menu.opt.oslto=Smallest (-Os) with LTO
-SparkFun.menu.opt.oslto.build.flags.optimize=-Os -flto
-SparkFun.menu.opt.o1std=Fast (-O1)
-SparkFun.menu.opt.o1std.build.flags.optimize=-O1
-SparkFun.menu.opt.o1lto=Fast (-O1) with LTO
-SparkFun.menu.opt.o1lto.build.flags.optimize=-O1 -flto
-SparkFun.menu.opt.o2std=Faster (-O2)
-SparkFun.menu.opt.o2std.build.flags.optimize=-O2
-SparkFun.menu.opt.o2lto=Faster (-O2) with LTO
-SparkFun.menu.opt.o2lto.build.flags.optimize=-O2 -flto
-SparkFun.menu.opt.o3std=Fastest (-O3)
-SparkFun.menu.opt.o3std.build.flags.optimize=-O3
-SparkFun.menu.opt.o3lto=Fastest (-O3) with LTO
-SparkFun.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-SparkFun.menu.opt.ogstd=Debug (-Og)
-SparkFun.menu.opt.ogstd.build.flags.optimize=-Og
-SparkFun.menu.opt.o0std=No Optimization (-O0)
-SparkFun.menu.opt.o0std.build.flags.optimize=-O0
-
-ELV_Modular_System.menu.opt.osstd=Smallest (-Os default)
-ELV_Modular_System.menu.opt.oslto=Smallest (-Os) with LTO
-ELV_Modular_System.menu.opt.oslto.build.flags.optimize=-Os -flto
-ELV_Modular_System.menu.opt.o1std=Fast (-O1)
-ELV_Modular_System.menu.opt.o1std.build.flags.optimize=-O1
-ELV_Modular_System.menu.opt.o1lto=Fast (-O1) with LTO
-ELV_Modular_System.menu.opt.o1lto.build.flags.optimize=-O1 -flto
-ELV_Modular_System.menu.opt.o2std=Faster (-O2)
-ELV_Modular_System.menu.opt.o2std.build.flags.optimize=-O2
-ELV_Modular_System.menu.opt.o2lto=Faster (-O2) with LTO
-ELV_Modular_System.menu.opt.o2lto.build.flags.optimize=-O2 -flto
-ELV_Modular_System.menu.opt.o3std=Fastest (-O3)
-ELV_Modular_System.menu.opt.o3std.build.flags.optimize=-O3
-ELV_Modular_System.menu.opt.o3lto=Fastest (-O3) with LTO
-ELV_Modular_System.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-ELV_Modular_System.menu.opt.ogstd=Debug (-Og)
-ELV_Modular_System.menu.opt.ogstd.build.flags.optimize=-Og
-ELV_Modular_System.menu.opt.o0std=No Optimization (-O0)
-ELV_Modular_System.menu.opt.o0std.build.flags.optimize=-O0
-
-STeaMi.menu.opt.osstd=Smallest (-Os default)
-STeaMi.menu.opt.oslto=Smallest (-Os) with LTO
-STeaMi.menu.opt.oslto.build.flags.optimize=-Os -flto
-STeaMi.menu.opt.o1std=Fast (-O1)
-STeaMi.menu.opt.o1std.build.flags.optimize=-O1
-STeaMi.menu.opt.o1lto=Fast (-O1) with LTO
-STeaMi.menu.opt.o1lto.build.flags.optimize=-O1 -flto
-STeaMi.menu.opt.o2std=Faster (-O2)
-STeaMi.menu.opt.o2std.build.flags.optimize=-O2
-STeaMi.menu.opt.o2lto=Faster (-O2) with LTO
-STeaMi.menu.opt.o2lto.build.flags.optimize=-O2 -flto
-STeaMi.menu.opt.o3std=Fastest (-O3)
-STeaMi.menu.opt.o3std.build.flags.optimize=-O3
-STeaMi.menu.opt.o3lto=Fastest (-O3) with LTO
-STeaMi.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-STeaMi.menu.opt.ogstd=Debug (-Og)
-STeaMi.menu.opt.ogstd.build.flags.optimize=-Og
-STeaMi.menu.opt.o0std=No Optimization (-O0)
-STeaMi.menu.opt.o0std.build.flags.optimize=-O0
-
 Phoque.menu.opt.osstd=Smallest (-Os default)
 Phoque.menu.opt.oslto=Smallest (-Os) with LTO
 Phoque.menu.opt.oslto.build.flags.optimize=-Os -flto
@@ -18880,6 +18840,46 @@ Seeed_studio.menu.opt.o3lto=Fastest (-O3) with LTO
 Seeed_studio.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 Seeed_studio.menu.opt.ogstd=Debug (-Og)
 Seeed_studio.menu.opt.ogstd.build.flags.optimize=-Og
+
+SparkFun.menu.opt.osstd=Smallest (-Os default)
+SparkFun.menu.opt.oslto=Smallest (-Os) with LTO
+SparkFun.menu.opt.oslto.build.flags.optimize=-Os -flto
+SparkFun.menu.opt.o1std=Fast (-O1)
+SparkFun.menu.opt.o1std.build.flags.optimize=-O1
+SparkFun.menu.opt.o1lto=Fast (-O1) with LTO
+SparkFun.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+SparkFun.menu.opt.o2std=Faster (-O2)
+SparkFun.menu.opt.o2std.build.flags.optimize=-O2
+SparkFun.menu.opt.o2lto=Faster (-O2) with LTO
+SparkFun.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+SparkFun.menu.opt.o3std=Fastest (-O3)
+SparkFun.menu.opt.o3std.build.flags.optimize=-O3
+SparkFun.menu.opt.o3lto=Fastest (-O3) with LTO
+SparkFun.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+SparkFun.menu.opt.ogstd=Debug (-Og)
+SparkFun.menu.opt.ogstd.build.flags.optimize=-Og
+SparkFun.menu.opt.o0std=No Optimization (-O0)
+SparkFun.menu.opt.o0std.build.flags.optimize=-O0
+
+STeaMi.menu.opt.osstd=Smallest (-Os default)
+STeaMi.menu.opt.oslto=Smallest (-Os) with LTO
+STeaMi.menu.opt.oslto.build.flags.optimize=-Os -flto
+STeaMi.menu.opt.o1std=Fast (-O1)
+STeaMi.menu.opt.o1std.build.flags.optimize=-O1
+STeaMi.menu.opt.o1lto=Fast (-O1) with LTO
+STeaMi.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+STeaMi.menu.opt.o2std=Faster (-O2)
+STeaMi.menu.opt.o2std.build.flags.optimize=-O2
+STeaMi.menu.opt.o2lto=Faster (-O2) with LTO
+STeaMi.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+STeaMi.menu.opt.o3std=Fastest (-O3)
+STeaMi.menu.opt.o3std.build.flags.optimize=-O3
+STeaMi.menu.opt.o3lto=Fastest (-O3) with LTO
+STeaMi.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+STeaMi.menu.opt.ogstd=Debug (-Og)
+STeaMi.menu.opt.ogstd.build.flags.optimize=-Og
+STeaMi.menu.opt.o0std=No Optimization (-O0)
+STeaMi.menu.opt.o0std.build.flags.optimize=-O0
 
 # Debug information
 Nucleo_144.menu.dbg.none=None
@@ -19098,14 +19098,6 @@ GenWBA.menu.dbg.enable_log.build.flags.debug=
 GenWBA.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
 GenWBA.menu.dbg.enable_all.build.flags.debug=-g
 
-GenWL3.menu.dbg.none=None
-GenWL3.menu.dbg.enable_sym=Symbols Enabled (-g)
-GenWL3.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
-GenWL3.menu.dbg.enable_log=Core logs Enabled
-GenWL3.menu.dbg.enable_log.build.flags.debug=
-GenWL3.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
-GenWL3.menu.dbg.enable_all.build.flags.debug=-g
-
 GenWL.menu.dbg.none=None
 GenWL.menu.dbg.enable_sym=Symbols Enabled (-g)
 GenWL.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
@@ -19113,6 +19105,14 @@ GenWL.menu.dbg.enable_log=Core logs Enabled
 GenWL.menu.dbg.enable_log.build.flags.debug=
 GenWL.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
 GenWL.menu.dbg.enable_all.build.flags.debug=-g
+
+GenWL3.menu.dbg.none=None
+GenWL3.menu.dbg.enable_sym=Symbols Enabled (-g)
+GenWL3.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+GenWL3.menu.dbg.enable_log=Core logs Enabled
+GenWL3.menu.dbg.enable_log.build.flags.debug=
+GenWL3.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+GenWL3.menu.dbg.enable_all.build.flags.debug=-g
 
 3dprinter.menu.dbg.none=None
 3dprinter.menu.dbg.enable_sym=Symbols Enabled (-g)
@@ -19145,6 +19145,14 @@ ESC_board.menu.dbg.enable_log=Core logs Enabled
 ESC_board.menu.dbg.enable_log.build.flags.debug=
 ESC_board.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
 ESC_board.menu.dbg.enable_all.build.flags.debug=-g
+
+ELV_Modular_System.menu.dbg.none=None
+ELV_Modular_System.menu.dbg.enable_sym=Symbols Enabled (-g)
+ELV_Modular_System.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+ELV_Modular_System.menu.dbg.enable_log=Core logs Enabled
+ELV_Modular_System.menu.dbg.enable_log.build.flags.debug=
+ELV_Modular_System.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+ELV_Modular_System.menu.dbg.enable_all.build.flags.debug=-g
 
 Garatronic.menu.dbg.none=None
 Garatronic.menu.dbg.enable_sym=Symbols Enabled (-g)
@@ -19186,30 +19194,6 @@ Midatronics.menu.dbg.enable_log.build.flags.debug=
 Midatronics.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
 Midatronics.menu.dbg.enable_all.build.flags.debug=-g
 
-SparkFun.menu.dbg.none=None
-SparkFun.menu.dbg.enable_sym=Symbols Enabled (-g)
-SparkFun.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
-SparkFun.menu.dbg.enable_log=Core logs Enabled
-SparkFun.menu.dbg.enable_log.build.flags.debug=
-SparkFun.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
-SparkFun.menu.dbg.enable_all.build.flags.debug=-g
-
-ELV_Modular_System.menu.dbg.none=None
-ELV_Modular_System.menu.dbg.enable_sym=Symbols Enabled (-g)
-ELV_Modular_System.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
-ELV_Modular_System.menu.dbg.enable_log=Core logs Enabled
-ELV_Modular_System.menu.dbg.enable_log.build.flags.debug=
-ELV_Modular_System.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
-ELV_Modular_System.menu.dbg.enable_all.build.flags.debug=-g
-
-STeaMi.menu.dbg.none=None
-STeaMi.menu.dbg.enable_sym=Symbols Enabled (-g)
-STeaMi.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
-STeaMi.menu.dbg.enable_log=Core logs Enabled
-STeaMi.menu.dbg.enable_log.build.flags.debug=
-STeaMi.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
-STeaMi.menu.dbg.enable_all.build.flags.debug=-g
-
 Phoque.menu.dbg.none=None
 Phoque.menu.dbg.enable_sym=Symbols Enabled (-g)
 Phoque.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
@@ -19225,6 +19209,22 @@ Seeed_studio.menu.dbg.enable_log=Core logs Enabled
 Seeed_studio.menu.dbg.enable_log.build.flags.debug=
 Seeed_studio.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
 Seeed_studio.menu.dbg.enable_all.build.flags.debug=-g
+
+SparkFun.menu.dbg.none=None
+SparkFun.menu.dbg.enable_sym=Symbols Enabled (-g)
+SparkFun.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+SparkFun.menu.dbg.enable_log=Core logs Enabled
+SparkFun.menu.dbg.enable_log.build.flags.debug=
+SparkFun.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+SparkFun.menu.dbg.enable_all.build.flags.debug=-g
+
+STeaMi.menu.dbg.none=None
+STeaMi.menu.dbg.enable_sym=Symbols Enabled (-g)
+STeaMi.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+STeaMi.menu.dbg.enable_log=Core logs Enabled
+STeaMi.menu.dbg.enable_log.build.flags.debug=
+STeaMi.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+STeaMi.menu.dbg.enable_all.build.flags.debug=-g
 
 # C Runtime Library
 Nucleo_144.menu.rtlib.nano=Newlib Nano (default)
@@ -19507,16 +19507,6 @@ GenWBA.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_floa
 GenWBA.menu.rtlib.full=Newlib Standard
 GenWBA.menu.rtlib.full.build.flags.ldspecs=
 
-GenWL3.menu.rtlib.nano=Newlib Nano (default)
-GenWL3.menu.rtlib.nanofp=Newlib Nano + Float Printf
-GenWL3.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
-GenWL3.menu.rtlib.nanofs=Newlib Nano + Float Scanf
-GenWL3.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
-GenWL3.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
-GenWL3.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
-GenWL3.menu.rtlib.full=Newlib Standard
-GenWL3.menu.rtlib.full.build.flags.ldspecs=
-
 GenWL.menu.rtlib.nano=Newlib Nano (default)
 GenWL.menu.rtlib.nanofp=Newlib Nano + Float Printf
 GenWL.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
@@ -19526,6 +19516,16 @@ GenWL.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 GenWL.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 GenWL.menu.rtlib.full=Newlib Standard
 GenWL.menu.rtlib.full.build.flags.ldspecs=
+
+GenWL3.menu.rtlib.nano=Newlib Nano (default)
+GenWL3.menu.rtlib.nanofp=Newlib Nano + Float Printf
+GenWL3.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+GenWL3.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+GenWL3.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+GenWL3.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+GenWL3.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+GenWL3.menu.rtlib.full=Newlib Standard
+GenWL3.menu.rtlib.full.build.flags.ldspecs=
 
 3dprinter.menu.rtlib.nano=Newlib Nano (default)
 3dprinter.menu.rtlib.nanofp=Newlib Nano + Float Printf
@@ -19566,6 +19566,16 @@ ESC_board.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 ESC_board.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 ESC_board.menu.rtlib.full=Newlib Standard
 ESC_board.menu.rtlib.full.build.flags.ldspecs=
+
+ELV_Modular_System.menu.rtlib.nano=Newlib Nano (default)
+ELV_Modular_System.menu.rtlib.nanofp=Newlib Nano + Float Printf
+ELV_Modular_System.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+ELV_Modular_System.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+ELV_Modular_System.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+ELV_Modular_System.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+ELV_Modular_System.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+ELV_Modular_System.menu.rtlib.full=Newlib Standard
+ELV_Modular_System.menu.rtlib.full.build.flags.ldspecs=
 
 Garatronic.menu.rtlib.nano=Newlib Nano (default)
 Garatronic.menu.rtlib.nanofp=Newlib Nano + Float Printf
@@ -19617,36 +19627,6 @@ Midatronics.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf
 Midatronics.menu.rtlib.full=Newlib Standard
 Midatronics.menu.rtlib.full.build.flags.ldspecs=
 
-SparkFun.menu.rtlib.nano=Newlib Nano (default)
-SparkFun.menu.rtlib.nanofp=Newlib Nano + Float Printf
-SparkFun.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
-SparkFun.menu.rtlib.nanofs=Newlib Nano + Float Scanf
-SparkFun.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
-SparkFun.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
-SparkFun.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
-SparkFun.menu.rtlib.full=Newlib Standard
-SparkFun.menu.rtlib.full.build.flags.ldspecs=
-
-ELV_Modular_System.menu.rtlib.nano=Newlib Nano (default)
-ELV_Modular_System.menu.rtlib.nanofp=Newlib Nano + Float Printf
-ELV_Modular_System.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
-ELV_Modular_System.menu.rtlib.nanofs=Newlib Nano + Float Scanf
-ELV_Modular_System.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
-ELV_Modular_System.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
-ELV_Modular_System.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
-ELV_Modular_System.menu.rtlib.full=Newlib Standard
-ELV_Modular_System.menu.rtlib.full.build.flags.ldspecs=
-
-STeaMi.menu.rtlib.nano=Newlib Nano (default)
-STeaMi.menu.rtlib.nanofp=Newlib Nano + Float Printf
-STeaMi.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
-STeaMi.menu.rtlib.nanofs=Newlib Nano + Float Scanf
-STeaMi.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
-STeaMi.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
-STeaMi.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
-STeaMi.menu.rtlib.full=Newlib Standard
-STeaMi.menu.rtlib.full.build.flags.ldspecs=
-
 Phoque.menu.rtlib.nano=Newlib Nano (default)
 Phoque.menu.rtlib.nanofp=Newlib Nano + Float Printf
 Phoque.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
@@ -19666,3 +19646,23 @@ Seeed_studio.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 Seeed_studio.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 Seeed_studio.menu.rtlib.full=Newlib Standard
 Seeed_studio.menu.rtlib.full.build.flags.ldspecs=
+
+SparkFun.menu.rtlib.nano=Newlib Nano (default)
+SparkFun.menu.rtlib.nanofp=Newlib Nano + Float Printf
+SparkFun.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+SparkFun.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+SparkFun.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+SparkFun.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+SparkFun.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+SparkFun.menu.rtlib.full=Newlib Standard
+SparkFun.menu.rtlib.full.build.flags.ldspecs=
+
+STeaMi.menu.rtlib.nano=Newlib Nano (default)
+STeaMi.menu.rtlib.nanofp=Newlib Nano + Float Printf
+STeaMi.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+STeaMi.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+STeaMi.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+STeaMi.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+STeaMi.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+STeaMi.menu.rtlib.full=Newlib Standard
+STeaMi.menu.rtlib.full.build.flags.ldspecs=
