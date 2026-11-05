@@ -55,6 +55,18 @@ This files includes licensing information for parts of this repository.
 > `system/STM32*xx/system_stm32*xx.c` uses same license than `system/Drivers/CMSIS`
 > `system/STM32*xx/stm32*xx_hal_conf_default.h` uses same license than `system/Drivers` subfolders
 
+> [!NOTE]
+> Files under different licenses are separate files, each one keeps its own
+> license. Only the license of a file applies to that file: the LGPLv2.1 terms
+> do not extend to the files under other licenses and vice versa.
+> The Apache License 2.0 is compatible with LGPLv3 but not with LGPLv2.1 alone:
+> Apache licensed files must not be merged in an LGPLv2.1 licensed file.
+
+> [!NOTE]
+> `system/Middlewares/OpenAMP/*/scripts/spelling.txt` is a data file used by the
+> OpenAMP development scripts, licensed under GPLv2 (see its header). It is not
+> part of the build of the core.
+
 -------------------------------------------------------------------------------
 ## LGPLv2.1
                   GNU LESSER GENERAL PUBLIC LICENSE
@@ -600,6 +612,24 @@ This software component is licensed by ST under Ultimate Liberty license
 SLA0044, the "License"; You may not use this file except in compliance with
 the License. You may obtain a copy of the License at:
                       http://www.st.com/SLA0044
+
+> [!IMPORTANT]
+> SLA0044 is not an open source license. The full text is available in
+> `system/Middlewares/ST/STM32_USB_Device_Library/LICENSE.md`. Among others:
+>
+> * The software, including modifications and derivative works, must be used
+>   and executed solely and exclusively on or in combination with a processing
+>   unit device manufactured by or for STMicroelectronics.
+> * No use, reproduction or redistribution may be done in any manner that would
+>   subject the software to any Open Source Terms (GPL, EPL, Apache, BSD, MIT
+>   or any license requiring the distribution of the source code).
+> * The name of STMicroelectronics must not be used to endorse or promote
+>   derived products without prior written permission.
+> * Redistribution and use outside the terms of the agreement is void.
+>
+> Redistributors must check these terms against their own distribution policy.
+> The files under this license are kept separate from the files under other
+> licenses of this repository.
 
 -------------------------------------------------------------------------------
 ## Apache License
