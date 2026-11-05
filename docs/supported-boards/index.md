@@ -1467,17 +1467,6 @@
 | Generic WBA55CEUx | [STM32WBA55CE](https://www.st.com/en/microcontrollers-microprocessors/stm32wba55ce.html) | `GENERIC_WBA55CEUX` | 2.8.0 |  |
 | Generic WBA55CGUx | [STM32WBA55CG](https://www.st.com/en/microcontrollers-microprocessors/stm32wba55cg.html) | `GENERIC_WBA55CGUX` | 2.8.0 |  |
 
-### Generic STM32WL3 series boards
-
-| Board | STM32 MCU | `build.board` | First release | Notes |
-| --- | --- | --- | --- | --- |
-| Generic WL33C8Vx | [STM32WL33C8](https://www.st.com/en/microcontrollers-microprocessors/stm32wl33c8.html) | `GENERIC_WL33C8VX` | 2.12.0 |  |
-| Generic WL33C8VxX | [STM32WL33C8](https://www.st.com/en/microcontrollers-microprocessors/stm32wl33c8.html) | `GENERIC_WL33C8VXX` | 2.12.0 |  |
-| Generic WL33CBVx | [STM32WL33CB](https://www.st.com/en/microcontrollers-microprocessors/stm32wl33cb.html) | `GENERIC_WL33CBVX` | 2.12.0 |  |
-| Generic WL33CBVxX | [STM32WL33CB](https://www.st.com/en/microcontrollers-microprocessors/stm32wl33cb.html) | `GENERIC_WL33CBVXX` | 2.12.0 |  |
-| Generic WL33CCVx | [STM32WL33CC](https://www.st.com/en/microcontrollers-microprocessors/stm32wl33cc.html) | `GENERIC_WL33CCVX` | 2.12.0 |  |
-| Generic WL33CCVxX | [STM32WL33CC](https://www.st.com/en/microcontrollers-microprocessors/stm32wl33cc.html) | `GENERIC_WL33CCVXX` | 2.12.0 |  |
-
 ### Generic STM32WL series boards
 
 | Board | STM32 MCU | `build.board` | First release | Notes |
@@ -1498,6 +1487,17 @@
 | Generic WLE5J8Ix | [STM32WLE5J8](https://www.st.com/en/microcontrollers-microprocessors/stm32wle5j8.html) | `GENERIC_WLE5J8IX` | 2.1.0 |  |
 | Generic WLE5JBIx | [STM32WLE5JB](https://www.st.com/en/microcontrollers-microprocessors/stm32wle5jb.html) | `GENERIC_WLE5JBIX` | 2.1.0 |  |
 | Generic WLE5JCIx | [STM32WLE5JC](https://www.st.com/en/microcontrollers-microprocessors/stm32wle5jc.html) | `GENERIC_WLE5JCIX` | 2.1.0 |  |
+
+### Generic STM32WL3 series boards
+
+| Board | STM32 MCU | `build.board` | First release | Notes |
+| --- | --- | --- | --- | --- |
+| Generic WL33C8Vx | [STM32WL33C8](https://www.st.com/en/microcontrollers-microprocessors/stm32wl33c8.html) | `GENERIC_WL33C8VX` | 2.12.0 |  |
+| Generic WL33C8VxX | [STM32WL33C8](https://www.st.com/en/microcontrollers-microprocessors/stm32wl33c8.html) | `GENERIC_WL33C8VXX` | 2.12.0 |  |
+| Generic WL33CBVx | [STM32WL33CB](https://www.st.com/en/microcontrollers-microprocessors/stm32wl33cb.html) | `GENERIC_WL33CBVX` | 2.12.0 |  |
+| Generic WL33CBVxX | [STM32WL33CB](https://www.st.com/en/microcontrollers-microprocessors/stm32wl33cb.html) | `GENERIC_WL33CBVXX` | 2.12.0 |  |
+| Generic WL33CCVx | [STM32WL33CC](https://www.st.com/en/microcontrollers-microprocessors/stm32wl33cc.html) | `GENERIC_WL33CCVX` | 2.12.0 |  |
+| Generic WL33CCVxX | [STM32WL33CC](https://www.st.com/en/microcontrollers-microprocessors/stm32wl33cc.html) | `GENERIC_WL33CCVXX` | 2.12.0 |  |
 
 ### 3D printer boards
 
@@ -1537,6 +1537,12 @@
 | --- | --- | --- | --- | --- |
 | [STorM32 BGC v1.31 RC](http://www.olliw.eu/storm32bgc-wiki/STorM32_Boards#STorM32-BGC_v1.3) | [STM32F103RC](https://www.st.com/en/microcontrollers-microprocessors/stm32f103rc.html) | `STORM32_V1_31_RC` | 2.1.0 |  |
 | Wraith V1 ESC | [STM32F051K6](https://www.st.com/en/microcontrollers-microprocessors/stm32f051k6.html) | `WRAITH32_V1` | 1.8.0 |  |
+
+### [ELV Modular System boards](https://de.elv.com/)
+
+| Board | STM32 MCU | `build.board` | First release | Notes |
+| --- | --- | --- | --- | --- |
+| [ELV-LW-Base ELV_BM_TRX1](https://de.elv.com/) | [STM32WLE5JB](https://www.st.com/en/microcontrollers-microprocessors/stm32wle5jb.html) | `ELV_BM_TRX1` | 2.8.0 |  |
 
 ### [Garatronic-McHobby boards](https://shop.mchobby.be)
 
@@ -1584,25 +1590,6 @@
 | --- | --- | --- | --- | --- |
 | MKR Sharky | [STM32WB55CE](https://www.st.com/en/microcontrollers-microprocessors/stm32wb55ce.html) | `MKR_SHARKY` | 1.7.0 |  |
 
-### [SparkFun Boards](https://www.sparkfun.com/)
-
-| Board | STM32 MCU | `build.board` | First release | Notes |
-| --- | --- | --- | --- | --- |
-| [SparkFun MicroMod STM32F405](https://www.sparkfun.com/products/21326) | [STM32F405RG](https://www.st.com/en/microcontrollers-microprocessors/stm32f405rg.html) | `MICROMOD_F405` | 2.6.0 |  |
-| [SparkFun MicroMod STM32WB5MMG](https://www.sparkfun.com/products/21438) | [STM32WB5MMG](https://www.st.com/en/microcontrollers-microprocessors/stm32wb5mmg.html) | `SFE_MMPB_STM32WB5MMG` | 2.6.0 |  |
-
-### [ELV Modular System boards](https://de.elv.com/)
-
-| Board | STM32 MCU | `build.board` | First release | Notes |
-| --- | --- | --- | --- | --- |
-| [ELV-LW-Base ELV_BM_TRX1](https://de.elv.com/) | [STM32WLE5JB](https://www.st.com/en/microcontrollers-microprocessors/stm32wle5jb.html) | `ELV_BM_TRX1` | 2.8.0 |  |
-
-### [STeaMi Board boards](https://www.steami.cc/)
-
-| Board | STM32 MCU | `build.board` | First release | Notes |
-| --- | --- | --- | --- | --- |
-| [STeaMi](https://www.steami.cc/) | [STM32WB55RG](https://www.st.com/en/microcontrollers-microprocessors/stm32wb55rg.html) | `STEAM32_WB55RG` | 2.9.0 |  |
-
 ### Phoque Brushless Motor Drivers boards
 
 | Board | STM32 MCU | `build.board` | First release | Notes |
@@ -1615,3 +1602,16 @@
 | Board | STM32 MCU | `build.board` | First release | Notes |
 | --- | --- | --- | --- | --- |
 | [Seeed XIAO STM32C5](https://www.seeedstudio.com/XIAO-STM32C5-p-7011.html) | [STM32C5A3CG](https://www.st.com/en/microcontrollers-microprocessors/stm32c5a3cg.html) | `XIAO_STM32C5` | Next release |  |
+
+### [SparkFun Boards](https://www.sparkfun.com/)
+
+| Board | STM32 MCU | `build.board` | First release | Notes |
+| --- | --- | --- | --- | --- |
+| [SparkFun MicroMod STM32F405](https://www.sparkfun.com/products/21326) | [STM32F405RG](https://www.st.com/en/microcontrollers-microprocessors/stm32f405rg.html) | `MICROMOD_F405` | 2.6.0 |  |
+| [SparkFun MicroMod STM32WB5MMG](https://www.sparkfun.com/products/21438) | [STM32WB5MMG](https://www.st.com/en/microcontrollers-microprocessors/stm32wb5mmg.html) | `SFE_MMPB_STM32WB5MMG` | 2.6.0 |  |
+
+### [STeaMi Board boards](https://www.steami.cc/)
+
+| Board | STM32 MCU | `build.board` | First release | Notes |
+| --- | --- | --- | --- | --- |
+| [STeaMi](https://www.steami.cc/) | [STM32WB55RG](https://www.st.com/en/microcontrollers-microprocessors/stm32wb55rg.html) | `STEAM32_WB55RG` | 2.9.0 |  |
