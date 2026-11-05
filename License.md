@@ -5,7 +5,17 @@ This files includes licensing information for parts of this repository.
 
 [LGPLv2.1](#lgplv21) is used for:
 
-* `cores/arduino/*.*` mainly contains modified files from Arduino.
+* `cores/arduino/*.*` mainly contains modified files from Arduino, except the
+  files listed under [BSD 3-Clause License](#bsd-3-clause-license) and
+  [MIT License](#mit-license)
+* `cores/arduino/stm32`
+* `cores/arduino/api` (own copy of the license in `cores/arduino/api/LICENSE`),
+  except the files listed under [MIT License](#mit-license)
+* `libraries/EEPROM`, `libraries/IWatchdog`, `libraries/Keyboard`,
+  `libraries/Mouse`, `libraries/Servo`, `libraries/SoftwareSerial`,
+  `libraries/SPI`, `libraries/Wire` - except the files listed under
+  [BSD 3-Clause License](#bsd-3-clause-license)
+* `libraries/USBDevice/src/USBSerial.cpp` and `libraries/USBDevice/inc/USBSerial.h`
 
 [BSD 3-Clause License](#bsd-3-clause-license) is used for:
 
@@ -13,19 +23,33 @@ This files includes licensing information for parts of this repository.
 * `system/Middlewares/OpenAMP`
 * `libraries/VirtIO` - except virtio implementation (see [MIT License](#mit-license))
 * `libraries/SrcWrapper/inc/PinName*.h`
+* `cores/arduino/variant.h`, `cores/arduino/pins_arduino_analog.h` and
+  `cores/arduino/pins_arduino_digital.h`
+* `libraries/EEPROM/src/utility/stm32_eeprom.*`
+* `libraries/Wire/src/utility/twi.*`
+* `libraries/USBDevice/src/cdc/cdc_queue.c` and `libraries/USBDevice/inc/cdc_queue.h`
+* `libraries/I3C`, `libraries/RGB_LED_TLC59731` and `libraries/SubGhz`
+* `libraries/SrcWrapper` - files with a BSD 3-Clause header, mainly
+  `libraries/SrcWrapper/src/stm32` and `libraries/SrcWrapper/inc`
+* `variants` - files with a BSD 3-Clause header, such as `PeripheralPins.c`,
+  `variant_generic.*` and `generic_clock.c`
 
 [Ultimate Liberty License](#Ultimate-Liberty-License) is used for:
-* `system/Middlewares/STM32_USB_*_Library` folders
-* `libraries/USBDevice` (see header)
+* `system/Middlewares/ST/STM32_USB_*_Library` folders
+* `libraries/USBDevice` - files with a SLA0044 header, see the
+  [restrictions](#ultimate-liberty-license) of this license
 
 [Apache License](#apache-license) is used for:
 * `system/Drivers/CMSIS` folder includes the STMicroelectronics CMSIS device
-* `system/include/include/pinmap.h`
+* `libraries/SrcWrapper/inc/pinmap.h`
 * `libraries/SrcWrapper/src/stm32/pinmap.c`
 * `tools/platformio/platformio-build.py`
 
-[MIT License](#mit-license)
-* `libraries/VirtIO/*/virtio*`
+[MIT License](#mit-license) is used for:
+* `libraries/VirtIO/*/virtio*` and `libraries/VirtIO/*/VirtIOSerial.*`
+* `libraries/SrcWrapper/*/HardwareTimer.*`
+* `libraries/SrcWrapper/src/new.cpp`
+* `cores/arduino/api/Udp.h` and `cores/arduino/api/deprecated-avr-comp/avr/pgmspace.h`
 
 > [!NOTE]
 > `system/STM32*xx/system_stm32*xx.c` uses same license than `system/Drivers/CMSIS`
