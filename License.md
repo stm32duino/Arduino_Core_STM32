@@ -67,6 +67,31 @@ This files includes licensing information for parts of this repository.
 > OpenAMP development scripts, licensed under GPLv2 (see its header). It is not
 > part of the build of the core.
 
+## Third-party components and attributions
+
+The following files are not written by STMicroelectronics or by the
+STM32duino contributors. The copyright notice and the permission notice of their
+header must be retained:
+
+| Files | Copyright | License |
+|-------|-----------|---------|
+| `libraries/SrcWrapper/src/new.cpp` | PJRC.COM, LLC (Teensyduino) | [MIT](#mit-license) |
+| `libraries/SrcWrapper/*/HardwareTimer.*` | Daniel Fekete (and STMicroelectronics) | [MIT](#mit-license) |
+| `libraries/VirtIO/*/virtio*`, `libraries/VirtIO/*/VirtIOSerial.*` | Bumsik Kim | [MIT](#mit-license) |
+| `cores/arduino/api/Udp.h` | Bjoern Hartmann | [MIT](#mit-license) |
+| `cores/arduino/api/deprecated-avr-comp/avr/pgmspace.h` | Arduino LLC (based on Paul Stoffregen's work) | [MIT](#mit-license) |
+| `cores/arduino/api` | Arduino LLC | [LGPLv2.1](#lgplv21) |
+| `system/Middlewares/OpenAMP/open-amp` | Mentor Graphics Corporation and contributors | [BSD 3-Clause License](#bsd-3-clause-license) |
+| `system/Middlewares/OpenAMP/libmetal` | Xilinx Inc. and contributors | [BSD 3-Clause License](#bsd-3-clause-license) |
+
+The following components are not part of this repository, they are downloaded
+as Arduino tools packages (see `platform.txt`) and are licensed by Arm under the
+[Apache License](#apache-license):
+
+* CMSIS (`CMSIS`)
+* CMSIS-DSP (`CMSIS_DSP`), also used by `libraries/CMSIS_DSP`
+* CMSIS-NN (`CMSIS_NN`)
+
 -------------------------------------------------------------------------------
 ## LGPLv2.1
                   GNU LESSER GENERAL PUBLIC LICENSE
