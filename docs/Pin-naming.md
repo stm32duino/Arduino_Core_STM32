@@ -17,6 +17,8 @@ Serial.begin(9600);
 
 Arduino functions such as `pinMode()` and `digitalWrite()` normally use the digital pin numbering defined by the selected board variant. The variant may also define aliases such as `PA0`, `PB7`, `A0`, or `LED_BUILTIN`. These aliases are board-specific and can map to Arduino digital numbers; they are not interchangeable with the `PinName` constant `PA_0`.
 
+`digitalRead()` returns a `PinStatus` value (`HIGH` or `LOW`).
+
 For example, a variant may map `PA0` to `PIN_A0`, while another maps a port-pin alias to a different digital pin number. Use the aliases and labels documented for the selected board:
 
 ```cpp
@@ -126,7 +128,7 @@ Internal ADC channels are different from external analog inputs. When supported 
 Use the underscore form when a constructor or function expects a `PinName`. For example, these peripheral instances use the physical STM32 pins directly:
 
 ```cpp
-HardwareSerial Serial3(PA_10, PA_9); // RX, TX
+Uart Serial3(PA_10, PA_9);          // RX, TX
 TwoWire Wire2(PB_9, PB_8);           // SDA, SCL
 ```
 
@@ -139,7 +141,7 @@ Some board variants define names such as `PA2_ALT1` in addition to the default r
 For example, an alternate pin can be passed to a peripheral constructor when the variant provides that route:
 
 ```cpp
-HardwareSerial Serial2(PA2_ALT1, PA3_ALT1); // Only if defined by the variant
+Uart Serial2(PA2_ALT1, PA3_ALT1); // Only if defined by the variant
 ```
 
 Check `PeripheralPins.c` before using an `_ALT1` or similar name; the name alone does not guarantee that the requested peripheral supports that route. An unsupported route can prevent the peripheral from being configured correctly.

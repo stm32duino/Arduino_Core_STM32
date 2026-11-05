@@ -10,7 +10,7 @@ Menu: "**Tools > U(S)ART support**"
 | Option | Description |
 |--------|-------------|
 | Enabled (generic 'Serial') | U(S)ART support is enabled and the generic `Serial` object is available. It is mapped to the board's default serial interface (e.g. the ST-LINK virtual COM port on Nucleo boards). |
-| Enabled (no generic 'Serial') | U(S)ART support is enabled (`-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE`) but the generic `Serial` is not defined. Instances have to be created by the user (e.g. `HardwareSerial Serial2(PA3, PA2);`). |
+| Enabled (no generic 'Serial') | U(S)ART support is enabled (`-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE`) but the generic `Serial` is not defined. Instances have to be created by the user (e.g. `Uart Serial2(PA3, PA2);`). |
 | Disabled (No Serial support) | U(S)ART support is disabled. Reduces the code size when serial is not used. |
 
 ## USB support

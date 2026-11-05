@@ -261,7 +261,7 @@
 
 // Virtual COM Port for Swans with a 14-pin STLink Connector mounted.
 // To use the STLINK's Virtual COM port, this would be added to an Arduino project:
-//     HardwareSerial SerialVCP(PIN_VCP_RX, PIN_VCP_TX);
+//     Uart SerialVCP(PIN_VCP_RX, PIN_VCP_TX);
 #ifndef PIN_VCP_RX
   #define PIN_VCP_RX              PIN_SERIAL_LP1_RX
 #endif

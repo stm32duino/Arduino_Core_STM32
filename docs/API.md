@@ -132,7 +132,7 @@ An example that reads and converts the three internal channels and A0 is provide
 > [!WARNING]
 > This example is provided as-is and may require updates for device-specific datasheet values.
 
-### HardwareSerial
+### Uart
 
 STM32 MCUs have several _U(S)ART_ peripherals. For convenience, the _U(S)ART_**x** number is used to define the `Serialx` instance:
 
@@ -150,10 +150,10 @@ For _LPUART_ peripherals:
 
 **By default, only one `Serialx` instance is available mapped to the generic `Serial` name.**
 
-To use a second serial port, a `HardwareSerial` object should be declared in the sketch before the `setup()` function:
+To use a second serial port, a `Uart` object should be declared in the sketch before the `setup()` function:
 ```C++
 //                      RX    TX
-HardwareSerial Serial1(PA10, PA9);
+Uart Serial1(PA10, PA9);
 
 void setup() {
   Serial1.begin(115200);
@@ -196,8 +196,8 @@ Example for the `Serial3`:
 ##### Change default `Serial` instance pins
 It is also possible to change the default pins used by the `Serial` instance using above API:
 
-* `void setRx(uint32_t rx)`
-* `void setTx(uint32_t tx)`
+* `void setRx(pin_size_t rx)`
+* `void setTx(pin_size_t tx)`
 * `void setRx(PinName rx)`
 * `void setTx(PinName tx)`
 
@@ -215,17 +215,17 @@ It is also possible to change the default pins used by the `Serial` instance usi
 
 Available in core version greater than **1.7.0**
 
-It is now possible to set a `HardwareSerial` in half-duplex mode.
+It is now possible to set a `Uart` in half-duplex mode.
 
 The `U(S)ART` can be configured to follow a single-wire half-duplex protocol where the Tx and Rx lines are internally connected. In this communication mode, only the Tx pin is used for both transmission and reception.
 
-* Extended `HardwareSerial` constructors:
-  * `HardwareSerial(uint32_t _rxtx)`: U(S)ART Tx pin number (`PYn`) used for half-duplex
-  * `HardwareSerial(PinName _rxtx)`: U(S)ART Tx pin name (`PY_n`) used for half-duplex
+* Extended `Uart` constructors:
+  * `Uart(pin_size_t _rxtx)`: U(S)ART Tx pin number (`PYn`) used for half-duplex
+  * `Uart(PinName _rxtx)`: U(S)ART Tx pin name (`PY_n`) used for half-duplex
   * if `Rx == Tx` then assume half-duplex mode:
-    * `HardwareSerial(uint32_t _rx, uint32_t _tx)`: U(S)ART Tx pin number (`PYn`) used for half-duplex
-    * `HardwareSerial(PinName _rx, PinName tx)`: U(S)ART Tx pin name (`PY_n`) used for half-duplex
-  * `HardwareSerial(void *peripheral, HalfDuplexMode_t halfDuplex = HALF_DUPLEX_DISABLED)`: if `HALF_DUPLEX_ENABLED` get the first Tx pin for requested peripheral in the` PeripheralPins.c` used for half-duplex
+    * `Uart(pin_size_t _rx, pin_size_t _tx)`: U(S)ART Tx pin number (`PYn`) used for half-duplex
+    * `Uart(PinName _rx, PinName tx)`: U(S)ART Tx pin name (`PY_n`) used for half-duplex
+  * `Uart(void *peripheral, HalfDuplexMode_t halfDuplex = HALF_DUPLEX_DISABLED)`: if `HALF_DUPLEX_ENABLED` get the first Tx pin for requested peripheral in the` PeripheralPins.c` used for half-duplex
 
 * Add `enableHalfDuplexRx()` to enable Serial in Rx mode. Doing a `read()` could be used but will avoid to perform a read. Useful before `available()` usage
 * `void setHalfDuplex()`: enable half-duplex mode of an instance when it not instantiate in half-duplex mode. Must be call before `begin()` in this case.
@@ -237,26 +237,26 @@ Require to connect `PA0` and` PB10`.
 _All possible constructor are listed._
 
 ```C++
-HardwareSerial Serial3(PA0);
-HardwareSerial Serial4(PB10);
+Uart Serial3(PA0);
+Uart Serial4(PB10);
 
-//HardwareSerial Serial3(PA_0);
-//HardwareSerial Serial4(PB_10);
+//Uart Serial3(PA_0);
+//Uart Serial4(PB_10);
 
-//HardwareSerial Serial3(UART4, HALF_DUPLEX_ENABLED);
-//HardwareSerial Serial4(USART3, HALF_DUPLEX_ENABLED);
+//Uart Serial3(UART4, HALF_DUPLEX_ENABLED);
+//Uart Serial4(USART3, HALF_DUPLEX_ENABLED);
 
-//HardwareSerial Serial3(PA0, PA0);
-//HardwareSerial Serial4(PB10, PB10);
+//Uart Serial3(PA0, PA0);
+//Uart Serial4(PB10, PB10);
 
-//HardwareSerial Serial3(PA_0, PA_0);
-//HardwareSerial Serial4(PB_10, PB_10);
+//Uart Serial3(PA_0, PA_0);
+//Uart Serial4(PB_10, PB_10);
 
-//HardwareSerial Serial3(NC, PA_0);
-//HardwareSerial Serial4(NC, PB_10);
+//Uart Serial3(NC, PA_0);
+//Uart Serial4(NC, PB_10);
 
-//HardwareSerial Serial3(NUM_DIGITAL_PINS, PA0);
-//HardwareSerial Serial4(NUM_DIGITAL_PINS, PB10);
+//Uart Serial3(NUM_DIGITAL_PINS, PA0);
+//Uart Serial4(NUM_DIGITAL_PINS, PB10);
 
 static uint32_t nbTestOK = 0;
 static uint32_t nbTestKO = 0;
@@ -331,13 +331,13 @@ void loop() {
 
 Available in core version **2.3.0** or later
 
-* `HardwareSerial` constructors accept optional RTS/CTS pins:
-  * `HardwareSerial(uint32_t _rx, uint32_t _tx, uint32_t _rts = NUM_DIGITAL_PINS, uint32_t _cts = NUM_DIGITAL_PINS)`
-  * `HardwareSerial(PinName _rx, PinName _tx, PinName _rts = NC, PinName _cts = NC)`
-* You can also enable RTS/CTS pins on `HardwareSerial` instances:
-  * `void setRts(uint32_t _rts)`
-  * `void setCts(uint32_t _cts)`
-  * `void setRtsCts(uint32_t _rts, uint32_t _cts)`
+* `Uart` constructors accept optional RTS/CTS pins:
+  * `Uart(pin_size_t _rx, pin_size_t _tx, pin_size_t _rts = NUM_DIGITAL_PINS, pin_size_t _cts = NUM_DIGITAL_PINS)`
+  * `Uart(PinName _rx, PinName _tx, PinName _rts = NC, PinName _cts = NC)`
+* You can also enable RTS/CTS pins on `Uart` instances:
+  * `void setRts(pin_size_t _rts)`
+  * `void setCts(pin_size_t _cts)`
+  * `void setRtsCts(pin_size_t _rts, pin_size_t _cts)`
   * `void setRts(PinName _rts)`
   * `void setCts(PinName _cts)`
   * `void setRtsCts(PinName _rts, PinName _cts)`
@@ -346,10 +346,10 @@ Available in core version **2.3.0** or later
 
 ```C++
 // Enable hardware flow control on construction.
-HardwareSerial serial(PA10, PA9, PA12, PA11);
+Uart serial(PA10, PA9, PA12, PA11);
 
 // Or, enable later (but before calling begin()).
-HardwareSerial serial(PA10, PA9);
+Uart serial(PA10, PA9);
 serial.setRtsCts(PA12, PA11);
 serial.begin(460800);
 ```
@@ -361,10 +361,10 @@ Available in core version greater than **2.10.1**
 The U(S)ART Tx and Rx pin signal values can be inverted (VDD = 0/mark, Gnd = 1/idle), and the U(S)ART can send and receive data in negative/inverse logic (1 = L, 0 = H); the
 parity bit is also inverted.
 
-* Enable Tx and Rx active level inversion on `HardwareSerial` instances, respectively:
+* Enable Tx and Rx active level inversion on `Uart` instances, respectively:
   * `void setTxInvert(void)`
   * `void setRxInvert(void)`
-* Enable data inversion on `HardwareSerial` instances:
+* Enable data inversion on `Uart` instances:
   * `void setDataInvert(void)`
 
 ### HardwareTimer library

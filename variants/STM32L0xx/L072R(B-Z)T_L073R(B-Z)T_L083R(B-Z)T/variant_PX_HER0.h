@@ -196,7 +196,7 @@
 
 // Optional PIN_SERIALn_RX and PIN_SERIALn_TX where 'n' is the U(S)ART number
 // Used when user instantiate a hardware Serial using its peripheral name.
-// Example: HardwareSerial mySerial(USART3);
+// Example: Uart mySerial(USART3);
 // will use PIN_SERIAL3_RX and PIN_SERIAL3_TX if defined.
 #define ENABLE_HWSERIAL1
 #ifndef PIN_SERIAL1_RX

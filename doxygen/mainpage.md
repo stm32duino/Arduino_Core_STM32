@@ -11,7 +11,7 @@ sidebar to switch between the development (`dev`) and the released versions.
 
 ## Where to start
 
-- [Classes](annotated.html): classes and structures such as `HardwareTimer`, `HardwareSerial` or `TwoWire`.
+- [Classes](annotated.html): classes and structures such as `HardwareTimer`, `Uart` or `TwoWire`.
 - [Files](files.html): browse the documented source files.
 - [Functions](globals_func.html): documented C functions.
 
