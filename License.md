@@ -5,7 +5,17 @@ This files includes licensing information for parts of this repository.
 
 [LGPLv2.1](#lgplv21) is used for:
 
-* `cores/arduino/*.*` mainly contains modified files from Arduino.
+* `cores/arduino/*.*` mainly contains modified files from Arduino, except the
+  files listed under [BSD 3-Clause License](#bsd-3-clause-license) and
+  [MIT License](#mit-license)
+* `cores/arduino/stm32`
+* `cores/arduino/api` (own copy of the license in `cores/arduino/api/LICENSE`),
+  except the files listed under [MIT License](#mit-license)
+* `libraries/EEPROM`, `libraries/IWatchdog`, `libraries/Keyboard`,
+  `libraries/Mouse`, `libraries/Servo`, `libraries/SoftwareSerial`,
+  `libraries/SPI`, `libraries/Wire` - except the files listed under
+  [BSD 3-Clause License](#bsd-3-clause-license)
+* `libraries/USBDevice/src/USBSerial.cpp` and `libraries/USBDevice/inc/USBSerial.h`
 
 [BSD 3-Clause License](#bsd-3-clause-license) is used for:
 
@@ -13,23 +23,74 @@ This files includes licensing information for parts of this repository.
 * `system/Middlewares/OpenAMP`
 * `libraries/VirtIO` - except virtio implementation (see [MIT License](#mit-license))
 * `libraries/SrcWrapper/inc/PinName*.h`
+* `cores/arduino/variant.h`, `cores/arduino/pins_arduino_analog.h` and
+  `cores/arduino/pins_arduino_digital.h`
+* `libraries/EEPROM/src/utility/stm32_eeprom.*`
+* `libraries/Wire/src/utility/twi.*`
+* `libraries/USBDevice/src/cdc/cdc_queue.c` and `libraries/USBDevice/inc/cdc_queue.h`
+* `libraries/I3C`, `libraries/RGB_LED_TLC59731` and `libraries/SubGhz`
+* `libraries/SrcWrapper` - files with a BSD 3-Clause header, mainly
+  `libraries/SrcWrapper/src/stm32` and `libraries/SrcWrapper/inc`
+* `variants` - files with a BSD 3-Clause header, such as `PeripheralPins.c`,
+  `variant_generic.*` and `generic_clock.c`
 
 [Ultimate Liberty License](#Ultimate-Liberty-License) is used for:
-* `system/Middlewares/STM32_USB_*_Library` folders
-* `libraries/USBDevice` (see header)
+* `system/Middlewares/ST/STM32_USB_*_Library` folders
+* `libraries/USBDevice` - files with a SLA0044 header, see the
+  [restrictions](#ultimate-liberty-license) of this license
 
 [Apache License](#apache-license) is used for:
 * `system/Drivers/CMSIS` folder includes the STMicroelectronics CMSIS device
-* `system/include/include/pinmap.h`
+* `libraries/SrcWrapper/inc/pinmap.h`
 * `libraries/SrcWrapper/src/stm32/pinmap.c`
 * `tools/platformio/platformio-build.py`
 
-[MIT License](#mit-license)
-* `libraries/VirtIO/*/virtio*`
+[MIT License](#mit-license) is used for:
+* `libraries/VirtIO/*/virtio*` and `libraries/VirtIO/*/VirtIOSerial.*`
+* `libraries/SrcWrapper/*/HardwareTimer.*`
+* `libraries/SrcWrapper/src/new.cpp`
+* `cores/arduino/api/Udp.h` and `cores/arduino/api/deprecated-avr-comp/avr/pgmspace.h`
 
 > [!NOTE]
 > `system/STM32*xx/system_stm32*xx.c` uses same license than `system/Drivers/CMSIS`
 > `system/STM32*xx/stm32*xx_hal_conf_default.h` uses same license than `system/Drivers` subfolders
+
+> [!NOTE]
+> Files under different licenses are separate files, each one keeps its own
+> license. Only the license of a file applies to that file: the LGPLv2.1 terms
+> do not extend to the files under other licenses and vice versa.
+> The Apache License 2.0 is compatible with LGPLv3 but not with LGPLv2.1 alone:
+> Apache licensed files must not be merged in an LGPLv2.1 licensed file.
+
+> [!NOTE]
+> `system/Middlewares/OpenAMP/*/scripts/spelling.txt` is a data file used by the
+> OpenAMP development scripts, licensed under GPLv2 (see its header). It is not
+> part of the build of the core.
+
+## Third-party components and attributions
+
+The following files are not written by STMicroelectronics or by the
+STM32duino contributors. The copyright notice and the permission notice of their
+header must be retained:
+
+| Files | Copyright | License |
+|-------|-----------|---------|
+| `libraries/SrcWrapper/src/new.cpp` | PJRC.COM, LLC (Teensyduino) | [MIT](#mit-license) |
+| `libraries/SrcWrapper/*/HardwareTimer.*` | Daniel Fekete (and STMicroelectronics) | [MIT](#mit-license) |
+| `libraries/VirtIO/*/virtio*`, `libraries/VirtIO/*/VirtIOSerial.*` | Bumsik Kim | [MIT](#mit-license) |
+| `cores/arduino/api/Udp.h` | Bjoern Hartmann | [MIT](#mit-license) |
+| `cores/arduino/api/deprecated-avr-comp/avr/pgmspace.h` | Arduino LLC (based on Paul Stoffregen's work) | [MIT](#mit-license) |
+| `cores/arduino/api` | Arduino LLC | [LGPLv2.1](#lgplv21) |
+| `system/Middlewares/OpenAMP/open-amp` | Mentor Graphics Corporation and contributors | [BSD 3-Clause License](#bsd-3-clause-license) |
+| `system/Middlewares/OpenAMP/libmetal` | Xilinx Inc. and contributors | [BSD 3-Clause License](#bsd-3-clause-license) |
+
+The following components are not part of this repository, they are downloaded
+as Arduino tools packages (see `platform.txt`) and are licensed by Arm under the
+[Apache License](#apache-license):
+
+* CMSIS (`CMSIS`)
+* CMSIS-DSP (`CMSIS_DSP`), also used by `libraries/CMSIS_DSP`
+* CMSIS-NN (`CMSIS_NN`)
 
 -------------------------------------------------------------------------------
 ## LGPLv2.1
@@ -576,6 +637,24 @@ This software component is licensed by ST under Ultimate Liberty license
 SLA0044, the "License"; You may not use this file except in compliance with
 the License. You may obtain a copy of the License at:
                       http://www.st.com/SLA0044
+
+> [!IMPORTANT]
+> SLA0044 is not an open source license. The full text is available in
+> `system/Middlewares/ST/STM32_USB_Device_Library/LICENSE.md`. Among others:
+>
+> * The software, including modifications and derivative works, must be used
+>   and executed solely and exclusively on or in combination with a processing
+>   unit device manufactured by or for STMicroelectronics.
+> * No use, reproduction or redistribution may be done in any manner that would
+>   subject the software to any Open Source Terms (GPL, EPL, Apache, BSD, MIT
+>   or any license requiring the distribution of the source code).
+> * The name of STMicroelectronics must not be used to endorse or promote
+>   derived products without prior written permission.
+> * Redistribution and use outside the terms of the agreement is void.
+>
+> Redistributors must check these terms against their own distribution policy.
+> The files under this license are kept separate from the files under other
+> licenses of this repository.
 
 -------------------------------------------------------------------------------
 ## Apache License
