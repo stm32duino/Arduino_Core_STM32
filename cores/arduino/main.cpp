@@ -24,6 +24,7 @@
 
 #define ARDUINO_MAIN
 #include "Arduino.h"
+#include "bootloader.h"
 
 /**
  * @brief Early initialization, run before static object allocation.
@@ -36,6 +37,10 @@
  */
 __attribute__((constructor(101))) void premain()
 {
+#if defined(BL_SYSTEM)
+  /* Before any clock or cache setup below, so the ROM gets a quiet part. */
+  jumpToSystemBootloaderIfRequested();
+#endif
 
   // Required by FreeRTOS, see http://www.freertos.org/RTOS-Cortex-M3-M4.html
 #ifdef NVIC_PRIORITYGROUP_4
