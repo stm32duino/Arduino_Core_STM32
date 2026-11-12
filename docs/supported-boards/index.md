@@ -22,7 +22,7 @@
 | [Nucleo F746ZG](https://www.st.com/en/evaluation-tools/nucleo-f746zg.html) | [STM32F746ZG](https://www.st.com/en/microcontrollers-microprocessors/stm32f746zg.html) | `NUCLEO_F746ZG` | 1.9.0 |  |
 | [Nucleo F756ZG](https://www.st.com/en/evaluation-tools/nucleo-f756zg.html) | [STM32F756ZG](https://www.st.com/en/microcontrollers-microprocessors/stm32f756zg.html) | `NUCLEO_F756ZG` | 1.9.0 |  |
 | [Nucleo F767ZI](http://www.st.com/en/evaluation-tools/nucleo-f767zi.html) | [STM32F767ZI](https://www.st.com/en/microcontrollers-microprocessors/stm32f767zi.html) | `NUCLEO_F767ZI` | 1.4.0 |  |
-| [Nucleo H5E5ZJ](https://www.st.com/en/evaluation-tools/nucleo-h5e5zj.html) | [STM32H5E5ZJ](https://www.st.com/en/microcontrollers-microprocessors/stm32h5e5zj.html) | `NUCLEO_H5E5ZJ` | Next release |  |
+| [Nucleo H5E5ZJ](https://www.st.com/en/evaluation-tools/nucleo-h5e5zj.html) | [STM32H5E5ZJ](https://www.st.com/en/microcontrollers-microprocessors/stm32h5e5zj.html) | `NUCLEO_H5E5ZJ` | 3.1.0 |  |
 | [Nucleo H563ZI](https://www.st.com/en/evaluation-tools/nucleo-h563zi.html) | [STM32H563ZI](https://www.st.com/en/microcontrollers-microprocessors/stm32h563zi.html) | `NUCLEO_H563ZI` | 2.6.0 |  |
 | [Nucleo H723ZG](https://www.st.com/en/evaluation-tools/nucleo-h723zg.html) | [STM32H723ZG](https://www.st.com/en/microcontrollers-microprocessors/stm32h723zg.html) | `NUCLEO_H723ZG` | 2.4.0 |  |
 | [Nucleo H743ZI](https://www.st.com/en/evaluation-tools/nucleo-h743zi.html) | [STM32H743ZI](https://www.st.com/en/microcontrollers-microprocessors/stm32h743zi.html) | `NUCLEO_H743ZI` | 1.5.0 |  |
@@ -64,7 +64,7 @@
 | [Nucleo G431RB](https://www.st.com/en/evaluation-tools/nucleo-g431rb.html) | [STM32G431RB](https://www.st.com/en/microcontrollers-microprocessors/stm32g431rb.html) | `NUCLEO_G431RB` | 1.7.0 |  |
 | [Nucleo G474RE](https://www.st.com/en/evaluation-tools/nucleo-g474re.html) | [STM32G474RE](https://www.st.com/en/microcontrollers-microprocessors/stm32g474re.html) | `NUCLEO_G474RE` | 1.7.0 |  |
 | [Nucleo H503RB](https://www.st.com/en/evaluation-tools/nucleo-h503rb.html) | [STM32H503RB](https://www.st.com/en/microcontrollers-microprocessors/stm32h503rb.html) | `NUCLEO_H503RB` | 2.7.0 |  |
-| [Nucleo H533RE](https://www.st.com/en/evaluation-tools/nucleo-h533re.html) | [STM32H533RE](https://www.st.com/en/microcontrollers-microprocessors/stm32h533re.html) | `NUCLEO_H533RE` | Next release |  |
+| [Nucleo H533RE](https://www.st.com/en/evaluation-tools/nucleo-h533re.html) | [STM32H533RE](https://www.st.com/en/microcontrollers-microprocessors/stm32h533re.html) | `NUCLEO_H533RE` | 3.1.0 |  |
 | [Nucleo L010RB](https://www.st.com/en/evaluation-tools/nucleo-l010rb.html) | [STM32L010RB](https://www.st.com/en/microcontrollers-microprocessors/stm32l010rb.html) | `NUCLEO_L010RB` | 2.1.0 |  |
 | [Nucleo L053R8](http://www.st.com/en/evaluation-tools/nucleo-l053r8.html) | [STM32L053R8](https://www.st.com/en/microcontrollers-microprocessors/stm32l053r8.html) | `NUCLEO_L053R8` | 0.1.0 |  |
 | [Nucleo L073RZ](http://www.st.com/en/evaluation-tools/nucleo-l073rz.html) | [STM32L073RZ](https://www.st.com/en/microcontrollers-microprocessors/stm32l073rz.html) | `NUCLEO_L073RZ` | 1.4.0 |  |
@@ -157,10 +157,10 @@
 | Generic C031C6Ux | [STM32C031C6](https://www.st.com/en/microcontrollers-microprocessors/stm32c031c6.html) | `GENERIC_C031C6UX` | 2.5.0 |  |
 | Generic C031F4Px | [STM32C031F4](https://www.st.com/en/microcontrollers-microprocessors/stm32c031f4.html) | `GENERIC_C031F4PX` | 2.6.0 |  |
 | Generic C031F6Px | [STM32C031F6](https://www.st.com/en/microcontrollers-microprocessors/stm32c031f6.html) | `GENERIC_C031F6PX` | 2.6.0 |  |
-| Generic C031K4Tx | [STM32C031K4](https://www.st.com/en/microcontrollers-microprocessors/stm32c031k4.html) | `GENERIC_C031K4TX` | Next release |  |
-| Generic C031K6Tx | [STM32C031K6](https://www.st.com/en/microcontrollers-microprocessors/stm32c031k6.html) | `GENERIC_C031K6TX` | Next release |  |
-| Generic C031K4Ux | [STM32C031K4](https://www.st.com/en/microcontrollers-microprocessors/stm32c031k4.html) | `GENERIC_C031K4UX` | Next release |  |
-| Generic C031K6Ux | [STM32C031K6](https://www.st.com/en/microcontrollers-microprocessors/stm32c031k6.html) | `GENERIC_C031K6UX` | Next release |  |
+| Generic C031K4Tx | [STM32C031K4](https://www.st.com/en/microcontrollers-microprocessors/stm32c031k4.html) | `GENERIC_C031K4TX` | 3.1.0 |  |
+| Generic C031K6Tx | [STM32C031K6](https://www.st.com/en/microcontrollers-microprocessors/stm32c031k6.html) | `GENERIC_C031K6TX` | 3.1.0 |  |
+| Generic C031K4Ux | [STM32C031K4](https://www.st.com/en/microcontrollers-microprocessors/stm32c031k4.html) | `GENERIC_C031K4UX` | 3.1.0 |  |
+| Generic C031K6Ux | [STM32C031K6](https://www.st.com/en/microcontrollers-microprocessors/stm32c031k6.html) | `GENERIC_C031K6UX` | 3.1.0 |  |
 | Generic C051C6Tx | [STM32C051C6](https://www.st.com/en/microcontrollers-microprocessors/stm32c051c6.html) | `GENERIC_C051C6TX` | 2.12.0 |  |
 | Generic C051C6Ux | [STM32C051C6](https://www.st.com/en/microcontrollers-microprocessors/stm32c051c6.html) | `GENERIC_C051C6UX` | 2.12.0 |  |
 | Generic C051C8Tx | [STM32C051C8](https://www.st.com/en/microcontrollers-microprocessors/stm32c051c8.html) | `GENERIC_C051C8TX` | 2.12.0 |  |
@@ -184,12 +184,12 @@
 | Generic C552RCTx | [STM32C552RC](https://www.st.com/en/microcontrollers-microprocessors/stm32c552rc.html) | `GENERIC_C552RCTX` | 3.0.0 |  |
 | Generic C552RETx | [STM32C552RE](https://www.st.com/en/microcontrollers-microprocessors/stm32c552re.html) | `GENERIC_C552RETX` | 3.0.0 |  |
 | Generic C562RETx | [STM32C562RE](https://www.st.com/en/microcontrollers-microprocessors/stm32c562re.html) | `GENERIC_C562RETX` | 3.0.0 |  |
-| Generic C593CETx | [STM32C593CE](https://www.st.com/en/microcontrollers-microprocessors/stm32c593ce.html) | `GENERIC_C593CETX` | Next release |  |
-| Generic C593CEUx | [STM32C593CE](https://www.st.com/en/microcontrollers-microprocessors/stm32c593ce.html) | `GENERIC_C593CEUX` | Next release |  |
-| Generic C593CGTx | [STM32C593CG](https://www.st.com/en/microcontrollers-microprocessors/stm32c593cg.html) | `GENERIC_C593CGTX` | Next release |  |
-| Generic C593CGUx | [STM32C593CG](https://www.st.com/en/microcontrollers-microprocessors/stm32c593cg.html) | `GENERIC_C593CGUX` | Next release |  |
-| Generic C5A3CGTx | [STM32C5A3CG](https://www.st.com/en/microcontrollers-microprocessors/stm32c5a3cg.html) | `GENERIC_C5A3CGTX` | Next release |  |
-| Generic C5A3CGUx | [STM32C5A3CG](https://www.st.com/en/microcontrollers-microprocessors/stm32c5a3cg.html) | `GENERIC_C5A3CGUX` | Next release |  |
+| Generic C593CETx | [STM32C593CE](https://www.st.com/en/microcontrollers-microprocessors/stm32c593ce.html) | `GENERIC_C593CETX` | 3.1.0 |  |
+| Generic C593CEUx | [STM32C593CE](https://www.st.com/en/microcontrollers-microprocessors/stm32c593ce.html) | `GENERIC_C593CEUX` | 3.1.0 |  |
+| Generic C593CGTx | [STM32C593CG](https://www.st.com/en/microcontrollers-microprocessors/stm32c593cg.html) | `GENERIC_C593CGTX` | 3.1.0 |  |
+| Generic C593CGUx | [STM32C593CG](https://www.st.com/en/microcontrollers-microprocessors/stm32c593cg.html) | `GENERIC_C593CGUX` | 3.1.0 |  |
+| Generic C5A3CGTx | [STM32C5A3CG](https://www.st.com/en/microcontrollers-microprocessors/stm32c5a3cg.html) | `GENERIC_C5A3CGTX` | 3.1.0 |  |
+| Generic C5A3CGUx | [STM32C5A3CG](https://www.st.com/en/microcontrollers-microprocessors/stm32c5a3cg.html) | `GENERIC_C5A3CGUX` | 3.1.0 |  |
 
 ### Generic STM32F0 series boards
 
@@ -506,7 +506,7 @@
 | [BlackPill F401CC](https://stm32-base.org/boards/STM32F401CCU6-WeAct-Black-Pill-V1.2) | [STM32F401CC](https://www.st.com/en/microcontrollers-microprocessors/stm32f401cc.html) | `BLACKPILL_F401CC` | 1.7.0 | [More info](https://github.com/WeActStudio/WeActStudio.MiniSTM32F4x1) |
 | [BlackPill F401CE](https://stm32-base.org/boards/STM32F401CEU6-WeAct-Black-Pill-V3.0) | [STM32F401CE](https://www.st.com/en/microcontrollers-microprocessors/stm32f401ce.html) | `BLACKPILL_F401CE` | 2.4.0 | [More info](https://github.com/WeActStudio/WeActStudio.MiniSTM32F4x1) |
 | [BlackPill F411CE (HSE 25Mhz)](https://stm32-base.org/boards/STM32F411CEU6-WeAct-Black-Pill-V2.0) | [STM32F411CE](https://www.st.com/en/microcontrollers-microprocessors/stm32f411ce.html) | `BLACKPILL_F411CE` | 1.9.0 | [More info](https://github.com/WeActStudio/WeActStudio.MiniSTM32F4x1) |
-| [BlackPill F411CE (HSE 8Mhz)](https://stm32-base.org/boards/STM32F411CEU6-WeAct-Black-Pill-V2.0) | [STM32F411CE](https://www.st.com/en/microcontrollers-microprocessors/stm32f411ce.html) | `BLACKPILL_F411CE_8M` | Next release | [More info](https://github.com/WeActStudio/WeActStudio.MiniSTM32F4x1) |
+| [BlackPill F411CE (HSE 8Mhz)](https://stm32-base.org/boards/STM32F411CEU6-WeAct-Black-Pill-V2.0) | [STM32F411CE](https://www.st.com/en/microcontrollers-microprocessors/stm32f411ce.html) | `BLACKPILL_F411CE_8M` | 3.1.0 | [More info](https://github.com/WeActStudio/WeActStudio.MiniSTM32F4x1) |
 | [Blue F407VE mini](https://stm32-base.org/boards/STM32F407VET6-VCC-GND-Small) | [STM32F407VE](https://www.st.com/en/microcontrollers-microprocessors/stm32f407ve.html) | `BLUE_F407VE_MINI` | 1.4.0 |  |
 | [Core board F401RCT6](https://stm32-base.org/boards/STM32F401RCT6-STM32F-Core-Board) | [STM32F401RC](https://www.st.com/en/microcontrollers-microprocessors/stm32f401rc.html) | `CoreBoard_F401RC` | 1.7.0 |  |
 | [DIYMORE STM32F407VGT](https://stm32-base.org/boards/STM32F407VGT6-diymore) | [STM32F407VG](https://www.st.com/en/microcontrollers-microprocessors/stm32f407vg.html) | `DIYMORE_F407VGT` | 1.5.0 |  |
@@ -980,16 +980,16 @@
 | Board | STM32 MCU | `build.board` | First release | Notes |
 | --- | --- | --- | --- | --- |
 | WeAct H562RGT | [STM32H562RG](https://www.st.com/en/microcontrollers-microprocessors/stm32h562rg.html) | `WEACT_H562RG` | 2.9.0 |  |
-| Generic H5E5ZJTx | [STM32H5E5ZJ](https://www.st.com/en/microcontrollers-microprocessors/stm32h5e5zj.html) | `GENERIC_H5E5ZJTX` | Next release |  |
-| Generic H5E5ZKTx | [STM32H5E5ZK](https://www.st.com/en/microcontrollers-microprocessors/stm32h5e5zk.html) | `GENERIC_H5E5ZKTX` | Next release |  |
-| Generic H5F5ZJTx | [STM32H5F5ZJ](https://www.st.com/en/microcontrollers-microprocessors/stm32h5f5zj.html) | `GENERIC_H5F5ZJTX` | Next release |  |
+| Generic H5E5ZJTx | [STM32H5E5ZJ](https://www.st.com/en/microcontrollers-microprocessors/stm32h5e5zj.html) | `GENERIC_H5E5ZJTX` | 3.1.0 |  |
+| Generic H5E5ZKTx | [STM32H5E5ZK](https://www.st.com/en/microcontrollers-microprocessors/stm32h5e5zk.html) | `GENERIC_H5E5ZKTX` | 3.1.0 |  |
+| Generic H5F5ZJTx | [STM32H5F5ZJ](https://www.st.com/en/microcontrollers-microprocessors/stm32h5f5zj.html) | `GENERIC_H5F5ZJTX` | 3.1.0 |  |
 | Generic H503CBTx | [STM32H503CB](https://www.st.com/en/microcontrollers-microprocessors/stm32h503cb.html) | `GENERIC_H503CBTX` | 2.9.0 |  |
 | Generic H503CBUx | [STM32H503CB](https://www.st.com/en/microcontrollers-microprocessors/stm32h503cb.html) | `GENERIC_H503CBUX` | 2.9.0 |  |
 | Generic H503KBUx | [STM32H503KB](https://www.st.com/en/microcontrollers-microprocessors/stm32h503kb.html) | `GENERIC_H503KBUX` | 2.8.1 |  |
 | Generic H503RBTx | [STM32H503RB](https://www.st.com/en/microcontrollers-microprocessors/stm32h503rb.html) | `GENERIC_H503RBTX` | 2.7.0 |  |
-| Generic H523RCTx | [STM32H523RC](https://www.st.com/en/microcontrollers-microprocessors/stm32h523rc.html) | `GENERIC_H523RCTX` | Next release |  |
-| Generic H523RETx | [STM32H523RE](https://www.st.com/en/microcontrollers-microprocessors/stm32h523re.html) | `GENERIC_H523RETX` | Next release |  |
-| Generic H533RETx | [STM32H533RE](https://www.st.com/en/microcontrollers-microprocessors/stm32h533re.html) | `GENERIC_H533RETX` | Next release |  |
+| Generic H523RCTx | [STM32H523RC](https://www.st.com/en/microcontrollers-microprocessors/stm32h523rc.html) | `GENERIC_H523RCTX` | 3.1.0 |  |
+| Generic H523RETx | [STM32H523RE](https://www.st.com/en/microcontrollers-microprocessors/stm32h523re.html) | `GENERIC_H523RETX` | 3.1.0 |  |
+| Generic H533RETx | [STM32H533RE](https://www.st.com/en/microcontrollers-microprocessors/stm32h533re.html) | `GENERIC_H533RETX` | 3.1.0 |  |
 | Generic H562RGTx | [STM32H562RG](https://www.st.com/en/microcontrollers-microprocessors/stm32h562rg.html) | `GENERIC_H562RGTX` | 2.9.0 |  |
 | Generic H562RGVx | [STM32H562RG](https://www.st.com/en/microcontrollers-microprocessors/stm32h562rg.html) | `GENERIC_H562RGVX` | 3.0.0 |  |
 | Generic H562RITx | [STM32H562RI](https://www.st.com/en/microcontrollers-microprocessors/stm32h562ri.html) | `GENERIC_H562RITX` | 2.9.0 |  |
@@ -1594,14 +1594,14 @@
 
 | Board | STM32 MCU | `build.board` | First release | Notes |
 | --- | --- | --- | --- | --- |
-| Phoque 1 | [STM32G431VB](https://www.st.com/en/microcontrollers-microprocessors/stm32g431vb.html) | `PHOQUE1` | Next release | STSPIN32G4-based |
-| Phoque 2 | [STM32G431CB](https://www.st.com/en/microcontrollers-microprocessors/stm32g431cb.html) | `PHOQUE2` | Next release |  |
+| Phoque 1 | [STM32G431VB](https://www.st.com/en/microcontrollers-microprocessors/stm32g431vb.html) | `PHOQUE1` | 3.1.0 | STSPIN32G4-based |
+| Phoque 2 | [STM32G431CB](https://www.st.com/en/microcontrollers-microprocessors/stm32g431cb.html) | `PHOQUE2` | 3.1.0 |  |
 
 ### [Seeed Studio boards](https://www.seeedstudio.com/)
 
 | Board | STM32 MCU | `build.board` | First release | Notes |
 | --- | --- | --- | --- | --- |
-| [Seeed XIAO STM32C5](https://www.seeedstudio.com/XIAO-STM32C5-p-7011.html) | [STM32C5A3CG](https://www.st.com/en/microcontrollers-microprocessors/stm32c5a3cg.html) | `XIAO_STM32C5` | Next release |  |
+| [Seeed XIAO STM32C5](https://www.seeedstudio.com/XIAO-STM32C5-p-7011.html) | [STM32C5A3CG](https://www.st.com/en/microcontrollers-microprocessors/stm32c5a3cg.html) | `XIAO_STM32C5` | 3.1.0 |  |
 
 ### [SparkFun Boards](https://www.sparkfun.com/)
 
