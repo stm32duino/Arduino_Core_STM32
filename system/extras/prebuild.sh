@@ -24,16 +24,7 @@ fi
 UNAME_OS="$(uname -s)"
 case "${UNAME_OS}" in
   Windows*)
-    i=1
-    prefix=""
-    while [ "$i" -le "${#BOARD_PLATFORM_PATH}" ]; do
-      c=$(printf '%s' "$BOARD_PLATFORM_PATH" | cut -c $i)
-      prefix=${prefix}${c}
-      if [ "${c}" = "\\" ]; then
-        prefix=${prefix}"\\"
-      fi
-      i="$((i + 1))"
-    done
+    prefix=$(printf '%s' "$BOARD_PLATFORM_PATH" | sed 's/\\/\\\\/g')
     ;;
   *)
     prefix=${BOARD_PLATFORM_PATH}
