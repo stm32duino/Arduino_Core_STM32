@@ -8,7 +8,8 @@ This files includes licensing information for parts of this repository.
 * `cores/arduino/*.*` mainly contains modified files from Arduino, except the
   files listed under [BSD 3-Clause License](#bsd-3-clause-license) and
   [MIT License](#mit-license)
-* `cores/arduino/stm32`
+* `cores/arduino/stm32` - except the files listed under
+  [BSD 3-Clause License](#bsd-3-clause-license) and [MIT License](#mit-license)
 * `cores/arduino/api` (own copy of the license in `cores/arduino/api/LICENSE`),
   except the files listed under [MIT License](#mit-license)
 * `libraries/EEPROM`, `libraries/IWatchdog`, `libraries/Keyboard`,
@@ -31,6 +32,8 @@ This files includes licensing information for parts of this repository.
 * `libraries/I3C`, `libraries/RGB_LED_TLC59731` and `libraries/SubGhz`
 * `libraries/SrcWrapper` - files with a BSD 3-Clause header, mainly
   `libraries/SrcWrapper/src/stm32` and `libraries/SrcWrapper/inc`
+* `cores/arduino/stm32/analog.cpp`, `cores/arduino/stm32/interrupt.cpp` and
+  `cores/arduino/stm32/uart.c`
 * `variants` - files with a BSD 3-Clause header, such as `PeripheralPins.c`,
   `variant_generic.*` and `generic_clock.c`
 
@@ -47,7 +50,7 @@ This files includes licensing information for parts of this repository.
 
 [MIT License](#mit-license) is used for:
 * `libraries/VirtIO/*/virtio*` and `libraries/VirtIO/*/VirtIOSerial.*`
-* `libraries/SrcWrapper/*/HardwareTimer.*`
+* `libraries/SrcWrapper/inc/HardwareTimer.h` and `cores/arduino/stm32/HardwareTimer.cpp`
 * `libraries/SrcWrapper/src/new.cpp`
 * `cores/arduino/api/Udp.h` and `cores/arduino/api/deprecated-avr-comp/avr/pgmspace.h`
 
