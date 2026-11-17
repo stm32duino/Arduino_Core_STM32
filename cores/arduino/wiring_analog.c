@@ -33,9 +33,29 @@ extern "C" {
     (defined(HAL_DAC_MODULE_ENABLED) || (defined(USE_HAL_DAC_MODULE) && (USE_HAL_DAC_MODULE == 1))) ||\
     (!defined(HAL_TIM_MODULE_ONLY) &&\
     (defined(HAL_TIM_MODULE_ENABLED) || (defined(USE_HAL_TIM_MODULE) && (USE_HAL_TIM_MODULE == 1))))
-//This is the list of the IOs configured
-uint32_t g_anOutputPinConfigured[MAX_NB_PORT] = {0};
+/**
+ * @brief Stop the analog output (PWM or DAC) of a pin. Called by pinMode().
+ * @param pin Pin name.
+ */
+void analog_output_stop(PinName pin)
+{
+#if !defined(HAL_DAC_MODULE_ONLY) &&\
+    (defined(HAL_DAC_MODULE_ENABLED) || (defined(USE_HAL_DAC_MODULE) && (USE_HAL_DAC_MODULE == 1)))
+  if (pin_in_pinmap(pin, PinMap_DAC)) {
+    dac_stop(pin);
+  } else
 #endif
+  {
+#if !defined(HAL_TIM_MODULE_ONLY) &&\
+    (defined(HAL_TIM_MODULE_ENABLED) || (defined(USE_HAL_TIM_MODULE) && (USE_HAL_TIM_MODULE == 1)))
+    if (pin_in_pinmap(pin, PinMap_TIM)) {
+      pwm_stop(pin);
+    }
+#endif /* !HAL_TIM_MODULE_ONLY && (HAL_TIM_MODULE_ENABLED || (USE_HAL_TIM_MODULE && (USE_HAL_TIM_MODULE == 1))) */
+  }
+}
+#endif
+
 #define MAX_PWM_RESOLUTION 16
 static int _writeResolution = PWM_RESOLUTION;
 static int _internalWriteResolution =
