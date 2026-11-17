@@ -23,6 +23,7 @@
  */
 
 #define ARDUINO_MAIN
+#include <unistd.h>
 #include "Arduino.h"
 
 /**
@@ -52,6 +53,25 @@ __attribute__((constructor(101))) void premain()
 #endif
 
   init();
+}
+
+extern "C" {
+  /**
+   * @brief Halt on exit().
+   *
+   * Replaces the C library exit(), which pulls in the stdio cleanup. That
+   * links _write() and, through it, the whole UART driver in every sketch,
+   * even when main() never returns. Weak, so a sketch can provide its own.
+   *
+   * @note The atexit() handlers and static destructors are not run and stdio
+   * buffers are not flushed.
+   *
+   * @param status Exit status, unused.
+   */
+  WEAK __attribute__((noreturn)) void exit(int status)
+  {
+    _exit(status);
+  }
 }
 
 /**
