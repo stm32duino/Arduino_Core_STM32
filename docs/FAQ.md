@@ -109,3 +109,37 @@ https://www.stm32duino.com/viewtopic.php?f=62&t=1000
 
 Refers to this [warning](Upload-methods.md#bmp-black-magic-probe)
 
+#### Builds are very slow
+
+Compiling a sketch involves the core, the HAL and the libraries, which is thousands of small files and many short-lived
+compiler processes. On Windows, real-time antivirus scanning (e.g. Microsoft Defender, Microsoft Defender for Endpoint)
+scans each of them, which can multiply the build time.
+
+Excluding the build-related folders from real-time scanning usually gives the biggest improvement.
+Only exclude folders you trust.
+
+Folders to exclude (replace `<user>` with your user name):
+
+| Path | Content |
+|------|---------|
+| `C:\Users\<user>\AppData\Local\Arduino15` | Cores, HAL, toolchain (`arm-none-eabi-gcc`), tools and libraries installed by the Boards/Library Manager |
+| `C:\Users\<user>\AppData\Local\arduino` | Arduino IDE 2 / `arduino-cli` cache and build folders |
+| `C:\Users\<user>\AppData\Local\Programs\Arduino IDE` | Arduino IDE 2 installation, including `arduino-cli.exe` |
+| `C:\Users\<user>\AppData\Local\Temp\.arduinoIDE-*` | Arduino IDE 2 temporary files |
+| `C:\Users\<user>\Documents\Arduino` | Default sketchbook location (use your own if you changed it in the IDE *Preferences*) |
+
+The temporary build folder location can be checked by enabling *Show verbose output during compilation* in the IDE
+*Preferences*: look for the `--build-path` value in the output.
+
+If your policy allows process exclusions, also add `arm-none-eabi-gcc.exe`, `arm-none-eabi-g++.exe`, `cc1.exe`,
+`cc1plus.exe`, `as.exe`, `ld.exe`, `collect2.exe`, `busybox.exe` and `arduino-cli.exe`.
+
+On a managed computer, exclusions are usually defined by your IT department. Give them the list above.
+
+Other things that help:
+
+* Keep the build folder on an SSD and do not clean it between builds: changing the board menu options (e.g. optimization,
+  USB support) invalidates the cached core and forces a full recompilation.
+* Use a short sketch path.
+* Use *Warnings: None* and keep the verbose output disabled.
+
