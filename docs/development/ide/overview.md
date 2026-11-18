@@ -17,6 +17,7 @@ See the [PlatformIO setup guide](PlatformIO.md) and the [PlatformIO debugging gu
 Some tools are documented for specific development or debugging workflows:
 
 - [Eclipse and Sloeber](../debug/eclipse-sloeber.md) provides an Eclipse-based Arduino workflow.
+- [Visual Micro with Microsoft Visual Studio](https://www.visualmicro.com/page/STM32-Debugging.aspx) documents an Arduino-core workflow with ST-Link/SWD setup and hardware debugging. Support for this environment is provided by Visual Micro.
 - [Visual Studio and VisualGDB](../debug/visualgdb.md) provides a VisualGDB-based workflow.
 - [Visual Studio Code with STM32CubeCLT and `cortex-debug`](../debug/cubeclt-cortex-debug.md) documents a CMake-based debugging workflow.
 - [STM32CubeIDE with CMake](../../cmake/cubeIDE.md) documents CMake project integration.
