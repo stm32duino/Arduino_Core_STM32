@@ -45,9 +45,10 @@ PCD_HandleTypeDef g_hpcd;
 
 /**
   * @brief  Initializes the PCD MSP.
+  *         Called before HAL_PCD_Init().
   * @param  hpcd PCD handle
   */
-void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
+static void pcd_msp_init(PCD_HandleTypeDef *hpcd)
 {
   const PinMap *map = NULL;
 
@@ -222,9 +223,10 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
 
 /**
   * @brief  De-Initializes the PCD MSP.
+  *         Called after HAL_PCD_DeInit().
   * @param  hpcd PCD handle
   */
-void HAL_PCD_MspDeInit(PCD_HandleTypeDef *hpcd)
+static void pcd_msp_deinit(PCD_HandleTypeDef *hpcd)
 {
   /* Disable USB FS Clock */
 #if defined (USB)
@@ -507,6 +509,7 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
   pdev->pData = &g_hpcd;
 
   /* Initialize LL Driver */
+  pcd_msp_init(&g_hpcd);
   if (HAL_PCD_Init(&g_hpcd) != HAL_OK) {
     Error_Handler();
   }
@@ -534,6 +537,7 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
 USBD_StatusTypeDef USBD_LL_DeInit(USBD_HandleTypeDef *pdev)
 {
   HAL_PCD_DeInit(pdev->pData);
+  pcd_msp_deinit(pdev->pData);
   return USBD_OK;
 }
 
