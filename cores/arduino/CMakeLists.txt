@@ -36,8 +36,12 @@ add_library(core_bin STATIC EXCLUDE_FROM_ALL
   main.cpp
   pins_arduino.c
   Serial.cpp
+  stm32/analog.cpp
+  stm32/HardwareTimer.cpp
+  stm32/interrupt.cpp
   stm32/startup_stm32yyxx.c
   stm32/startup_stm32yyxx.S
+  stm32/uart.c
   Tone.cpp
   WInterrupts.cpp
   wiring_analog.c

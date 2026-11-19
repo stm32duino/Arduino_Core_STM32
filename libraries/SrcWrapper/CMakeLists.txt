@@ -156,7 +156,6 @@ add_library(SrcWrapper_bin OBJECT EXCLUDE_FROM_ALL
   src/HAL/stm32yyxx_utils_fdcan.c
   src/HAL/stm32yyxx_utils_i2c.c
   src/HAL/stm32yyxx_utils_i3c.c
-  src/HardwareTimer.cpp
   src/LL/stm32yyxx_ll_adc.c
   src/LL/stm32yyxx_ll_bdma.c
   src/LL/stm32yyxx_ll_comp.c
@@ -200,20 +199,17 @@ add_library(SrcWrapper_bin OBJECT EXCLUDE_FROM_ALL
   src/LL/stm32yyxx_ll_usb.c
   src/LL/stm32yyxx_ll_utils.c
   src/new.cpp
-  src/stm32/analog.cpp
   src/stm32/bootloader.c
   src/stm32/clock.c
   src/stm32/core_callback.c
   src/stm32/dwt.c
   src/stm32/hw_config.c
-  src/stm32/interrupt.cpp
   src/stm32/otp.c
   src/stm32/pinmap.c
   src/stm32/PortNames.c
   src/stm32/stm32_def.c
   src/stm32/system_stm32yyxx.c
   src/stm32/timer.c
-  src/stm32/uart.c
   src/syscalls.c
 )
 target_link_libraries(SrcWrapper_bin PUBLIC SrcWrapper_usage)

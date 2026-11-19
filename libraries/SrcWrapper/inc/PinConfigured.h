@@ -69,6 +69,23 @@ extern "C" {
 #define reset_pin_configured(pin, map) \
   (map[PINCONF_INDEX(pin)] = map[PINCONF_INDEX(pin)] & (~PINCONF_BIT(pin)))
 
+/**
+ * @brief Map of the pins configured as analog output (PWM or DAC) by analogWrite().
+ *
+ * Defined in wiring_digital.c so pinMode() does not depend on wiring_analog.c.
+ */
+extern uint32_t g_anOutputPinConfigured[];
+
+/**
+ * @brief Stop the analog output (PWM or DAC) of a pin.
+ *
+ * Defined in wiring_analog.c and referenced weakly by pinMode(): the PWM and
+ * DAC code is only linked when the sketch uses analogWrite().
+ *
+ * @param pin Pin name.
+ */
+void analog_output_stop(PinName pin);
+
 #ifdef __cplusplus
 }
 #endif
