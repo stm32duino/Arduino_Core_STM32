@@ -97,10 +97,10 @@
 #if !defined (ADC1) && defined (ADC)
   #define ADC1 ADC
 #endif
-#ifndef CAN1
+#if !defined(CAN1) && defined(CAN)
   #define CAN1 CAN
 #endif
-#ifndef DAC1
+#if !defined(DAC1) && defined(DAC)
   #define DAC1 DAC
 #endif
 
