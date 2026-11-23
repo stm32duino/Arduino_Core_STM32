@@ -77,6 +77,10 @@ Menu: "**Tools > Debug symbols and core logs**"
 | Core logs Enabled | _(`NDEBUG` not defined)_ | Core logs are enabled. No debug symbols. |
 | Core Logs and Symbols Enabled (-g) | `-g` | Debug symbols are generated and core logs are enabled. |
 
+When the core logs are enabled (`NDEBUG` not defined), including the `arduino-cli compile --optimize-for-debug` build (`-Og -g`), the logs and the `printf()` family output (`stdout`, `stderr`) are sent to the debug UART by `_write()`, which initializes the debug UART if it is not already used by a `Serial` instance.
+
+This links the UART driver, with its `USARTx_IRQHandler()`, in every sketch, even one that does not use `Serial`. A sketch defining its own `USARTx_IRQHandler()` then fails to link with a "multiple definition" error. Define `NDEBUG` (e.g. `-DNDEBUG` in the extra compiler flags) to disable the core logs, or provide your own `_write()`. In a build with `NDEBUG` defined, the UART driver is linked only if `printf()` is used.
+
 ## C Runtime Library
 Menu: "**Tools > C Runtime Library**"
 

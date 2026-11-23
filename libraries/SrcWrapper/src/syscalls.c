@@ -112,7 +112,7 @@ int _read(int file, char *ptr, int len)
   return 0;
 }
 
-/* Moved to Print.cpp to support Print::printf()
+/* Moved to cores/arduino/stm32/write.cpp to support Print::printf()
 __attribute__((weak))
 int _write(int file, char *ptr, int len)
 {
