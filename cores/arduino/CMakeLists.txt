@@ -42,6 +42,7 @@ add_library(core_bin STATIC EXCLUDE_FROM_ALL
   stm32/startup_stm32yyxx.c
   stm32/startup_stm32yyxx.S
   stm32/uart.c
+  stm32/uart_serial.c
   stm32/write.cpp
   Tone.cpp
   WInterrupts.cpp
