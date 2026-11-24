@@ -327,6 +327,41 @@ void loop() {
 > [!NOTE]
 > Serial Rx/TX buffer size can be changed, see [Custom-definitions#serial-rxtx-buffer-size](customization/Custom-definitions.md)
 
+##### Manage the interrupt of a U(S)ART in the sketch
+
+The core defines the `USARTx_IRQHandler()` used by `Serial` and `Uart`. To manage a U(S)ART peripheral by yourself (e.g. a `USART` in synchronous mode served by `HAL_USART_IRQHandler()`) while keeping `Serial` or another `Uart` on the other peripherals:
+
+* `bool uart_attach_irq_handler(USART_TypeDef *instance, void (*handler)(void))`: register a function called from the core interrupt handler of `instance`, instead of the one used by `Serial`/`Uart`. Use `NULL` as `handler` to unregister. Returns `false` if the instance is not a supported U(S)ART.
+
+The registration is by peripheral, so it also works when several U(S)ART share the same interrupt vector: the others are still served by the core.
+
+> [!WARNING]
+> The sketch has to initialize the peripheral and enable its interrupt in the NVIC. A `Serial`/`Uart` using the same peripheral does not receive its interrupts while a handler is registered.
+
+###### Example:
+```C++
+#include "uart.h"
+
+USART_HandleTypeDef husart2;
+
+void usart2_irq(void)
+{
+  HAL_USART_IRQHandler(&husart2);
+}
+
+void setup()
+{
+  Serial.begin(115200); // Serial on another peripheral
+  // ... initialize husart2 with HAL_USART_Init() ...
+  uart_attach_irq_handler(USART2, usart2_irq);
+  HAL_NVIC_SetPriority(USART2_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(USART2_IRQn);
+}
+```
+
+> [!NOTE]
+> A sketch which does not use `Serial` nor `Uart` can simply define its own `USARTx_IRQHandler()`: the core one is then not linked.
+
 ##### Enable hardware flow control
 
 Available in core version **2.3.0** or later
