@@ -372,6 +372,26 @@ void uart_enable_tx(serial_t *obj);
 void uart_enable_rx(serial_t *obj);
 
 /**
+ * @brief Register a handler called by the core IRQ handler of a U(S)ART
+ *        instead of HAL_UART_IRQHandler().
+ *
+ *        Allows the sketch to manage an instance itself (e.g. a USART in
+ *        synchronous mode with HAL_USART_IRQHandler()) while the other
+ *        instances stay available to HardwareSerial, even when they share the
+ *        same interrupt vector. The sketch is responsible for the
+ *        initialization of the peripheral and of its NVIC interrupt.
+ * @note The handler has priority over a HardwareSerial using the same
+ *       instance, which then does not receive its interrupts.
+ * @note The registration links the interrupt driven part of the UART driver
+ *       (USARTx_IRQHandler()).
+ * @param instance U(S)ART instance, e.g. USART2.
+ * @param handler Function called from the interrupt handler, NULL to
+ *                unregister.
+ * @return true on success, false if the instance is not a supported U(S)ART.
+ */
+bool uart_attach_irq_handler(USART_TypeDef *instance, void (*handler)(void));
+
+/**
  * @brief Write data on the UART, used by printf for debug only (syscalls).
  *        The debug UART (DEBUG_UART) is initialized on first use if no Serial
  *        instance already uses it.
