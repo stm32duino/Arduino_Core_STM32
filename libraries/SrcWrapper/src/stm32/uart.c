@@ -952,7 +952,7 @@ bool uart_debug_init(void)
 #endif
     /* serial_debug.pin_rx set by default to NC to configure in half duplex mode */
 #if defined(USE_HALV2_DRIVER)
-    status = uart_init(&serial_debug, DEBUG_UART_BAUDRATE, HAL_UART_WORD_LENGTH_8_BIT, HAL_UART_PARITY_ODD, HAL_UART_STOP_BIT_1, false, false, false);
+    status = uart_init(&serial_debug, DEBUG_UART_BAUDRATE, HAL_UART_WORD_LENGTH_8_BIT, HAL_UART_PARITY_NONE, HAL_UART_STOP_BIT_1, false, false, false);
 #else
     status = uart_init(&serial_debug, DEBUG_UART_BAUDRATE, UART_WORDLENGTH_8B, UART_PARITY_NONE, UART_STOPBITS_1, false, false, false);
 #endif
