@@ -50,6 +50,21 @@ function(overall_settings)
   	endif()
   endif()
 
+  # The C library needs symbols defined in the core, but it is scanned after it
+  # (e.g. _write() requested by vdprintf()): scan the core again together with
+  # the C library, like the --start-group ... -lc --end-group of platform.txt.
+  # The file of the library is used, not the target, to not create a dependency cycle.
+  if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.24)
+    if(${WANT_STANDARD_LIBC})
+      set(CORE_LIBC c)
+    else()
+      set(CORE_LIBC c_nano)
+    endif()
+    target_link_libraries(user_settings INTERFACE
+      "$<LINK_GROUP:RESCAN,$<TARGET_FILE:core_bin>,${CORE_LIBC}>"
+    )
+  endif()
+
   if(NOT DEFINED WANT_OPTIMIZATION)
     set(WANT_OPTIMIZATION "s")
   endif()

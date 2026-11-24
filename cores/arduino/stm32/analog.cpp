@@ -548,7 +548,7 @@ uint32_t get_adc_internal_channel(PinName pin)
   *        the GPIO pins.
   * @param hadc ADC handle pointer.
   */
-void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
+static void adc_msp_init(ADC_HandleTypeDef *hadc)
 {
   /*##-1- Enable peripherals and GPIO Clocks #################################*/
   /* ADC Periph clock enable */
@@ -634,7 +634,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
   * @brief ADC MSP de-initialization: disable the peripheral clock.
   * @param hadc ADC handle pointer.
   */
-void HAL_ADC_MspDeInit(ADC_HandleTypeDef *hadc)
+static void adc_msp_deinit(ADC_HandleTypeDef *hadc)
 {
 #ifdef __HAL_RCC_ADC_FORCE_RESET
   __HAL_RCC_ADC_FORCE_RESET();
@@ -978,8 +978,9 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
   AdcHandle.Lock = HAL_UNLOCKED;
   /* Some other ADC_HandleTypeDef fields exists but not required */
 
-  g_current_pin = pin; /* Needed for HAL_ADC_MspInit*/
+  g_current_pin = pin; /* Needed for adc_msp_init */
 
+  adc_msp_init(&AdcHandle);
   if (HAL_ADC_Init(&AdcHandle) != HAL_OK) {
     return 0;
   }
@@ -1115,7 +1116,9 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
     return 0;
   }
 
-  if (HAL_ADC_DeInit(&AdcHandle) != HAL_OK) {
+  HAL_StatusTypeDef deinit_status = HAL_ADC_DeInit(&AdcHandle);
+  adc_msp_deinit(&AdcHandle);
+  if (deinit_status != HAL_OK) {
     return 0;
   }
 
@@ -1293,7 +1296,7 @@ uint32_t get_dac_channel(PinName pin)
   *        the GPIO pins.
   * @param hdac DAC handle pointer.
   */
-void HAL_DAC_MspInit(DAC_HandleTypeDef *hdac)
+static void dac_msp_init(DAC_HandleTypeDef *hdac)
 {
   /* DAC Periph clock enable */
   if (hdac->Instance == DAC1) {
@@ -1358,6 +1361,7 @@ void dac_write_value(PinName pin, uint32_t value, bool do_init)
   if (do_init) {
     /*##-1- Configure the DAC peripheral #######################################*/
     g_current_pin = pin;
+    dac_msp_init(&DacHandle);
     if (HAL_DAC_Init(&DacHandle) != HAL_OK) {
       /* Initialization Error */
       return;
@@ -1415,7 +1419,7 @@ void dac_write_value(PinName pin, uint32_t value, bool do_init)
   * @brief DAC MSP de-initialization: disable the peripheral clock.
   * @param hdac DAC handle pointer.
   */
-void HAL_DAC_MspDeInit(DAC_HandleTypeDef *hdac)
+static void dac_msp_deinit(DAC_HandleTypeDef *hdac)
 {
   /* DAC Periph clock disable */
   if (hdac->Instance == DAC1) {
@@ -1517,7 +1521,9 @@ void dac_stop(PinName pin)
 
   HAL_DAC_Stop(&DacHandle, dacChannel);
 
-  if (HAL_DAC_DeInit(&DacHandle) != HAL_OK) {
+  HAL_StatusTypeDef deinit_status = HAL_DAC_DeInit(&DacHandle);
+  dac_msp_deinit(&DacHandle);
+  if (deinit_status != HAL_OK) {
     /* DeInitialization Error */
     return;
   }

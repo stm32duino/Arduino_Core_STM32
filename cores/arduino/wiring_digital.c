@@ -29,7 +29,16 @@ extern "C" {
 #endif
 
 
-extern pin_size_t g_anOutputPinConfigured[MAX_NB_PORT];
+#if !defined(HAL_DAC_MODULE_ONLY) &&\
+    (defined(HAL_DAC_MODULE_ENABLED) || (defined(USE_HAL_DAC_MODULE) && (USE_HAL_DAC_MODULE == 1))) ||\
+    (!defined(HAL_TIM_MODULE_ONLY) &&\
+    (defined(HAL_TIM_MODULE_ENABLED) || (defined(USE_HAL_TIM_MODULE) && (USE_HAL_TIM_MODULE == 1))))
+//This is the list of the IOs configured as analog output
+uint32_t g_anOutputPinConfigured[MAX_NB_PORT] = {0};
+#endif
+
+// Weak: only defined (wiring_analog.c) when the sketch uses analogWrite()
+void analog_output_stop(PinName pin) __attribute__((weak));
 
 /**
  * @brief Set the mode of a pin.
@@ -48,20 +57,11 @@ void pinMode(pin_size_t pinNumber, PinMode pinMode)
     // If the pin that support PWM or DAC output, we need to turn it off
 #if !defined(HAL_DAC_MODULE_ONLY) &&\
     (defined(HAL_DAC_MODULE_ENABLED) || (defined(USE_HAL_DAC_MODULE) && (USE_HAL_DAC_MODULE == 1))) ||\
-    (defined(HAL_TIM_MODULE_ENABLED) && !defined(HAL_TIM_MODULE_ONLY))
+    (!defined(HAL_TIM_MODULE_ONLY) &&\
+    (defined(HAL_TIM_MODULE_ENABLED) || (defined(USE_HAL_TIM_MODULE) && (USE_HAL_TIM_MODULE == 1))))
     if (is_pin_configured(p, g_anOutputPinConfigured)) {
-#if !defined(HAL_DAC_MODULE_ONLY) &&\
-    (defined(HAL_DAC_MODULE_ENABLED) || (defined(USE_HAL_DAC_MODULE) && (USE_HAL_DAC_MODULE == 1)))
-      if (pin_in_pinmap(p, PinMap_DAC)) {
-        dac_stop(p);
-      } else
-#endif
-      {
-#if defined(HAL_TIM_MODULE_ENABLED) && !defined(HAL_TIM_MODULE_ONLY)
-        if (pin_in_pinmap(p, PinMap_TIM)) {
-          pwm_stop(p);
-        }
-#endif //HAL_TIM_MODULE_ENABLED && !HAL_TIM_MODULE_ONLY
+      if (analog_output_stop != NULL) {
+        analog_output_stop(p);
       }
       /* Unconditionally reset the pin configuration */
       reset_pin_configured(p, g_anOutputPinConfigured);

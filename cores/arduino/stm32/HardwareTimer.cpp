@@ -50,6 +50,44 @@ timerObj_t *HardwareTimer_Handle[TIMER_NUM] = {NULL};
   #endif
 #endif
 
+#if !defined(USE_HALV2_DRIVER)
+/**
+  * @brief Timer MSP initialization: enable the timer clock, then set priority
+  *        of and enable the update interrupt and, if different, the capture
+  *        compare interrupt.
+  *        Called before HAL_TIM_Base_Init() as the registers are accessed by the HAL.
+  * @param obj timer object
+  */
+static void timer_msp_init(timerObj_t *obj)
+{
+  TIM_TypeDef *instance = obj->handle.Instance;
+  enableTimerClock(instance);
+
+  // configure Update interrupt
+  HAL_NVIC_SetPriority(getTimerUpIrq(instance), obj->preemptPriority, obj->subPriority);
+  HAL_NVIC_EnableIRQ(getTimerUpIrq(instance));
+
+  if (getTimerCCIrq(instance) != getTimerUpIrq(instance)) {
+    // configure Capture Compare interrupt
+    HAL_NVIC_SetPriority(getTimerCCIrq(instance), obj->preemptPriority, obj->subPriority);
+    HAL_NVIC_EnableIRQ(getTimerCCIrq(instance));
+  }
+}
+
+/**
+  * @brief Timer MSP de-initialization: disable the timer clock and interrupts.
+  *        Called after HAL_TIM_Base_DeInit().
+  * @param obj timer object
+  */
+static void timer_msp_deinit(timerObj_t *obj)
+{
+  TIM_TypeDef *instance = obj->handle.Instance;
+  disableTimerClock(instance);
+  HAL_NVIC_DisableIRQ(getTimerUpIrq(instance));
+  HAL_NVIC_DisableIRQ(getTimerCCIrq(instance));
+}
+#endif /* !USE_HALV2_DRIVER */
+
 HardwareTimer::HardwareTimer()
 {
   _timerObj.instance = nullptr;
@@ -76,8 +114,7 @@ void HardwareTimer::setup(TIM_TypeDef *instance)
   _timerObj.preemptPriority = TIM_IRQ_PRIO;
   _timerObj.subPriority = TIM_IRQ_SUBPRIO;
 
-  /* Enable timer clock. Even if it is also done in HAL_TIM_Base_MspInit(),
-     it is done there so that it is possible to write registers right now */
+  /* Enable timer clock so that it is possible to write registers right now */
   enableTimerClock(instance);
 
   // Initialize NULL callbacks
@@ -106,7 +143,7 @@ void HardwareTimer::setup(TIM_TypeDef *instance)
   // HAL_TIM_SetUpdateSource(&_timerObj.handle, HAL_TIM_UPDATE_REGULAR);
   // HAL_TIM_EnableUpdateGeneration(&_timerObj.handle);
 
-  // configure Update interrupt done in HAL_TIM_Base_MspInit for V1
+  // configure Update interrupt done in timer_msp_init for V1
   HAL_CORTEX_NVIC_SetPriority(getTimerUpIrq(_timerObj.instance),
                               (hal_cortex_nvic_preemp_priority_t)_timerObj.preemptPriority,
                               (hal_cortex_nvic_sub_priority_t)_timerObj.subPriority);
@@ -140,6 +177,7 @@ void HardwareTimer::setup(TIM_TypeDef *instance)
   _timerObj.handle.Init.RepetitionCounter = 0;
 #endif
   _timerObj.handle.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  timer_msp_init(&_timerObj);
   HAL_TIM_Base_Init(&(_timerObj.handle));
 #endif
 }
@@ -1591,6 +1629,7 @@ void HardwareTimer::timerHandleDeinit()
 #else
   HAL_TIM_Base_Stop_IT(&(_timerObj.handle));
   HAL_TIM_Base_DeInit(&(_timerObj.handle));
+  timer_msp_deinit(&_timerObj);
 #endif
 }
 
