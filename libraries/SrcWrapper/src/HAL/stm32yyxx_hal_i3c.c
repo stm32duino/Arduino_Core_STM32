@@ -6,6 +6,8 @@
   #include "stm32c5xx_hal_i3c.c"
 #elif STM32H5xx
   #include "stm32h5xx_hal_i3c.c"
+#elif STM32H7RSxx
+  #include "stm32h7rsxx_hal_i3c.c"
 #elif STM32U3xx
   #include "stm32u3xx_hal_i3c.c"
 #endif
