@@ -212,6 +212,15 @@ tools.massStorageCopy.upload.params.verbose=
 tools.massStorageCopy.upload.params.quiet=
 tools.massStorageCopy.upload.pattern="{tools_bin_path}/{cmd}" {upload.verbose} -I "{build.path}/{build.project_name}.bin" -O "{node}"
 
+# Upload a UF2 image through a CDC 1200-bps touch and a UF2 mass-storage
+# bootloader. Board-specific address, family ID, volume label and size limits
+# are supplied by boards.txt.
+tools.uf2upload.cmd=uf2upload
+tools.uf2upload.cmd.windows=uf2upload.exe
+tools.uf2upload.upload.params.verbose=
+tools.uf2upload.upload.params.quiet=
+tools.uf2upload.upload.pattern="{tools_bin_path}/{cmd}" --input "{build.path}/{build.project_name}.bin" --port "{serial.port}" --volume "{upload.uf2.volume}" --address {upload.uf2.address} --family {upload.uf2.family} --max-size {upload.maximum_size} --timeout {upload.uf2.timeout}
+
 # STM32CubeProgrammer upload
 tools.stm32CubeProg.path={runtime.tools.STM32Tools.path}
 tools.stm32CubeProg.cmd=stm32CubeProg.sh
