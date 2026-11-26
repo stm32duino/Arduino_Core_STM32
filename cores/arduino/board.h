@@ -15,6 +15,7 @@
 #include "clock.h"
 #include "core_callback.h"
 #include "digital_io.h"
+#include "dma.h"
 #include "dwt.h"
 #include "hw_config.h"
 #include "otp.h"
